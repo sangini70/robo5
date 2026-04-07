@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { PostCard } from '@/src/components/PostCard';
 import { MainLayout } from '@/src/components/MainLayout';

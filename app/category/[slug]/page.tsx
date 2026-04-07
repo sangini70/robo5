@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';

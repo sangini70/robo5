@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { collection, query, where, orderBy, limit, getDocs, Timestamp } from 'firebase/firestore';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 
 const formatDateTime = (date: Date) => {
   const yyyy = date.getFullYear();

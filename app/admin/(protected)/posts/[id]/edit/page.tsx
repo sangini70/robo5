@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import dynamic from 'next/dynamic';
 

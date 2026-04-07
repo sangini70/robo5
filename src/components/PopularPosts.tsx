@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { PostCard } from '@/src/components/PostCard';
 

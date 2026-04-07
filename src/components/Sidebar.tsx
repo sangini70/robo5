@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { PopularPostsWidget } from './PopularPostsWidget';
 
 async function getLatestPosts(excludeId?: string) {

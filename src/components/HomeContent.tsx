@@ -7,7 +7,7 @@ import { PostCard } from '@/src/components/PostCard';
 import { SearchBar } from '@/src/components/SearchBar';
 import { CategoriesSection } from '@/src/components/CategoriesSection';
 import { PopularPosts } from '@/src/components/PopularPosts';
-import { db } from '@/src/firebase';
+import { db } from '@/lib/firebase';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { MainLayout } from '@/src/components/MainLayout';
 
