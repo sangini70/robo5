@@ -35,9 +35,9 @@ export default function AdminLogin() {
     setError('');
     try {
       const docRef = doc(db, 'settings', 'security');
-      const docSnap = await getDoc(docRef);
-      
       let correctPassword = 'admin'; // Default fallback
+      
+      const docSnap = await getDoc(docRef);
       if (docSnap.exists() && docSnap.data().adminPassword) {
         correctPassword = docSnap.data().adminPassword;
       } else {
@@ -53,7 +53,11 @@ export default function AdminLogin() {
       }
     } catch (err: any) {
       console.error("Password check failed", err);
-      setError('비밀번호 확인 중 오류가 발생했습니다.');
+      if (err.code === 'resource-exhausted' || err.message?.includes('Quota')) {
+        setError('현재 데이터베이스 접근이 불안정합니다. 잠시 후 다시 시도하세요.');
+      } else {
+        setError('비밀번호 확인 중 오류가 발생했습니다.');
+      }
     } finally {
       setCheckingPassword(false);
     }

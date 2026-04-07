@@ -8,6 +8,8 @@ import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 // Fetch post data
 async function getPost(slug: string) {
   try {

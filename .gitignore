@@ -6,10 +6,3 @@ coverage/
 *.log
 .env*
 !.env.example
-.next
-node_modules
-.next
-node_modules
-
-.vercel
-.env*.local

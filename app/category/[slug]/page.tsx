@@ -6,6 +6,8 @@ import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
 import { cache } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 const getPostsByCategory = cache(async (category: string) => {
   try {
     const q = query(

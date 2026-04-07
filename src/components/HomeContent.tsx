@@ -19,10 +19,12 @@ export function HomeContent({ page = 1 }: { page?: number }) {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setErrorMsg('');
         const q = query(
           collection(db, 'posts'),
           where('status', '==', 'published'),
@@ -57,8 +59,13 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         const paginatedPosts = fetchedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
         
         setPosts(paginatedPosts);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetching posts:", error);
+        if (error.code === 'resource-exhausted' || error.message?.includes('Quota')) {
+          setErrorMsg('현재 데이터베이스 접근이 불안정합니다. 잠시 후 다시 시도하세요.');
+        } else {
+          setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
+        }
       } finally {
         setLoading(false);
       }
@@ -135,6 +142,8 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         
         {loading ? (
           <div className="text-center text-gray-500 py-12">Loading posts...</div>
+        ) : errorMsg ? (
+          <div className="text-center text-red-500 py-12 font-medium bg-red-50 rounded-lg border border-red-100">{errorMsg}</div>
         ) : posts.length === 0 ? (
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (

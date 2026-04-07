@@ -4,7 +4,7 @@ import { db } from '../../src/firebase';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'English Posts | robo-advisor.kr',
