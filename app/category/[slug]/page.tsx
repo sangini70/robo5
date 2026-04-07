@@ -10,6 +10,8 @@ export const dynamic = 'force-dynamic';
 
 const getPostsByCategory = cache(async (category: string) => {
   try {
+    const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
+    
     const q = query(
       collection(db, 'posts'),
       where('status', '==', 'published'),
@@ -18,16 +20,16 @@ const getPostsByCategory = cache(async (category: string) => {
     const querySnapshot = await getDocs(q);
     const now = new Date();
     
-    const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
-
     const posts = querySnapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as any))
       .filter(post => {
         if (post.language === 'en') return false;
-        if (post.publishDate && post.publishDate.toDate() > now) return false;
-        if (!post.category) return false;
-        
-        return post.category.trim().toLowerCase() === decodedCategory;
+        if (!post.publishDate) return true;
+        return post.publishDate.toDate() <= now;
+      })
+      .filter(post => {
+        const postCategory = (post.category || '').trim().toLowerCase();
+        return postCategory === decodedCategory;
       })
       .map(post => {
         const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
@@ -43,7 +45,9 @@ const getPostsByCategory = cache(async (category: string) => {
         };
       });
 
-    return { posts, originalCategoryName: decodeURIComponent(category) };
+    const originalCategoryName = posts.length > 0 ? posts[0].category : decodeURIComponent(category);
+
+    return { posts, originalCategoryName };
   } catch (error) {
     console.error('Error fetching posts by category:', error);
     return { posts: [], originalCategoryName: decodeURIComponent(category) };

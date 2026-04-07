@@ -16,18 +16,17 @@ async function getEnglishPosts() {
     const q = query(
       collection(db, 'posts'),
       where('status', '==', 'published'),
+      where('language', '==', 'en'),
       orderBy('publishDate', 'desc')
     );
-    
     const querySnapshot = await getDocs(q);
     const now = new Date();
     
     const posts = querySnapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as any))
       .filter(post => {
-        if (post.language !== 'en') return false;
-        if (post.publishDate && post.publishDate.toDate() > now) return false;
-        return true;
+        if (!post.publishDate) return true;
+        return post.publishDate.toDate() <= now;
       })
       .map(post => {
         const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();

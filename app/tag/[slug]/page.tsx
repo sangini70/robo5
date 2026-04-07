@@ -22,15 +22,24 @@ const getPostsByTagSlug = cache(async (slug: string) => {
     const querySnapshot = await getDocs(q);
     const now = new Date();
     
+    let originalTagName = decodeURIComponent(slug).replace(/-/g, ' ');
+
     const posts = querySnapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as any))
       .filter(post => {
         if (post.language === 'en') return false;
-        if (post.publishDate && post.publishDate.toDate() > now) return false;
+        if (!post.publishDate) return true;
+        return post.publishDate.toDate() <= now;
+      })
+      .filter(post => {
         if (!post.tags || !Array.isArray(post.tags)) return false;
-        
-        // Check if any tag slugifies to the requested slug
-        return post.tags.some((tag: string) => slugify(tag) === slug);
+        return post.tags.some((tag: string) => {
+          if (slugify(tag) === slug) {
+            originalTagName = tag;
+            return true;
+          }
+          return false;
+        });
       })
       .map(post => {
         const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
@@ -45,16 +54,6 @@ const getPostsByTagSlug = cache(async (slug: string) => {
           date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
         };
       });
-
-    // Find the original tag name for display
-    let originalTagName = decodeURIComponent(slug).replace(/-/g, ' ');
-    for (const post of posts) {
-      const matchedTag = post.tags.find((tag: string) => slugify(tag) === slug);
-      if (matchedTag) {
-        originalTagName = matchedTag;
-        break;
-      }
-    }
 
     return { posts, originalTagName };
   } catch (error) {

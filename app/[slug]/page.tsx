@@ -11,7 +11,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 // Fetch post data
-async function getPost(slug: string) {
+async function getPost(slug: string): Promise<any> {
   try {
     const q = query(collection(db, 'posts'), where('slug', '==', slug), where('status', '==', 'published'));
     const querySnapshot = await getDocs(q);
@@ -46,7 +46,18 @@ async function getPost(slug: string) {
     };
   } catch (error) {
     console.error('Error fetching post:', error);
-    return null;
+    // Firestore 직접 호출 실패 시 임시 정적 데이터 반환
+    return {
+      id: 'fallback-id',
+      slug: slug,
+      title: '현재 데이터베이스 접근이 제한되어 있습니다.',
+      description: 'Firestore 일일 사용량 초과로 인해 임시 페이지를 표시합니다.',
+      content: '<p>현재 데이터베이스 접근이 제한되어 임시 정적 페이지로 서비스 중입니다. 잠시 후 다시 시도해 주세요.</p>',
+      createdAtStr: '2026.04.07 00:00',
+      updatedAtStr: '2026.04.07 00:00',
+      category: '안내',
+      tags: [],
+    };
   }
 }
 
