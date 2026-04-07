@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { db } from '@/lib/firebase';
+import { db } from '../firebase';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { PostCard } from '@/src/components/PostCard';
 
@@ -24,6 +24,7 @@ export function PopularPosts() {
         const fetchedPosts = querySnapshot.docs
           .map(doc => ({ id: doc.id, ...doc.data() }))
           .filter((post: any) => {
+            if (post.language === 'en') return false;
             if (!post.publishDate) return true;
             return post.publishDate.toDate() <= now;
           })

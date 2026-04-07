@@ -18,6 +18,7 @@ export function MainLayout({ children, maxWidth = 'max-w-4xl' }: MainLayoutProps
           <nav className="flex items-center space-x-6 text-sm font-light tracking-wide text-gray-600">
             <Link href="/about" className="hover:text-gray-900 transition-colors">About</Link>
             <Link href="/contact" className="hover:text-gray-900 transition-colors">Contact</Link>
+            <Link href="/en" className="hover:text-gray-900 transition-colors font-medium text-indigo-600">English</Link>
           </nav>
         </div>
       </header>

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../../../src/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
@@ -11,48 +11,54 @@ function slugify(tag: string) {
 }
 
 const getPostsByTagSlug = cache(async (slug: string) => {
-  const q = query(
-    collection(db, 'posts'),
-    where('status', '==', 'published'),
-    orderBy('publishDate', 'desc')
-  );
-  const querySnapshot = await getDocs(q);
-  const now = new Date();
-  
-  const posts = querySnapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() } as any))
-    .filter(post => {
-      if (post.publishDate && post.publishDate.toDate() > now) return false;
-      if (!post.tags || !Array.isArray(post.tags)) return false;
-      
-      // Check if any tag slugifies to the requested slug
-      return post.tags.some((tag: string) => slugify(tag) === slug);
-    })
-    .map(post => {
-      const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
-      const yyyy = dateObj.getFullYear();
-      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-      const dd = String(dateObj.getDate()).padStart(2, '0');
-      const hh = String(dateObj.getHours()).padStart(2, '0');
-      const min = String(dateObj.getMinutes()).padStart(2, '0');
-      
-      return {
-        ...post,
-        date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
-      };
-    });
+  try {
+    const q = query(
+      collection(db, 'posts'),
+      where('status', '==', 'published'),
+      orderBy('publishDate', 'desc')
+    );
+    const querySnapshot = await getDocs(q);
+    const now = new Date();
+    
+    const posts = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() } as any))
+      .filter(post => {
+        if (post.language === 'en') return false;
+        if (post.publishDate && post.publishDate.toDate() > now) return false;
+        if (!post.tags || !Array.isArray(post.tags)) return false;
+        
+        // Check if any tag slugifies to the requested slug
+        return post.tags.some((tag: string) => slugify(tag) === slug);
+      })
+      .map(post => {
+        const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
+        const yyyy = dateObj.getFullYear();
+        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObj.getDate()).padStart(2, '0');
+        const hh = String(dateObj.getHours()).padStart(2, '0');
+        const min = String(dateObj.getMinutes()).padStart(2, '0');
+        
+        return {
+          ...post,
+          date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
+        };
+      });
 
-  // Find the original tag name for display
-  let originalTagName = decodeURIComponent(slug).replace(/-/g, ' ');
-  for (const post of posts) {
-    const matchedTag = post.tags.find((tag: string) => slugify(tag) === slug);
-    if (matchedTag) {
-      originalTagName = matchedTag;
-      break;
+    // Find the original tag name for display
+    let originalTagName = decodeURIComponent(slug).replace(/-/g, ' ');
+    for (const post of posts) {
+      const matchedTag = post.tags.find((tag: string) => slugify(tag) === slug);
+      if (matchedTag) {
+        originalTagName = matchedTag;
+        break;
+      }
     }
-  }
 
-  return { posts, originalTagName };
+    return { posts, originalTagName };
+  } catch (error) {
+    console.error('Error fetching posts by tag:', error);
+    return { posts: [], originalTagName: decodeURIComponent(slug).replace(/-/g, ' ') };
+  }
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

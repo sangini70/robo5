@@ -1,45 +1,51 @@
 import { Metadata } from 'next';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../../../src/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
 import { cache } from 'react';
 
 const getPostsByCategory = cache(async (category: string) => {
-  const q = query(
-    collection(db, 'posts'),
-    where('status', '==', 'published'),
-    orderBy('publishDate', 'desc')
-  );
-  const querySnapshot = await getDocs(q);
-  const now = new Date();
-  
-  const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
+  try {
+    const q = query(
+      collection(db, 'posts'),
+      where('status', '==', 'published'),
+      orderBy('publishDate', 'desc')
+    );
+    const querySnapshot = await getDocs(q);
+    const now = new Date();
+    
+    const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
 
-  const posts = querySnapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() } as any))
-    .filter(post => {
-      if (post.publishDate && post.publishDate.toDate() > now) return false;
-      if (!post.category) return false;
-      
-      return post.category.trim().toLowerCase() === decodedCategory;
-    })
-    .map(post => {
-      const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
-      const yyyy = dateObj.getFullYear();
-      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-      const dd = String(dateObj.getDate()).padStart(2, '0');
-      const hh = String(dateObj.getHours()).padStart(2, '0');
-      const min = String(dateObj.getMinutes()).padStart(2, '0');
-      
-      return {
-        ...post,
-        date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
-      };
-    });
+    const posts = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() } as any))
+      .filter(post => {
+        if (post.language === 'en') return false;
+        if (post.publishDate && post.publishDate.toDate() > now) return false;
+        if (!post.category) return false;
+        
+        return post.category.trim().toLowerCase() === decodedCategory;
+      })
+      .map(post => {
+        const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
+        const yyyy = dateObj.getFullYear();
+        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObj.getDate()).padStart(2, '0');
+        const hh = String(dateObj.getHours()).padStart(2, '0');
+        const min = String(dateObj.getMinutes()).padStart(2, '0');
+        
+        return {
+          ...post,
+          date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
+        };
+      });
 
-  return { posts, originalCategoryName: decodeURIComponent(category) };
+    return { posts, originalCategoryName: decodeURIComponent(category) };
+  } catch (error) {
+    console.error('Error fetching posts by category:', error);
+    return { posts: [], originalCategoryName: decodeURIComponent(category) };
+  }
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

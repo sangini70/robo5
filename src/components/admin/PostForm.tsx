@@ -17,7 +17,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     slug: '',
     description: '',
     content: '',
-    category: '',
+    category: '환율',
     tags: '',
     thumbnail: '',
     status: 'draft',
@@ -27,6 +27,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     customCss: '',
     customJs: '',
     structuredDataJsonLd: '',
+    flowType: '',
+    language: 'ko',
   });
   const [loading, setLoading] = useState(false);
   const [slugError, setSlugError] = useState('');
@@ -50,7 +52,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         slug: initialData.slug || '',
         description: initialData.description || '',
         content: initialData.content || '',
-        category: initialData.category || '',
+        category: initialData.category || '환율',
         tags: initialData.tags ? initialData.tags.join(', ') : '',
         thumbnail: initialData.thumbnail || '',
         status: initialData.status || 'draft',
@@ -62,6 +64,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         customCss: initialData.customCss || '',
         customJs: initialData.customJs || '',
         structuredDataJsonLd: initialData.structuredDataJsonLd || '',
+        flowType: initialData.flowType || '',
+        language: initialData.language || 'ko',
       });
       if (initialData.status === 'published' && initialData.publishDate && initialData.publishDate.toDate() > new Date()) {
         setPublishMode('schedule');
@@ -233,6 +237,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         customCss: cleaned.customCss,
         customJs: cleaned.customJs,
         structuredDataJsonLd: cleaned.structuredDataJsonLd,
+        flowType: formData.flowType,
+        language: formData.language,
         authorId: auth.currentUser?.uid,
         updatedAt: serverTimestamp(),
       };
@@ -431,14 +437,46 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
           <div>
             <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Category</label>
-            <input
-              type="text"
+            <select
               name="category"
               value={formData.category}
               onChange={handleChange}
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
-              placeholder="e.g. Guide"
-            />
+            >
+              <option value="환율">환율</option>
+              <option value="ETF">ETF</option>
+              <option value="경제 기초">경제 기초</option>
+              <option value="미국 증시">미국 증시</option>
+              <option value="세금/지원금">세금/지원금</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">흐름 섹션 배치 (선택)</label>
+            <select
+              name="flowType"
+              value={formData.flowType}
+              onChange={handleChange}
+              className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+            >
+              <option value="">배치 안 함</option>
+              <option value="지금 시장 흐름">지금 시장 흐름</option>
+              <option value="과거에서 찾는 답">과거에서 찾는 답</option>
+              <option value="앞으로의 방향">앞으로의 방향</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">언어 (Language)</label>
+            <select
+              name="language"
+              value={formData.language}
+              onChange={handleChange}
+              className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+            >
+              <option value="ko">한국어 (Korean)</option>
+              <option value="en">영어 (English)</option>
+            </select>
           </div>
 
           <div>

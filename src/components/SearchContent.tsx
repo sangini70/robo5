@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { db } from '@/lib/firebase';
+import { db } from '../firebase';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { PostCard } from '@/src/components/PostCard';
 import { MainLayout } from '@/src/components/MainLayout';
@@ -56,6 +56,7 @@ function SearchResults() {
         const fetchedPosts = querySnapshot.docs
           .map(doc => ({ id: doc.id, ...doc.data() }))
           .filter((post: any) => {
+            if (post.language === 'en') return false;
             if (post.publishDate && post.publishDate.toDate() > now) return false;
             return true;
           })

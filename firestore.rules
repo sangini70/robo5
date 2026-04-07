@@ -94,6 +94,8 @@ service cloud.firestore {
              (!('dailyClicks' in data) || data.dailyClicks is map) &&
              (!('titleHistory' in data) || data.titleHistory is list) &&
              (!('publishHour' in data) || data.publishHour is number) &&
+             (!('flowType' in data) || data.flowType is string) &&
+             (!('language' in data) || data.language is string) &&
              data.authorId is string && data.authorId.size() > 0 &&
              data.createdAt is timestamp &&
              data.updatedAt is timestamp;

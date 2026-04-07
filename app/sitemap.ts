@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../src/firebase';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://robo-advisor.kr';

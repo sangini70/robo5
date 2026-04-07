@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../firebase';
 import { PopularPostsWidget } from './PopularPostsWidget';
 
 async function getLatestPosts(excludeId?: string) {
@@ -16,6 +16,7 @@ async function getLatestPosts(excludeId?: string) {
     const posts = snapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as any))
       .filter(post => {
+        if (post.language === 'en') return false;
         if (post.id === excludeId) return false;
         if (!post.publishDate) return true;
         return post.publishDate.toDate() <= now;
@@ -43,6 +44,7 @@ async function getRelatedPosts(category?: string, excludeId?: string) {
     const posts = snapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as any))
       .filter(post => {
+        if (post.language === 'en') return false;
         if (post.id === excludeId) return false;
         if (!post.publishDate) return true;
         return post.publishDate.toDate() <= now;

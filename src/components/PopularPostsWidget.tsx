@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { collection, query, where, orderBy, limit, getDocs, Timestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../firebase';
 
 const formatDateTime = (date: Date) => {
   const yyyy = date.getFullYear();
@@ -49,6 +49,7 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
 
         // Filter out current post and future posts
         fetchedPosts = fetchedPosts.filter(post => {
+          if (post.language === 'en') return false;
           if (post.id === currentPostId) return false;
           if (!post.publishDate) return true;
           return post.publishDate.toDate() <= now;

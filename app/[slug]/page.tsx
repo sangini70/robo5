@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db } from '../../src/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { Sidebar } from '@/src/components/Sidebar';
@@ -10,37 +10,42 @@ import Link from 'next/link';
 
 // Fetch post data
 async function getPost(slug: string) {
-  const q = query(collection(db, 'posts'), where('slug', '==', slug), where('status', '==', 'published'));
-  const querySnapshot = await getDocs(q);
-  
-  if (querySnapshot.empty) {
+  try {
+    const q = query(collection(db, 'posts'), where('slug', '==', slug), where('status', '==', 'published'));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      return null;
+    }
+    
+    const postData = querySnapshot.docs[0].data() as any;
+    
+    if (postData.publishDate && postData.publishDate.toDate() > new Date()) {
+      return null;
+    }
+    
+    const publishDateObj = postData.publishDate?.toDate() || postData.createdAt?.toDate() || new Date();
+    const updatedAtObj = postData.updatedAt?.toDate() || publishDateObj;
+
+    const formatDateTime = (date: Date) => {
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      const hh = String(date.getHours()).padStart(2, '0');
+      const min = String(date.getMinutes()).padStart(2, '0');
+      return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
+    };
+
+    return {
+      id: querySnapshot.docs[0].id,
+      ...postData,
+      createdAtStr: formatDateTime(publishDateObj),
+      updatedAtStr: formatDateTime(updatedAtObj),
+    };
+  } catch (error) {
+    console.error('Error fetching post:', error);
     return null;
   }
-  
-  const postData = querySnapshot.docs[0].data() as any;
-  
-  if (postData.publishDate && postData.publishDate.toDate() > new Date()) {
-    return null;
-  }
-  
-  const publishDateObj = postData.publishDate?.toDate() || postData.createdAt?.toDate() || new Date();
-  const updatedAtObj = postData.updatedAt?.toDate() || publishDateObj;
-
-  const formatDateTime = (date: Date) => {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    const hh = String(date.getHours()).padStart(2, '0');
-    const min = String(date.getMinutes()).padStart(2, '0');
-    return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
-  };
-
-  return {
-    id: querySnapshot.docs[0].id,
-    ...postData,
-    createdAtStr: formatDateTime(publishDateObj),
-    updatedAtStr: formatDateTime(updatedAtObj),
-  };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

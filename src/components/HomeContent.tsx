@@ -7,9 +7,11 @@ import { PostCard } from '@/src/components/PostCard';
 import { SearchBar } from '@/src/components/SearchBar';
 import { CategoriesSection } from '@/src/components/CategoriesSection';
 import { PopularPosts } from '@/src/components/PopularPosts';
-import { db } from '@/lib/firebase';
+import { db } from '../firebase';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { MainLayout } from '@/src/components/MainLayout';
+
+import { FlowSection } from '@/src/components/FlowSection';
 
 const POSTS_PER_PAGE = 6; // Reduced from 9 to 6 for homepage
 
@@ -32,8 +34,8 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         const fetchedPosts = querySnapshot.docs
           .map(doc => ({ id: doc.id, ...doc.data() }))
           .filter((post: any) => {
-            if (!post.publishDate) return true;
-            return post.publishDate.toDate() <= now;
+            if (!post.publishDate) return post.language !== 'en';
+            return post.publishDate.toDate() <= now && post.language !== 'en';
           })
           .map((post: any) => {
             const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
@@ -91,6 +93,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           />
           <Hero />
           <SearchBar />
+          <FlowSection />
           <CategoriesSection />
           
           {/* Calculator Banner CTA */}
