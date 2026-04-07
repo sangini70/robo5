@@ -8,3 +8,5 @@ coverage/
 !.env.example
 .next
 node_modules
+.next
+node_modules
