@@ -4,11 +4,14 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Hero } from '@/src/components/Hero';
 import { PostCard } from '@/src/components/PostCard';
+import { SearchBar } from '@/src/components/SearchBar';
+import { CategoriesSection } from '@/src/components/CategoriesSection';
+import { PopularPosts } from '@/src/components/PopularPosts';
 import { db } from '@/src/firebase';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { MainLayout } from '@/src/components/MainLayout';
 
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 6; // Reduced from 9 to 6 for homepage
 
 export function HomeContent({ page = 1 }: { page?: number }) {
   const [posts, setPosts] = useState<any[]>([]);
@@ -87,6 +90,8 @@ export function HomeContent({ page = 1 }: { page?: number }) {
             }}
           />
           <Hero />
+          <SearchBar />
+          <CategoriesSection />
           
           {/* Calculator Banner CTA */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
@@ -112,13 +117,17 @@ export function HomeContent({ page = 1 }: { page?: number }) {
               </div>
             </div>
           </div>
+
+          <PopularPosts />
         </>
       )}
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 border-b border-gray-200 pb-6">
-          <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium block mb-3">Latest Updates</span>
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-gray-900">최신 글</h2>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">Latest</span>
+            <h2 className="text-2xl font-bold text-gray-900">최신 글</h2>
+          </div>
         </div>
         
         {loading ? (

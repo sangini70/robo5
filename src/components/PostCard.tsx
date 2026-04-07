@@ -103,7 +103,7 @@ export function PostCard({ post }: PostCardProps) {
       </Link>
       
       <div className="flex justify-between items-start mb-3 gap-4">
-        <h3 className="text-xl font-medium tracking-tight text-gray-900 group-hover:text-black transition-colors">
+        <h3 className="text-xl font-medium tracking-tight text-gray-900 group-hover:text-black transition-colors line-clamp-2">
           <Link href={`/${post.slug}`} onClick={trackClick}>
             {post.title}
           </Link>
