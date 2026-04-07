@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://robo-advisor.kr/sitemap.xml

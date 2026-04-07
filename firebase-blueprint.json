@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the application, specifically to identify admins.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User's email address"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "user"],
+          "description": "User's role for access control"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "When the user was created"
+        }
+      },
+      "required": ["email", "role", "createdAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "A blog post.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the post"
+        },
+        "slug": {
+          "type": "string",
+          "description": "The URL slug for the post"
+        },
+        "description": {
+          "type": "string",
+          "description": "A short summary of the post"
+        },
+        "content": {
+          "type": "string",
+          "description": "The markdown content of the post"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the post"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Tags associated with the post"
+        },
+        "thumbnail": {
+          "type": "string",
+          "description": "URL to the thumbnail image"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "published", "scheduled"],
+          "description": "The publication status of the post"
+        },
+        "publishDate": {
+          "type": "timestamp",
+          "description": "When the post should be published (or was published)"
+        },
+        "seoTitle": {
+          "type": "string",
+          "description": "SEO title"
+        },
+        "seoDescription": {
+          "type": "string",
+          "description": "SEO description"
+        },
+        "authorId": {
+          "type": "string",
+          "description": "The UID of the author"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "When the post was created"
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "description": "When the post was last updated"
+        }
+      },
+      "required": ["title", "slug", "content", "status", "authorId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles and roles."
+    },
+    "/posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Stores blog posts."
+    }
+  }
+}
