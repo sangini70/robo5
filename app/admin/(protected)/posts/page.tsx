@@ -45,6 +45,7 @@ export default function AdminPosts() {
         googleIndexStatus: 'requested',
         googleRequestedAt: serverTimestamp()
       });
+      await fetch('/api/sync-json', { method: 'POST' });
       showToast('구글 요청완료로 표시했습니다.');
     } catch (error) {
       console.error("Error updating google status:", error);
@@ -57,6 +58,7 @@ export default function AdminPosts() {
         googleIndexStatus: 'indexed',
         googleIndexedAt: serverTimestamp()
       });
+      await fetch('/api/sync-json', { method: 'POST' });
       showToast('구글 색인확인으로 표시했습니다.');
     } catch (error) {
       console.error("Error updating google status:", error);
@@ -83,6 +85,7 @@ export default function AdminPosts() {
         naverIndexStatus: 'requested',
         naverRequestedAt: serverTimestamp()
       });
+      await fetch('/api/sync-json', { method: 'POST' });
       showToast('네이버 요청완료로 표시했습니다.');
 
       // Auto-scroll to the next unrequested post
@@ -170,12 +173,20 @@ export default function AdminPosts() {
         
         // Sync to JSON files
         try {
-          await fetch('/api/sync-json', { method: 'POST' });
+          const response = await fetch('/api/sync-json', { method: 'POST' });
+          const data = await response.json();
+          if (data.success) {
+            showToast('삭제 및 동기화 완료');
+          } else {
+            showToast(`동기화 실패: ${data.error}`);
+          }
         } catch (syncError) {
           console.error("Error syncing JSON files:", syncError);
+          showToast('삭제는 되었으나 동기화에 실패했습니다.');
         }
       } catch (error) {
         console.error("Error deleting post:", error);
+        showToast('삭제 중 오류가 발생했습니다.');
       } finally {
         setPostToDelete(null);
       }
@@ -184,26 +195,6 @@ export default function AdminPosts() {
 
   const cancelDelete = () => {
     setPostToDelete(null);
-  };
-
-  const [isSyncing, setIsSyncing] = useState(false);
-
-  const handleManualSync = async () => {
-    setIsSyncing(true);
-    try {
-      const response = await fetch('/api/sync-json', { method: 'POST' });
-      const data = await response.json();
-      if (data.success) {
-        showToast(`동기화 성공! (${data.count}개 글)`);
-      } else {
-        showToast(`동기화 실패: ${data.error}`);
-      }
-    } catch (error) {
-      console.error("Manual sync error:", error);
-      showToast("동기화 중 오류가 발생했습니다.");
-    } finally {
-      setIsSyncing(false);
-    }
   };
 
   if (loading) {
@@ -250,13 +241,6 @@ export default function AdminPosts() {
           </div>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <button
-            onClick={handleManualSync}
-            disabled={isSyncing}
-            className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-colors ${isSyncing ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {isSyncing ? 'Syncing...' : 'Sync JSON'}
-          </button>
           <Link
             href="/admin/posts/new"
             className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors"

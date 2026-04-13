@@ -1,37 +1,38 @@
 import { NextResponse } from 'next/server';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '@/src/firebase';
+import { adminDb } from '@/src/firebase-admin';
+import firebaseConfig from '@/firebase-applet-config.json';
 import fs from 'fs';
 import path from 'path';
 
 export async function POST(request: Request) {
   try {
-    console.log("Starting sync-json process...");
-    
-    // 1. Fetch all posts to debug and ensure we don't miss anything due to query constraints
-    const q = query(collection(db, 'posts'));
-    const querySnapshot = await getDocs(q);
-    console.log('Total Firestore posts count (all statuses):', querySnapshot.size);
-    
-    const allFetchedPosts = querySnapshot.docs.map(doc => {
-      const data = doc.data();
-      return { id: doc.id, ...data };
-    });
+    console.log("Starting sync-json process with firebase-admin...");
+    console.log("Admin Config:", JSON.stringify({
+      projectId: firebaseConfig.projectId,
+      databaseId: firebaseConfig.firestoreDatabaseId
+    }));
 
-    // Filter for published posts in memory (case-insensitive and handle missing status)
-    const publishedPosts = allFetchedPosts.filter((post: any) => {
-      const status = (post.status || '').toLowerCase();
-      return status.includes('publish');
-    });
-    console.log('Published posts count (in-memory filter):', publishedPosts.length);
-
-    if (allFetchedPosts.length > 0 && publishedPosts.length === 0) {
-     console.log('Sample...', (allFetchedPosts[0] as any).status);
+    // 1. Fetch published posts using admin SDK
+    try {
+      const allPostsSnap = await adminDb.collection('posts').limit(5).get();
+      console.log(`Debug: Total posts in collection (limit 5): ${allPostsSnap.size}`);
+      if (allPostsSnap.size > 0) {
+        console.log(`Debug: First post status: "${allPostsSnap.docs[0].data().status}"`);
+      }
+    } catch (debugErr: any) {
+      console.error("Debug fetch failed:", debugErr.message);
     }
 
-    const posts = publishedPosts.map((data: any) => {
+    const postsSnapshot = await adminDb.collection('posts')
+      .where('status', '==', 'published')
+      .get();
+    
+    console.log(`Found ${postsSnapshot.size} published posts.`);
+    
+    const posts = postsSnapshot.docs.map(doc => {
+      const data = doc.data();
       return {
-        id: data.id,
+        id: doc.id,
         slug: data.slug,
         title: data.title,
         shortDescription: data.description || data.shortDescription || '',
@@ -40,10 +41,11 @@ export async function POST(request: Request) {
         tags: data.tags || [],
         thumbnail: data.thumbnail || '',
         // Fallback for publishDate: use createdAt if publishDate is missing
-        publishDate: data.publishDate ? data.publishDate.toDate().toISOString() : 
-                     (data.createdAt ? data.createdAt.toDate().toISOString() : null),
-        createdAt: data.createdAt ? data.createdAt.toDate().toISOString() : null,
-        updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : null,
+        publishDate: data.publishDate && typeof data.publishDate.toDate === 'function' 
+          ? data.publishDate.toDate().toISOString() 
+          : (data.createdAt && typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate().toISOString() : null),
+        createdAt: data.createdAt && typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate().toISOString() : null,
+        updatedAt: data.updatedAt && typeof data.updatedAt.toDate === 'function' ? data.updatedAt.toDate().toISOString() : null,
         content: data.content || '',
         seoTitle: data.seoTitle || '',
         seoDescription: data.seoDescription || '',
@@ -66,7 +68,6 @@ export async function POST(request: Request) {
       console.log('First post sample:', JSON.stringify({
         title: posts[0].title,
         slug: posts[0].slug,
-        status: (publishedPosts[0] as any).status,
         publishDate: posts[0].publishDate
       }));
     }
@@ -118,6 +119,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true, 
       count: posts.length,
+      config: {
+        projectId: firebaseConfig.projectId,
+        databaseId: firebaseConfig.firestoreDatabaseId
+      },
       flowIndexKeys: Object.keys(flowIndex)
     });
   } catch (error: any) {

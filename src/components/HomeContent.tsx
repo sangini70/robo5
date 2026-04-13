@@ -27,18 +27,30 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           throw new Error('Failed to fetch posts data');
         }
         const fetchedPosts = await response.json();
-        console.log('Fetched posts from JSON count:', fetchedPosts.length);
+        console.log('RAW fetched posts count:', fetchedPosts.length);
         if (fetchedPosts.length > 0) {
-          console.log('First fetched post sample:', fetchedPosts[0].title);
+          console.log('RAW first post sample:', JSON.stringify(fetchedPosts[0]).substring(0, 200));
         }
         const now = new Date();
+        console.log('Current time for filtering:', now.toISOString());
         
         const filteredPosts = fetchedPosts
           .filter((post: any) => {
-            if (!post.publishDate) return post.language !== 'en';
-            return new Date(post.publishDate) <= now && post.language !== 'en';
-          })
-          .map((post: any) => {
+            const isNotEn = post.language !== 'en';
+            if (!post.publishDate) return isNotEn;
+            const isPast = new Date(post.publishDate) <= now;
+            return isPast && isNotEn;
+          });
+        console.log('FILTERED posts count:', filteredPosts.length);
+          
+        // Sort by publishDate descending
+        filteredPosts.sort((a: any, b: any) => {
+          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+          return dateB.getTime() - dateA.getTime();
+        });
+
+        const mappedPosts = filteredPosts.map((post: any) => {
             const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
             const yyyy = dateObj.getFullYear();
             const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -52,17 +64,10 @@ export function HomeContent({ page = 1 }: { page?: number }) {
             };
           });
           
-        // Sort by publishDate descending
-        filteredPosts.sort((a: any, b: any) => {
-          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
-          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
-          return dateB.getTime() - dateA.getTime();
-        });
-          
-        setTotalPages(Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+        setTotalPages(Math.ceil(mappedPosts.length / POSTS_PER_PAGE));
         
         const startIndex = (page - 1) * POSTS_PER_PAGE;
-        const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+        const paginatedPosts = mappedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
         
         setPosts(paginatedPosts);
       } catch (error: any) {
