@@ -8,6 +8,6 @@ if (!admin.apps.length) {
 }
 
 // Use the specific database ID if provided
-export const adminDb = admin.firestore(firebaseConfig.firestoreDatabaseId);
+export const adminDb = admin.firestore();
 console.log(`Admin SDK initialized for project: ${firebaseConfig.projectId}, database: ${firebaseConfig.firestoreDatabaseId}`);
 export const adminAuth = admin.auth();
