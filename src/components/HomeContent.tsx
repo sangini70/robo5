@@ -146,7 +146,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}

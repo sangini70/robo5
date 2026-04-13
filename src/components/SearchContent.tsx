@@ -173,7 +173,7 @@ function SearchResults() {
                     <h2 className="text-2xl font-bold text-gray-900">이런 글은 어떠세요?</h2>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                   {recommendedPosts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                   ))}
@@ -182,7 +182,7 @@ function SearchResults() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}

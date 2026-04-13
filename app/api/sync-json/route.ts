@@ -11,8 +11,7 @@ export async function POST(request: Request) {
     // 1. Fetch all published posts
     const q = query(
       collection(db, 'posts'), 
-      where('status', '==', 'published'),
-      orderBy('publishDate', 'desc')
+      where('status', '==', 'published')
     );
     const querySnapshot = await getDocs(q);
     
@@ -38,6 +37,13 @@ export async function POST(request: Request) {
         postViews: data.postViews || 0,
         dailyViews: data.dailyViews || {}
       };
+    });
+
+    // Sort in memory to ensure all published posts are included even if publishDate is missing
+    posts.sort((a, b) => {
+      const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+      const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+      return dateB.getTime() - dateA.getTime();
     });
 
     console.log(`Fetched ${posts.length} published posts.`);
