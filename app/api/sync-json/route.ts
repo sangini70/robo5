@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     console.log('Published posts count (in-memory filter):', publishedPosts.length);
 
     if (allFetchedPosts.length > 0 && publishedPosts.length === 0) {
-      console.log('Sample of non-published post status:', allFetchedPosts[0].status);
+     console.log('Sample of non-published post status:', (allFetchedPosts[0] as any).status);
     }
 
     const posts = publishedPosts.map((data: any) => {
