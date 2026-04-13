@@ -66,7 +66,7 @@ export async function POST(request: Request) {
       console.log('First post sample:', JSON.stringify({
         title: posts[0].title,
         slug: posts[0].slug,
-        status: publishedPosts[0].status,
+        status: (publishedPosts[0] as any).status,
         publishDate: posts[0].publishDate
       }));
     }
