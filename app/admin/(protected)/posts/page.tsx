@@ -186,6 +186,26 @@ export default function AdminPosts() {
     setPostToDelete(null);
   };
 
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const handleManualSync = async () => {
+    setIsSyncing(true);
+    try {
+      const response = await fetch('/api/sync-json', { method: 'POST' });
+      const data = await response.json();
+      if (data.success) {
+        showToast(`동기화 성공! (${data.count}개 글)`);
+      } else {
+        showToast(`동기화 실패: ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Manual sync error:", error);
+      showToast("동기화 중 오류가 발생했습니다.");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
   if (loading) {
     return <div className="text-gray-500">Loading posts...</div>;
   }
@@ -229,12 +249,21 @@ export default function AdminPosts() {
             </select>
           </div>
         </div>
-        <Link
-          href="/admin/posts/new"
-          className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors shrink-0"
-        >
-          New Post
-        </Link>
+        <div className="flex items-center gap-3 shrink-0">
+          <button
+            onClick={handleManualSync}
+            disabled={isSyncing}
+            className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-colors ${isSyncing ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            {isSyncing ? 'Syncing...' : 'Sync JSON'}
+          </button>
+          <Link
+            href="/admin/posts/new"
+            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors"
+          >
+            New Post
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">

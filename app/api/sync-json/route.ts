@@ -8,17 +8,30 @@ export async function POST(request: Request) {
   try {
     console.log("Starting sync-json process...");
     
-    // 1. Fetch all published posts
-    const q = query(
-      collection(db, 'posts'), 
-      where('status', '==', 'published')
-    );
+    // 1. Fetch all posts to debug and ensure we don't miss anything due to query constraints
+    const q = query(collection(db, 'posts'));
     const querySnapshot = await getDocs(q);
+    console.log('Total Firestore posts count (all statuses):', querySnapshot.size);
     
-    const posts = querySnapshot.docs.map(doc => {
+    const allFetchedPosts = querySnapshot.docs.map(doc => {
       const data = doc.data();
+      return { id: doc.id, ...data };
+    });
+
+    // Filter for published posts in memory (case-insensitive and handle missing status)
+    const publishedPosts = allFetchedPosts.filter((post: any) => {
+      const status = (post.status || '').toLowerCase();
+      return status === 'published';
+    });
+    console.log('Published posts count (in-memory filter):', publishedPosts.length);
+
+    if (allFetchedPosts.length > 0 && publishedPosts.length === 0) {
+      console.log('Sample of non-published post status:', allFetchedPosts[0].status);
+    }
+
+    const posts = publishedPosts.map((data: any) => {
       return {
-        id: doc.id,
+        id: data.id,
         slug: data.slug,
         title: data.title,
         shortDescription: data.description || data.shortDescription || '',
@@ -26,7 +39,9 @@ export async function POST(request: Request) {
         category: data.category || '',
         tags: data.tags || [],
         thumbnail: data.thumbnail || '',
-        publishDate: data.publishDate ? data.publishDate.toDate().toISOString() : null,
+        // Fallback for publishDate: use createdAt if publishDate is missing
+        publishDate: data.publishDate ? data.publishDate.toDate().toISOString() : 
+                     (data.createdAt ? data.createdAt.toDate().toISOString() : null),
         createdAt: data.createdAt ? data.createdAt.toDate().toISOString() : null,
         updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : null,
         content: data.content || '',
@@ -39,12 +54,22 @@ export async function POST(request: Request) {
       };
     });
 
-    // Sort in memory to ensure all published posts are included even if publishDate is missing
+    // Sort in memory
     posts.sort((a, b) => {
-      const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
-      const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+      const dateA = a.publishDate ? new Date(a.publishDate) : new Date(0);
+      const dateB = b.publishDate ? new Date(b.publishDate) : new Date(0);
       return dateB.getTime() - dateA.getTime();
     });
+
+    console.log('Final posts.json count:', posts.length);
+    if (posts.length > 0) {
+      console.log('First post sample:', JSON.stringify({
+        title: posts[0].title,
+        slug: posts[0].slug,
+        status: publishedPosts[0].status,
+        publishDate: posts[0].publishDate
+      }));
+    }
 
     console.log(`Fetched ${posts.length} published posts.`);
 

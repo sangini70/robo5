@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(`Failed to track interaction:`, error);
-    return NextResponse.json({ error: `Failed to track interaction` }, { status: 500 });
+    console.error(`Failed to track ${type}:`, error);
+    return NextResponse.json({ error: `Failed to track ${type}` }, { status: 500 });
   }
 }

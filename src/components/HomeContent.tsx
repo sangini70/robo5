@@ -27,6 +27,10 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           throw new Error('Failed to fetch posts data');
         }
         const fetchedPosts = await response.json();
+        console.log('Fetched posts from JSON count:', fetchedPosts.length);
+        if (fetchedPosts.length > 0) {
+          console.log('First fetched post sample:', fetchedPosts[0].title);
+        }
         const now = new Date();
         
         const filteredPosts = fetchedPosts
