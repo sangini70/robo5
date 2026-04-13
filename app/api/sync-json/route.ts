@@ -8,8 +8,7 @@ async function handleSync() {
   try {
     console.log("Starting sync-json process with firebase-admin...");
     console.log("Admin Config:", JSON.stringify({
-      projectId: firebaseConfig.projectId,
-      databaseId: firebaseConfig.firestoreDatabaseId
+      projectId: firebaseConfig.projectId
     }));
 
     // 1. Fetch ALL posts using admin SDK to debug
@@ -28,8 +27,7 @@ async function handleSync() {
         success: false, 
         error: `Admin fetch failed: ${fetchErr.message}`,
         debug: {
-          projectId: firebaseConfig.projectId,
-          databaseId: firebaseConfig.firestoreDatabaseId
+          projectId: firebaseConfig.projectId
         }
       }, { status: 500 });
     }
@@ -154,8 +152,7 @@ async function handleSync() {
         totalInCollection: postsSnapshot.size,
         statusesFound: statuses,
         collections: collectionIds,
-        projectId: firebaseConfig.projectId,
-        databaseId: firebaseConfig.firestoreDatabaseId
+        projectId: firebaseConfig.projectId
       },
       flowIndexKeys: Object.keys(flowIndex)
     });

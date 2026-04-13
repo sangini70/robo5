@@ -7,7 +7,5 @@ if (!admin.apps.length) {
   });
 }
 
-// Use the specific database ID if provided
-export const adminDb = admin.firestore(firebaseConfig.firestoreDatabaseId);
-console.log(`Admin SDK initialized for project: ${firebaseConfig.projectId}, database: ${firebaseConfig.firestoreDatabaseId}`);
+export const adminDb = admin.firestore();
 export const adminAuth = admin.auth();
