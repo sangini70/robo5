@@ -7,11 +7,11 @@ interface MainLayoutProps {
   maxWidth?: string;
 }
 
-export function MainLayout({ children, maxWidth = 'max-w-4xl' }: MainLayoutProps) {
+export function MainLayout({ children, maxWidth = 'max-w-[1400px] xl:max-w-[1600px]' }: MainLayoutProps) {
   return (
     <>
       <header className="border-b border-gray-200 sticky top-0 bg-white/90 backdrop-blur-sm z-50">
-        <div className={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between`}>
+        <div className={`${maxWidth} mx-auto px-6 lg:px-8 h-16 flex items-center justify-between`}>
           <Link href="/" className="text-base font-medium tracking-[0.2em] uppercase text-gray-900">
             robo-advisor.kr
           </Link>
@@ -24,16 +24,16 @@ export function MainLayout({ children, maxWidth = 'max-w-4xl' }: MainLayoutProps
       </header>
 
       {/* Global Top AdSense */}
-      <div className={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 w-full`}>
+      <div className={`${maxWidth} mx-auto px-6 lg:px-8 w-full`}>
         <AdSense slotId="global-top-ad" />
       </div>
 
-      <main className={`flex-grow w-full ${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 py-8`}>
+      <main className={`flex-grow w-full ${maxWidth} mx-auto px-6 lg:px-8 py-8`}>
         {children}
       </main>
 
       {/* Global Bottom AdSense */}
-      <div className={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8 w-full`}>
+      <div className={`${maxWidth} mx-auto px-6 lg:px-8 w-full`}>
         <AdSense slotId="global-bottom-ad" />
       </div>
 

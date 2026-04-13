@@ -55,11 +55,11 @@ const categories = [
 
 export function CategoriesSection() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+    <div className="w-full mb-16">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-gray-900">관심 주제 탐색</h2>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {categories.map((category) => {
           const Icon = category.icon;
           return (

@@ -167,6 +167,13 @@ export default function AdminPosts() {
     if (postToDelete) {
       try {
         await deleteDoc(doc(db, 'posts', postToDelete));
+        
+        // Sync to JSON files
+        try {
+          await fetch('/api/sync-json', { method: 'POST' });
+        } catch (syncError) {
+          console.error("Error syncing JSON files:", syncError);
+        }
       } catch (error) {
         console.error("Error deleting post:", error);
       } finally {

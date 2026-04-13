@@ -274,10 +274,28 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         });
       }
 
+      // Sync to JSON files
+      try {
+        const syncResponse = await fetch('/api/sync-json', { method: 'POST' });
+        const syncData = await syncResponse.json();
+        
+        if (!syncData.success) {
+          throw new Error(syncData.error || 'JSON 동기화에 실패했습니다.');
+        }
+        
+        console.log("Sync successful:", syncData);
+      } catch (syncError: any) {
+        console.error("Error syncing JSON:", syncError);
+        showToast(`데이터 동기화 실패: ${syncError.message}`);
+        setLoading(false);
+        return; // Stop if sync fails
+      }
+
+      showToast("저장 및 동기화 완료!");
       router.push('/admin/posts');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving post:", error);
-      showToast("Failed to save post.");
+      showToast(`저장 실패: ${error.message}`);
     } finally {
       setLoading(false);
     }

@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function Hero() {
   return (
     <section className="py-16 sm:py-24 border-b border-gray-200 mb-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-left">

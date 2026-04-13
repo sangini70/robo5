@@ -1,33 +1,29 @@
 import { Metadata } from 'next';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../src/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { Sidebar } from '@/src/components/Sidebar';
 import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
 import Link from 'next/link';
+import { getPostDetail } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
 // Fetch post data
 async function getPost(slug: string): Promise<any> {
   try {
-    const q = query(collection(db, 'posts'), where('slug', '==', slug), where('status', '==', 'published'));
-    const querySnapshot = await getDocs(q);
+    const postData = getPostDetail(slug, 'ko');
     
-    if (querySnapshot.empty) {
+    if (!postData) {
       return null;
     }
     
-    const postData = querySnapshot.docs[0].data() as any;
-    
-    if (postData.publishDate && postData.publishDate.toDate() > new Date()) {
+    if (postData.publishDate && new Date(postData.publishDate) > new Date()) {
       return null;
     }
     
-    const publishDateObj = postData.publishDate?.toDate() || postData.createdAt?.toDate() || new Date();
-    const updatedAtObj = postData.updatedAt?.toDate() || publishDateObj;
+    const publishDateObj = postData.publishDate ? new Date(postData.publishDate) : postData.createdAt ? new Date(postData.createdAt) : new Date();
+    const updatedAtObj = postData.updatedAt ? new Date(postData.updatedAt) : publishDateObj;
 
     const formatDateTime = (date: Date) => {
       const yyyy = date.getFullYear();
@@ -39,25 +35,13 @@ async function getPost(slug: string): Promise<any> {
     };
 
     return {
-      id: querySnapshot.docs[0].id,
       ...postData,
       createdAtStr: formatDateTime(publishDateObj),
       updatedAtStr: formatDateTime(updatedAtObj),
     };
   } catch (error) {
     console.error('Error fetching post:', error);
-    // Firestore 직접 호출 실패 시 임시 정적 데이터 반환
-    return {
-      id: 'fallback-id',
-      slug: slug,
-      title: '현재 데이터베이스 접근이 제한되어 있습니다.',
-      description: 'Firestore 일일 사용량 초과로 인해 임시 페이지를 표시합니다.',
-      content: '<p>현재 데이터베이스 접근이 제한되어 임시 정적 페이지로 서비스 중입니다. 잠시 후 다시 시도해 주세요.</p>',
-      createdAtStr: '2026.04.07 00:00',
-      updatedAtStr: '2026.04.07 00:00',
-      category: '안내',
-      tags: [],
-    };
+    return null;
   }
 }
 
@@ -94,8 +78,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         }
       ] : [],
       type: 'article',
-      publishedTime: post.createdAt?.toDate()?.toISOString(),
-      modifiedTime: post.updatedAt?.toDate()?.toISOString(),
+      publishedTime: post.publishDate || post.createdAt,
+      modifiedTime: post.updatedAt || post.publishDate || post.createdAt,
     },
     twitter: {
       card: 'summary_large_image',
@@ -134,8 +118,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     "headline": post.title,
     "description": description,
     "image": post.thumbnail ? [post.thumbnail] : [],
-    "datePublished": post.createdAt?.toDate()?.toISOString(),
-    "dateModified": post.updatedAt?.toDate()?.toISOString(),
+    "datePublished": post.publishDate || post.createdAt,
+    "dateModified": post.updatedAt || post.publishDate || post.createdAt,
     "author": {
       "@type": "Organization",
       "name": "robo-advisor.kr",
@@ -152,7 +136,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   };
 
   return (
-    <MainLayout maxWidth="max-w-[1200px]">
+    <MainLayout>
       <ViewTracker postId={post.id} />
       {post.customCss && <style dangerouslySetInnerHTML={{ __html: post.customCss }} />}
       <script
@@ -166,9 +150,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         />
       )}
       
-      <div className="w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <article className="lg:col-span-8">
+      <div className="w-full mx-auto px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <article className="lg:col-span-8 max-w-[900px]">
             <header className="mb-12">
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{post.category || ''}</span>

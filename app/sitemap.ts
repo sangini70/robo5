@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../src/firebase';
+import { getPostsFromJson } from '@/src/lib/posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://robo-advisor.kr';
@@ -33,15 +32,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    // Fetch all published posts
-    const q = query(collection(db, 'posts'), where('status', '==', 'published'));
-    const querySnapshot = await getDocs(q);
+    const allPosts = getPostsFromJson();
+    const now = new Date();
     
-    const posts: MetadataRoute.Sitemap = querySnapshot.docs.map(doc => {
-      const data = doc.data();
-      const updatedAt = data.updatedAt?.toDate() || data.createdAt?.toDate() || new Date();
+    const publishedPosts = allPosts.filter((post: any) => {
+      if (!post.publishDate) return true;
+      return new Date(post.publishDate) <= now;
+    });
+    
+    const posts: MetadataRoute.Sitemap = publishedPosts.map((post: any) => {
+      const updatedAt = post.updatedAt ? new Date(post.updatedAt) : post.createdAt ? new Date(post.createdAt) : new Date();
       return {
-        url: `${baseUrl}/${data.slug}`,
+        url: `${baseUrl}/${post.slug}`,
         lastModified: updatedAt,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
@@ -50,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [...staticPages, ...posts];
   } catch (error) {
-    console.error('sitemap generation failed (possibly due to Firestore quota):', error);
+    console.error('sitemap generation failed:', error);
     return staticPages;
   }
 }

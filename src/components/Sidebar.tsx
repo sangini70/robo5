@@ -1,27 +1,26 @@
 import Link from 'next/link';
-import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { getPostsFromJson } from '@/src/lib/posts';
 import { PopularPostsWidget } from './PopularPostsWidget';
 
 async function getLatestPosts(excludeId?: string) {
   try {
-    const q = query(
-      collection(db, 'posts'),
-      where('status', '==', 'published'),
-      orderBy('publishDate', 'desc'),
-      limit(5)
-    );
-    const snapshot = await getDocs(q);
+    const allPosts = getPostsFromJson();
     const now = new Date();
-    const posts = snapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as any))
-      .filter(post => {
+    
+    const posts = allPosts
+      .filter((post: any) => {
         if (post.language === 'en') return false;
         if (post.id === excludeId) return false;
         if (!post.publishDate) return true;
-        return post.publishDate.toDate() <= now;
+        return new Date(post.publishDate) <= now;
+      })
+      .sort((a: any, b: any) => {
+        const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB.getTime() - dateA.getTime();
       })
       .slice(0, 4);
+      
     return posts;
   } catch (error) {
     console.error('Error fetching latest posts for sidebar:', error);
@@ -32,24 +31,24 @@ async function getLatestPosts(excludeId?: string) {
 async function getRelatedPosts(category?: string, excludeId?: string) {
   if (!category) return [];
   try {
-    const q = query(
-      collection(db, 'posts'),
-      where('status', '==', 'published'),
-      where('category', '==', category),
-      orderBy('publishDate', 'desc'),
-      limit(5)
-    );
-    const snapshot = await getDocs(q);
+    const allPosts = getPostsFromJson();
     const now = new Date();
-    const posts = snapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as any))
-      .filter(post => {
+    
+    const posts = allPosts
+      .filter((post: any) => {
         if (post.language === 'en') return false;
         if (post.id === excludeId) return false;
+        if (post.category !== category) return false;
         if (!post.publishDate) return true;
-        return post.publishDate.toDate() <= now;
+        return new Date(post.publishDate) <= now;
+      })
+      .sort((a: any, b: any) => {
+        const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB.getTime() - dateA.getTime();
       })
       .slice(0, 4);
+      
     return posts;
   } catch (error) {
     console.error('Error fetching related posts for sidebar:', error);

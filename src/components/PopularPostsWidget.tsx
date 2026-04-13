@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { collection, query, where, orderBy, limit, getDocs, Timestamp } from 'firebase/firestore';
-import { db } from '../firebase';
 
 const formatDateTime = (date: Date) => {
   const yyyy = date.getFullYear();
@@ -23,36 +21,19 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        let q;
+        const response = await fetch('/data/posts.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts data');
+        }
+        const fetchedPosts = await response.json();
         const now = new Date();
 
-        if (activeTab === 'all') {
-          q = query(
-            collection(db, 'posts'),
-            where('status', '==', 'published'),
-            orderBy('postViews', 'desc'),
-            limit(6)
-          );
-        } else {
-          // Weekly: fetch all published posts and sort by views in the last 7 days
-          q = query(
-            collection(db, 'posts'),
-            where('status', '==', 'published')
-          );
-        }
-
-        const snapshot = await getDocs(q);
-        let fetchedPosts = snapshot.docs.map(doc => {
-          const data = doc.data() as any;
-          return { id: doc.id, ...data };
-        });
-
         // Filter out current post and future posts
-        fetchedPosts = fetchedPosts.filter(post => {
+        let filteredPosts = fetchedPosts.filter((post: any) => {
           if (post.language === 'en') return false;
           if (post.id === currentPostId) return false;
           if (!post.publishDate) return true;
-          return post.publishDate.toDate() <= now;
+          return new Date(post.publishDate) <= now;
         });
 
         if (activeTab === 'weekly') {
@@ -63,7 +44,7 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
             return d.toISOString().split('T')[0];
           });
 
-          fetchedPosts.forEach(post => {
+          filteredPosts.forEach((post: any) => {
             let weeklyViews = 0;
             if (post.dailyViews) {
               last7Days.forEach(date => {
@@ -76,10 +57,13 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
           });
 
           // Sort by weekly views descending
-          fetchedPosts.sort((a, b) => (b._weeklyViews || 0) - (a._weeklyViews || 0));
+          filteredPosts.sort((a: any, b: any) => (b._weeklyViews || 0) - (a._weeklyViews || 0));
+        } else {
+          // Sort by total views descending
+          filteredPosts.sort((a: any, b: any) => (b.postViews || 0) - (a.postViews || 0));
         }
 
-        setPosts(fetchedPosts.slice(0, 5));
+        setPosts(filteredPosts.slice(0, 5));
       } catch (error) {
         console.error('Error fetching popular posts:', error);
       } finally {

@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
+import { auth } from '../firebase';
 
 export function ViewTracker({ postId }: { postId: string }) {
   const hasTracked = useRef(false);
@@ -13,12 +12,9 @@ export function ViewTracker({ postId }: { postId: string }) {
 
     const trackView = async () => {
       try {
-        // 1. Check if user is admin
+        // 1. Check if user is logged in (assume admin if logged in for public pages)
         if (auth.currentUser) {
-          const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-          if (userDoc.exists() && userDoc.data().role === 'admin') {
-            return; // Skip tracking for admins
-          }
+          return; // Skip tracking for logged-in users (admins)
         }
 
         // 2. Check localStorage for duplicate views within 12 hours
@@ -31,11 +27,13 @@ export function ViewTracker({ postId }: { postId: string }) {
           return; // Skip if viewed within 12 hours
         }
 
-        // 3. Increment view count and daily view count
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-        await updateDoc(doc(db, 'posts', postId), {
-          postViews: increment(1),
-          [`dailyViews.${today}`]: increment(1)
+        // 3. Call API to increment view count
+        await fetch('/api/track-view', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ postId }),
         });
 
         // 4. Update localStorage

@@ -2,8 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
+import { auth } from '../firebase';
 
 interface PostCardProps {
   post: any;
@@ -39,8 +38,7 @@ export function PostCard({ post }: PostCardProps) {
 
     try {
       if (auth.currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-        if (userDoc.exists() && userDoc.data().role === 'admin') return;
+        return; // Skip tracking for logged-in users (admins)
       }
 
       const impKey = `imp_${post.id}`;
@@ -50,10 +48,12 @@ export function PostCard({ post }: PostCardProps) {
 
       if (lastImp && (now - parseInt(lastImp, 10)) < TWELVE_HOURS) return;
 
-      const today = new Date().toISOString().split('T')[0];
-      await updateDoc(doc(db, 'posts', post.id), {
-        impressions: increment(1),
-        [`dailyImpressions.${today}`]: increment(1)
+      await fetch('/api/track-interaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId: post.id, type: 'impression' }),
       });
 
       localStorage.setItem(impKey, now.toString());
@@ -65,8 +65,7 @@ export function PostCard({ post }: PostCardProps) {
   const trackClick = async () => {
     try {
       if (auth.currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-        if (userDoc.exists() && userDoc.data().role === 'admin') return;
+        return; // Skip tracking for logged-in users (admins)
       }
 
       const clickKey = `click_${post.id}`;
@@ -76,10 +75,12 @@ export function PostCard({ post }: PostCardProps) {
 
       if (lastClick && (now - parseInt(lastClick, 10)) < TWELVE_HOURS) return;
 
-      const today = new Date().toISOString().split('T')[0];
-      await updateDoc(doc(db, 'posts', post.id), {
-        clicks: increment(1),
-        [`dailyClicks.${today}`]: increment(1)
+      await fetch('/api/track-interaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId: post.id, type: 'click' }),
       });
 
       localStorage.setItem(clickKey, now.toString());

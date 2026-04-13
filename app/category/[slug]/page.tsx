@@ -1,38 +1,39 @@
 import { Metadata } from 'next';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '../../../src/firebase';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
 import { cache } from 'react';
+import { getFlowIndex, getPostDetail } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
 const getPostsByCategory = cache(async (category: string) => {
   try {
     const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
+    console.log("category slug:", decodedCategory);
     
-    const q = query(
-      collection(db, 'posts'),
-      where('status', '==', 'published'),
-      orderBy('publishDate', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
+    // 1. Get slugs from flow-index.json
+    const flowIndex = getFlowIndex();
+    const slugs = flowIndex[decodedCategory] || [];
+    console.log("flow index slugs:", slugs);
+    
+    // 2. Fetch details for each slug
     const now = new Date();
-    
-    const posts = querySnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as any))
-      .filter(post => {
-        if (post.language === 'en') return false;
+    const fetchedPosts = slugs
+      .map((slug: string) => getPostDetail(slug, 'ko'))
+      .filter((post: any) => {
+        if (!post) return false;
+        // Basic filtering (published status is already handled by sync-json, but we check date)
         if (!post.publishDate) return true;
-        return post.publishDate.toDate() <= now;
+        return new Date(post.publishDate) <= now;
       })
-      .filter(post => {
-        const postCategory = (post.category || '').trim().toLowerCase();
-        return postCategory === decodedCategory;
+      .sort((a: any, b: any) => {
+        const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB.getTime() - dateA.getTime();
       })
-      .map(post => {
-        const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
+      .map((post: any) => {
+        const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
         const yyyy = dateObj.getFullYear();
         const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
         const dd = String(dateObj.getDate()).padStart(2, '0');
@@ -45,9 +46,12 @@ const getPostsByCategory = cache(async (category: string) => {
         };
       });
 
-    const originalCategoryName = posts.length > 0 ? posts[0].category : decodeURIComponent(category);
+    console.log("fetched posts:", fetchedPosts.length);
 
-    return { posts, originalCategoryName };
+    // Try to get the original category name from the first post if available
+    const originalCategoryName = fetchedPosts.length > 0 ? fetchedPosts[0].category : decodeURIComponent(category);
+
+    return { posts: fetchedPosts, originalCategoryName };
   } catch (error) {
     console.error('Error fetching posts by category:', error);
     return { posts: [], originalCategoryName: decodeURIComponent(category) };
@@ -82,39 +86,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-const VALID_CATEGORIES = [
-  '환율', 'etf', '경제기초', '미국증시', '세금', '계산기'
-];
-
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { posts, originalCategoryName } = await getPostsByCategory(slug);
   
-  const decodedCategory = decodeURIComponent(slug).trim().toLowerCase();
-  const isValidCategory = VALID_CATEGORIES.includes(decodedCategory);
-
-  if (!isValidCategory) {
-    return (
-      <MainLayout>
-        <div className="w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-20 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-6 text-gray-400">
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">존재하지 않는 카테고리입니다</h1>
-          <p className="text-gray-500 mb-8">요청하신 '{originalCategoryName}' 카테고리를 찾을 수 없습니다.</p>
-          <a href="/" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
-            홈으로 돌아가기
-          </a>
-        </div>
-      </MainLayout>
-    );
-  }
-
   return (
     <MainLayout>
-      <div className="w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-12">
+      <div className="w-full mx-auto px-6 lg:px-8 py-12">
         <header className="mb-12 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             {originalCategoryName}
@@ -125,7 +103,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </header>
 
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}

@@ -7,10 +7,7 @@ import { PostCard } from '@/src/components/PostCard';
 import { SearchBar } from '@/src/components/SearchBar';
 import { CategoriesSection } from '@/src/components/CategoriesSection';
 import { PopularPosts } from '@/src/components/PopularPosts';
-import { db } from '../firebase';
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { MainLayout } from '@/src/components/MainLayout';
-
 import { FlowSection } from '@/src/components/FlowSection';
 
 const POSTS_PER_PAGE = 6; // Reduced from 9 to 6 for homepage
@@ -25,22 +22,20 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     const fetchPosts = async () => {
       try {
         setErrorMsg('');
-        const q = query(
-          collection(db, 'posts'),
-          where('status', '==', 'published'),
-          orderBy('publishDate', 'desc')
-        );
-        const querySnapshot = await getDocs(q);
+        const response = await fetch('/data/posts.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts data');
+        }
+        const fetchedPosts = await response.json();
         const now = new Date();
         
-        const fetchedPosts = querySnapshot.docs
-          .map(doc => ({ id: doc.id, ...doc.data() }))
+        const filteredPosts = fetchedPosts
           .filter((post: any) => {
             if (!post.publishDate) return post.language !== 'en';
-            return post.publishDate.toDate() <= now && post.language !== 'en';
+            return new Date(post.publishDate) <= now && post.language !== 'en';
           })
           .map((post: any) => {
-            const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
+            const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
             const yyyy = dateObj.getFullYear();
             const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
             const dd = String(dateObj.getDate()).padStart(2, '0');
@@ -53,19 +48,22 @@ export function HomeContent({ page = 1 }: { page?: number }) {
             };
           });
           
-        setTotalPages(Math.ceil(fetchedPosts.length / POSTS_PER_PAGE));
+        // Sort by publishDate descending
+        filteredPosts.sort((a: any, b: any) => {
+          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+          return dateB.getTime() - dateA.getTime();
+        });
+          
+        setTotalPages(Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
         
         const startIndex = (page - 1) * POSTS_PER_PAGE;
-        const paginatedPosts = fetchedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+        const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
         
         setPosts(paginatedPosts);
       } catch (error: any) {
         console.error("Error fetching posts:", error);
-        if (error.code === 'resource-exhausted' || error.message?.includes('Quota')) {
-          setErrorMsg('현재 데이터베이스 접근이 불안정합니다. 잠시 후 다시 시도하세요.');
-        } else {
-          setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
-        }
+        setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
       } finally {
         setLoading(false);
       }
@@ -104,7 +102,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           <CategoriesSection />
           
           {/* Calculator Banner CTA */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="w-full mb-16">
             <div className="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 rounded-xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
               <div className="flex-1 text-center sm:text-left">
                 <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold tracking-widest uppercase rounded-full mb-3">
@@ -132,7 +130,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         </>
       )}
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">Latest</span>
@@ -148,7 +146,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {posts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}

@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { db } from '../firebase';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { PostCard } from '@/src/components/PostCard';
 import { MainLayout } from '@/src/components/MainLayout';
 import { Search } from 'lucide-react';
@@ -40,28 +38,25 @@ function SearchResults() {
       setSearchQuery(initialQuery);
 
       try {
-        // Fetch all published posts and filter client-side for simplicity and flexibility
-        // (Firestore doesn't support full-text search natively without extensions)
-        const q = query(
-          collection(db, 'posts'),
-          where('status', '==', 'published'),
-          orderBy('publishDate', 'desc')
-        );
-        const querySnapshot = await getDocs(q);
-        const now = new Date();
+        const response = await fetch('/data/posts.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
+        }
+        const allPosts = await response.json();
         
+        const now = new Date();
         const sanitizedQuery = initialQuery.trim().replace(/\s+/g, ' ');
         const searchTerms = sanitizedQuery.toLowerCase().split(' ').filter(term => term.length > 0);
 
-        const fetchedPosts = querySnapshot.docs
-          .map(doc => ({ id: doc.id, ...doc.data() }))
+        const fetchedPosts = allPosts
           .filter((post: any) => {
+            if (post.status !== 'published') return false;
             if (post.language === 'en') return false;
-            if (post.publishDate && post.publishDate.toDate() > now) return false;
+            if (post.publishDate && new Date(post.publishDate) > now) return false;
             return true;
           })
           .map((post: any) => {
-            const dateObj = post.publishDate?.toDate() || post.createdAt?.toDate() || new Date();
+            const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
             const yyyy = dateObj.getFullYear();
             const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
             const dd = String(dateObj.getDate()).padStart(2, '0');
@@ -97,8 +92,8 @@ function SearchResults() {
           if (b.searchScore !== a.searchScore) {
             return b.searchScore - a.searchScore;
           }
-          const dateA = a.publishDate?.toDate() || a.createdAt?.toDate() || new Date(0);
-          const dateB = b.publishDate?.toDate() || b.createdAt?.toDate() || new Date(0);
+          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
           return dateB.getTime() - dateA.getTime();
         });
           
@@ -121,7 +116,7 @@ function SearchResults() {
 
   return (
     <MainLayout>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full mx-auto px-6 lg:px-8 py-12">
         <div className="mb-12">
           <form onSubmit={handleSearchSubmit} className="relative max-w-2xl mx-auto">
             <div className="relative flex items-center w-full h-14 rounded-full focus-within:shadow-lg bg-white overflow-hidden border border-gray-300 shadow-sm transition-shadow duration-300">
@@ -178,7 +173,7 @@ function SearchResults() {
                     <h2 className="text-2xl font-bold text-gray-900">이런 글은 어떠세요?</h2>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {recommendedPosts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                   ))}
@@ -187,7 +182,7 @@ function SearchResults() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
