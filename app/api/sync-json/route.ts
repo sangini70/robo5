@@ -4,7 +4,7 @@ import firebaseConfig from '@/firebase-applet-config.json';
 import fs from 'fs';
 import path from 'path';
 
-export async function POST(request: Request) {
+async function handleSync() {
   try {
     console.log("Starting sync-json process with firebase-admin...");
     console.log("Admin Config:", JSON.stringify({
@@ -12,27 +12,60 @@ export async function POST(request: Request) {
       databaseId: firebaseConfig.firestoreDatabaseId
     }));
 
-    // 1. Fetch published posts using admin SDK
+    // 1. Fetch ALL posts using admin SDK to debug
+    let postsSnapshot;
+    let collectionIds: string[] = [];
     try {
-      const allPostsSnap = await adminDb.collection('posts').limit(5).get();
-      console.log(`Debug: Total posts in collection (limit 5): ${allPostsSnap.size}`);
-      if (allPostsSnap.size > 0) {
-        console.log(`Debug: First post status: "${allPostsSnap.docs[0].data().status}"`);
-      }
-    } catch (debugErr: any) {
-      console.error("Debug fetch failed:", debugErr.message);
-    }
+      const collections = await adminDb.listCollections();
+      collectionIds = collections.map(c => c.id);
+      console.log("Available collections:", collectionIds);
 
-    const postsSnapshot = await adminDb.collection('posts')
-      .where('status', '==', 'published')
-      .get();
+      postsSnapshot = await adminDb.collection('posts').get();
+      console.log(`Admin fetch: Found ${postsSnapshot.size} total posts in 'posts' collection.`);
+    } catch (fetchErr: any) {
+      console.error("Admin fetch failed:", fetchErr.message);
+      return NextResponse.json({ 
+        success: false, 
+        error: `Admin fetch failed: ${fetchErr.message}`,
+        debug: {
+          projectId: firebaseConfig.projectId,
+          databaseId: firebaseConfig.firestoreDatabaseId
+        }
+      }, { status: 500 });
+    }
     
-    console.log(`Found ${postsSnapshot.size} published posts.`);
+    const allDocs = postsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    const statuses = [...new Set(allDocs.map((p: any) => p.status))];
+    console.log("Statuses present in DB:", statuses);
+
+    // Filter for published posts in memory to be 100% sure
+    const publishedPosts = allDocs.filter((p: any) => 
+      p.status === 'published' || p.status === 'Published'
+    );
     
-    const posts = postsSnapshot.docs.map(doc => {
-      const data = doc.data();
+    console.log(`Filtered to ${publishedPosts.length} published posts.`);
+    
+    if (publishedPosts.length === 0 && allDocs.length > 0) {
+      console.log("CRITICAL DEBUG: No published posts found. Sample of raw data from Firestore:");
+      allDocs.slice(0, 5).forEach(d => {
+        console.log(`ID: ${d.id}, Status: "${d.status}", Title: "${d.title}", Keys: ${Object.keys(d).join(', ')}`);
+      });
+    }
+    
+    const posts = publishedPosts.map(data => {
+      // Helper to convert Firestore Timestamp to ISO string
+      const toISO = (val: any) => {
+        if (val && typeof val.toDate === 'function') return val.toDate().toISOString();
+        if (val instanceof Date) return val.toISOString();
+        return val;
+      };
+
       return {
-        id: doc.id,
+        id: data.id,
         slug: data.slug,
         title: data.title,
         shortDescription: data.description || data.shortDescription || '',
@@ -41,11 +74,9 @@ export async function POST(request: Request) {
         tags: data.tags || [],
         thumbnail: data.thumbnail || '',
         // Fallback for publishDate: use createdAt if publishDate is missing
-        publishDate: data.publishDate && typeof data.publishDate.toDate === 'function' 
-          ? data.publishDate.toDate().toISOString() 
-          : (data.createdAt && typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate().toISOString() : null),
-        createdAt: data.createdAt && typeof data.createdAt.toDate === 'function' ? data.createdAt.toDate().toISOString() : null,
-        updatedAt: data.updatedAt && typeof data.updatedAt.toDate === 'function' ? data.updatedAt.toDate().toISOString() : null,
+        publishDate: toISO(data.publishDate) || toISO(data.createdAt) || new Date().toISOString(),
+        createdAt: toISO(data.createdAt) || new Date().toISOString(),
+        updatedAt: toISO(data.updatedAt) || new Date().toISOString(),
         content: data.content || '',
         seoTitle: data.seoTitle || '',
         seoDescription: data.seoDescription || '',
@@ -119,7 +150,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true, 
       count: posts.length,
-      config: {
+      debug: {
+        totalInCollection: postsSnapshot.size,
+        statusesFound: statuses,
+        collections: collectionIds,
         projectId: firebaseConfig.projectId,
         databaseId: firebaseConfig.firestoreDatabaseId
       },
@@ -129,4 +163,12 @@ export async function POST(request: Request) {
     console.error('Error in sync-json:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
+}
+
+export async function GET() {
+  return handleSync();
+}
+
+export async function POST() {
+  return handleSync();
 }
