@@ -22,36 +22,19 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     const fetchPosts = async () => {
       try {
         setErrorMsg('');
-        const response = await fetch('/data/posts.json', { cache: 'no-store' });
+        const response = await fetch('/data/posts.json');
         if (!response.ok) {
-          console.error(`Fetch failed with status: ${response.status} ${response.statusText}`);
-          throw new Error(`Failed to fetch posts data (Status: ${response.status})`);
+          throw new Error('Failed to fetch posts data');
         }
         const fetchedPosts = await response.json();
-        console.log('RAW fetched posts count:', fetchedPosts.length);
-        if (fetchedPosts.length > 0) {
-          console.log('RAW first post sample:', JSON.stringify(fetchedPosts[0]).substring(0, 200));
-        }
         const now = new Date();
-        console.log('Current time for filtering:', now.toISOString());
         
         const filteredPosts = fetchedPosts
           .filter((post: any) => {
-            const isNotEn = post.language !== 'en';
-            if (!post.publishDate) return isNotEn;
-            const isPast = new Date(post.publishDate) <= now;
-            return isPast && isNotEn;
-          });
-        console.log('FILTERED posts count:', filteredPosts.length);
-          
-        // Sort by publishDate descending
-        filteredPosts.sort((a: any, b: any) => {
-          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
-          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
-          return dateB.getTime() - dateA.getTime();
-        });
-
-        const mappedPosts = filteredPosts.map((post: any) => {
+            if (!post.publishDate) return post.language !== 'en';
+            return new Date(post.publishDate) <= now && post.language !== 'en';
+          })
+          .map((post: any) => {
             const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
             const yyyy = dateObj.getFullYear();
             const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -65,10 +48,17 @@ export function HomeContent({ page = 1 }: { page?: number }) {
             };
           });
           
-        setTotalPages(Math.ceil(mappedPosts.length / POSTS_PER_PAGE));
+        // Sort by publishDate descending
+        filteredPosts.sort((a: any, b: any) => {
+          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
+          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
+          return dateB.getTime() - dateA.getTime();
+        });
+          
+        setTotalPages(Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
         
         const startIndex = (page - 1) * POSTS_PER_PAGE;
-        const paginatedPosts = mappedPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+        const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
         
         setPosts(paginatedPosts);
       } catch (error: any) {
@@ -156,7 +146,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {posts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}

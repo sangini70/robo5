@@ -103,7 +103,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </header>
 
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}

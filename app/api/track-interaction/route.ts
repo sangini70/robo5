@@ -3,8 +3,11 @@ import { doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '@/src/firebase';
 
 export async function POST(request: Request) {
+  let type = 'unknown';
   try {
-    const { postId, type } = await request.json();
+    const body = await request.json();
+    const postId = body.postId;
+    type = body.type;
 
     if (!postId || !type) {
       return NextResponse.json({ error: 'Post ID and type are required' }, { status: 400 });
@@ -26,22 +29,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
 
-    return NextResponse.json({ success: true }, {
-      headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-      },
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Failed to track interaction:', error);
-    return NextResponse.json({ error: 'Failed to track interaction' }, { 
-      status: 500,
-      headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-      },
-    });
+    console.error(`Failed to track ${type}:`, error);
+    return NextResponse.json({ error: `Failed to track ${type}` }, { status: 500 });
   }
 }

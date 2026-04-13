@@ -247,8 +247,6 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         postData.publishHour = publishHour;
       }
 
-      console.log("Saving post data to Firestore:", postData);
-
       if (postId) {
         if (originalTitle && originalTitle !== formData.title) {
           postData.titleHistory = [

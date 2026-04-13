@@ -14,7 +14,7 @@ export function FlowSection() {
   useEffect(() => {
     const fetchFlowPosts = async () => {
       try {
-        const response = await fetch('/data/posts.json', { cache: 'no-store' });
+        const response = await fetch('/data/posts.json');
         if (!response.ok) {
           throw new Error('Failed to fetch posts');
         }
@@ -92,7 +92,7 @@ export function FlowSection() {
                 <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
                 {flowType}
               </h3>
-              <div className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {posts.map((post) => (
                   <PostCard key={post.slug} post={post} />
                 ))}

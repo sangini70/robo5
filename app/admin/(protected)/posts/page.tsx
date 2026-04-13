@@ -45,7 +45,6 @@ export default function AdminPosts() {
         googleIndexStatus: 'requested',
         googleRequestedAt: serverTimestamp()
       });
-      await fetch('/api/sync-json', { method: 'POST' });
       showToast('구글 요청완료로 표시했습니다.');
     } catch (error) {
       console.error("Error updating google status:", error);
@@ -58,7 +57,6 @@ export default function AdminPosts() {
         googleIndexStatus: 'indexed',
         googleIndexedAt: serverTimestamp()
       });
-      await fetch('/api/sync-json', { method: 'POST' });
       showToast('구글 색인확인으로 표시했습니다.');
     } catch (error) {
       console.error("Error updating google status:", error);
@@ -85,7 +83,6 @@ export default function AdminPosts() {
         naverIndexStatus: 'requested',
         naverRequestedAt: serverTimestamp()
       });
-      await fetch('/api/sync-json', { method: 'POST' });
       showToast('네이버 요청완료로 표시했습니다.');
 
       // Auto-scroll to the next unrequested post
@@ -173,20 +170,12 @@ export default function AdminPosts() {
         
         // Sync to JSON files
         try {
-          const response = await fetch('/api/sync-json', { method: 'POST' });
-          const data = await response.json();
-          if (data.success) {
-            showToast('삭제 및 동기화 완료');
-          } else {
-            showToast(`동기화 실패: ${data.error}`);
-          }
+          await fetch('/api/sync-json', { method: 'POST' });
         } catch (syncError) {
           console.error("Error syncing JSON files:", syncError);
-          showToast('삭제는 되었으나 동기화에 실패했습니다.');
         }
       } catch (error) {
         console.error("Error deleting post:", error);
-        showToast('삭제 중 오류가 발생했습니다.');
       } finally {
         setPostToDelete(null);
       }
@@ -240,14 +229,12 @@ export default function AdminPosts() {
             </select>
           </div>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
-          <Link
-            href="/admin/posts/new"
-            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors"
-          >
-            New Post
-          </Link>
-        </div>
+        <Link
+          href="/admin/posts/new"
+          className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors shrink-0"
+        >
+          New Post
+        </Link>
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">

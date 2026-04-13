@@ -1,11 +1,13 @@
 import * as admin from 'firebase-admin';
-import firebaseConfig from '../firebase-applet-config.json';
+import { getFirestore } from 'firebase-admin/firestore';
+import config from '../firebase-applet-config.json';
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    projectId: firebaseConfig.projectId,
+    projectId: config.projectId,
   });
 }
 
-export const adminDb = admin.firestore();
+// Use the specific database ID from config if it exists, otherwise default
+export const adminDb = getFirestore(config.firestoreDatabaseId || '(default)');
 export const adminAuth = admin.auth();

@@ -7,7 +7,7 @@ interface MainLayoutProps {
   maxWidth?: string;
 }
 
-export function MainLayout({ children, maxWidth = 'max-w-6xl' }: MainLayoutProps) {
+export function MainLayout({ children, maxWidth = 'max-w-[1400px] xl:max-w-[1600px]' }: MainLayoutProps) {
   return (
     <>
       <header className="border-b border-gray-200 sticky top-0 bg-white/90 backdrop-blur-sm z-50">
