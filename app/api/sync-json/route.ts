@@ -7,12 +7,13 @@ async function syncPosts() {
   console.log("Starting sync-json process...");
   
   // 1. Fetch all published posts using firebase-admin
-  const querySnapshot = await adminDb.collection('posts')
-    .where('status', '==', 'published')
-    .orderBy('publishDate', 'desc')
-    .get();
-  
-  const posts = querySnapshot.docs.map(doc => {
+  try {
+    const querySnapshot = await adminDb.collection('posts')
+      .where('status', '==', 'published')
+      .orderBy('publishDate', 'desc')
+      .get();
+    
+    const posts = querySnapshot.docs.map(doc => {
     const data = doc.data();
     return {
       id: doc.id,
@@ -81,6 +82,10 @@ async function syncPosts() {
   console.log(`Generated ${posts.length} detail JSON files.`);
 
   return posts.length;
+  } catch (err: any) {
+    console.error('Firestore Fetch Error in syncPosts:', err);
+    throw err;
+  }
 }
 
 export async function GET() {
