@@ -10,7 +10,7 @@ export function PopularPosts() {
   useEffect(() => {
     const fetchPopularPosts = async () => {
       try {
-        const response = await fetch('/data/posts.json');
+        const response = await fetch('/data/posts.json', { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch posts data');
         }

@@ -22,9 +22,10 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     const fetchPosts = async () => {
       try {
         setErrorMsg('');
-        const response = await fetch('/data/posts.json');
+        const response = await fetch('/data/posts.json', { cache: 'no-store' });
         if (!response.ok) {
-          throw new Error('Failed to fetch posts data');
+          console.error(`Fetch failed with status: ${response.status} ${response.statusText}`);
+          throw new Error(`Failed to fetch posts data (Status: ${response.status})`);
         }
         const fetchedPosts = await response.json();
         console.log('RAW fetched posts count:', fetchedPosts.length);
