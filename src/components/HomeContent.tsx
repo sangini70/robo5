@@ -22,11 +22,16 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     const fetchPosts = async () => {
       try {
         setErrorMsg('');
+<<<<<<< HEAD
         const response = await fetch(`/data/posts.json?t=${Date.now()}`);
+=======
+        const response = await fetch('/data/posts.json');
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         if (!response.ok) {
           throw new Error('Failed to fetch posts data');
         }
         const fetchedPosts = await response.json();
+<<<<<<< HEAD
         console.log('HomeContent: Fetched raw posts:', fetchedPosts);
         
         if (!Array.isArray(fetchedPosts)) {
@@ -40,12 +45,36 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         const filteredPosts = [...fetchedPosts];
         console.log('HomeContent: Filtered posts count:', filteredPosts.length);
 
+=======
+        const now = new Date();
+        
+        const filteredPosts = fetchedPosts
+          .filter((post: any) => {
+            if (!post.publishDate) return post.language !== 'en';
+            return new Date(post.publishDate) <= now && post.language !== 'en';
+          })
+          .map((post: any) => {
+            const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
+            const yyyy = dateObj.getFullYear();
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            const hh = String(dateObj.getHours()).padStart(2, '0');
+            const min = String(dateObj.getMinutes()).padStart(2, '0');
+            
+            return {
+              ...post,
+              date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
+            };
+          });
+          
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         // Sort by publishDate descending
         filteredPosts.sort((a: any, b: any) => {
           const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
           const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
           return dateB.getTime() - dateA.getTime();
         });
+<<<<<<< HEAD
 
         const mappedPosts = fetchedPosts.map((post: any) => {
           const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
@@ -64,6 +93,15 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         
         console.log('HomeContent: Mapped posts:', mappedPosts);
         setPosts(mappedPosts);
+=======
+          
+        setTotalPages(Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+        
+        const startIndex = (page - 1) * POSTS_PER_PAGE;
+        const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+        
+        setPosts(paginatedPosts);
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       } catch (error: any) {
         console.error("Error fetching posts:", error);
         setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
@@ -73,7 +111,11 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     };
 
     fetchPosts();
+<<<<<<< HEAD
   }, []);
+=======
+  }, [page]);
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
   return (
     <MainLayout>
@@ -148,11 +190,60 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         ) : posts.length === 0 ? (
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
+<<<<<<< HEAD
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {posts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
           </div>
+=======
+          <>
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {posts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-16 flex justify-center items-center gap-2">
+                {page > 1 && (
+                  <Link 
+                    href={page === 2 ? '/' : `/page/${page - 1}`}
+                    className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    이전
+                  </Link>
+                )}
+                
+                <div className="flex gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+                    <Link
+                      key={pageNum}
+                      href={pageNum === 1 ? '/' : `/page/${pageNum}`}
+                      className={`w-10 h-10 flex items-center justify-center rounded-md text-sm font-medium transition-colors ${
+                        pageNum === page 
+                          ? 'bg-indigo-600 text-white' 
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      {pageNum}
+                    </Link>
+                  ))}
+                </div>
+
+                {page < totalPages && (
+                  <Link 
+                    href={`/page/${page + 1}`}
+                    className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    다음
+                  </Link>
+                )}
+              </div>
+            )}
+          </>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         )}
       </div>
     </MainLayout>

@@ -2,6 +2,10 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+<<<<<<< HEAD
+=======
+import { auth } from '../firebase';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
 interface PostCardProps {
   post: any;
@@ -36,9 +40,14 @@ export function PostCard({ post }: PostCardProps) {
     hasTrackedImpression.current = true;
 
     try {
+<<<<<<< HEAD
       // Skip tracking for admins
       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
         return;
+=======
+      if (auth.currentUser) {
+        return; // Skip tracking for logged-in users (admins)
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       }
 
       const impKey = `imp_${post.id}`;
@@ -53,7 +62,11 @@ export function PostCard({ post }: PostCardProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+<<<<<<< HEAD
         body: JSON.stringify({ slug: post.slug, type: 'impression' }),
+=======
+        body: JSON.stringify({ postId: post.id, type: 'impression' }),
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       });
 
       localStorage.setItem(impKey, now.toString());
@@ -64,9 +77,14 @@ export function PostCard({ post }: PostCardProps) {
 
   const trackClick = async () => {
     try {
+<<<<<<< HEAD
       // Skip tracking for admins
       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
         return;
+=======
+      if (auth.currentUser) {
+        return; // Skip tracking for logged-in users (admins)
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       }
 
       const clickKey = `click_${post.id}`;
@@ -81,7 +99,11 @@ export function PostCard({ post }: PostCardProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+<<<<<<< HEAD
         body: JSON.stringify({ slug: post.slug, type: 'click' }),
+=======
+        body: JSON.stringify({ postId: post.id, type: 'click' }),
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       });
 
       localStorage.setItem(clickKey, now.toString());

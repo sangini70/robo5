@@ -1,6 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+<<<<<<< HEAD
+=======
+import { db } from '../../../../src/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
 export default function AdminSettings() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -25,10 +30,20 @@ export default function AdminSettings() {
 
     setLoading(true);
     try {
+<<<<<<< HEAD
       const response = await fetch('/api/admin/settings');
       const settings = await response.json();
       
       const actualCurrentPassword = settings.adminPassword || 'admin';
+=======
+      const docRef = doc(db, 'settings', 'security');
+      const docSnap = await getDoc(docRef);
+      
+      let actualCurrentPassword = 'admin';
+      if (docSnap.exists() && docSnap.data().adminPassword) {
+        actualCurrentPassword = docSnap.data().adminPassword;
+      }
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
       if (currentPassword !== actualCurrentPassword) {
         setMessage({ type: 'error', text: '현재 비밀번호가 일치하지 않습니다.' });
@@ -36,12 +51,16 @@ export default function AdminSettings() {
         return;
       }
 
+<<<<<<< HEAD
       await fetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ adminPassword: newPassword })
       });
       
+=======
+      await setDoc(docRef, { adminPassword: newPassword }, { merge: true });
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       setMessage({ type: 'success', text: '비밀번호가 성공적으로 변경되었습니다.' });
       setCurrentPassword('');
       setNewPassword('');

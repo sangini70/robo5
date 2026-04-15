@@ -2,6 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+<<<<<<< HEAD
+=======
+import { db } from '../../../../../../src/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 import dynamic from 'next/dynamic';
 
 const PostForm = dynamic(() => import('@/src/components/admin/PostForm').then(mod => mod.PostForm), { ssr: false });
@@ -17,11 +22,18 @@ export default function AdminEditPost() {
     const fetchPost = async () => {
       if (!id) return;
       try {
+<<<<<<< HEAD
         const response = await fetch('/api/admin/posts');
         const posts = await response.json();
         const post = posts.find((p: any) => p.id === id);
         if (post) {
           setInitialData(post);
+=======
+        const docRef = doc(db, 'posts', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setInitialData(docSnap.data());
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         } else {
           router.push('/admin/posts');
         }

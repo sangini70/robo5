@@ -116,7 +116,11 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
       </div>
       <ul className="space-y-4">
         {posts.map((post, index) => (
+<<<<<<< HEAD
           <li key={post.slug || post.id}>
+=======
+          <li key={post.id}>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
             <Link href={`/${post.slug}`} className="group flex gap-3">
               <span className="text-lg font-bold text-indigo-200 group-hover:text-indigo-600 transition-colors w-5 shrink-0 text-center">
                 {index + 1}
@@ -126,7 +130,11 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
                   {post.title}
                 </h4>
                 <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
+<<<<<<< HEAD
                   <span>{post.publishDate ? formatDateTime(new Date(post.publishDate)) : (post.createdAt ? formatDateTime(new Date(post.createdAt)) : (post.date ? post.date : ''))}</span>
+=======
+                  <span>{post.publishDate ? formatDateTime(post.publishDate.toDate()) : (post.createdAt ? formatDateTime(post.createdAt.toDate()) : '')}</span>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
                   <span className="text-gray-300">|</span>
                   <span>조회수 {activeTab === 'weekly' ? (post._weeklyViews || 0) : (post.postViews || 0)}</span>
                 </p>

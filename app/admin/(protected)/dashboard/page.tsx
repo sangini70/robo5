@@ -1,6 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
+=======
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../../src/firebase';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default function DashboardPage() {
@@ -10,6 +15,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+<<<<<<< HEAD
         const response = await fetch('/api/admin/stats');
         const data = await response.json();
         
@@ -25,6 +31,101 @@ export default function DashboardPage() {
           highCtrLowViewsPosts: data.highCtrLowViewsPosts || [],
           trendData: data.trendData || [],
           hourData: data.hourData || []
+=======
+        const snapshot = await getDocs(collection(db, 'posts'));
+        const posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
+
+        let totalViews = 0;
+        let totalImpressions = 0;
+        let totalClicks = 0;
+        
+        // For last 7 days trend
+        const last7Days = Array.from({ length: 7 }).map((_, i) => {
+          const d = new Date();
+          d.setDate(d.getDate() - (6 - i));
+          return d.toISOString().split('T')[0];
+        });
+        
+        const viewsByDate: Record<string, number> = {};
+        last7Days.forEach(date => viewsByDate[date] = 0);
+
+        // For publish hour performance
+        const viewsByHour: Record<number, { views: number, count: number }> = {};
+        for (let i = 0; i < 24; i++) {
+          viewsByHour[i] = { views: 0, count: 0 };
+        }
+
+        posts.forEach(post => {
+          totalViews += (post.postViews || 0);
+          totalImpressions += (post.impressions || 0);
+          totalClicks += (post.clicks || 0);
+
+          // Aggregate daily views
+          if (post.dailyViews) {
+            last7Days.forEach(date => {
+              if (post.dailyViews[date]) {
+                viewsByDate[date] += post.dailyViews[date];
+              }
+            });
+          }
+
+          // Aggregate publish hour performance
+          if (post.publishHour !== undefined) {
+            viewsByHour[post.publishHour].views += (post.postViews || 0);
+            viewsByHour[post.publishHour].count += 1;
+          }
+        });
+
+        const avgCTR = totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(2) : '0.00';
+        const avgViews = posts.length > 0 ? totalViews / posts.length : 0;
+        const avgCtrNum = parseFloat(avgCTR);
+
+        const postsWithCtr = posts.map(post => {
+          const imp = post.impressions || 0;
+          const clk = post.clicks || 0;
+          const ctr = imp > 0 ? (clk / imp) * 100 : 0;
+          return { ...post, ctr, impressions: imp, clicks: clk };
+        });
+
+        const topPosts = [...postsWithCtr]
+          .sort((a, b) => (b.postViews || 0) - (a.postViews || 0))
+          .slice(0, 5);
+
+        // CTR 낮은 글 TOP5 (impressions >= 10)
+        const lowCtrPosts = [...postsWithCtr]
+          .filter(p => p.impressions >= 10)
+          .sort((a, b) => a.ctr - b.ctr)
+          .slice(0, 5);
+
+        // CTR 높은데 조회수 낮은 글 TOP5 (impressions >= 10, CTR >= avgCTR, views < avgViews)
+        const highCtrLowViewsPosts = [...postsWithCtr]
+          .filter(p => p.impressions >= 10 && p.ctr >= avgCtrNum && (p.postViews || 0) < avgViews)
+          .sort((a, b) => b.ctr - a.ctr)
+          .slice(0, 5);
+
+        const trendData = last7Days.map(date => ({
+          date: date.substring(5), // MM-DD
+          views: viewsByDate[date]
+        }));
+
+        const hourData = Object.keys(viewsByHour).map(hour => {
+          const h = parseInt(hour, 10);
+          const data = viewsByHour[h];
+          return {
+            hour: `${h}시`,
+            avgViews: data.count > 0 ? Math.round(data.views / data.count) : 0
+          };
+        });
+
+        setStats({
+          totalViews,
+          avgCTR,
+          topPosts,
+          lowCtrPosts,
+          highCtrLowViewsPosts,
+          trendData,
+          hourData
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         });
       } catch (error) {
         console.error('Error fetching dashboard stats:', error);

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
+=======
+import { db, auth } from '../../firebase';
+import { collection, addDoc, doc, updateDoc, serverTimestamp, Timestamp, query, where, getDocs } from 'firebase/firestore';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 import DOMPurify from 'dompurify';
 import { RichTextEditor } from './RichTextEditor';
 
@@ -94,9 +99,15 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const checkSlugAvailability = async (slug: string) => {
     if (!slug) return;
     try {
+<<<<<<< HEAD
       const response = await fetch('/api/admin/posts');
       const posts = await response.json();
       const isDuplicate = posts.some((p: any) => p.slug === slug && p.id !== postId);
+=======
+      const q = query(collection(db, 'posts'), where('slug', '==', slug));
+      const querySnapshot = await getDocs(q);
+      const isDuplicate = querySnapshot.docs.some(doc => doc.id !== postId);
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       if (isDuplicate) {
         setSlugError('이미 사용 중인 슬러그입니다.');
       } else {
@@ -203,6 +214,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
       
+<<<<<<< HEAD
       let publishDate = null;
       let publishHour = null;
       if (formData.status === 'published') {
@@ -215,11 +227,30 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           publishDate = now.toISOString();
           const kstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
           publishHour = kstNow.getUTCHours();
+=======
+      let publishTimestamp = null;
+      let publishHour = null;
+      if (formData.status === 'published') {
+        if (publishMode === 'schedule' && formData.publishDate) {
+          // Treat the input as KST (UTC+9)
+          const kstDate = new Date(`${formData.publishDate}+09:00`);
+          publishTimestamp = Timestamp.fromDate(kstDate);
+          publishHour = kstDate.getHours();
+        } else {
+          publishTimestamp = serverTimestamp();
+          // Get current hour in KST
+          const now = new Date();
+          const kstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+          publishHour = kstNow.getUTCHours(); // getUTCHours of a date shifted by +9 gives the KST hour
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         }
       }
 
       const postData: any = {
+<<<<<<< HEAD
         id: postId || undefined,
+=======
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         title: formData.title,
         slug: formData.slug,
         description: formData.description,
@@ -228,7 +259,11 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         tags: tagsArray,
         thumbnail: formData.thumbnail,
         status: formData.status,
+<<<<<<< HEAD
         publishDate: publishDate,
+=======
+        publishDate: publishTimestamp,
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         seoTitle: formData.seoTitle,
         seoDescription: formData.seoDescription,
         customCss: cleaned.customCss,
@@ -236,6 +271,11 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         structuredDataJsonLd: cleaned.structuredDataJsonLd,
         flowType: formData.flowType,
         language: formData.language,
+<<<<<<< HEAD
+=======
+        authorId: auth.currentUser?.uid,
+        updatedAt: serverTimestamp(),
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       };
       
       if (publishHour !== null) {
@@ -255,6 +295,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         } else {
           postData.titleHistory = titleHistory;
         }
+<<<<<<< HEAD
       } else {
         postData.titleHistory = [];
         postData.postViews = 0;
@@ -273,6 +314,37 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || '저장에 실패했습니다.');
+=======
+        await updateDoc(doc(db, 'posts', postId), postData);
+      } else {
+        await addDoc(collection(db, 'posts'), {
+          ...postData,
+          titleHistory: [],
+          postViews: 0,
+          impressions: 0,
+          clicks: 0,
+          createdAt: serverTimestamp(),
+          googleIndexStatus: 'none',
+          naverIndexStatus: 'none',
+        });
+      }
+
+      // Sync to JSON files
+      try {
+        const syncResponse = await fetch('/api/sync-json', { method: 'POST' });
+        const syncData = await syncResponse.json();
+        
+        if (!syncData.success) {
+          throw new Error(syncData.error || 'JSON 동기화에 실패했습니다.');
+        }
+        
+        console.log("Sync successful:", syncData);
+      } catch (syncError: any) {
+        console.error("Error syncing JSON:", syncError);
+        showToast(`데이터 동기화 실패: ${syncError.message}`);
+        setLoading(false);
+        return; // Stop if sync fails
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       }
 
       showToast("저장 및 동기화 완료!");

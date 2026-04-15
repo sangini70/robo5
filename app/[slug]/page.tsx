@@ -12,16 +12,23 @@ export const dynamic = 'force-dynamic';
 // Fetch post data
 async function getPost(slug: string): Promise<any> {
   try {
+<<<<<<< HEAD
     const postData = getPostDetail(slug);
+=======
+    const postData = getPostDetail(slug, 'ko');
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
     
     if (!postData) {
       return null;
     }
     
+<<<<<<< HEAD
     if (postData.status !== 'published') {
       return null;
     }
     
+=======
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
     if (postData.publishDate && new Date(postData.publishDate) > new Date()) {
       return null;
     }
@@ -141,7 +148,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <MainLayout>
+<<<<<<< HEAD
       <ViewTracker slug={post.slug} />
+=======
+      <ViewTracker postId={post.id} />
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       {post.customCss && <style dangerouslySetInnerHTML={{ __html: post.customCss }} />}
       <script
         type="application/ld+json"

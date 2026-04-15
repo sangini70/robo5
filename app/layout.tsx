@@ -1,5 +1,9 @@
 import '@/src/index.css';
 import { Metadata } from 'next';
+<<<<<<< HEAD
+=======
+import { AuthProvider } from '@/src/contexts/AuthContext';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
 export const metadata: Metadata = {
   title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
@@ -29,9 +33,17 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+<<<<<<< HEAD
         <div className="min-h-screen flex flex-col font-sans">
           {children}
         </div>
+=======
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col font-sans">
+            {children}
+          </div>
+        </AuthProvider>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       </body>
     </html>
   );

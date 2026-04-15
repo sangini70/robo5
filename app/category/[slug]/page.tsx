@@ -20,7 +20,11 @@ const getPostsByCategory = cache(async (category: string) => {
     // 2. Fetch details for each slug
     const now = new Date();
     const fetchedPosts = slugs
+<<<<<<< HEAD
       .map((slug: string) => getPostDetail(slug))
+=======
+      .map((slug: string) => getPostDetail(slug, 'ko'))
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       .filter((post: any) => {
         if (!post) return false;
         // Basic filtering (published status is already handled by sync-json, but we check date)

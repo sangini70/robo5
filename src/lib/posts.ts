@@ -29,9 +29,15 @@ export function getFlowIndex() {
   }
 }
 
+<<<<<<< HEAD
 export function getPostDetail(slug: string) {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'detail', `${slug}.json`);
+=======
+export function getPostDetail(slug: string, lang: string = 'ko') {
+  try {
+    const filePath = path.join(process.cwd(), 'public', 'data', lang, 'detail', `${slug}.json`);
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
     if (!fs.existsSync(filePath)) {
       console.warn(`Post detail not found: ${filePath}`);
       return null;

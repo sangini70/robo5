@@ -102,13 +102,21 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
           <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">관련 글</h3>
           <ul className="space-y-4">
             {relatedPosts.map(post => (
+<<<<<<< HEAD
               <li key={post.slug || post.id}>
+=======
+              <li key={post.id}>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
                 <Link href={`/${post.slug}`} className="group block">
                   <h4 className="text-base font-medium text-gray-800 group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {post.title}
                   </h4>
                   <p className="text-xs text-gray-500 mt-1">
+<<<<<<< HEAD
                     {post.publishDate ? formatDateTime(new Date(post.publishDate)) : (post.createdAt ? formatDateTime(new Date(post.createdAt)) : (post.date ? post.date : ''))}
+=======
+                    {post.publishDate ? formatDateTime(post.publishDate.toDate()) : (post.createdAt ? formatDateTime(post.createdAt.toDate()) : '')}
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
                   </p>
                 </Link>
               </li>
@@ -123,13 +131,21 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
           <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">최신 글</h3>
           <ul className="space-y-4">
             {latestPosts.map(post => (
+<<<<<<< HEAD
               <li key={post.slug || post.id}>
+=======
+              <li key={post.id}>
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
                 <Link href={`/${post.slug}`} className="group block">
                   <h4 className="text-base font-medium text-gray-800 group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {post.title}
                   </h4>
                   <p className="text-xs text-gray-500 mt-1">
+<<<<<<< HEAD
                     {post.publishDate ? formatDateTime(new Date(post.publishDate)) : (post.createdAt ? formatDateTime(new Date(post.createdAt)) : (post.date ? post.date : ''))}
+=======
+                    {post.publishDate ? formatDateTime(post.publishDate.toDate()) : (post.createdAt ? formatDateTime(post.createdAt.toDate()) : '')}
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
                   </p>
                 </Link>
               </li>

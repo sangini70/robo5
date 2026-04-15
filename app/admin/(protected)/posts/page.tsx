@@ -2,6 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+<<<<<<< HEAD
+=======
+import { db } from '../../../../src/firebase';
+import { collection, query, orderBy, onSnapshot, deleteDoc, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
 export default function AdminPosts() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -15,6 +20,7 @@ export default function AdminPosts() {
   const POSTS_PER_PAGE = 20;
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchPosts = async () => {
       try {
         const response = await fetch('/api/admin/posts');
@@ -28,6 +34,23 @@ export default function AdminPosts() {
     };
 
     fetchPosts();
+=======
+    const q = query(collection(db, 'posts'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const postsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setPosts(postsData);
+      setLoading(false);
+    }, (error) => {
+      console.error("Error fetching posts:", error);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
   }, []);
 
   const showToast = (message: string) => {
@@ -37,6 +60,7 @@ export default function AdminPosts() {
 
   const handleGoogleComplete = async (id: string) => {
     try {
+<<<<<<< HEAD
       const post = posts.find(p => p.id === id);
       await fetch('/api/admin/posts', {
         method: 'POST',
@@ -51,6 +75,13 @@ export default function AdminPosts() {
       // Refresh list
       const response = await fetch('/api/admin/posts');
       setPosts(await response.json());
+=======
+      await updateDoc(doc(db, 'posts', id), {
+        googleIndexStatus: 'requested',
+        googleRequestedAt: serverTimestamp()
+      });
+      showToast('구글 요청완료로 표시했습니다.');
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
     } catch (error) {
       console.error("Error updating google status:", error);
     }
@@ -58,6 +89,7 @@ export default function AdminPosts() {
 
   const handleGoogleIndexed = async (id: string) => {
     try {
+<<<<<<< HEAD
       const post = posts.find(p => p.id === id);
       await fetch('/api/admin/posts', {
         method: 'POST',
@@ -72,6 +104,13 @@ export default function AdminPosts() {
       // Refresh list
       const response = await fetch('/api/admin/posts');
       setPosts(await response.json());
+=======
+      await updateDoc(doc(db, 'posts', id), {
+        googleIndexStatus: 'indexed',
+        googleIndexedAt: serverTimestamp()
+      });
+      showToast('구글 색인확인으로 표시했습니다.');
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
     } catch (error) {
       console.error("Error updating google status:", error);
     }
@@ -79,14 +118,21 @@ export default function AdminPosts() {
 
   const handleNaverComplete = async (id: string) => {
     try {
+<<<<<<< HEAD
       const post = posts.find(p => p.id === id);
       
+=======
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       // Find the next unrequested post ID before updating
       const currentIndex = filteredAndSortedPosts.findIndex(p => p.id === id);
       let nextUnrequestedId = null;
       for (let i = currentIndex + 1; i < filteredAndSortedPosts.length; i++) {
         const p = filteredAndSortedPosts[i];
+<<<<<<< HEAD
         const isScheduled = p.status === 'published' && p.publishDate && new Date(p.publishDate) > new Date();
+=======
+        const isScheduled = p.status === 'published' && p.publishDate && p.publishDate.toDate() > new Date();
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
         const isPublished = p.status === 'published' && !isScheduled;
         
         if (isPublished && (p.naverIndexStatus === 'none' || !p.naverIndexStatus)) {
@@ -95,6 +141,7 @@ export default function AdminPosts() {
         }
       }
 
+<<<<<<< HEAD
       await fetch('/api/admin/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -109,6 +156,13 @@ export default function AdminPosts() {
       // Refresh list
       const response = await fetch('/api/admin/posts');
       setPosts(await response.json());
+=======
+      await updateDoc(doc(db, 'posts', id), {
+        naverIndexStatus: 'requested',
+        naverRequestedAt: serverTimestamp()
+      });
+      showToast('네이버 요청완료로 표시했습니다.');
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
 
       // Auto-scroll to the next unrequested post
       if (nextUnrequestedId) {
@@ -122,7 +176,11 @@ export default function AdminPosts() {
               nextRow.classList.remove('bg-blue-50');
             }, 1000);
           }
+<<<<<<< HEAD
         }, 300);
+=======
+        }, 300); // slight delay to allow React to re-render and Firestore to sync
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       }
     } catch (error) {
       console.error("Error updating naver status:", error);
@@ -155,6 +213,10 @@ export default function AdminPosts() {
         const bUnrequested = b.naverIndexStatus === 'none' || !b.naverIndexStatus;
         if (aUnrequested && !bUnrequested) return -1;
         if (!aUnrequested && bUnrequested) return 1;
+<<<<<<< HEAD
+=======
+        // Fallback to latest if both are same
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       } else if (sortBy === 'views') {
         const viewsA = a.postViews || 0;
         const viewsB = b.postViews || 0;
@@ -163,8 +225,13 @@ export default function AdminPosts() {
         }
       }
       
+<<<<<<< HEAD
       const dateA = new Date(a.publishDate || a.createdAt || 0);
       const dateB = new Date(b.publishDate || b.createdAt || 0);
+=======
+      const dateA = a.publishDate?.toDate() || a.createdAt?.toDate() || new Date(0);
+      const dateB = b.publishDate?.toDate() || b.createdAt?.toDate() || new Date(0);
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       return dateB.getTime() - dateA.getTime();
     });
 
@@ -190,10 +257,21 @@ export default function AdminPosts() {
   const confirmDelete = async () => {
     if (postToDelete) {
       try {
+<<<<<<< HEAD
         await fetch(`/api/admin/posts?id=${postToDelete}`, { method: 'DELETE' });
         // Refresh list
         const response = await fetch('/api/admin/posts');
         setPosts(await response.json());
+=======
+        await deleteDoc(doc(db, 'posts', postToDelete));
+        
+        // Sync to JSON files
+        try {
+          await fetch('/api/sync-json', { method: 'POST' });
+        } catch (syncError) {
+          console.error("Error syncing JSON files:", syncError);
+        }
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
       } catch (error) {
         console.error("Error deleting post:", error);
       } finally {
@@ -271,7 +349,11 @@ export default function AdminPosts() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {paginatedPosts.map(post => {
+<<<<<<< HEAD
               const isScheduled = post.status === 'published' && post.publishDate && new Date(post.publishDate) > new Date();
+=======
+              const isScheduled = post.status === 'published' && post.publishDate && post.publishDate.toDate() > new Date();
+>>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
               const isPublished = post.status === 'published' && !isScheduled;
               
               const googleStatus = post.googleIndexStatus || 'none';
