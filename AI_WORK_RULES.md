@@ -48,6 +48,8 @@ ROBO_CONTEXT.md를 따른다.
 
 # 2. 최우선 원칙
 
+기능 추가보다 기존 탐험 흐름, reading rhythm, UX pacing 보호를 우선한다.
+
 항상 아래 순서를 우선한다.
 
 1. 기존 사용자 흐름 보호
