@@ -22,7 +22,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     const fetchPosts = async () => {
       try {
         setErrorMsg('');
-        const response = await fetch(`/data/posts.json?t=${Date.now()}`);
+        const response = await fetch(`/api/admin/posts?t=${Date.now()}`);
         if (!response.ok) {
           throw new Error('Failed to fetch posts data');
         }
@@ -35,9 +35,12 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         }
 
         const now = new Date();
-        
-        // Temporarily disable all filters as requested
-        const filteredPosts = [...fetchedPosts];
+        const filteredPosts = fetchedPosts.filter((post: any) => {
+          if (post.status !== 'published') return false;
+          if (post.language === 'en') return false;
+          if (post.publishDate && new Date(post.publishDate) > now) return false;
+          return true;
+        });
         console.log('HomeContent: Filtered posts count:', filteredPosts.length);
 
         // Sort by publishDate descending
@@ -47,7 +50,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           return dateB.getTime() - dateA.getTime();
         });
 
-        const mappedPosts = fetchedPosts.map((post: any) => {
+        const mappedPosts = filteredPosts.map((post: any) => {
           const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
           const yyyy = dateObj.getFullYear();
           const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
