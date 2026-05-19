@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "slug": "robo-advisor-fees-comparison",
+    "title": "로보어드바이저 수수료 비교 및 선택 가이드",
+    "excerpt": "국내 주요 로보어드바이저 서비스의 수수료 체계를 상세히 비교하고 나에게 맞는 서비스를 선택하는 방법을 알아봅니다.",
+    "thumbnail": "https://picsum.photos/seed/robo/800/450",
+    "category": "환율",
+    "date": "2026-04-10",
+    "language": "ko",
+    "status": "published",
+    "publishDate": "2026-04-10T09:00:00Z",
+    "createdAt": "2026-04-10T08:00:00Z",
+    "flowType": "지금 시장 흐름",
+    "postViews": 150
+  },
+  {
+    "id": "2",
+    "slug": "etf-investment-basics",
+    "title": "ETF 투자 기초: 초보자를 위한 핵심 정리",
+    "excerpt": "ETF란 무엇인가? 주식처럼 거래되는 펀드인 ETF의 장점과 투자 전략을 쉽게 설명합니다.",
+    "thumbnail": "https://picsum.photos/seed/etf/800/450",
+    "category": "ETF",
+    "date": "2026-04-12",
+    "language": "ko",
+    "status": "published",
+    "publishDate": "2026-04-12T10:00:00Z",
+    "createdAt": "2026-04-12T09:00:00Z",
+    "flowType": "과거에서 찾는 답",
+    "postViews": 200
+  }
+]
