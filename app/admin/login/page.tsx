@@ -20,9 +20,12 @@ export default function AdminLogin() {
     setCheckingPassword(true);
     setError('');
     
-    // Fetch correct password from settings.json
+    // Read the current admin password from the server-backed settings API
     try {
-      const response = await fetch('/data/settings.json');
+      const response = await fetch('/api/admin/settings', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Failed to load admin settings: ${response.status}`);
+      }
       const settings = await response.json();
       const correctPassword = settings.adminPassword || 'admin';
 
