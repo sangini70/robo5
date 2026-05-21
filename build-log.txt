@@ -1,0 +1,296 @@
+
+> nextjs-example@0.1.0 build
+> next build
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\USER\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * C:\Users\USER\Downloads\robo5\package-lock.json
+
+   ▲ Next.js 15.5.14
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/admin/(protected)/migrate/page.tsx
+Module not found: Can't resolve 'firebase/firestore'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./src/components/PostCard.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | import React, { useEffect, useRef } from 'react';
+ [2m4[0m | import Link from 'next/link';
+ [2m5[0m | <<<<<<< HEAD
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | =======
+ [2m7[0m | import { auth } from '../firebase';
+ [2m7[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:6:1]
+ [2m3[0m | import React, { useEffect, useRef } from 'react';
+ [2m4[0m | import Link from 'next/link';
+ [2m5[0m | <<<<<<< HEAD
+ [2m6[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m7[0m | import { auth } from '../firebase';
+ [2m8[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+ [2m8[0m | 
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:8:1]
+ [2m 5[0m | <<<<<<< HEAD
+ [2m 6[0m | =======
+ [2m 7[0m | import { auth } from '../firebase';
+ [2m 8[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    : [35;1m^^^^^^^[0m
+ [2m 9[0m | 
+ [2m10[0m | interface PostCardProps {
+ [2m10[0m |   post: any;
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:43:1]
+ [2m40[0m |     hasTrackedImpression.current = true;
+ [2m41[0m | 
+ [2m42[0m |     try {
+ [2m43[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m44[0m |       // Skip tracking for admins
+ [2m45[0m |       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
+ [2m45[0m |         return;
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:47:1]
+ [2m44[0m |       // Skip tracking for admins
+ [2m45[0m |       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
+ [2m46[0m |         return;
+ [2m47[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m48[0m |       if (auth.currentUser) {
+ [2m49[0m |         return; // Skip tracking for logged-in users (admins)
+ [2m49[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:50:1]
+ [2m47[0m | =======
+ [2m48[0m |       if (auth.currentUser) {
+ [2m49[0m |         return; // Skip tracking for logged-in users (admins)
+ [2m50[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    : [35;1m^^^^^^^[0m
+ [2m51[0m |       }
+ [2m52[0m | 
+ [2m52[0m |       const impKey = `imp_${post.id}`;
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:65:1]
+ [2m62[0m |         headers: {
+ [2m63[0m |           'Content-Type': 'application/json',
+ [2m64[0m |         },
+ [2m65[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m66[0m |         body: JSON.stringify({ slug: post.slug, type: 'impression' }),
+ [2m67[0m | =======
+ [2m67[0m |         body: JSON.stringify({ postId: post.id, type: 'impression' }),
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:67:1]
+ [2m64[0m |         },
+ [2m65[0m | <<<<<<< HEAD
+ [2m66[0m |         body: JSON.stringify({ slug: post.slug, type: 'impression' }),
+ [2m67[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m68[0m |         body: JSON.stringify({ postId: post.id, type: 'impression' }),
+ [2m69[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+ [2m69[0m |       });
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:69:1]
+ [2m66[0m |         body: JSON.stringify({ slug: post.slug, type: 'impression' }),
+ [2m67[0m | =======
+ [2m68[0m |         body: JSON.stringify({ postId: post.id, type: 'impression' }),
+ [2m69[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    : [35;1m^^^^^^^[0m
+ [2m70[0m |       });
+ [2m71[0m | 
+ [2m71[0m |       localStorage.setItem(impKey, now.toString());
+    `----
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:73:1]
+ [2m70[0m |       });
+ [2m71[0m | 
+ [2m72[0m |       localStorage.setItem(impKey, now.toString());
+ [2m73[0m |     } catch (error) {
+    : [35;1m      ^^^^^[0m
+ [2m74[0m |       console.error('Failed to track impression:', error);
+ [2m75[0m |     }
+ [2m75[0m |   };
+    `----
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:76:1]
+ [2m73[0m |     } catch (error) {
+ [2m74[0m |       console.error('Failed to track impression:', error);
+ [2m75[0m |     }
+ [2m76[0m |   };
+    : [35;1m   ^[0m
+ [2m77[0m | 
+ [2m78[0m |   const trackClick = async () => {
+ [2m78[0m |     try {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:80:1]
+ [2m77[0m | 
+ [2m78[0m |   const trackClick = async () => {
+ [2m79[0m |     try {
+ [2m80[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m81[0m |       // Skip tracking for admins
+ [2m82[0m |       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
+ [2m82[0m |         return;
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:84:1]
+ [2m81[0m |       // Skip tracking for admins
+ [2m82[0m |       if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
+ [2m83[0m |         return;
+ [2m84[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m85[0m |       if (auth.currentUser) {
+ [2m86[0m |         return; // Skip tracking for logged-in users (admins)
+ [2m86[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:87:1]
+ [2m84[0m | =======
+ [2m85[0m |       if (auth.currentUser) {
+ [2m86[0m |         return; // Skip tracking for logged-in users (admins)
+ [2m87[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+    : [35;1m^^^^^^^[0m
+ [2m88[0m |       }
+ [2m89[0m | 
+ [2m89[0m |       const clickKey = `click_${post.id}`;
+    `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:102:1]
+ [2m 99[0m |         headers: {
+ [2m100[0m |           'Content-Type': 'application/json',
+ [2m101[0m |         },
+ [2m102[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m103[0m |         body: JSON.stringify({ slug: post.slug, type: 'click' }),
+ [2m104[0m | =======
+ [2m104[0m |         body: JSON.stringify({ postId: post.id, type: 'click' }),
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:104:1]
+ [2m101[0m |         },
+ [2m102[0m | <<<<<<< HEAD
+ [2m103[0m |         body: JSON.stringify({ slug: post.slug, type: 'click' }),
+ [2m104[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m105[0m |         body: JSON.stringify({ postId: post.id, type: 'click' }),
+ [2m106[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+ [2m106[0m |       });
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:106:1]
+ [2m103[0m |         body: JSON.stringify({ slug: post.slug, type: 'click' }),
+ [2m104[0m | =======
+ [2m105[0m |         body: JSON.stringify({ postId: post.id, type: 'click' }),
+ [2m106[0m | >>>>>>> 10c5b2f5f68a9f7126f4f756ee74c038e23a51bd
+     : [35;1m^^^^^^^[0m
+ [2m107[0m |       });
+ [2m108[0m | 
+ [2m108[0m |       localStorage.setItem(clickKey, now.toString());
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:110:1]
+ [2m107[0m |       });
+ [2m108[0m | 
+ [2m109[0m |       localStorage.setItem(clickKey, now.toString());
+ [2m110[0m |     } catch (error) {
+     : [35;1m      ^^^^^[0m
+ [2m111[0m |       console.error('Failed to track click:', error);
+ [2m112[0m |     }
+ [2m112[0m |   };
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:113:1]
+ [2m110[0m |     } catch (error) {
+ [2m111[0m |       console.error('Failed to track click:', error);
+ [2m112[0m |     }
+ [2m113[0m |   };
+     : [35;1m   ^[0m
+ [2m114[0m | 
+ [2m115[0m |   return (
+ [2m115[0m |     <article ref={cardRef} className="group cursor-pointer flex flex-col">
+     `----
+  [31mx[0m Expected '}', got '<eof>'
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\PostCard.tsx[0m:163:1]
+ [2m160[0m |       </div>
+ [2m161[0m |     </article>
+ [2m162[0m |   );
+ [2m163[0m | }
+     : [35;1m ^[0m
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/PostCard.tsx
+./src/components/SearchContent.tsx
+
+./src/components/admin/PostForm.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\admin\PostForm.tsx[0m:487:1]
+ [2m484[0m |               onChange={handleChange}
+ [2m485[0m |               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+ [2m486[0m |             >
+ [2m487[0m |               <option value="">諛곗튂 ????/option>
+     : [35;1m                                                 ^[0m
+ [2m488[0m |               <option value="吏湲??쒖옣 ?먮쫫">吏湲??쒖옣 ?먮쫫</option>
+ [2m489[0m |               <option value="怨쇨굅?먯꽌 李얜뒗 ??>怨쇨굅?먯꽌 李얜뒗 ??/option>
+ [2m489[0m |               <option value="?욎쑝濡쒖쓽 諛⑺뼢">?욎쑝濡쒖쓽 諛⑺뼢</option>
+     `----
+  [31mx[0m Expected '</', got '?'
+     ,-[[36;1;4mC:\Users\USER\Downloads\robo5\src\components\admin\PostForm.tsx[0m:490:1]
+ [2m487[0m |               <option value="">諛곗튂 ????/option>
+ [2m488[0m |               <option value="吏湲??쒖옣 ?먮쫫">吏湲??쒖옣 ?먮쫫</option>
+ [2m489[0m |               <option value="怨쇨굅?먯꽌 李얜뒗 ??>怨쇨굅?먯꽌 李얜뒗 ??/option>
+ [2m490[0m |               <option value="?욎쑝濡쒖쓽 諛⑺뼢">?욎쑝濡쒖쓽 諛⑺뼢</option>
+     : [35;1m                             ^[0m
+ [2m491[0m |             </select>
+ [2m492[0m |           </div>
+ [2m492[0m | 
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/admin/PostForm.tsx
+./app/admin/(protected)/posts/new/page.tsx
+
+./src/firebase.ts
+Module not found: Can't resolve 'firebase/app'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/admin/(protected)/migrate/page.tsx
+
+./src/firebase.ts
+Module not found: Can't resolve 'firebase/auth'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/admin/(protected)/migrate/page.tsx
+
+
+> Build failed because of webpack errors
