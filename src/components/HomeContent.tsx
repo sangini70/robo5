@@ -75,6 +75,19 @@ export function HomeContent({ page = 1 }: { page?: number }) {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const heroImage = document.querySelector(
+      'section img[src="/hero-image.svg"]'
+    ) as HTMLImageElement | null;
+
+    if (!heroImage) {
+      return;
+    }
+
+    heroImage.src = '/images/hero-main.webp';
+    heroImage.alt = '로보어드바이저 금융 가이드';
+  }, []);
+
   return (
     <MainLayout>
       {page === 1 && (
