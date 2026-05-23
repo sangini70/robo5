@@ -66,7 +66,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         setPosts(mappedPosts);
       } catch (error: any) {
         console.error("Error fetching posts:", error);
-        setErrorMsg('湲??遺덈윭?ㅻ뒗 以??ㅻ쪟媛 諛쒖깮?덉뒿?덈떎.');
+        setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
       } finally {
         setLoading(false);
       }
@@ -87,7 +87,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
                 "@type": "WebSite",
                 "name": "robo-advisor.kr",
                 "url": "https://robo-advisor.kr",
-                "description": "濡쒕낫?대뱶諛붿씠? ?섏닔猷? ETF ?ъ옄 湲곗큹, ?섏쑉 怨꾩궛, ?섏뒪???좊Ъ 蹂대뒗 踰???湲덉쑖 ?뺣낫瑜??쎄쾶 ?뺣━??媛?대뱶 ?ъ씠??",
+                "description": "로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.",
                 "publisher": {
                   "@type": "Organization",
                   "name": "robo-advisor.kr",
@@ -112,10 +112,10 @@ export function HomeContent({ page = 1 }: { page?: number }) {
                   New Feature
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                  ?ㅼ냽 ?섏쑉 怨꾩궛湲??ㅽ뵂!
+                  실속 환율 계산기 오픈!
                 </h2>
                 <p className="text-gray-600 text-base sm:text-lg">
-                  ?ㅼ젣 ?섏쟾 援ъ“(?섏닔猷뙿룹슦???瑜?諛섏쁺??<strong className="text-indigo-600">吏꾩쭨 泥닿컧 ?섏쑉</strong>???뺤씤?대낫?몄슂.
+                  실제 환전 구조(수수료·우대율)를 반영하여 <strong className="text-indigo-600">진짜 체감 환율</strong>을 확인해보세요.
                 </p>
               </div>
               <div className="w-full sm:w-auto shrink-0">
@@ -123,7 +123,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
                   href="/exchange-rate-calculator" 
                   className="block w-full sm:w-auto text-center bg-indigo-600 text-white font-medium px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200"
                 >
-                  怨꾩궛湲?諛붾줈媛湲?&rarr;
+                  계산기 바로가기 &rarr;
                 </Link>
               </div>
             </div>
@@ -134,10 +134,10 @@ export function HomeContent({ page = 1 }: { page?: number }) {
       )}
 
       <div className="w-full">
-        <div className="mb-8 flex items-center justify-between">
+          <div className="mb-8 flex items-center justify-between">
           <div>
             <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">Latest</span>
-            <h2 className="text-2xl font-bold text-gray-900">理쒖떊 湲</h2>
+            <h2 className="text-2xl font-bold text-gray-900">최신 글</h2>
           </div>
         </div>
         
@@ -146,7 +146,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
         ) : errorMsg ? (
           <div className="text-center text-red-500 py-12 font-medium bg-red-50 rounded-lg border border-red-100">{errorMsg}</div>
         ) : posts.length === 0 ? (
-          <div className="text-center text-gray-500 py-12">?깅줉??湲???놁뒿?덈떎.</div>
+          <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {posts.map((post) => (

@@ -2,22 +2,22 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '濡쒕낫?대뱶諛붿씠?쨌ETF쨌?섏쑉 ?뺣낫 ?뺣━ | robo-advisor.kr',
-  description: '濡쒕낫?대뱶諛붿씠? ?섏닔猷? ETF ?ъ옄 湲곗큹, ?섏쑉 怨꾩궛, ?섏뒪???좊Ъ 蹂대뒗 踰???湲덉쑖 ?뺣낫瑜??쎄쾶 ?뺣━??媛?대뱶 ?ъ씠??',
+  title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
+  description: '로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.',
   alternates: {
     canonical: 'https://robo-advisor.kr',
   },
   openGraph: {
-    title: '濡쒕낫?대뱶諛붿씠?쨌ETF쨌?섏쑉 ?뺣낫 ?뺣━ | robo-advisor.kr',
-    description: '濡쒕낫?대뱶諛붿씠? ?섏닔猷? ETF ?ъ옄 湲곗큹, ?섏쑉 怨꾩궛, ?섏뒪???ㅼ떆媛??뺤씤踰???湲덉쑖 ?뺣낫瑜??쎄쾶 ?뺣━??媛?대뱶 ?ъ씠??',
+    title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
+    description: '로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.',
     url: 'https://robo-advisor.kr',
     siteName: 'robo-advisor.kr',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '濡쒕낫?대뱶諛붿씠?쨌ETF쨌?섏쑉 ?뺣낫 ?뺣━ | robo-advisor.kr',
-    description: '濡쒕낫?대뱶諛붿씠? ?섏닔猷? ETF ?ъ옄 湲곗큹, ?섏쑉 怨꾩궛, ?섏뒪???ㅼ떆媛??뺤씤踰???湲덉쑖 ?뺣낫瑜??쎄쾶 ?뺣━??媛?대뱶 ?ъ씠??',
+    title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
+    description: '로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.',
   },
 };
 
