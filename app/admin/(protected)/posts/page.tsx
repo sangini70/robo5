@@ -224,7 +224,7 @@ export default function AdminPosts() {
           <div className="flex items-center gap-3 flex-wrap">
             <input
               type="text"
-              placeholder="?쒕ぉ 寃??.."
+              placeholder="제목 검색..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2 w-48"
@@ -234,18 +234,18 @@ export default function AdminPosts() {
               onChange={(e) => setNaverFilter(e.target.value as any)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2"
             >
-              <option value="all">?꾩껜</option>
-              <option value="unrequested">?ㅼ씠踰?誘몄슂泥?쭔</option>
-              <option value="requested">?ㅼ씠踰??붿껌?꾨즺留?</option>
+              <option value="all">전체</option>
+              <option value="unrequested">네이버 미요청만</option>
+              <option value="requested">네이버 요청완료만</option>
             </select>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2"
             >
-              <option value="latest">理쒖떊??</option>
-              <option value="views">議고쉶?섏닚</option>
-              <option value="naver_unrequested">?ㅼ씠踰?誘몄슂泥??곗꽑</option>
+              <option value="latest">최신순</option>
+              <option value="views">조회수순</option>
+              <option value="naver_unrequested">네이버 미요청 우선</option>
             </select>
           </div>
         </div>
@@ -322,7 +322,7 @@ export default function AdminPosts() {
                           onClick={() => handleGoogleComplete(post.id)}
                           className="text-xs font-medium text-yellow-600 hover:text-yellow-900 transition-colors"
                         >
-                          援ш? ?붿껌 ?꾨즺
+                          구글 완료
                         </button>
                       )}
                       {googleStatus === 'requested' && (
@@ -330,7 +330,7 @@ export default function AdminPosts() {
                           onClick={() => handleGoogleIndexed(post.id)}
                           className="text-xs font-medium text-emerald-600 hover:text-emerald-900 transition-colors"
                         >
-                          援ш? ?됱씤 ?꾨즺
+                          구글 완료
                         </button>
                       )}
                       {naverStatus === 'none' && (
@@ -338,7 +338,7 @@ export default function AdminPosts() {
                           onClick={() => handleNaverComplete(post.id)}
                           className="text-xs font-medium text-emerald-600 hover:text-emerald-900 transition-colors"
                         >
-                          ?ㅼ씠踰??붿껌 ?꾨즺
+                          네이버 완료
                         </button>
                       )}
                     </>
