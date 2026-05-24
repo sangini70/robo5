@@ -32,12 +32,12 @@ export default function AdminLogin() {
         window.dispatchEvent(new Event('storage'));
         router.push('/admin/posts');
       } else {
-        setError('鍮꾨?踰덊샇媛 ?쇱튂?섏? ?딆뒿?덈떎.');
+        setError('비밀번호가 일치하지 않습니다.');
         setCheckingPassword(false);
       }
     } catch (err) {
       console.error('Error fetching settings:', err);
-      setError('?ㅼ젙 ?뺣낫瑜?遺덈윭?ㅻ뒗 以??ㅻ쪟媛 諛쒖깮?덉뒿?덈떎.');
+      setError('설정 정보를 불러오는 중 오류가 발생했습니다.');
       setCheckingPassword(false);
     }
   };
@@ -63,13 +63,13 @@ export default function AdminLogin() {
         {!isAdmin ? (
           <form onSubmit={handlePasswordSubmit}>
             <p className="text-sm text-gray-500 font-light mb-6">
-              愿由ъ옄 鍮꾨?踰덊샇瑜??낅젰??二쇱꽭??
+              관리자 비밀번호를 입력해 주세요.
             </p>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="愿由ъ옄 鍮꾨?踰덊샇"
+              placeholder="관리자 비밀번호"
               className="w-full mb-4 bg-white border border-gray-300 rounded-md px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
               required
             />
@@ -78,26 +78,26 @@ export default function AdminLogin() {
               disabled={checkingPassword}
               className="w-full inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors disabled:opacity-50"
             >
-              {checkingPassword ? '?뺤씤 以?..' : '?뺤씤'}
+              {checkingPassword ? '확인 중...' : '확인'}
             </button>
           </form>
         ) : (
           <div>
             <p className="text-sm text-emerald-600 font-medium mb-8">
-              ?대? 愿由ъ옄濡?濡쒓렇?몃릺???덉뒿?덈떎.
+              이미 관리자 로그인되어 있습니다.
             </p>
             <div className="flex flex-col gap-3">
               <button
                 onClick={() => router.push('/admin/posts')}
                 className="w-full inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors"
               >
-                愿由ъ옄 ?섏씠吏濡??대룞
+                관리자 페이지로 이동
               </button>
               <button
                 onClick={handleLogout}
                 className="w-full inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium rounded-md text-gray-700 bg-transparent hover:bg-gray-50 transition-colors"
               >
-                濡쒓렇?꾩썐
+                로그아웃
               </button>
             </div>
           </div>

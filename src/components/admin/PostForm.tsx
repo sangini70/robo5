@@ -47,6 +47,13 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     if (initialData) {
       setOriginalTitle(initialData.title || '');
       setTitleHistory(initialData.titleHistory || []);
+      const rawPublishDate = initialData.publishDate;
+      const publishDateValue = rawPublishDate
+        ? (typeof rawPublishDate?.toDate === 'function' ? rawPublishDate.toDate() : new Date(rawPublishDate))
+        : null;
+      const normalizedPublishDate = publishDateValue && !Number.isNaN(publishDateValue.getTime())
+        ? new Date(publishDateValue.getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 16)
+        : '';
       setFormData({
         title: initialData.title || '',
         slug: initialData.slug || '',
@@ -56,9 +63,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         tags: initialData.tags ? initialData.tags.join(', ') : '',
         thumbnail: initialData.thumbnail || '',
         status: initialData.status || 'draft',
-        publishDate: initialData.publishDate 
-          ? new Date(initialData.publishDate.toDate().getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 16) 
-          : '',
+        publishDate: normalizedPublishDate,
         seoTitle: initialData.seoTitle || '',
         seoDescription: initialData.seoDescription || '',
         customCss: initialData.customCss || '',
@@ -67,7 +72,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         flowType: initialData.flowType || '',
         language: initialData.language || 'ko',
       });
-      if (initialData.status === 'published' && initialData.publishDate && initialData.publishDate.toDate() > new Date()) {
+      if (initialData.status === 'published' && publishDateValue && publishDateValue > new Date()) {
         setPublishMode('schedule');
       }
     }
@@ -100,7 +105,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       const querySnapshot = await getDocs(q);
       const isDuplicate = querySnapshot.docs.some(doc => doc.id !== postId);
       if (isDuplicate) {
-        setSlugError('?대? ?ъ슜 以묒씤 ?щ윭洹몄엯?덈떎.');
+        setSlugError('이미 사용 중인 슬러그입니다.');
       } else {
         setSlugError('');
       }
@@ -182,7 +187,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const handleCleanHtml = () => {
     const cleaned = cleanHtmlContent(formData.content, formData.customJs, formData.customCss, formData.structuredDataJsonLd);
     setFormData(prev => ({ ...prev, ...cleaned }));
-    showToast('HTML???뺣━?섍퀬 ?ㅽ겕由쏀듃/?ㅽ??쇱씠 異붿텧?섏뿀?듬땲??');
+    showToast('HTML을 정리하고 스크립트/스타일을 추출했습니다.');
   };
 
   const handlePreview = () => {
@@ -194,7 +199,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (slugError) {
-      showToast('?щ윭洹??ㅻ쪟瑜??닿껐??二쇱꽭??');
+      showToast('슬러그 오류를 확인해 주세요.');
       return;
     }
     setLoading(true);
@@ -286,22 +291,22 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         const syncData = await syncResponse.json();
         
         if (!syncData.success) {
-          throw new Error(syncData.error || 'JSON ?숆린?붿뿉 ?ㅽ뙣?덉뒿?덈떎.');
+          throw new Error(syncData.error || 'JSON 동기화에 실패했습니다.');
         }
         
         console.log("Sync successful:", syncData);
       } catch (syncError: any) {
         console.error("Error syncing JSON:", syncError);
-        showToast(`?곗씠???숆린???ㅽ뙣: ${syncError.message}`);
+        showToast(`데이터 동기화 실패: ${syncError.message}`);
         setLoading(false);
         return; // Stop if sync fails
       }
 
-      showToast("???諛??숆린???꾨즺!");
+      showToast("게시글 저장 완료!");
       router.push('/admin/posts');
     } catch (error: any) {
       console.error("Error saving post:", error);
-      showToast(`????ㅽ뙣: ${error.message}`);
+      showToast(`저장 실패: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -360,8 +365,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               onChange={handleChange}
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
             >
-              <option value="draft">Draft (?꾩떆???</option>
-              <option value="published">Published (諛쒗뻾)</option>
+              <option value="draft">Draft (임시저장)</option>
+              <option value="published">Published (발행)</option>
             </select>
           </div>
 
@@ -376,7 +381,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
                     onChange={() => setPublishMode('now')}
                     className="text-gray-900 focus:ring-gray-900"
                   />
-                  <span className="text-sm text-gray-700">吏湲?諛쒗뻾</span>
+                  <span className="text-sm text-gray-700">지금 발행</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -402,13 +407,13 @@ export function PostForm({ initialData, postId }: PostFormProps) {
                     }}
                     className="text-gray-900 focus:ring-gray-900"
                   />
-                  <span className="text-sm text-gray-700">?덉빟 諛쒗뻾</span>
+                  <span className="text-sm text-gray-700">예약 발행</span>
                 </label>
               </div>
 
               {publishMode === 'schedule' && (
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">?덉빟 諛쒗뻾 ?쒓컙 (?쒓뎅?쒓컙)</label>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">예약 발행 시간 (대한민국 시간)</label>
                   <input
                     type="datetime-local"
                     name="publishDate"
@@ -456,7 +461,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               placeholder="my-post-slug"
             />
             {slugError && <p className="text-xs text-red-500 mt-1">{slugError}</p>}
-            <p className="text-xs text-gray-400 mt-1">?? my-first-post (?곷Ц ?뚮Ц?? ?섏씠?덈쭔 ?ъ슜)</p>
+            <p className="text-xs text-gray-400 mt-1">예: my-first-post (공백 대신 하이픈 사용)</p>
           </div>
 
           <div>
@@ -467,39 +472,39 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               onChange={handleChange}
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
             >
-              <option value="?섏쑉">?섏쑉</option>
+              <option value="환율">환율</option>
               <option value="ETF">ETF</option>
-              <option value="寃쎌젣 湲곗큹">寃쎌젣 湲곗큹</option>
-              <option value="誘멸뎅 利앹떆">誘멸뎅 利앹떆</option>
-              <option value="?멸툑/吏?먭툑">?멸툑/吏?먭툑</option>
+              <option value="경제 기초">경제 기초</option>
+              <option value="미국 증시">미국 증시</option>
+              <option value="세금/지원금">세금/지원금</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">?먮쫫 ?뱀뀡 諛곗튂 (?좏깮)</label>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">흐름 섹션 배치 (선택)</label>
             <select
               name="flowType"
               value={formData.flowType}
               onChange={handleChange}
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
             >
-              <option value="">諛곗튂 ????</option>
-              <option value="吏湲??쒖옣 ?먮쫫">吏湲??쒖옣 ?먮쫫</option>
-              <option value="怨쇨굅?먯꽌 李얜뒗 ??">怨쇨굅?먯꽌 李얜뒗 ??</option>
-              <option value="?욎쑝濡쒖쓽 諛⑺뼢">?욎쑝濡쒖쓽 諛⑺뼢</option>
+              <option value="">배치 없음</option>
+              <option value="지금 시장 흐름">지금 시장 흐름</option>
+              <option value="과거에서 찾는 답">과거에서 찾는 답</option>
+              <option value="위로의 방향">위로의 방향</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">?몄뼱 (Language)</label>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">언어 (Language)</label>
             <select
               name="language"
               value={formData.language}
               onChange={handleChange}
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
             >
-              <option value="ko">?쒓뎅??(Korean)</option>
-              <option value="en">?곸뼱 (English)</option>
+              <option value="ko">한국어 (Korean)</option>
+              <option value="en">영어 (English)</option>
             </select>
           </div>
 
