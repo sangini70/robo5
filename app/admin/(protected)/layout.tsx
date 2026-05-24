@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signOut } from 'firebase/auth';
 import { useAuth } from '@/src/contexts/AuthContext';
+import { auth } from '@/src/firebase';
 
 export default function AdminLayout({
   children,
@@ -12,25 +14,19 @@ export default function AdminLayout({
 }) {
   const { isAdmin, loading } = useAuth();
   const router = useRouter();
-  const [unlocked, setUnlocked] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setUnlocked(sessionStorage.getItem('admin_unlocked') === 'true');
-  }, []);
-
-  useEffect(() => {
-    if (!loading && unlocked !== null && (!isAdmin || !unlocked)) {
+    if (!loading && !isAdmin) {
       router.replace('/admin/login');
     }
-  }, [isAdmin, unlocked, loading, router]);
+  }, [isAdmin, loading, router]);
 
-  if (loading || unlocked === null || !isAdmin || !unlocked) {
+  if (loading || !isAdmin) {
     return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900">Loading...</div>;
   }
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('admin_unlocked');
-    window.dispatchEvent(new Event('storage'));
+  const handleLogout = async () => {
+    await signOut(auth);
     router.push('/admin/login');
   };
 
