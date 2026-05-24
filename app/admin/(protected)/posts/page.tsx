@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -47,7 +47,7 @@ export default function AdminPosts() {
           googleRequestedAt: new Date().toISOString()
         })
       });
-      showToast('구글 요청완료로 표시되었습니다.');
+      showToast('援ш? ?붿껌 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
       // Refresh list
       const response = await fetch('/api/admin/posts');
       setPosts(await response.json());
@@ -68,7 +68,7 @@ export default function AdminPosts() {
           googleIndexedAt: new Date().toISOString()
         })
       });
-      showToast('구글 색인완료로 표시되었습니다.');
+      showToast('援ш? ?됱씤 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
       // Refresh list
       const response = await fetch('/api/admin/posts');
       setPosts(await response.json());
@@ -104,7 +104,7 @@ export default function AdminPosts() {
           naverRequestedAt: new Date().toISOString()
         })
       });
-      showToast('네이버 요청완료로 표시되었습니다.');
+      showToast('?ㅼ씠踰??붿껌 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
 
       // Refresh list
       const response = await fetch('/api/admin/posts');
@@ -224,7 +224,7 @@ export default function AdminPosts() {
           <div className="flex items-center gap-3 flex-wrap">
             <input
               type="text"
-              placeholder="제목 검색.."
+              placeholder="?쒕ぉ 寃??.."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2 w-48"
@@ -234,18 +234,18 @@ export default function AdminPosts() {
               onChange={(e) => setNaverFilter(e.target.value as any)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2"
             >
-              <option value="all">전체</option>
-              <option value="unrequested">네이버 미요청만</option>
-              <option value="requested">네이버 요청완료만</option>
+              <option value="all">?꾩껜</option>
+              <option value="unrequested">?ㅼ씠踰?誘몄슂泥?쭔</option>
+              <option value="requested">?ㅼ씠踰??붿껌?꾨즺留?/option>
             </select>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2"
             >
-              <option value="latest">최신순</option>
-              <option value="views">조회수순</option>
-              <option value="naver_unrequested">네이버 미요청 우선</option>
+              <option value="latest">理쒖떊??/option>
+              <option value="views">議고쉶?섏닚</option>
+              <option value="naver_unrequested">?ㅼ씠踰?誘몄슂泥??곗꽑</option>
             </select>
           </div>
         </div>
@@ -298,15 +298,15 @@ export default function AdminPosts() {
                     googleStatus === 'requested' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-gray-100 text-gray-700'
                   }`}>
-                    {googleStatus === 'indexed' ? '?윟 ?됱씤?뺤씤' :
-                     googleStatus === 'requested' ? '?윞 ?붿껌?꾨즺' : '??誘몄슂泥?'}
+                    {googleStatus === 'indexed' ? '색인 완료' :
+                     googleStatus === 'requested' ? '요청 완료' : '미요청'}
                   </span>
                 </td>
                 <td className="px-6 py-4">
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     naverStatus === 'requested' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-700'
                   }`}>
-                    {naverStatus === 'requested' ? '?윟 ?붿껌?꾨즺' : '??誘몄슂泥?'}
+                    {naverStatus === 'requested' ? '요청 완료' : '미요청'}
                   </span>
                 </td>
                 <td className="px-6 py-4 font-medium text-gray-900">
@@ -314,7 +314,7 @@ export default function AdminPosts() {
                 </td>
                 <td className="px-6 py-4 text-right space-x-3">
                   {isScheduled ? (
-                    <span className="text-xs text-gray-400 cursor-help" title="발행 전 요청 가능>발행 대기중">대기중</span>
+                    <span className="text-xs text-gray-400 cursor-help" title="諛쒗뻾 ?덉빟 寃뚯떆湲?낅땲??>?湲곗쨷</span>
                   ) : isPublished ? (
                     <>
                       {googleStatus === 'none' && (
@@ -322,7 +322,7 @@ export default function AdminPosts() {
                           onClick={() => handleGoogleComplete(post.id)}
                           className="text-xs font-medium text-yellow-600 hover:text-yellow-900 transition-colors"
                         >
-                          구글 완료
+                          援ш? ?붿껌 ?꾨즺
                         </button>
                       )}
                       {googleStatus === 'requested' && (
@@ -330,7 +330,7 @@ export default function AdminPosts() {
                           onClick={() => handleGoogleIndexed(post.id)}
                           className="text-xs font-medium text-emerald-600 hover:text-emerald-900 transition-colors"
                         >
-                          구글 색인완료
+                          援ш? ?됱씤 ?꾨즺
                         </button>
                       )}
                       {naverStatus === 'none' && (
@@ -338,7 +338,7 @@ export default function AdminPosts() {
                           onClick={() => handleNaverComplete(post.id)}
                           className="text-xs font-medium text-emerald-600 hover:text-emerald-900 transition-colors"
                         >
-                          네이버 완료
+                          ?ㅼ씠踰??붿껌 ?꾨즺
                         </button>
                       )}
                     </>
@@ -353,7 +353,7 @@ export default function AdminPosts() {
             {paginatedPosts.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                  No posts found.
+                  寃뚯떆湲???놁뒿?덈떎.
                 </td>
               </tr>
             )}
@@ -368,7 +368,7 @@ export default function AdminPosts() {
             disabled={currentPage === 1}
             className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            이전
+            ?댁쟾
           </button>
 
           <div className="flex gap-1">
@@ -392,7 +392,7 @@ export default function AdminPosts() {
             disabled={currentPage === totalPages}
             className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            다음
+            ?ㅼ쓬
           </button>
         </div>
       )}
@@ -400,20 +400,20 @@ export default function AdminPosts() {
       {postToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Delete Post</h3>
-            <p className="text-sm text-gray-500 mb-6">Are you sure you want to delete this post? This action cannot be undone.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">寃뚯떆湲 ??젣</h3>
+            <p className="text-sm text-gray-500 mb-6">??寃뚯떆湲????젣?섏떆寃좎뒿?덇퉴? ???묒뾽? ?섎룎由????놁뒿?덈떎.</p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={cancelDelete}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
               >
-                Cancel
+                痍⑥냼
               </button>
               <button
                 onClick={confirmDelete}
                 className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
               >
-                Delete
+                ??젣
               </button>
             </div>
           </div>

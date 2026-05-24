@@ -63,7 +63,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Last 7 Days Trend */}
         <div className="bg-white border border-gray-200 rounded-sm p-6">
-          <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">理쒓렐 7??議고쉶??異붿씠</h3>
+          <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">최근 7일 조회수 추이</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={stats.trendData}>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
 
         {/* Publish Hour Performance */}
         <div className="bg-white border border-gray-200 rounded-sm p-6">
-          <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">諛쒗뻾 ?쒓컙?蹂??됯퇏 議고쉶??</h3>
+          <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">발행 시간대별 평균 조회수</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={stats.hourData}>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
 
       {/* Top 5 Posts */}
       <div className="bg-white border border-gray-200 rounded-sm p-6">
-        <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">?멸린湲 TOP 5 (議고쉶??湲곗?)</h3>
+        <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest mb-6">조회수 TOP 5 (조회수 기준)</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -127,7 +127,7 @@ export default function DashboardPage() {
               })}
               {stats.topPosts.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="py-8 text-center text-gray-500 text-sm">?곗씠?곌? ?놁뒿?덈떎.</td>
+                  <td colSpan={4} className="py-8 text-center text-gray-500 text-sm">조회 데이터가 없습니다.</td>
                 </tr>
               )}
             </tbody>
@@ -139,8 +139,8 @@ export default function DashboardPage() {
         {/* Low CTR Posts */}
         <div className="bg-white border border-gray-200 rounded-sm p-6">
           <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest">CTR ??? 湲 TOP 5</h3>
-            <p className="text-xs text-gray-500 mt-1">?몄텧??10???댁긽 湲곗?. ?몃꽕?쇱씠???쒕ぉ 媛쒖꽑???꾩슂?????덉뒿?덈떎.</p>
+            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest">CTR 낮은 글 TOP 5</h3>
+            <p className="text-xs text-gray-500 mt-1">노출수 10개 이상인 글 중 CTR이 낮은 글입니다. 클릭은 많지만 전환이 낮은 글을 확인해보세요.</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -161,7 +161,7 @@ export default function DashboardPage() {
                 ))}
                 {stats.lowCtrPosts.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="py-8 text-center text-gray-500 text-sm">議곌굔??留욌뒗 ?곗씠?곌? ?놁뒿?덈떎.</td>
+                    <td colSpan={3} className="py-8 text-center text-gray-500 text-sm">비교할 낮은 CTR 글이 없습니다.</td>
                   </tr>
                 )}
               </tbody>
@@ -172,8 +172,8 @@ export default function DashboardPage() {
         {/* High CTR Low Views Posts */}
         <div className="bg-white border border-gray-200 rounded-sm p-6">
           <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest">CTR ?믨퀬 議고쉶????? 湲 TOP 5</h3>
-            <p className="text-xs text-gray-500 mt-1">?됯퇏 CTR ?댁긽 & ?됯퇏 議고쉶??誘몃쭔. ?몄텧 ?꾩튂 媛쒖꽑???꾩슂?????덉뒿?덈떎.</p>
+            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-widest">CTR 높지만 조회수 낮은 글 TOP 5</h3>
+            <p className="text-xs text-gray-500 mt-1">높은 CTR과 낮은 조회수 조합의 글입니다. 노출을 더 늘릴 후보를 확인할 때 사용하세요.</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -194,7 +194,7 @@ export default function DashboardPage() {
                 ))}
                 {stats.highCtrLowViewsPosts.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="py-8 text-center text-gray-500 text-sm">議곌굔??留욌뒗 ?곗씠?곌? ?놁뒿?덈떎.</td>
+                    <td colSpan={3} className="py-8 text-center text-gray-500 text-sm">비교할 글이 없습니다.</td>
                   </tr>
                 )}
               </tbody>
