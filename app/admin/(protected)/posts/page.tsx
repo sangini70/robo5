@@ -236,14 +236,14 @@ export default function AdminPosts() {
             >
               <option value="all">?꾩껜</option>
               <option value="unrequested">?ㅼ씠踰?誘몄슂泥?쭔</option>
-              <option value="requested">?ㅼ씠踰??붿껌?꾨즺留?/option>
+              <option value="requested">?ㅼ씠踰??붿껌?꾨즺留?</option>
             </select>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="bg-white border border-gray-300 text-gray-700 text-sm rounded-md focus:ring-gray-900 focus:border-gray-900 block p-2"
             >
-              <option value="latest">理쒖떊??/option>
+              <option value="latest">理쒖떊??</option>
               <option value="views">議고쉶?섏닚</option>
               <option value="naver_unrequested">?ㅼ씠踰?誘몄슂泥??곗꽑</option>
             </select>
@@ -314,7 +314,7 @@ export default function AdminPosts() {
                 </td>
                 <td className="px-6 py-4 text-right space-x-3">
                   {isScheduled ? (
-                    <span className="text-xs text-gray-400 cursor-help" title="諛쒗뻾 ?덉빟 寃뚯떆湲?낅땲??>?湲곗쨷</span>
+                    <span className="text-xs text-gray-400 cursor-help" title="발행 예약 게시글입니다. 예약 발행중">예약 발행중</span>
                   ) : isPublished ? (
                     <>
                       {googleStatus === 'none' && (
