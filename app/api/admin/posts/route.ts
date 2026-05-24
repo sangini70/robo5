@@ -19,7 +19,13 @@ function getMasterPosts() {
   }
   try {
     const content = fs.readFileSync(MASTER_FILE, 'utf8');
-    return JSON.parse(content);
+    const posts = JSON.parse(content);
+    return Array.isArray(posts)
+      ? posts.map((post: any, index: number) => ({
+          ...post,
+          id: post.id ?? post.slug ?? String(index + 1),
+        }))
+      : [];
   } catch (e) {
     console.error('Error reading master file', e);
     return [];
