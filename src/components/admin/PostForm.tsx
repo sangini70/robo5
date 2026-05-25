@@ -285,6 +285,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
+          createdAt: postData.createdAt,
           payloadKeys: Object.keys(postData),
           postData,
         });
