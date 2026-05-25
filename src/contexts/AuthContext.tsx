@@ -45,6 +45,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const adminByEmail = firebaseUser.emailVerified && firebaseUser.email === 'luganopizza@gmail.com';
 
       setUser(firebaseUser);
+      console.log("ADMIN AUTH USER", {
+        uid: firebaseUser?.uid,
+        email: firebaseUser?.email,
+        emailVerified: firebaseUser?.emailVerified,
+      });
       setIsAdmin(adminByRole || adminByEmail);
       setLoading(false);
     });
