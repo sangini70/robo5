@@ -250,6 +250,18 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         postData.publishHour = publishHour;
       }
 
+      const mode = postId ? 'edit' : 'create';
+      const path = postId ? `posts/${postId}` : 'posts';
+      console.log("POST SAVE DEBUG", {
+        mode,
+        id: postId || null,
+        slug: formData.slug,
+        path,
+        uid: auth.currentUser?.uid,
+        email: auth.currentUser?.email,
+        payloadKeys: Object.keys(postData),
+      });
+
       if (postId) {
         if (originalTitle && originalTitle !== formData.title) {
           postData.titleHistory = [
@@ -264,6 +276,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           postData.titleHistory = titleHistory;
         }
 
+        console.log("WRITE BEFORE UPDATEDOC", {
+          postId,
+          slug: formData.slug,
+          uid: auth.currentUser?.uid,
+          email: auth.currentUser?.email,
+          payloadKeys: Object.keys(postData),
+          postData,
+        });
         await updateDoc(doc(db, 'posts', postId), postData);
       } else {
         postData.titleHistory = [];
@@ -273,6 +293,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         postData.googleIndexStatus = 'none';
         postData.naverIndexStatus = 'none';
 
+        console.log("WRITE BEFORE ADDDOC", {
+          postId,
+          slug: formData.slug,
+          uid: auth.currentUser?.uid,
+          email: auth.currentUser?.email,
+          payloadKeys: Object.keys(postData),
+          postData,
+        });
         await addDoc(collection(db, 'posts'), {
           ...postData,
           titleHistory: [],
