@@ -276,6 +276,10 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           postData.titleHistory = titleHistory;
         }
 
+        if (initialData?.createdAt) {
+          postData.createdAt = initialData.createdAt;
+        }
+
         console.log("WRITE BEFORE UPDATEDOC", {
           postId,
           slug: formData.slug,
