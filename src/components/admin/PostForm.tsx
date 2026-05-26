@@ -284,10 +284,23 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           delete postData.createdAt;
         }
 
+        const lookupSlug = initialData?.slug || postId || formData.slug;
+        const firestoreQuery = query(
+          collection(db, 'posts'),
+          where('slug', '==', lookupSlug)
+        );
+        const firestoreSnapshot = await getDocs(firestoreQuery);
+        const resolvedDoc = firestoreSnapshot.docs[0];
+        const resolvedDocId = resolvedDoc?.id || postId;
+        const resolvedCreatedAt = resolvedDoc?.data()?.createdAt ?? null;
+
+        console.log("FIRESTORE QUERY MATCH COUNT", firestoreSnapshot.size);
+        console.log("RESOLVED DOC ID", resolvedDocId ?? null);
+        console.log("RESOLVED CREATEDAT", resolvedCreatedAt);
         console.log("UPDATED PAYLOAD KEYS", Object.keys(postData));
         console.log("FINAL createdAt VALUE", postData.createdAt ?? null);
         console.log("WRITE BEFORE UPDATEDOC", {
-          postId,
+          postId: resolvedDocId,
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
@@ -295,7 +308,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           payloadKeys: Object.keys(postData),
           postData,
         });
-        await updateDoc(doc(db, 'posts', postId), postData);
+        await updateDoc(doc(db, 'posts', resolvedDocId), postData);
       } else {
         postData.titleHistory = [];
         postData.postViews = 0;
