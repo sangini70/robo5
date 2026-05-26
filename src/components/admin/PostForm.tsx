@@ -280,18 +280,20 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         if (initialData?.createdAt) {
           postData.createdAt = initialData.createdAt;
         }
-        if (!postData.createdAt) {
+        if (!(postData.createdAt instanceof Timestamp)) {
           delete postData.createdAt;
         }
 
+        console.log("UPDATED PAYLOAD KEYS", Object.keys(postData));
+        console.log("FINAL createdAt VALUE", postData.createdAt ?? null);
         console.log("WRITE BEFORE UPDATEDOC", {
           postId,
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
-          createdAt: payload.createdAt ?? null,
-          payloadKeys: Object.keys(payload),
-          postData: payload,
+          createdAt: postData.createdAt ?? null,
+          payloadKeys: Object.keys(postData),
+          postData,
         });
         await updateDoc(doc(db, 'posts', postId), postData);
       } else {
