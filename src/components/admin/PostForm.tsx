@@ -289,7 +289,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
-          createdAt: payload.createdAt,
+          createdAt: payload.createdAt ?? null,
           payloadKeys: Object.keys(payload),
           postData: payload,
         });
