@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/src/firebase';
 
 const PostForm = dynamic(() => import('@/src/components/admin/PostForm').then(mod => mod.PostForm), { ssr: false });
 
@@ -21,7 +23,12 @@ export default function AdminEditPost() {
         const posts = await response.json();
         const post = posts.find((p: any) => p.id === id);
         if (post) {
-          setInitialData(post);
+          const firestoreDoc = await getDoc(doc(db, 'posts', id));
+          const firestoreCreatedAt = firestoreDoc.exists() ? firestoreDoc.data()?.createdAt : undefined;
+          setInitialData({
+            ...post,
+            createdAt: firestoreCreatedAt ?? post.createdAt,
+          });
         } else {
           router.push('/admin/posts');
         }
