@@ -101,6 +101,32 @@ service cloud.firestore {
              data.updatedAt is timestamp;
     }
 
+    function isValidLegacyPostUpdate(data) {
+      return hasRequiredFields(['title', 'slug', 'content', 'status', 'authorId', 'updatedAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+             data.slug is string && data.slug.size() > 0 && data.slug.size() < 200 &&
+             (!('description' in data) || (data.description is string && data.description.size() <= 1000)) &&
+             data.content is string && data.content.size() <= 1000000 &&
+             (!('category' in data) || (data.category is string && data.category.size() <= 100)) &&
+             (!('tags' in data) || (data.tags is list && data.tags.size() <= 50)) &&
+             (!('thumbnail' in data) || (data.thumbnail is string && data.thumbnail.size() <= 2000)) &&
+             data.status in ['draft', 'published', 'scheduled'] &&
+             (!('publishDate' in data) || data.publishDate is timestamp || data.publishDate == null) &&
+             (!('seoTitle' in data) || (data.seoTitle is string && data.seoTitle.size() <= 200)) &&
+             (!('seoDescription' in data) || (data.seoDescription is string && data.seoDescription.size() <= 1000)) &&
+             (!('postViews' in data) || data.postViews is number) &&
+             (!('impressions' in data) || data.impressions is number) &&
+             (!('clicks' in data) || data.clicks is number) &&
+             (!('dailyViews' in data) || data.dailyViews is map) &&
+             (!('dailyImpressions' in data) || data.dailyImpressions is map) &&
+             (!('dailyClicks' in data) || data.dailyClicks is map) &&
+             (!('titleHistory' in data) || data.titleHistory is list) &&
+             (!('publishHour' in data) || data.publishHour is number) &&
+             (!('flowType' in data) || data.flowType is string) &&
+             (!('language' in data) || data.language is string) &&
+               data.authorId is string && data.authorId.size() > 0;
+      }
+
     function isOnlyIncrementingStats() {
       let affectedKeys = request.resource.data.diff(resource.data).affectedKeys();
       
@@ -141,8 +167,11 @@ service cloud.firestore {
       
       allow create: if isAdmin() && isValidPost(request.resource.data) && request.resource.data.authorId == request.auth.uid;
       
-      allow update: if (isAdmin() && isValidPost(request.resource.data) && 
-                    request.resource.data.createdAt == resource.data.createdAt) ||
+      allow update: if (isAdmin() && (
+                    (!('createdAt' in resource.data) && isValidLegacyPostUpdate(request.resource.data)) ||
+                    (('createdAt' in resource.data) && isValidPost(request.resource.data) &&
+                    request.resource.data.createdAt == resource.data.createdAt)
+                  )) ||
                     (resource.data.status == 'published' && isOnlyIncrementingStats());
                     
       allow delete: if isAdmin();
