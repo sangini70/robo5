@@ -252,6 +252,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
       const mode = postId ? 'edit' : 'create';
       const path = postId ? `posts/${postId}` : 'posts';
+      const payload = postData;
       console.log("POST SAVE DEBUG", {
         mode,
         id: postId || null,
@@ -259,7 +260,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         path,
         uid: auth.currentUser?.uid,
         email: auth.currentUser?.email,
-        payloadKeys: Object.keys(postData),
+        payloadKeys: Object.keys(payload),
       });
 
       if (postId) {
@@ -285,9 +286,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
-          createdAt: postData.createdAt,
-          payloadKeys: Object.keys(postData),
-          postData,
+          createdAt: payload.createdAt,
+          payloadKeys: Object.keys(payload),
+          postData: payload,
         });
         await updateDoc(doc(db, 'posts', postId), postData);
       } else {
@@ -303,8 +304,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           slug: formData.slug,
           uid: auth.currentUser?.uid,
           email: auth.currentUser?.email,
-          payloadKeys: Object.keys(postData),
-          postData,
+          payloadKeys: Object.keys(payload),
+          postData: payload,
         });
         await addDoc(collection(db, 'posts'), {
           ...postData,

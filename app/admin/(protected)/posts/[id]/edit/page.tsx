@@ -24,7 +24,15 @@ export default function AdminEditPost() {
         const post = posts.find((p: any) => p.id === id);
         if (post) {
           const firestoreDoc = await getDoc(doc(db, 'posts', id));
-          const firestoreCreatedAt = firestoreDoc.exists() ? firestoreDoc.data()?.createdAt : undefined;
+          const firestoreData = firestoreDoc.data() ?? {};
+          const firestoreCreatedAt = firestoreData.createdAt;
+          console.log("EDIT PAGE FIRESTORE DEBUG", {
+            id,
+            exists: firestoreDoc.exists(),
+            dataKeys: Object.keys(firestoreData),
+            createdAt: firestoreCreatedAt,
+            initialCreatedAt: firestoreCreatedAt ?? post.createdAt,
+          });
           setInitialData({
             ...post,
             createdAt: firestoreCreatedAt ?? post.createdAt,
