@@ -280,6 +280,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         if (initialData?.createdAt) {
           postData.createdAt = initialData.createdAt;
         }
+        if (!postData.createdAt) {
+          delete postData.createdAt;
+        }
 
         console.log("WRITE BEFORE UPDATEDOC", {
           postId,
