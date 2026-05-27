@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+.next/
+.next/
+.next/
+.next/
+.next/

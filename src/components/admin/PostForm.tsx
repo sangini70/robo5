@@ -314,16 +314,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           postData.titleHistory = titleHistory;
         }
 
-        if (initialData?.createdAt) {
-          postData.createdAt = initialData.createdAt;
-        }
-        if (
-          postData.createdAt === null ||
-          postData.createdAt === undefined ||
-          typeof postData.createdAt?.toDate !== 'function'
-        ) {
-          delete postData.createdAt;
-        }
+        delete postData.createdAt;
         const lookupSlug = initialData?.slug || postId || formData.slug;
         const firestoreQuery = query(
           collection(db, 'posts'),
@@ -338,6 +329,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         console.log("RESOLVED DOC ID", resolvedDocId ?? null);
         console.log("RESOLVED CREATEDAT", resolvedCreatedAt);
         console.log("UPDATED PAYLOAD KEYS", Object.keys(postData));
+        console.log("UPDATE CREATEDAT TYPE", typeof postData.createdAt);
         console.log("FINAL createdAt VALUE", postData.createdAt ?? null);
         console.log("WRITE BEFORE UPDATEDOC", {
           postId: resolvedDocId,

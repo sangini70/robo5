@@ -169,8 +169,8 @@ service cloud.firestore {
       allow create: if isAdmin() && isValidPost(request.resource.data) && request.resource.data.authorId == request.auth.uid;
       
       allow update: if (isAdmin() && (
-                    (!('createdAt' in resource.data) && isValidLegacyPostUpdate(request.resource.data)) ||
-                    (('createdAt' in resource.data) && isValidPost(request.resource.data) &&
+                    (!('createdAt' in request.resource.data) && isValidLegacyPostUpdate(request.resource.data)) ||
+                    (('createdAt' in request.resource.data) && isValidPost(request.resource.data) &&
                     request.resource.data.createdAt == resource.data.createdAt)
                   )) ||
                     (resource.data.status == 'published' && isOnlyIncrementingStats());
