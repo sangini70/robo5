@@ -99,6 +99,11 @@ function saveAndSync(posts: any[]) {
 
 export async function GET() {
   const posts = getMasterPosts();
+  console.log('ADMIN POSTS SOURCE DEBUG', {
+    dataSource: 'public/data/posts-master.json',
+    postsCount: posts.length,
+    firstSlug: posts[0]?.slug ?? null,
+  });
   return NextResponse.json(posts);
 }
 

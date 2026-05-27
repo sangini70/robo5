@@ -1,7 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { db, auth } from '../../firebase';
-import { collection, addDoc, doc, updateDoc, serverTimestamp, Timestamp, query, where, getDocs } from 'firebase/firestore';
+import { auth } from '../../firebase';
 import DOMPurify from 'dompurify';
 import { RichTextEditor } from './RichTextEditor';
 
@@ -101,9 +100,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const checkSlugAvailability = async (slug: string) => {
     if (!slug) return;
     try {
-      const q = query(collection(db, 'posts'), where('slug', '==', slug));
-      const querySnapshot = await getDocs(q);
-      const isDuplicate = querySnapshot.docs.some(doc => doc.id !== postId);
+      const response = await fetch('/api/admin/posts', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error('게시글 목록을 불러오지 못했습니다.');
+      }
+      const posts = await response.json();
+      const isDuplicate = Array.isArray(posts)
+        ? posts.some((doc: any) => doc.slug === slug && doc.id !== postId)
+        : false;
       if (isDuplicate) {
         setSlugError('이미 사용 중인 슬러그입니다.');
       } else {
@@ -196,6 +200,43 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     setShowPreview(true);
   };
 
+  const normalizeJsonDateValue = (value: any) => {
+    if (!value) return null;
+    if (typeof value?.toDate === 'function') return value.toDate().toISOString();
+    if (value instanceof Date) return value.toISOString();
+    if (typeof value === 'string') return value;
+    return null;
+  };
+
+  const buildJsonPostPayload = (sourcePostData: any, currentMode: 'create' | 'edit') => {
+    const jsonPayload = { ...sourcePostData };
+    const publishDateValue = normalizeJsonDateValue(sourcePostData.publishDate) || (
+      formData.status === 'published'
+        ? (publishMode === 'schedule' && formData.publishDate
+          ? new Date(`${formData.publishDate}+09:00`).toISOString()
+          : new Date().toISOString())
+        : null
+    );
+    const createdAtValue = currentMode === 'edit'
+      ? (normalizeJsonDateValue(initialData?.createdAt) || normalizeJsonDateValue(sourcePostData.createdAt))
+      : (normalizeJsonDateValue(sourcePostData.createdAt) || new Date().toISOString());
+
+    if (publishDateValue) {
+      jsonPayload.publishDate = publishDateValue;
+    } else {
+      delete jsonPayload.publishDate;
+    }
+
+    if (createdAtValue) {
+      jsonPayload.createdAt = createdAtValue;
+    } else {
+      delete jsonPayload.createdAt;
+    }
+
+    jsonPayload.updatedAt = new Date().toISOString();
+    return jsonPayload;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (slugError) {
@@ -215,10 +256,10 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       if (formData.status === 'published') {
         if (publishMode === 'schedule' && formData.publishDate) {
           const kstDate = new Date(`${formData.publishDate}+09:00`);
-          publishTimestamp = Timestamp.fromDate(kstDate);
+          publishTimestamp = kstDate.toISOString();
           publishHour = kstDate.getHours();
         } else {
-          publishTimestamp = serverTimestamp();
+          publishTimestamp = new Date().toISOString();
           const now = new Date();
           const kstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
           publishHour = kstNow.getUTCHours();
@@ -243,7 +284,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         flowType: formData.flowType,
         language: formData.language,
         authorId: auth.currentUser?.uid,
-        updatedAt: serverTimestamp(),
+        updatedAt: new Date().toISOString(),
       };
       
       if (publishHour !== null) {
@@ -251,7 +292,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       }
 
       const mode = postId ? 'edit' : 'create';
-      const path = postId ? `posts/${postId}` : 'posts';
+      const path = '/api/admin/posts';
       const payload = postData;
       console.log("POST SAVE DEBUG", {
         mode,
@@ -280,35 +321,13 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         if (initialData?.createdAt) {
           postData.createdAt = initialData.createdAt;
         }
-        if (!(postData.createdAt instanceof Timestamp)) {
+        if (
+          postData.createdAt === null ||
+          postData.createdAt === undefined ||
+          typeof postData.createdAt?.toDate !== 'function'
+        ) {
           delete postData.createdAt;
         }
-
-        const lookupSlug = initialData?.slug || postId || formData.slug;
-        const firestoreQuery = query(
-          collection(db, 'posts'),
-          where('slug', '==', lookupSlug)
-        );
-        const firestoreSnapshot = await getDocs(firestoreQuery);
-        const resolvedDoc = firestoreSnapshot.docs[0];
-        const resolvedDocId = resolvedDoc?.id || postId;
-        const resolvedCreatedAt = resolvedDoc?.data()?.createdAt ?? null;
-
-        console.log("FIRESTORE QUERY MATCH COUNT", firestoreSnapshot.size);
-        console.log("RESOLVED DOC ID", resolvedDocId ?? null);
-        console.log("RESOLVED CREATEDAT", resolvedCreatedAt);
-        console.log("UPDATED PAYLOAD KEYS", Object.keys(postData));
-        console.log("FINAL createdAt VALUE", postData.createdAt ?? null);
-        console.log("WRITE BEFORE UPDATEDOC", {
-          postId: resolvedDocId,
-          slug: formData.slug,
-          uid: auth.currentUser?.uid,
-          email: auth.currentUser?.email,
-          createdAt: postData.createdAt ?? null,
-          payloadKeys: Object.keys(postData),
-          postData,
-        });
-        await updateDoc(doc(db, 'posts', resolvedDocId), postData);
       } else {
         postData.titleHistory = [];
         postData.postViews = 0;
@@ -316,40 +335,37 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         postData.clicks = 0;
         postData.googleIndexStatus = 'none';
         postData.naverIndexStatus = 'none';
-
-        console.log("WRITE BEFORE ADDDOC", {
-          postId,
-          slug: formData.slug,
-          uid: auth.currentUser?.uid,
-          email: auth.currentUser?.email,
-          payloadKeys: Object.keys(payload),
-          postData: payload,
-        });
-        await addDoc(collection(db, 'posts'), {
-          ...postData,
-          titleHistory: [],
-          postViews: 0,
-          impressions: 0,
-          clicks: 0,
-          createdAt: serverTimestamp(),
-          googleIndexStatus: 'none',
-          naverIndexStatus: 'none',
-        });
       }
 
-      // Sync to JSON files
-      try {
-        const syncResponse = await fetch('/api/sync-json', { method: 'POST' });
-        const syncData = await syncResponse.json();
+      const jsonPayload = buildJsonPostPayload(postData, mode);
+      const savePayload = postId ? { ...jsonPayload, id: postId } : jsonPayload;
+      console.log("JSON PAYLOAD DEBUG", {
+        mode,
+        slug: formData.slug,
+        payloadKeys: Object.keys(jsonPayload),
+      });
+      console.log("ADMIN POSTS SAVE DEBUG", {
+        mode,
+        id: postId || null,
+        slug: formData.slug,
+        endpoint: path,
+        uid: auth.currentUser?.uid,
+        email: auth.currentUser?.email,
+        payloadKeys: Object.keys(savePayload),
+      });
 
-        if (!syncData.success) {
-          console.warn("JSON sync failed:", syncData.error || 'JSON 동기화에 실패했습니다.');
-        } else {
-          console.log("Sync successful:", syncData);
-        }
-      } catch (syncError: any) {
-        console.warn("Error syncing JSON:", syncError);
+      const saveResponse = await fetch('/api/admin/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(savePayload),
+      });
+      const saveData = await saveResponse.json();
+
+      if (!saveResponse.ok || !saveData.success) {
+        throw new Error(saveData.error || '게시글 저장에 실패했습니다.');
       }
+
+      console.log('ADMIN POSTS SAVE SUCCESS', saveData);
 
       showToast("게시글 저장 완료!");
       router.push('/admin/posts');

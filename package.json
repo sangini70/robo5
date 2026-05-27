@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync-json": "tsx scripts/sync-json.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
@@ -31,6 +32,7 @@
     "@types/react-dom": "^19.0.0",
     "@types/turndown": "^5.0.6",
     "tailwindcss": "^4.1.14",
+    "tsx": "^4.22.3",
     "typescript": "~5.8.2"
   }
 }
