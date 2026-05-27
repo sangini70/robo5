@@ -1,28 +1,31 @@
-import fs from 'fs';
-import path from 'path';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../src/firebase';
 import { writeJsonArtifacts } from '../src/lib/sync-json-artifacts';
 
-const DATA_DIR = path.join(process.cwd(), 'public', 'data');
-const MASTER_FILE = path.join(DATA_DIR, 'posts-master.json');
-
-function normalizeMasterPosts() {
-  if (!fs.existsSync(MASTER_FILE)) {
-    return [];
+function normalizeFirestoreValue(value: any): any {
+  if (value == null) return value;
+  if (typeof value?.toDate === 'function') {
+    return value.toDate().toISOString();
   }
-
-  try {
-    const content = fs.readFileSync(MASTER_FILE, 'utf8');
-    const posts = JSON.parse(content);
-    return Array.isArray(posts)
-      ? posts.map((post: any, index: number) => ({
-          ...post,
-          id: post.id ?? post.slug ?? String(index + 1),
-        }))
-      : [];
-  } catch (error) {
-    console.error('Local sync-json failed to read posts-master.json:', error);
-    return [];
+  if (value instanceof Date) {
+    return value.toISOString();
   }
+  if (Array.isArray(value)) {
+    return value.map(normalizeFirestoreValue);
+  }
+  if (typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, nestedValue]) => [key, normalizeFirestoreValue(nestedValue)])
+    );
+  }
+  return value;
+}
+
+function normalizeFirestorePosts(posts: any[]) {
+  return posts.map((post: any, index: number) => ({
+    ...normalizeFirestoreValue(post),
+    id: post.id ?? post.slug ?? String(index + 1),
+  }));
 }
 
 function filterPublicPosts(posts: any[]) {
@@ -43,13 +46,19 @@ function filterPublicPosts(posts: any[]) {
 
 async function main() {
   console.log('Starting local sync-json script...');
-  console.log('Reading posts from public/data/posts-master.json');
+  console.log('Reading posts from Firestore...');
 
-  const masterPosts = normalizeMasterPosts();
-  const publicPosts = filterPublicPosts(masterPosts);
+  const firestoreQuery = query(collection(db, 'posts'), where('status', '==', 'published'));
+  const snapshot = await getDocs(firestoreQuery);
+  const firestorePosts = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  const normalizedPosts = normalizeFirestorePosts(firestorePosts);
+  const publicPosts = filterPublicPosts(normalizedPosts);
 
-  console.log(`Loaded ${masterPosts.length} master posts.`);
-  console.log(`Fetched ${publicPosts.length} published posts from posts-master.json.`);
+  console.log(`Loaded ${firestorePosts.length} published posts from Firestore.`);
+  console.log(`Fetched ${publicPosts.length} published posts from Firestore.`);
 
   writeJsonArtifacts(publicPosts);
   console.log('Local sync-json complete.');
