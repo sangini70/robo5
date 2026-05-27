@@ -1,7 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { db, auth } from '../../firebase';
-import { collection, addDoc, doc, updateDoc, serverTimestamp, Timestamp, query, where, getDocs } from 'firebase/firestore';
+import { auth } from '../../firebase';
 import DOMPurify from 'dompurify';
 import { RichTextEditor } from './RichTextEditor';
 
@@ -101,9 +100,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const checkSlugAvailability = async (slug: string) => {
     if (!slug) return;
     try {
-      const q = query(collection(db, 'posts'), where('slug', '==', slug));
-      const querySnapshot = await getDocs(q);
-      const isDuplicate = querySnapshot.docs.some(doc => doc.id !== postId);
+      const response = await fetch('/api/admin/posts', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error('게시글 목록을 불러오지 못했습니다.');
+      }
+      const posts = await response.json();
+      const isDuplicate = Array.isArray(posts)
+        ? posts.some((doc: any) => doc.slug === slug && doc.id !== postId)
+        : false;
       if (isDuplicate) {
         setSlugError('이미 사용 중인 슬러그입니다.');
       } else {
@@ -262,6 +266,19 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         }
       }
 
+      const titleHistoryValue = postId
+        ? (originalTitle && originalTitle !== formData.title
+          ? [
+              ...titleHistory,
+              {
+                oldTitle: originalTitle,
+                newTitle: formData.title,
+                changedAt: new Date().toISOString(),
+              },
+            ]
+          : titleHistory)
+        : [];
+
       const postData: any = {
         title: formData.title,
         slug: formData.slug,
@@ -281,15 +298,28 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         language: formData.language,
         authorId: auth.currentUser?.uid,
         updatedAt: new Date().toISOString(),
+        titleHistory: titleHistoryValue,
       };
-      
+
       if (publishHour !== null) {
         postData.publishHour = publishHour;
       }
 
       const mode = postId ? 'edit' : 'create';
-      const path = postId ? `posts/${postId}` : 'posts';
-      const payload = postData;
+      const path = '/api/admin/posts';
+      const jsonPayload = buildJsonPostPayload(postData, mode);
+      const savePayload = postId
+        ? { ...jsonPayload, id: postId }
+        : {
+            ...jsonPayload,
+            titleHistory: [],
+            postViews: 0,
+            impressions: 0,
+            clicks: 0,
+            googleIndexStatus: 'none',
+            naverIndexStatus: 'none',
+          };
+
       console.log("POST SAVE DEBUG", {
         mode,
         id: postId || null,
@@ -297,76 +327,20 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         path,
         uid: auth.currentUser?.uid,
         email: auth.currentUser?.email,
-        payloadKeys: Object.keys(payload),
+        payloadKeys: Object.keys(savePayload),
       });
 
-      if (postId) {
-        if (originalTitle && originalTitle !== formData.title) {
-          postData.titleHistory = [
-            ...titleHistory,
-            {
-              oldTitle: originalTitle,
-              newTitle: formData.title,
-              changedAt: new Date().toISOString()
-            }
-          ];
-        } else {
-          postData.titleHistory = titleHistory;
-        }
+      const response = await fetch('/api/admin/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(savePayload),
+      });
 
-        delete postData.createdAt;
-        const lookupSlug = initialData?.slug || postId || formData.slug;
-        const firestoreQuery = query(
-          collection(db, 'posts'),
-          where('slug', '==', lookupSlug)
-        );
-        const firestoreSnapshot = await getDocs(firestoreQuery);
-        const resolvedDoc = firestoreSnapshot.docs[0];
-        const resolvedDocId = resolvedDoc?.id || postId;
-        const resolvedCreatedAt = resolvedDoc?.data()?.createdAt ?? null;
-
-        console.log("FIRESTORE QUERY MATCH COUNT", firestoreSnapshot.size);
-        console.log("RESOLVED DOC ID", resolvedDocId ?? null);
-        console.log("RESOLVED CREATEDAT", resolvedCreatedAt);
-        console.log("UPDATED PAYLOAD KEYS", Object.keys(postData));
-        console.log("UPDATE CREATEDAT TYPE", typeof postData.createdAt);
-        console.log("FINAL createdAt VALUE", postData.createdAt ?? null);
-        console.log("WRITE BEFORE UPDATEDOC", {
-          postId: resolvedDocId,
-          slug: formData.slug,
-          uid: auth.currentUser?.uid,
-          email: auth.currentUser?.email,
-          createdAt: postData.createdAt ?? null,
-          payloadKeys: Object.keys(postData),
-          postData,
-        });
-
-        await updateDoc(doc(db, 'posts', resolvedDocId), postData);
-      } else {
-        postData.titleHistory = [];
-        postData.postViews = 0;
-        postData.impressions = 0;
-        postData.clicks = 0;
-        postData.googleIndexStatus = 'none';
-        postData.naverIndexStatus = 'none';
-        console.log("WRITE BEFORE ADDDOC", {
-          postId,
-          slug: formData.slug,
-          uid: auth.currentUser?.uid,
-          email: auth.currentUser?.email,
-          payloadKeys: Object.keys(payload),
-          postData: payload,
-        });
-        await addDoc(collection(db, 'posts'), {
-          ...postData,
-          titleHistory: [],
-          postViews: 0,
-          impressions: 0,
-          clicks: 0,
-          createdAt: serverTimestamp(),
-          googleIndexStatus: 'none',
-          naverIndexStatus: 'none',
-        });
+      const result = await response.json();
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error || '게시글 저장에 실패했습니다.');
       }
 
       showToast("게시글 저장 완료!");
