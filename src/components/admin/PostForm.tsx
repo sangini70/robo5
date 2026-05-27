@@ -341,17 +341,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       try {
         const syncResponse = await fetch('/api/sync-json', { method: 'POST' });
         const syncData = await syncResponse.json();
-        
+
         if (!syncData.success) {
-          throw new Error(syncData.error || 'JSON 동기화에 실패했습니다.');
+          console.warn("JSON sync failed:", syncData.error || 'JSON 동기화에 실패했습니다.');
+        } else {
+          console.log("Sync successful:", syncData);
         }
-        
-        console.log("Sync successful:", syncData);
       } catch (syncError: any) {
-        console.error("Error syncing JSON:", syncError);
-        showToast(`데이터 동기화 실패: ${syncError.message}`);
-        setLoading(false);
-        return; // Stop if sync fails
+        console.warn("Error syncing JSON:", syncError);
       }
 
       showToast("게시글 저장 완료!");
