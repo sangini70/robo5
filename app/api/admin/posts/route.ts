@@ -5,6 +5,10 @@ import path from 'path';
 const DATA_DIR = path.join(process.cwd(), 'public', 'data');
 const MASTER_FILE = path.join(DATA_DIR, 'posts-master.json');
 
+function isProductionRuntime() {
+  return process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
+}
+
 // Helper to ensure directory exists
 function ensureDir(dir: string) {
   if (!fs.existsSync(dir)) {
@@ -34,27 +38,48 @@ function getMasterPosts() {
 
 // Helper to save master posts and regenerate public files
 function saveAndSync(posts: any[]) {
+  const productionRuntime = isProductionRuntime();
+
+  if (productionRuntime) {
+    console.warn('ADMIN POSTS PUBLISH SKIPPED', {
+      saved: true,
+      published: false,
+      publishMode: 'manual',
+      nextStep: 'Run npm run sync-json locally, then git add/commit/push.',
+      postsCount: posts.length,
+    });
+
+    return {
+      saved: true,
+      published: false,
+      publishMode: 'manual' as const,
+      nextStep: 'Run npm run sync-json locally, then git add/commit/push.',
+    };
+  }
+
   ensureDir(DATA_DIR);
-  
+
   console.log('--- JSON Sync Debug ---');
   console.log('Master File Path:', MASTER_FILE);
-  
+
   // 1. Save Master File
   fs.writeFileSync(MASTER_FILE, JSON.stringify(posts, null, 2), 'utf8');
   console.log('Master file saved. Total posts:', posts.length);
-  
+
   // 2. Filter for public posts (published and not future-dated)
   const now = new Date();
-  const publicPosts = posts.filter(post => {
-    if (post.status !== 'published') return false;
-    const publishDate = post.publishDate ? new Date(post.publishDate) : null;
-    if (publishDate && publishDate > now) return false;
-    return true;
-  }).sort((a, b) => {
-    const dateA = new Date(a.publishDate || a.createdAt).getTime();
-    const dateB = new Date(b.publishDate || b.createdAt).getTime();
-    return dateB - dateA;
-  });
+  const publicPosts = posts
+    .filter(post => {
+      if (post.status !== 'published') return false;
+      const publishDate = post.publishDate ? new Date(post.publishDate) : null;
+      if (publishDate && publishDate > now) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.publishDate || a.createdAt).getTime();
+      const dateB = new Date(b.publishDate || b.createdAt).getTime();
+      return dateB - dateA;
+    });
 
   // 3. Generate posts.json
   const postsJsonPath = path.join(DATA_DIR, 'posts.json');
@@ -87,7 +112,7 @@ function saveAndSync(posts: any[]) {
     const detailPath = path.join(detailDir, `${post.slug}.json`);
     fs.writeFileSync(detailPath, JSON.stringify(post, null, 2), 'utf8');
   });
-  
+
   if (posts.length > 0) {
     const lastPost = posts[posts.length - 1];
     const lastDetailPath = path.join(detailDir, `${lastPost.slug}.json`);
@@ -95,6 +120,13 @@ function saveAndSync(posts: any[]) {
     console.log('Last saved slug:', lastPost.slug);
   }
   console.log('--- End JSON Sync Debug ---');
+
+  return {
+    saved: true,
+    published: true,
+    publishMode: 'runtime' as const,
+    nextStep: null,
+  };
 }
 
 export async function GET() {
@@ -111,7 +143,7 @@ export async function POST(request: Request) {
   try {
     const postData = await request.json();
     const posts = getMasterPosts();
-    
+
     if (postData.id) {
       // Update
       const index = posts.findIndex((p: any) => p.id === postData.id);
@@ -127,17 +159,20 @@ export async function POST(request: Request) {
         ...postData,
         id: Date.now().toString(),
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
       posts.push(newPost);
     }
-    
+
     try {
-      saveAndSync(posts);
-      return NextResponse.json({ success: true });
+      const publishResult = saveAndSync(posts);
+      return NextResponse.json({
+        success: true,
+        ...publishResult,
+      });
     } catch (syncError: any) {
-      console.error("Sync Error:", syncError);
-      return NextResponse.json({ success: false, error: `JSON 동기화 실패: ${syncError.message}` }, { status: 500 });
+      console.error('Sync Error:', syncError);
+      return NextResponse.json({ success: false, error: `JSON ?숆린???ㅽ뙣: ${syncError.message}` }, { status: 500 });
     }
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -148,16 +183,19 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    
+
     if (!id) {
       return NextResponse.json({ success: false, error: 'ID is required' }, { status: 400 });
     }
-    
+
     const posts = getMasterPosts();
     const filteredPosts = posts.filter((p: any) => p.id !== id);
-    
-    saveAndSync(filteredPosts);
-    return NextResponse.json({ success: true });
+
+    const publishResult = saveAndSync(filteredPosts);
+    return NextResponse.json({
+      success: true,
+      ...publishResult,
+    });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

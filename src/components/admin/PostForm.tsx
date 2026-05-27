@@ -343,7 +343,13 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         throw new Error(result?.error || '게시글 저장에 실패했습니다.');
       }
 
-      showToast("게시글 저장 완료!");
+      const successMessage = result?.published === false
+        ? '게시글 저장 완료! 공개 반영은 수동입니다.'
+        : '게시글 저장 완료!';
+      showToast(successMessage);
+      if (result?.nextStep) {
+        console.warn('PUBLISH NEXT STEP:', result.nextStep);
+      }
       router.push('/admin/posts');
     } catch (error: any) {
       console.error("Error saving post:", error);
