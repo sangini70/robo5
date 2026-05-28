@@ -15,5 +15,19 @@
   ],
   "status": "published",
   "publishAt": null,
-  "id": "robo-advisor-definition-and-guide"
+  "id": "robo-advisor-definition-and-guide",
+  "description": "",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-definition-and-guide.webp",
+  "publishDate": "2026-05-28T03:21:00.000Z",
+  "seoTitle": "",
+  "seoDescription": "",
+  "customCss": "",
+  "customJs": "",
+  "structuredDataJsonLd": "",
+  "flowType": "",
+  "language": "ko",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
+  "updatedAt": "2026-05-28T00:34:42.951Z",
+  "titleHistory": [],
+  "publishHour": 12
 }

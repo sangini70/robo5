@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Hero } from '@/src/components/Hero';
 import { PostCard } from '@/src/components/PostCard';
@@ -12,68 +12,10 @@ import { FlowSection } from '@/src/components/FlowSection';
 
 const POSTS_PER_PAGE = 6; // Reduced from 9 to 6 for homepage
 
-export function HomeContent({ page = 1 }: { page?: number }) {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [totalPages, setTotalPages] = useState(1);
-  const [errorMsg, setErrorMsg] = useState('');
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setErrorMsg('');
-        const response = await fetch(`/data/posts.json?t=${Date.now()}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts data');
-        }
-        const fetchedPosts = await response.json();
-        console.log('HomeContent: Fetched raw posts:', fetchedPosts);
-        
-        if (!Array.isArray(fetchedPosts)) {
-          console.error('HomeContent: Data is not an array:', fetchedPosts);
-          throw new Error('Data format error: expected an array');
-        }
-
-        const now = new Date();
-        
-        // Temporarily disable all filters as requested
-        const filteredPosts = [...fetchedPosts];
-        console.log('HomeContent: Filtered posts count:', filteredPosts.length);
-
-        // Sort by publishDate descending
-        filteredPosts.sort((a: any, b: any) => {
-          const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
-          const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
-          return dateB.getTime() - dateA.getTime();
-        });
-
-        const mappedPosts = fetchedPosts.map((post: any) => {
-          const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
-          const yyyy = dateObj.getFullYear();
-          const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-          const dd = String(dateObj.getDate()).padStart(2, '0');
-          const hh = String(dateObj.getHours()).padStart(2, '0');
-          const min = String(dateObj.getMinutes()).padStart(2, '0');
-          
-          return {
-            ...post,
-            description: post.description || post.excerpt || '', // Ensure description exists for PostCard
-            date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
-          };
-        });
-        
-        console.log('HomeContent: Mapped posts:', mappedPosts);
-        setPosts(mappedPosts);
-      } catch (error: any) {
-        console.error("Error fetching posts:", error);
-        setErrorMsg('글을 불러오는 중 오류가 발생했습니다.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+export function HomeContent({ page = 1, initialPosts = [] }: { page?: number; initialPosts?: any[] }) {
+  const posts = initialPosts;
+  const loading = false;
+  const errorMsg = '';
 
   useEffect(() => {
     const heroImage = document.querySelector(
@@ -114,7 +56,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
           />
           <Hero />
           <SearchBar />
-          <FlowSection />
+          <FlowSection posts={posts} />
           <CategoriesSection />
           
           {/* Calculator Banner CTA */}
@@ -142,7 +84,7 @@ export function HomeContent({ page = 1 }: { page?: number }) {
             </div>
           </div>
 
-          <PopularPosts />
+          <PopularPosts initialPosts={posts} />
         </>
       )}
 

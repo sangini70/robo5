@@ -6,11 +6,40 @@ import { PostCard } from '@/src/components/PostCard';
 import { MainLayout } from '@/src/components/MainLayout';
 import { Search } from 'lucide-react';
 
-function SearchResults() {
+interface SearchContentProps {
+  initialPosts?: any[];
+}
+
+function normalizePosts(posts: any[]) {
+  const now = new Date();
+
+  return posts
+    .filter((post: any) => {
+      if (post.status !== 'published') return false;
+      if (post.language === 'en') return false;
+      if (post.publishDate && new Date(post.publishDate) > now) return false;
+      return true;
+    })
+    .map((post: any) => {
+      const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
+      const yyyy = dateObj.getFullYear();
+      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const dd = String(dateObj.getDate()).padStart(2, '0');
+      const hh = String(dateObj.getHours()).padStart(2, '0');
+      const min = String(dateObj.getMinutes()).padStart(2, '0');
+
+      return {
+        ...post,
+        date: `${yyyy}.${mm}.${dd} ${hh}:${min}`,
+      };
+    });
+}
+
+function SearchResults({ initialPosts = [] }: { initialPosts?: any[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get('q') || '';
-  
+
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [posts, setPosts] = useState<any[]>([]);
   const [recommendedPosts, setRecommendedPosts] = useState<any[]>([]);
@@ -25,7 +54,7 @@ function SearchResults() {
   };
 
   useEffect(() => {
-    const fetchSearchResults = async () => {
+    const runSearch = () => {
       if (!initialQuery.trim()) {
         setPosts([]);
         setLoading(false);
@@ -38,56 +67,32 @@ function SearchResults() {
       setSearchQuery(initialQuery);
 
       try {
-        const response = await fetch('/data/posts.json');
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts');
-        }
-        const allPosts = await response.json();
-        
         const now = new Date();
         const sanitizedQuery = initialQuery.trim().replace(/\s+/g, ' ');
         const searchTerms = sanitizedQuery.toLowerCase().split(' ').filter(term => term.length > 0);
 
-        const fetchedPosts = allPosts
-          .filter((post: any) => {
-            if (post.status !== 'published') return false;
-            if (post.language === 'en') return false;
-            if (post.publishDate && new Date(post.publishDate) > now) return false;
-            return true;
-          })
-          .map((post: any) => {
-            const dateObj = post.publishDate ? new Date(post.publishDate) : post.createdAt ? new Date(post.createdAt) : new Date();
-            const yyyy = dateObj.getFullYear();
-            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const dd = String(dateObj.getDate()).padStart(2, '0');
-            const hh = String(dateObj.getHours()).padStart(2, '0');
-            const min = String(dateObj.getMinutes()).padStart(2, '0');
-            
-            return {
-              ...post,
-              date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
-            };
-          });
+        const fetchedPosts = normalizePosts(initialPosts);
 
-        const scoredPosts = fetchedPosts.map((post: any) => {
-          const title = (post.title || '').toLowerCase();
-          const description = (post.description || '').toLowerCase();
-          const category = (post.category || '').toLowerCase();
-          const tags = Array.isArray(post.tags) ? post.tags.map((t: string) => t.toLowerCase()) : [];
-          
-          let score = 0;
-          
-          for (const term of searchTerms) {
-            if (title.includes(term)) score += 100;
-            if (tags.some(tag => tag.includes(term))) score += 50;
-            if (category.includes(term)) score += 25;
-            if (description.includes(term)) score += 10;
-          }
-          
-          return { ...post, searchScore: score };
-        }).filter(post => post.searchScore > 0);
-        
-        // Sort by search score descending, then by publish date descending
+        const scoredPosts = fetchedPosts
+          .map((post: any) => {
+            const title = (post.title || '').toLowerCase();
+            const description = (post.description || '').toLowerCase();
+            const category = (post.category || '').toLowerCase();
+            const tags = Array.isArray(post.tags) ? post.tags.map((t: string) => t.toLowerCase()) : [];
+
+            let score = 0;
+
+            for (const term of searchTerms) {
+              if (title.includes(term)) score += 100;
+              if (tags.some(tag => tag.includes(term))) score += 50;
+              if (category.includes(term)) score += 25;
+              if (description.includes(term)) score += 10;
+            }
+
+            return { ...post, searchScore: score };
+          })
+          .filter((post: any) => post.searchScore > 0);
+
         scoredPosts.sort((a, b) => {
           if (b.searchScore !== a.searchScore) {
             return b.searchScore - a.searchScore;
@@ -96,23 +101,24 @@ function SearchResults() {
           const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
           return dateB.getTime() - dateA.getTime();
         });
-          
+
         setPosts(scoredPosts);
 
-        // If no results, fetch some recommended posts (popular ones)
         if (scoredPosts.length === 0) {
           const sortedByViews = [...fetchedPosts].sort((a, b) => (b.postViews || 0) - (a.postViews || 0));
           setRecommendedPosts(sortedByViews.slice(0, 3));
+        } else {
+          setRecommendedPosts([]);
         }
       } catch (error) {
-        console.error("Error fetching search results:", error);
+        console.error('Error fetching search results:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSearchResults();
-  }, [initialQuery]);
+    runSearch();
+  }, [initialQuery, initialPosts]);
 
   return (
     <MainLayout>
@@ -143,7 +149,7 @@ function SearchResults() {
         {hasSearched && (
           <div className="mb-8 border-b border-gray-200 pb-6">
             <h1 className="text-2xl font-bold text-gray-900">
-              "{initialQuery}" 검색 결과 <span className="text-indigo-600 ml-2">{posts.length}건</span>
+              "{initialQuery}" 검색 결과 <span className="text-indigo-600 ml-2">{posts.length}개</span>
             </h1>
           </div>
         )}
@@ -157,7 +163,7 @@ function SearchResults() {
                 <Search size={32} />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">검색 결과가 없습니다</h3>
-              <p className="text-gray-500 mb-6">다른 검색어를 입력하거나 카테고리를 통해 탐색해보세요.</p>
+              <p className="text-gray-500 mb-6">다른 검색어를 입력하시거나 카테고리를 통해 찾아보세요.</p>
               <div className="flex justify-center gap-4">
                 <button onClick={() => router.push('/')} className="px-6 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
                   홈으로 가기
@@ -170,7 +176,7 @@ function SearchResults() {
                 <div className="mb-8 flex items-center justify-between">
                   <div>
                     <span className="text-xs uppercase tracking-[0.2em] text-indigo-600 font-bold block mb-2">Recommended</span>
-                    <h2 className="text-2xl font-bold text-gray-900">이런 글은 어떠세요?</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">이런 글은 어때요?</h2>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -193,10 +199,10 @@ function SearchResults() {
   );
 }
 
-export function SearchContent() {
+export function SearchContent({ initialPosts = [] }: SearchContentProps) {
   return (
     <Suspense fallback={<MainLayout><div className="text-center py-20">Loading...</div></MainLayout>}>
-      <SearchResults />
+      <SearchResults initialPosts={initialPosts} />
     </Suspense>
   );
 }

@@ -1,5 +1,6 @@
-import { SearchContent } from '@/src/components/SearchContent';
 import { Metadata } from 'next';
+import { SearchContent } from '@/src/components/SearchContent';
+import { getPostsFromJson } from '@/src/lib/posts';
 
 export const metadata: Metadata = {
   title: '검색 | robo-advisor.kr',
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SearchPage() {
-  return <SearchContent />;
+  return <SearchContent initialPosts={getPostsFromJson()} />;
 }

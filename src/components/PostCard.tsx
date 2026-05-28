@@ -1,98 +1,18 @@
-'use client';
-
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { PostCardTracking } from '@/src/components/PostCardTracking';
 
 interface PostCardProps {
   post: any;
 }
 
 export function PostCard({ post }: PostCardProps) {
-  const cardRef = useRef<HTMLElement>(null);
-  const hasTrackedImpression = useRef(false);
-
-  useEffect(() => {
-    if (!post.id || hasTrackedImpression.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          trackImpression();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 } // Track when 50% of the card is visible
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [post.id]);
-
-  const trackImpression = async () => {
-    if (hasTrackedImpression.current) return;
-    hasTrackedImpression.current = true;
-
-    try {
-      // Skip tracking for admins
-      if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
-        return;
-      }
-
-      const impKey = `imp_${post.id}`;
-      const lastImp = localStorage.getItem(impKey);
-      const now = Date.now();
-      const TWELVE_HOURS = 12 * 60 * 60 * 1000;
-
-      if (lastImp && (now - parseInt(lastImp, 10)) < TWELVE_HOURS) return;
-
-      await fetch('/api/track-interaction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ postId: post.id, type: 'impression' }),
-      });
-
-      localStorage.setItem(impKey, now.toString());
-    } catch (error) {
-      console.error('Failed to track impression:', error);
-    }
-  };
-
-  const trackClick = async () => {
-    try {
-      // Skip tracking for admins
-      if (typeof window !== 'undefined' && sessionStorage.getItem('admin_unlocked') === 'true') {
-        return;
-      }
-
-      const clickKey = `click_${post.id}`;
-      const lastClick = localStorage.getItem(clickKey);
-      const now = Date.now();
-      const TWELVE_HOURS = 12 * 60 * 60 * 1000;
-
-      if (lastClick && (now - parseInt(lastClick, 10)) < TWELVE_HOURS) return;
-
-      await fetch('/api/track-interaction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ postId: post.id, type: 'click' }),
-      });
-
-      localStorage.setItem(clickKey, now.toString());
-    } catch (error) {
-      console.error('Failed to track click:', error);
-    }
-  };
+  const trackingId = `post-card-${post.id ?? post.slug}`;
 
   return (
-    <article ref={cardRef} className="group cursor-pointer flex flex-col">
-      <Link href={`/${post.slug}`} onClick={trackClick} className="block w-full aspect-[4/3] bg-gray-100 overflow-hidden mb-6 relative rounded-sm">
+    <article id={trackingId} className="group cursor-pointer flex flex-col">
+      <PostCardTracking postId={post.id} trackingId={trackingId} slug={post.slug} />
+      <Link href={`/${post.slug}`} className="block w-full aspect-[4/3] bg-gray-100 overflow-hidden mb-6 relative rounded-sm">
         {post.thumbnail && (
           <img 
             src={post.thumbnail} 
@@ -106,7 +26,7 @@ export function PostCard({ post }: PostCardProps) {
       
       <div className="flex justify-between items-start mb-3 gap-4">
         <h3 className="text-xl font-medium tracking-tight text-gray-900 group-hover:text-black transition-colors line-clamp-2">
-          <Link href={`/${post.slug}`} onClick={trackClick}>
+          <Link href={`/${post.slug}`}>
             {post.title}
           </Link>
         </h3>
