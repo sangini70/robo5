@@ -1,5 +1,10 @@
 {
   "guide": [
+    "exchange-rate-forecast",
+    "robo-advisor-definition-and-guide",
     "exchange-rate"
+  ],
+  "세금/지원금": [
+    "high-oil-price-support"
   ]
 }

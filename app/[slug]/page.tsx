@@ -103,7 +103,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   }
 
   // Check if post is related to exchange rates
-  const exchangeKeywords = ['?섏쑉', '?섏쟾', '?щ윭', '?뷀솕', '?좊줈', 'exchange', 'currency'];
+  const exchangeKeywords = ['환율', '원달러', '원·달러', '달러', '외환', '고환율', 'exchange', 'currency'];
   const isExchangeRelated = exchangeKeywords.some(keyword =>
     post.title?.includes(keyword) ||
     post.category?.includes(keyword) ||
@@ -162,11 +162,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{post.category || ''}</span>
                 <span className="w-8 h-[1px] bg-gray-300"></span>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs text-gray-500 font-light">
-                  <time dateTime={post.createdAtStr}>?묒꽦?? {post.createdAtStr}</time>
+                  <time dateTime={post.createdAtStr}>작성일: {post.createdAtStr}</time>
                   {post.createdAtStr !== post.updatedAtStr && (
                     <>
                       <span className="hidden sm:inline text-gray-300">|</span>
-                      <time dateTime={post.updatedAtStr}>理쒖쥌 ?낅뜲?댄듃: {post.updatedAtStr}</time>
+                      <time dateTime={post.updatedAtStr}>최종 업데이트: {post.updatedAtStr}</time>
                     </>
                   )}
                 </div>
@@ -192,14 +192,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             {isExchangeRelated && (
               <div className="mb-10 p-6 bg-indigo-50 border border-indigo-100 rounded-lg shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="text-center sm:text-left">
-                  <h3 className="text-lg font-bold text-indigo-900 mb-1">?뮦 ?ㅼ떆媛?泥닿컧 ?섏쑉??沅곴툑?섏떊媛??</h3>
-                  <p className="text-sm text-indigo-700">?ㅼ젣 ?섏쟾 援ъ“(?섏닔猷뙿룹슦???瑜?諛섏쁺??吏꾩쭨 ?섏쑉??怨꾩궛?대낫?몄슂.</p>
+                  <h3 className="text-lg font-bold text-indigo-900 mb-1">환율 급등, 어떻게 대응할까요?</h3>
+                  <p className="text-sm text-indigo-700">환전 수수료와 환율 우대율을 함께 보면 실제 체감 환율을 더 정확하게 이해할 수 있습니다.</p>
                 </div>
                 <Link
                   href="/exchange-rate-calculator"
                   className="shrink-0 bg-indigo-600 text-white text-sm font-medium py-2.5 px-6 rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
                 >
-                  ?ㅼ냽 ?섏쑉 怨꾩궛湲?&rarr;
+                  실속 환율 계산기 &rarr;
                 </Link>
               </div>
             )}
@@ -213,16 +213,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
             {isExchangeRelated && (
               <div className="mt-12 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">?섏쟾 ?섏닔猷? ?쇰쭏???꾨굜 ???덉쓣源?</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">환율 계산기로 체감 금액을 바로 확인해보세요</h3>
                 <p className="text-gray-600 mb-6">
-                  蹂듭옟???섏쑉 ?곕???怨꾩궛, ?댁젣 吏곸젒 ?섏? 留덉꽭??<br />
-                  ?ㅼ냽 ?섏쑉 怨꾩궛湲곕줈 ?닿? ?댁빞 ??吏꾩쭨 湲덉븸??諛붾줈 ?뺤씤?섏꽭??
+                  환전 수수료와 우대율을 함께 적용해 실제 필요한 원화 금액과 체감 환율을 확인해보세요.<br />
+                  지금 환전할 때 필요한 정보를 한 번에 계산할 수 있습니다.
                 </p>
                 <Link
                   href="/exchange-rate-calculator"
                   className="inline-block bg-gray-900 text-white font-medium py-3 px-8 rounded-md hover:bg-gray-800 transition-colors shadow-sm"
                 >
-                  ?섏쑉 怨꾩궛湲?諛붾줈媛湲?
+                  환율 계산기 열기
                 </Link>
               </div>
             )}

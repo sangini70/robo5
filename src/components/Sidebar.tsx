@@ -79,16 +79,16 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
             Utility
           </span>
           <h3 className="text-lg font-bold text-indigo-900 mb-2 leading-tight">
-            ?ㅼ냽 ?섏쑉 怨꾩궛湲?
+            실속 환율 계산기
           </h3>
           <p className="text-sm text-indigo-700 mb-4 leading-relaxed">
-            ?ㅼ젣 ?섏쟾 援ъ“(?섏닔猷뙿룹슦???瑜?諛섏쁺??吏꾩쭨 泥닿컧 ?섏쑉??吏湲?諛붾줈 ?뺤씤?대낫?몄슂.
+            환전 수수료와 환율 우대율을 함께 보면 실제 체감 환율을 더 정확하게 이해할 수 있습니다.
           </p>
           <Link 
             href="/exchange-rate-calculator" 
             className="block w-full text-center bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
           >
-            怨꾩궛湲?諛붾줈媛湲?&rarr;
+            환율 계산기 바로가기 &rarr;
           </Link>
         </div>
       </div>
@@ -99,7 +99,7 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-sm p-6">
-          <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">愿??湲</h3>
+          <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">관련 글</h3>
           <ul className="space-y-4">
             {relatedPosts.map(post => (
               <li key={post.slug || post.id}>
@@ -120,7 +120,7 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
       {/* Latest Posts */}
       {latestPosts.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-sm p-6">
-          <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">理쒖떊 湲</h3>
+          <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900 mb-4 border-b border-gray-100 pb-2">최신 글</h3>
           <ul className="space-y-4">
             {latestPosts.map(post => (
               <li key={post.slug || post.id}>
@@ -142,7 +142,7 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
       <div className="bg-gray-50 border border-gray-200 rounded-sm p-6 flex flex-col items-center justify-center min-h-[250px]">
         <span className="text-xs text-gray-400 uppercase tracking-widest mb-2">Advertisement</span>
         <div className="text-gray-300 text-sm text-center">
-          愿묎퀬 ?먮뒗 ?꾩젽 ?곸뿭<br/>(異뷀썑 ?쎌엯)
+          광고는 잠시 후 표시됩니다<br/>(잠시만 기다려 주세요)
         </div>
       </div>
     </div>
