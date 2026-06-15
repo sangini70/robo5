@@ -24,6 +24,14 @@ type FirestoreAdminConfig = {
   privateKey: string;
 };
 
+type PublishWorkflowConfig = {
+  owner: string;
+  repo: string;
+  workflowFile: string;
+  branch: string;
+  token: string | undefined;
+};
+
 const FIRESTORE_SCOPE = 'https://www.googleapis.com/auth/datastore';
 const FIRESTORE_BASE_URL = 'https://firestore.googleapis.com/v1';
 
@@ -50,6 +58,16 @@ function getFirestoreAdminConfig(): FirestoreAdminConfig {
     databaseId,
     clientEmail,
     privateKey: privateKey.replace(/\\n/g, '\n'),
+  };
+}
+
+function getPublishWorkflowConfig(): PublishWorkflowConfig {
+  return {
+    owner: process.env.GITHUB_OWNER || 'sangini70',
+    repo: process.env.GITHUB_REPO || 'robo5',
+    workflowFile: process.env.GITHUB_WORKFLOW_FILE || 'publish-json.yml',
+    branch: process.env.GITHUB_BRANCH || 'main',
+    token: process.env.GITHUB_TOKEN,
   };
 }
 
@@ -193,6 +211,69 @@ function normalizePostDocument(post: Record<string, any>) {
 function getCollectionPath() {
   const { projectId, databaseId } = getFirestoreAdminConfig();
   return `${FIRESTORE_BASE_URL}/projects/${projectId}/databases/${databaseId}/documents/posts`;
+}
+
+async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string) {
+  const { owner, repo, workflowFile, branch, token } = getPublishWorkflowConfig();
+
+  if (!token) {
+    console.warn('PUBLISH WORKFLOW DISPATCH WARNING', {
+      trigger,
+      docId,
+      reason: 'Missing GITHUB_TOKEN',
+      owner,
+      repo,
+      workflowFile,
+      branch,
+    });
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${encodeURIComponent(workflowFile)}/dispatches`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/vnd.github+json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({
+          ref: branch,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn('PUBLISH WORKFLOW DISPATCH WARNING', {
+        trigger,
+        docId,
+        owner,
+        repo,
+        workflowFile,
+        branch,
+        status: response.status,
+        error: errorText || response.statusText,
+      });
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.warn('PUBLISH WORKFLOW DISPATCH WARNING', {
+      trigger,
+      docId,
+      owner,
+      repo,
+      workflowFile,
+      branch,
+      error,
+    });
+    return false;
+  }
 }
 
 function getDocumentPath(id: string) {
@@ -373,12 +454,16 @@ async function writeFirestorePost(postData: Record<string, any>) {
     }
   );
 
+  const workflowTriggered = await dispatchPublishWorkflow('save', docId);
+
   return {
     docId,
     saved: true,
     published: false,
     publishMode: 'manual' as const,
-    nextStep: 'Firestore save completed. JSON export is handled in the next step.',
+    nextStep: workflowTriggered
+      ? 'GitHub Actions workflow dispatched for JSON export.'
+      : 'Firestore save completed. JSON export trigger failed; check GitHub Actions.',
   };
 }
 
@@ -397,11 +482,15 @@ async function deleteFirestorePost(id: string) {
     }
   }
 
+  const workflowTriggered = await dispatchPublishWorkflow('delete', id);
+
   return {
     saved: true,
     published: false,
     publishMode: 'manual' as const,
-    nextStep: 'Firestore save completed. JSON export is handled in the next step.',
+    nextStep: workflowTriggered
+      ? 'GitHub Actions workflow dispatched for JSON export.'
+      : 'Firestore save completed. JSON export trigger failed; check GitHub Actions.',
   };
 }
 

@@ -103,7 +103,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   }
 
   // Check if post is related to exchange rates
-  const exchangeKeywords = ['환율', '원달러', '원·달러', '달러', '외환', '고환율', 'exchange', 'currency'];
+  const exchangeKeywords = [
+    '환율',
+    '원달러',
+    '원·달러',
+    '달러',
+    '외환',
+    '고환율',
+    'exchange',
+    'currency',
+  ];
   const isExchangeRelated = exchangeKeywords.some(keyword =>
     post.title?.includes(keyword) ||
     post.category?.includes(keyword) ||
@@ -189,7 +198,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               </div>
             )}
 
-            {isExchangeRelated && (
+            {false && (
               <div className="mb-10 p-6 bg-indigo-50 border border-indigo-100 rounded-lg shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="text-center sm:text-left">
                   <h3 className="text-lg font-bold text-indigo-900 mb-1">환율 급등, 어떻게 대응할까요?</h3>
@@ -211,7 +220,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               }}
             />
 
-            {isExchangeRelated && (
+            {false && (
               <div className="mt-12 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">환율 계산기로 체감 금액을 바로 확인해보세요</h3>
                 <p className="text-gray-600 mb-6">

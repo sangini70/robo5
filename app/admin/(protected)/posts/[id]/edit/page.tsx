@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/src/firebase';
 
 const PostForm = dynamic(() => import('@/src/components/admin/PostForm').then(mod => mod.PostForm), { ssr: false });
 
@@ -23,24 +21,19 @@ export default function AdminEditPost() {
         const posts = await response.json();
         const post = posts.find((p: any) => p.id === id);
         if (post) {
-          const firestoreDoc = await getDoc(doc(db, 'posts', id));
-          const firestoreData = firestoreDoc.data() ?? {};
-          const firestoreCreatedAt = firestoreData.createdAt;
-          console.log("EDIT PAGE FIRESTORE DEBUG", {
-            id,
-            exists: firestoreDoc.exists(),
-            dataKeys: Object.keys(firestoreData),
-            createdAt: firestoreCreatedAt,
-            initialCreatedAt: firestoreCreatedAt ?? post.createdAt,
-          });
-          setInitialData({
-            ...post,
-            createdAt: firestoreCreatedAt ?? post.createdAt,
-          });
+          setInitialData(post);
         } else {
           router.push('/admin/posts');
         }
       } catch (error) {
+        const firestoreError = error as any;
+        console.error('EDIT POST FIRESTORE READ DEBUG', {
+          phase: 'error',
+          id,
+          path: `posts/${id}`,
+          errorCode: firestoreError?.code ?? null,
+          errorMessage: firestoreError?.message ?? String(firestoreError),
+        });
         console.error("Error fetching post:", error);
       } finally {
         setLoading(false);

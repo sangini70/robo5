@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../../firebase';
 import DOMPurify from 'dompurify';
@@ -11,6 +12,7 @@ interface PostFormProps {
 
 export function PostForm({ initialData, postId }: PostFormProps) {
   const router = useRouter();
+  const contentEditorContainerRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -137,6 +139,24 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     setFormData(prev => ({ ...prev, content }));
   };
 
+  const getLatestEditorContent = () => {
+    const editorContainer = contentEditorContainerRef.current;
+    if (!editorContainer) return formData.content;
+
+    const activeElement = document.activeElement as HTMLElement | null;
+    if (activeElement && editorContainer.contains(activeElement) && activeElement.isContentEditable) {
+      return activeElement.innerHTML;
+    }
+
+    const contentEditable = editorContainer.querySelector<HTMLElement>('[contenteditable]');
+    if (contentEditable) return contentEditable.innerHTML;
+
+    const textarea = editorContainer.querySelector<HTMLTextAreaElement>('textarea');
+    if (textarea) return textarea.value;
+
+    return formData.content;
+  };
+
   const cleanHtmlContent = (content: string, customJs: string, customCss: string, jsonLd: string) => {
     let html = content;
 
@@ -246,7 +266,15 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     setLoading(true);
 
     try {
-      const cleaned = cleanHtmlContent(formData.content, formData.customJs, formData.customCss, formData.structuredDataJsonLd);
+      const latestContent = getLatestEditorContent();
+      if (latestContent !== formData.content) {
+        setFormData(prev => ({ ...prev, content: latestContent }));
+      }
+      const cleaned = cleanHtmlContent(latestContent, formData.customJs, formData.customCss, formData.structuredDataJsonLd);
+      console.log('POST CONTENT DEBUG', {
+        latestContent,
+        cleanedContent: cleaned.content,
+      });
       setFormData(prev => ({ ...prev, ...cleaned }));
 
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
@@ -325,6 +353,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         id: postId || null,
         slug: formData.slug,
         path,
+        firestorePath: postId ? `posts/${postId}` : 'posts/<generated-id>',
         uid: auth.currentUser?.uid,
         email: auth.currentUser?.email,
         payloadKeys: Object.keys(savePayload),
@@ -395,7 +424,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               Clean HTML & Extract Scripts
             </button>
           </div>
-          <RichTextEditor value={formData.content} onChange={handleContentChange} />
+          <div ref={contentEditorContainerRef}>
+            <RichTextEditor value={formData.content} onChange={handleContentChange} />
+          </div>
         </div>
       </div>
 
