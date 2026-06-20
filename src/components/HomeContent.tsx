@@ -12,8 +12,37 @@ import { FlowSection } from '@/src/components/FlowSection';
 
 const POSTS_PER_PAGE = 6; // Reduced from 9 to 6 for homepage
 
+const RECOMMENDED_CATEGORIES = [
+  {
+    label: '환율',
+    href: '/category/환율',
+    description: '원달러 환율 · 환전 · 달러 투자',
+  },
+  {
+    label: 'ETF',
+    href: '/category/ETF',
+    description: 'ETF 기초 · 자산배분 · 분산투자',
+  },
+  {
+    label: '경제기초',
+    href: '/category/경제기초',
+    description: '금리 · 물가 · 경기 흐름',
+  },
+  {
+    label: '미국증시',
+    href: '/category/미국증시',
+    description: '나스닥 · S&P500 · 미국 주식',
+  },
+  {
+    label: '세금',
+    href: '/category/세금',
+    description: '세금 · 절세 · 지원금',
+  },
+];
+
 export function HomeContent({ page = 1, initialPosts = [] }: { page?: number; initialPosts?: any[] }) {
   const posts = initialPosts;
+  const latestPosts = posts.slice(0, page === 1 ? 4 : 8);
   const loading = false;
   const errorMsg = '';
 
@@ -57,6 +86,32 @@ export function HomeContent({ page = 1, initialPosts = [] }: { page?: number; in
           <Hero />
           <SearchBar />
           <FlowSection posts={posts} />
+          <section className="w-full mb-16">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+              <div>
+                <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">Recommended Categories</span>
+                <h2 className="text-xl font-bold text-gray-900">추천 카테고리</h2>
+              </div>
+              <p className="text-sm text-gray-500">읽고 싶은 주제를 빠르게 선택해보세요.</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {RECOMMENDED_CATEGORIES.map((category) => (
+                <Link
+                  key={category.href}
+                  href={category.href}
+                  className="group flex flex-col p-5 bg-white border border-gray-100 rounded-2xl hover:border-indigo-100 hover:shadow-md transition-all duration-200"
+                >
+                  <div className="inline-flex w-fit px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-[0.18em] uppercase text-indigo-600 bg-indigo-50 mb-4">
+                    Topic
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">
+                    {category.label}
+                  </h3>
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{category.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
           <CategoriesSection />
           
           {/* Calculator Banner CTA */}
@@ -85,14 +140,25 @@ export function HomeContent({ page = 1, initialPosts = [] }: { page?: number; in
           </div>
 
           <PopularPosts initialPosts={posts} />
+          {posts.length > latestPosts.length && (
+            <div className="w-full -mt-8 mb-16 flex justify-end">
+              <Link
+                href="/page/2"
+                className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+              >
+                더 많은 글 보기
+                <span className="ml-1" aria-hidden="true">→</span>
+              </Link>
+            </div>
+          )}
         </>
       )}
 
       <div className="w-full">
           <div className="mb-8 flex items-center justify-between">
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">Latest</span>
-            <h2 className="text-2xl font-bold text-gray-900">최신 글</h2>
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold block mb-2">ARTICLES</span>
+            <h2 className="text-2xl font-bold text-gray-900">전체 글</h2>
           </div>
         </div>
         
@@ -100,13 +166,24 @@ export function HomeContent({ page = 1, initialPosts = [] }: { page?: number; in
           <div className="text-center text-gray-500 py-12">Loading posts...</div>
         ) : errorMsg ? (
           <div className="text-center text-red-500 py-12 font-medium bg-red-50 rounded-lg border border-red-100">{errorMsg}</div>
-        ) : posts.length === 0 ? (
+        ) : latestPosts.length === 0 ? (
           <div className="text-center text-gray-500 py-12">등록된 글이 없습니다.</div>
         ) : (
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {posts.map((post) => (
+            {latestPosts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
+          </div>
+        )}
+        {posts.length > latestPosts.length && (
+          <div className="mt-8 flex justify-end">
+            <Link
+              href="/page/2"
+              className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+            >
+              더 많은 글 보기
+              <span className="ml-1" aria-hidden="true">→</span>
+            </Link>
           </div>
         )}
       </div>
