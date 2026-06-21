@@ -263,6 +263,10 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       showToast('슬러그 오류를 확인해 주세요.');
       return;
     }
+    if (formData.flowType === '') {
+      showToast('플로우 타입을 선택하세요');
+      return;
+    }
     setLoading(true);
 
     try {
