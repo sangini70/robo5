@@ -98,19 +98,19 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
   return (
     <div className="bg-white border border-gray-200 rounded-sm p-6">
       <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
-        <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900">?멸린湲</h3>
+        <h3 className="text-sm font-medium tracking-widest uppercase text-gray-900">인기글</h3>
         <div className="flex gap-2 text-xs">
           <button 
             onClick={() => setActiveTab('all')}
             className={`px-2 py-1 rounded transition-colors ${activeTab === 'all' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-500 hover:text-gray-900'}`}
           >
-            ?꾩쟻
+            전체
           </button>
           <button 
             onClick={() => setActiveTab('weekly')}
             className={`px-2 py-1 rounded transition-colors ${activeTab === 'weekly' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-500 hover:text-gray-900'}`}
           >
-            二쇨컙
+            주간
           </button>
         </div>
       </div>
@@ -128,7 +128,7 @@ export function PopularPostsWidget({ currentPostId }: { currentPostId?: string }
                 <p className="text-xs text-gray-500 mt-1 flex items-center gap-2">
                   <span>{post.publishDate ? formatDateTime(new Date(post.publishDate)) : (post.createdAt ? formatDateTime(new Date(post.createdAt)) : (post.date ? post.date : ''))}</span>
                   <span className="text-gray-300">|</span>
-                  <span>議고쉶??{activeTab === 'weekly' ? (post._weeklyViews || 0) : (post.postViews || 0)}</span>
+                  <span>조회수 {activeTab === 'weekly' ? (post._weeklyViews || 0) : (post.postViews || 0)}</span>
                 </p>
               </div>
             </Link>

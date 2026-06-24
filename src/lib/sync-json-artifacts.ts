@@ -15,7 +15,8 @@ export function writeJsonArtifacts(posts: any[]) {
   // 3. Generate flow-index.json (Category mapping)
   const flowIndex: Record<string, string[]> = {};
   posts.forEach(post => {
-    if (post.category && post.language === 'ko') {
+    const language = post.language ?? 'ko';
+    if (post.category && language === 'ko') {
       const categoryKey = post.category.trim().toLowerCase();
       if (!flowIndex[categoryKey]) {
         flowIndex[categoryKey] = [];

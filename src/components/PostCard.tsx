@@ -46,7 +46,6 @@ export function PostCard({ post }: PostCardProps) {
               key={tag} 
               href={`/tag/${encodeURIComponent(tag.trim().replace(/\s+/g, '-'))}`}
               className="text-xs text-gray-400 hover:text-gray-900 transition-colors focus:outline-none focus:underline active:text-gray-600"
-              onClick={(e) => e.stopPropagation()}
             >
               #{tag}
             </Link>

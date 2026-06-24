@@ -7,14 +7,23 @@ import { getFlowIndex, getPostDetail } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
+const CATEGORY_FLOW_INDEX_MAP: Record<string, string> = {
+  환율: 'guide',
+  etf: 'guide',
+  경제기초: 'guide',
+  미국증시: 'guide',
+  세금: '세금/지원금',
+};
+
 const getPostsByCategory = cache(async (category: string) => {
   try {
     const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
     console.log("category slug:", decodedCategory);
+    const flowIndexKey = CATEGORY_FLOW_INDEX_MAP[decodedCategory] || decodedCategory;
     
     // 1. Get slugs from flow-index.json
     const flowIndex = getFlowIndex();
-    const slugs = flowIndex[decodedCategory] || [];
+    const slugs = flowIndex[flowIndexKey] || [];
     console.log("flow index slugs:", slugs);
     
     // 2. Fetch details for each slug
@@ -62,8 +71,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const { originalCategoryName } = await getPostsByCategory(slug);
   
-  const title = `${originalCategoryName} 移댄뀒怨좊━ | 濡쒕낫?대뱶諛붿씠? ?ъ옄 媛?대뱶`;
-  const description = `${originalCategoryName} 移댄뀒怨좊━? 愿?⑤맂 紐⑤뱺 寃뚯떆湲???뺤씤?대낫?몄슂.`;
+  const title = `${originalCategoryName} 카테고리 | 로보어드바이저 자산 가이드`;
+  const description = `${originalCategoryName} 카테고리와 관련된 모든 게시글을 확인해보세요.`;
   const url = `https://robo-advisor.kr/category/${slug}`;
 
   return {
@@ -98,7 +107,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {originalCategoryName}
           </h1>
           <p className="text-gray-600">
-            ?대떦 移댄뀒怨좊━? 愿?⑤맂 {posts.length}媛쒖쓽 湲???덉뒿?덈떎.
+            해당 카테고리와 관련된 {posts.length}개의 글이 있습니다.
           </p>
         </header>
 
@@ -115,10 +124,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">?깅줉??湲???놁뒿?덈떎</h3>
-            <p className="text-gray-500 mb-6">??移댄뀒怨좊━???꾩쭅 ?묒꽦??湲???놁뒿?덈떎.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">아직 글이 없습니다</h3>
+            <p className="text-gray-500 mb-6">이 카테고리의 글이 준비되면 이곳에 표시됩니다.</p>
             <a href="/" className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-              ?ㅻⅨ 移댄뀒怨좊━ ?섎윭蹂닿린
+              다른 카테고리 둘러보기
             </a>
           </div>
         )}

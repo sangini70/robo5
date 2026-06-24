@@ -62,7 +62,7 @@ export function FlowSection({ posts = [] }: FlowSectionProps) {
     <div className="w-full mb-16">
       <div className="mb-8">
         <span className="text-xs uppercase tracking-[0.2em] text-indigo-600 font-bold block mb-2">Market Flow</span>
-        <h2 className="text-2xl font-bold text-gray-900">?먮쫫?쇰줈 蹂닿린</h2>
+        <h2 className="text-2xl font-bold text-gray-900">지금 시장 흐름</h2>
       </div>
 
       <div className="space-y-12">
