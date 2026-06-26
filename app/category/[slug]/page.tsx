@@ -8,10 +8,10 @@ import { getFlowIndex, getPostDetail, getPostsFromJson } from '@/src/lib/posts';
 export const dynamic = 'force-dynamic';
 
 const CATEGORY_FLOW_INDEX_MAP: Record<string, string> = {
-  환율: 'guide',
-  etf: 'guide',
-  경제기초: 'guide',
-  미국증시: 'guide',
+  환율: '경제 기초',
+  etf: '경제 기초',
+  경제기초: '경제 기초',
+  미국증시: '경제 기초',
   세금: '세금/지원금',
 };
 
