@@ -17,7 +17,8 @@ export function writeJsonArtifacts(posts: any[]) {
   posts.forEach(post => {
     const language = post.language ?? 'ko';
     if (post.category && language === 'ko') {
-      const categoryKey = post.category.trim().toLowerCase();
+      const categorySource = post.categorySlug ?? post.category;
+      const categoryKey = categorySource.trim().toLowerCase();
       if (!flowIndex[categoryKey]) {
         flowIndex[categoryKey] = [];
       }
