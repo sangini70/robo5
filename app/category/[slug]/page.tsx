@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
 import { cache } from 'react';
-import { getFlowIndex, getPostDetail } from '@/src/lib/posts';
+import { getFlowIndex, getPostDetail, getPostsFromJson } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,22 +20,37 @@ const getPostsByCategory = cache(async (category: string) => {
     const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
     console.log("category slug:", decodedCategory);
     const flowIndexKey = CATEGORY_FLOW_INDEX_MAP[decodedCategory] || decodedCategory;
+    console.log("flowIndexKey:", flowIndexKey);
     
     // 1. Get slugs from flow-index.json
     const flowIndex = getFlowIndex();
     const slugs = flowIndex[flowIndexKey] || [];
-    console.log("flow index slugs:", slugs);
+    console.log("flowIndex[flowIndexKey].length:", slugs.length);
+    console.log("slugs first 3:", slugs.slice(0, 3));
+    const allPosts = getPostsFromJson();
+    console.log("posts.json total length:", allPosts.length);
     
     // 2. Fetch details for each slug
     const now = new Date();
-    const fetchedPosts = slugs
-      .map((slug: string) => getPostDetail(slug))
+    const detailResults = slugs.map((slug: string) => {
+      const post = getPostDetail(slug);
+      return post;
+    });
+    console.log("getPostDetail success count:", detailResults.filter(Boolean).length);
+    if (slugs.length > 0) {
+      const firstDetail = getPostDetail(slugs[0]);
+      console.log("first slug detail category:", firstDetail?.category);
+    }
+    const filteredPosts = detailResults
       .filter((post: any) => {
         if (!post) return false;
         // Basic filtering (published status is already handled by sync-json, but we check date)
         if (!post.publishDate) return true;
         return new Date(post.publishDate) <= now;
       })
+    console.log("filter before count:", detailResults.length);
+    console.log("filter after count:", filteredPosts.length);
+    const fetchedPosts = filteredPosts
       .sort((a: any, b: any) => {
         const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
         const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
