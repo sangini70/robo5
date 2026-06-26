@@ -4,6 +4,9 @@ import path from 'path';
 export function getPostsFromJson() {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'posts.json');
+    console.log("cwd:", process.cwd());
+    console.log("posts path:", filePath);
+    console.log("posts exists:", fs.existsSync(filePath));
     if (!fs.existsSync(filePath)) {
       return [];
     }
