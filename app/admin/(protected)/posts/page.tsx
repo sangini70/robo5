@@ -1,9 +1,10 @@
 ﻿'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 export default function AdminPosts() {
+  const restoreInputRef = useRef<HTMLInputElement | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [postToDelete, setPostToDelete] = useState<string | null>(null);
@@ -12,6 +13,13 @@ export default function AdminPosts() {
   const [naverFilter, setNaverFilter] = useState<'all' | 'unrequested' | 'requested'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [toastMessage, setToastMessage] = useState('');
+  const [restoreLoading, setRestoreLoading] = useState(false);
+  const [restoreError, setRestoreError] = useState('');
+  const [restoreResult, setRestoreResult] = useState<any | null>(null);
+  const [restoreBackupJson, setRestoreBackupJson] = useState<any | null>(null);
+  const [restoreApplyLoading, setRestoreApplyLoading] = useState(false);
+  const [restoreApplyError, setRestoreApplyError] = useState('');
+  const [restoreApplyResult, setRestoreApplyResult] = useState<any | null>(null);
   const POSTS_PER_PAGE = 20;
 
   useEffect(() => {
@@ -19,6 +27,7 @@ export default function AdminPosts() {
       try {
         const response = await fetch('/api/admin/posts');
         const data = await response.json();
+        console.log('ADMIN POSTS API FIRST', data?.[0] ?? null);
         setPosts(data);
         setLoading(false);
       } catch (error) {
@@ -30,9 +39,96 @@ export default function AdminPosts() {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    console.log('ADMIN POSTS STATE FIRST', posts[0] ?? null);
+  }, [posts]);
+
   const showToast = (message: string) => {
     setToastMessage(message);
     setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const handleRestoreClick = () => {
+    restoreInputRef.current?.click();
+  };
+
+  const handleRestoreFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    setRestoreLoading(true);
+    setRestoreError('');
+    setRestoreResult(null);
+    setRestoreBackupJson(null);
+    setRestoreApplyLoading(false);
+    setRestoreApplyError('');
+    setRestoreApplyResult(null);
+
+    try {
+      const rawText = await file.text();
+      const parsed = JSON.parse(rawText);
+      const response = await fetch('/api/admin/restore/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...parsed,
+          mode: 'dry-run',
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        setRestoreError(result?.error || 'Restore dry-run failed.');
+      } else {
+        setRestoreResult(result);
+        setRestoreBackupJson(parsed);
+      }
+    } catch (error: any) {
+      const message = error instanceof Error ? error.message : String(error);
+      setRestoreError(message || 'Invalid JSON file.');
+    } finally {
+      setRestoreLoading(false);
+      event.target.value = '';
+    }
+  };
+
+  const handleRestoreApply = async () => {
+    if (!restoreBackupJson || !restoreResult?.success) {
+      return;
+    }
+
+    setRestoreApplyLoading(true);
+    setRestoreApplyError('');
+    setRestoreApplyResult(null);
+
+    try {
+      const response = await fetch('/api/admin/restore/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...restoreBackupJson,
+          mode: 'apply',
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        setRestoreApplyError(result?.error || 'Restore apply failed.');
+      } else {
+        setRestoreApplyResult(result);
+      }
+    } catch (error: any) {
+      const message = error instanceof Error ? error.message : String(error);
+      setRestoreApplyError(message || 'Restore apply failed.');
+    } finally {
+      setRestoreApplyLoading(false);
+    }
   };
 
   const handleGoogleComplete = async (id: string) => {
@@ -255,7 +351,90 @@ export default function AdminPosts() {
         >
           New Post
         </Link>
+        <button
+          type="button"
+          onClick={() => {
+            window.location.href = '/api/admin/backup/posts';
+          }}
+          className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-gray-900 bg-white border border-gray-300 hover:bg-gray-50 transition-colors shrink-0"
+        >
+          백업
+        </button>
+        <button
+          type="button"
+          onClick={handleRestoreClick}
+          className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors shrink-0"
+        >
+          복원
+        </button>
+        <input
+          ref={restoreInputRef}
+          type="file"
+          accept="application/json,.json"
+          className="hidden"
+          onChange={handleRestoreFileChange}
+        />
       </div>
+
+      {(restoreLoading || restoreError || restoreResult) && (
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700 shadow-sm">
+          {restoreLoading && <p className="text-gray-500">복원 dry-run 처리 중...</p>}
+          {restoreError && <p className="text-red-600">{restoreError}</p>}
+          {restoreResult && (
+            <div className="space-y-2">
+              <p className="font-medium text-gray-900">
+                dry-run {restoreResult.success ? '성공' : '실패'}
+              </p>
+              <p>postsCount: {restoreResult.postsCount ?? 0}</p>
+              <p>sample.id: {restoreResult.sample?.id ?? ''}</p>
+              <p>sample.fieldKeys 개수: {restoreResult.sample?.fieldKeys?.length ?? 0}</p>
+              <p>warning: {restoreResult.warning ?? ''}</p>
+              <p>nextStep: {restoreResult.nextStep ?? ''}</p>
+            </div>
+          )}
+          <div className="mt-4 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleRestoreApply}
+              disabled={!restoreResult?.success || restoreApplyLoading}
+              className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              복원 실행
+            </button>
+            <span className="text-xs text-gray-500">
+              dry-run 성공 후에만 실행할 수 있습니다.
+            </span>
+          </div>
+          {restoreApplyLoading && <p className="mt-3 text-gray-500">복원 실행 처리 중...</p>}
+          {restoreApplyError && <p className="mt-3 text-red-600">{restoreApplyError}</p>}
+          {restoreApplyResult && (
+            <div className="mt-4 space-y-2 rounded-md bg-gray-50 p-3 text-gray-700">
+              <p className="font-medium text-gray-900">
+                복원 실행 {restoreApplyResult.success ? '성공' : '실패'}
+              </p>
+              <p>successCount: {restoreApplyResult.summary?.successCount ?? 0}</p>
+              <p>failureCount: {restoreApplyResult.summary?.failureCount ?? 0}</p>
+              <p>totalCount: {restoreApplyResult.summary?.totalCount ?? 0}</p>
+              <p>warning: {restoreApplyResult.warning ?? ''}</p>
+              <p>nextStep: {restoreApplyResult.nextStep ?? ''}</p>
+            </div>
+          )}
+          {restoreApplyResult?.success && (
+            <div className="mt-4 rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+              <p className="font-semibold">복원이 완료되었습니다.</p>
+              <p className="mt-2">다음 순서로 진행하십시오.</p>
+              <ol className="mt-2 list-decimal space-y-1 pl-5">
+                <li>npm run sync-json 실행</li>
+                <li>생성된 JSON 확인</li>
+                <li>Git Commit</li>
+                <li>Git Push</li>
+                <li>GitHub Actions 완료 확인</li>
+                <li>Production 사이트 확인</li>
+              </ol>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
         <table className="w-full text-left text-sm text-gray-500">

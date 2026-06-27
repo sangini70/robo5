@@ -19,6 +19,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     description: '',
     content: '',
     category: '?섏쑉',
+    categorySlug: '',
     tags: '',
     thumbnail: '',
     status: 'draft',
@@ -61,6 +62,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         description: initialData.description || '',
         content: initialData.content || '',
         category: initialData.category || '?섏쑉',
+        categorySlug: initialData.categorySlug || '',
         tags: initialData.tags ? initialData.tags.join(', ') : '',
         thumbnail: initialData.thumbnail || '',
         status: initialData.status || 'draft',
@@ -317,6 +319,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         description: formData.description,
         content: cleaned.content,
         category: formData.category,
+        categorySlug: formData.categorySlug,
         tags: tagsArray,
         thumbnail: formData.thumbnail,
         status: formData.status,
@@ -560,6 +563,18 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               <option value="미국 증시">미국 증시</option>
               <option value="세금/지원금">세금/지원금</option>
             </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Category Slug</label>
+            <input
+              type="text"
+              name="categorySlug"
+              value={formData.categorySlug}
+              onChange={handleChange}
+              className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+              placeholder="예: 환율, ETF, 미국증시"
+            />
           </div>
 
           <div>
