@@ -9,6 +9,9 @@ type FirestoreValue =
   | { booleanValue: boolean }
   | { nullValue: null }
   | { timestampValue: string }
+  | { referenceValue: string }
+  | { bytesValue: string }
+  | { geoPointValue: { latitude: number; longitude: number } }
   | { mapValue: { fields: Record<string, FirestoreValue> } }
   | { arrayValue: { values: FirestoreValue[] } };
 
@@ -161,16 +164,34 @@ function encodeFirestoreFields(data: Record<string, any>) {
   return fields;
 }
 
-function fromFirestoreValue(value: FirestoreValue): any {
+function fromFirestoreValue(value: any): any {
+  if (value === null || value === undefined) return null;
+
+  if (typeof value !== 'object') {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => fromFirestoreValue(item));
+  }
+
   if ('nullValue' in value) return null;
   if ('stringValue' in value) return value.stringValue;
   if ('integerValue' in value) return Number(value.integerValue);
-  if ('doubleValue' in value) return value.doubleValue;
+  if ('doubleValue' in value) return Number(value.doubleValue);
   if ('booleanValue' in value) return value.booleanValue;
   if ('timestampValue' in value) return value.timestampValue;
+  if ('referenceValue' in value) return value.referenceValue;
+  if ('bytesValue' in value) return value.bytesValue;
+  if ('geoPointValue' in value) {
+    return {
+      latitude: Number(value.geoPointValue.latitude),
+      longitude: Number(value.geoPointValue.longitude),
+    };
+  }
 
   if ('arrayValue' in value) {
-    return (value.arrayValue.values || []).map((item) => fromFirestoreValue(item));
+    return (value.arrayValue.values || []).map((item: any) => fromFirestoreValue(item));
   }
 
   if ('mapValue' in value) {
@@ -182,16 +203,33 @@ function fromFirestoreValue(value: FirestoreValue): any {
     return result;
   }
 
-  return null;
+  const result: Record<string, any> = {};
+  for (const [key, nestedValue] of Object.entries(value)) {
+    result[key] = fromFirestoreValue(nestedValue);
+  }
+  return result;
 }
 
 function fromFirestoreDocument(document: FirestoreDocument) {
+  console.log("FIRESTORE RAW FIELDS", {
+    keys: Object.keys(document.fields ?? {}),
+    fields: document.fields,
+    title: document.fields?.title,
+    slug: document.fields?.slug,
+    status: document.fields?.status,
+    category: document.fields?.category,
+    categorySlug: document.fields?.categorySlug,
+    name: document.name,
+  });
+
   const data: Record<string, any> = {};
-  const fields = document.fields || {};
+  const fields = document?.fields || {};
 
   for (const [key, value] of Object.entries(fields)) {
     data[key] = fromFirestoreValue(value);
   }
+
+  console.log("DECODE RESULT", data);
 
   if (!data.id && document.name) {
     data.id = document.name.split('/').pop() || data.id;
@@ -381,8 +419,17 @@ async function listFirestorePosts() {
 
     const payload = await response.json();
     const documents: FirestoreDocument[] = Array.isArray(payload.documents) ? payload.documents : [];
+    console.log('REST DOCUMENT COUNT', documents.length);
     for (const document of documents) {
-      posts.push(normalizePostDocument(fromFirestoreDocument(document)));
+      console.log('LOOP DOCUMENT', document.name);
+      console.log('BEFORE FROM FIRESTORE');
+      const decoded = fromFirestoreDocument(document);
+      console.log('AFTER FROM FIRESTORE', decoded);
+      console.log('BEFORE NORMALIZE');
+      const normalized = normalizePostDocument(decoded);
+      console.log('AFTER NORMALIZE', normalized);
+      posts.push(normalized);
+      console.log('POSTS PUSHED', posts.length);
     }
     pageToken = payload.nextPageToken;
   } while (pageToken);
@@ -445,9 +492,14 @@ async function writeFirestorePost(postData: Record<string, any>) {
   const { documentData } = buildFirestorePayload({ ...postData, id: docId }, mode, existingPost);
   const fields = encodeFirestoreFields(documentData);
   const { projectId, databaseId } = getFirestoreAdminConfig();
+  const updateMask = new URLSearchParams();
+
+  for (const key of Object.keys(documentData).filter((key) => key.trim())) {
+    updateMask.append('updateMask.fieldPaths', key);
+  }
 
   await firestoreRequest(
-    `projects/${projectId}/databases/${databaseId}/documents/posts/${encodeURIComponent(docId)}`,
+    `projects/${projectId}/databases/${databaseId}/documents/posts/${encodeURIComponent(docId)}?${updateMask.toString()}`,
     {
       method: 'PATCH',
       body: JSON.stringify({ fields }),
@@ -502,6 +554,7 @@ export async function GET() {
       postsCount: posts.length,
       firstSlug: posts[0]?.slug ?? null,
     });
+    console.log('ADMIN POSTS RESPONSE FIRST', posts[0] ?? null);
     return NextResponse.json(posts);
   } catch (error: any) {
     console.error('ADMIN POSTS GET ERROR', error);
