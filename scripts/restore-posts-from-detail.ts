@@ -445,7 +445,7 @@ function buildRestorePayload(
   firestorePost: Record<string, any>,
   detail: Record<string, any>,
   masterPost: Record<string, any>
-) {
+): Record<string, any> {
   const { __file, ...detailData } = detail;
 
   return {
