@@ -163,10 +163,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         />
       )}
 
-      <div className="w-full mx-auto px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <article className="lg:col-span-8 max-w-[900px]">
-            <header className="mb-12">
+      <div className="w-full mx-auto px-6 lg:px-6 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10">
+          <article className="lg:col-span-8 max-w-[840px]">
+            <header className="mb-10 lg:mb-12">
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{post.category || ''}</span>
                 <span className="w-8 h-[1px] bg-gray-300"></span>
@@ -192,7 +192,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </header>
 
             {post.thumbnail && (
-              <div className="w-full aspect-[21/9] rounded-sm overflow-hidden mb-16 bg-gray-100 relative">
+              <div className="w-full aspect-[21/9] rounded-sm overflow-hidden mb-12 lg:mb-14 bg-gray-100 relative">
                 <img src={post.thumbnail} alt={post.title} className="w-full h-full object-cover opacity-90" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 border border-black/5"></div>
               </div>
@@ -221,7 +221,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             />
 
             {false && (
-              <div className="mt-12 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
+              <div className="mt-10 lg:mt-12 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">환율 계산기로 체감 금액을 바로 확인해보세요</h3>
                 <p className="text-gray-600 mb-6">
                   환전 수수료와 우대율을 함께 적용해 실제 필요한 원화 금액과 체감 환율을 확인해보세요.<br />
@@ -237,7 +237,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             )}
 
             {post.tags && post.tags.length > 0 && (
-              <div className="mt-16 pt-8 border-t border-gray-200 flex flex-wrap gap-3">
+              <div className="mt-12 lg:mt-14 pt-8 border-t border-gray-200 flex flex-wrap gap-3">
                 {post.tags.map((tag: string) => (
                   <Link
                     key={tag}

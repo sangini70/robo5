@@ -70,7 +70,7 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
   const relatedPosts = await getRelatedPosts(currentCategory, currentPostId);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       {/* Calculator Widget CTA */}
       <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-6 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-indigo-100 rounded-full opacity-50 blur-xl"></div>
@@ -138,13 +138,6 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
         </div>
       )}
 
-      {/* Ad/Widget Placeholder */}
-      <div className="bg-gray-50 border border-gray-200 rounded-sm p-6 flex flex-col items-center justify-center min-h-[250px]">
-        <span className="text-xs text-gray-400 uppercase tracking-widest mb-2">Advertisement</span>
-        <div className="text-gray-300 text-sm text-center">
-          광고는 잠시 후 표시됩니다<br/>(잠시만 기다려 주세요)
-        </div>
-      </div>
     </div>
   );
 }

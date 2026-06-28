@@ -116,8 +116,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   
   return (
     <MainLayout>
-      <div className="w-full mx-auto px-6 lg:px-8 py-12">
-        <header className="mb-12 text-center">
+      <div className="w-full mx-auto px-6 lg:px-6 py-10 lg:py-12">
+        <header className="mb-10 lg:mb-12 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             {originalCategoryName}
           </h1>
@@ -127,7 +127,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </header>
 
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
