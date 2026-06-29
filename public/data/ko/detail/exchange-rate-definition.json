@@ -1,22 +1,24 @@
 {
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "customJs": "",
-  "structuredDataJsonLd": "",
-  "googleRequestedAt": "2026-04-06T16:21:56.129Z",
-  "category": "경제 기초",
-  "customCss": "",
-  "id": "scm1K7XvtsSwfqk41LzA",
-  "description": "환율의 정의와 상승·하락 기준을 통해 경제 흐름을 쉽게 이해하는 방법입니다.",
-  "language": "ko",
-  "postViews": 8,
-  "dailyImpressions": {
-    "2026-04-11": 2,
-    "2026-04-07": 1,
-    "2026-04-02": 5
-  },
-  "publishDate": "2026-04-02T12:23:28.656Z",
+  "title": "환율이란 무엇인가? 정의 및 기준 정리",
   "googleIndexedAt": "2026-04-07T08:06:02.094Z",
+  "createdAt": "2026-04-01T02:28:55.137Z",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
+  "customCss": "",
+  "dailyViews": {
+    "2026-04-03": 1,
+    "2026-04-11": 1,
+    "2026-04-07": 2,
+    "2026-04-06": 2
+  },
+  "dailyImpressions": {
+    "2026-04-02": 5,
+    "2026-04-11": 2,
+    "2026-04-07": 1
+  },
   "categorySlug": "경제 기초",
+  "titleHistory": [],
+  "structuredDataJsonLd": "",
   "tags": [
     "환율",
     "달러",
@@ -25,26 +27,24 @@
     "exchange rate",
     "currency basics"
   ],
-  "seoTitle": "환율이란 무엇인가? 정의 및 기준 정리",
-  "googleIndexStatus": "indexed",
-  "createdAt": "2026-04-01T02:28:55.137Z",
-  "updatedAt": "2026-04-02T12:23:28.656Z",
-  "dailyViews": {
-    "2026-04-06": 2,
-    "2026-04-07": 2,
-    "2026-04-03": 1,
-    "2026-04-11": 1
-  },
-  "title": "환율이란 무엇인가? 정의 및 기준 정리",
-  "naverRequestedAt": "2026-04-06T13:34:47.588Z",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-definition.webp",
-  "seoDescription": "환율의 기본 개념과 상승 및 하락에 따른 원화 가치 변화를 정리합니다. 초보자도 이해하기 쉬운 환율 기초 가이드입니다.",
-  "slug": "exchange-rate-definition",
-  "publishHour": 21,
-  "titleHistory": [],
   "status": "published",
+  "naverRequestedAt": "2026-04-06T13:34:47.588Z",
+  "slug": "exchange-rate-definition",
+  "language": "ko",
   "content": "<div style=\"font-family: 'Noto Sans KR', sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; font-size: 16px; color: #333;\">\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\"><strong>환율이란 무엇인가? 정의와 기초 개념 정리</strong></h2>\n\n<p>경제 뉴스에서 자주 접하는 <strong>환율(Exchange Rate)</strong>은 쉽게 말해 '국가 간 화폐의 교환 비율' 또는 '외국 돈의 가격'을 의미합니다. 우리가 시장에서 물건을 살 때 값을 치르듯, 미국의 달러나 일본의 엔화를 구하기 위해 지불해야 하는 우리 돈(원화)의 가치를 수치로 나타낸 것입니다.</p>\n\n<p>예를 들어 원·달러 환율이 1,350원이라면, 미국의 1달러를 얻기 위해 대한민국 원화 1,350원을 내야 한다는 뜻입니다. 이러한 가격은 전 세계 외환시장에서 수요와 공급의 법칙에 따라 실시간으로 변동하게 됩니다.</p>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\"><strong>환율 상승과 하락의 차이 기준</strong></h2>\n\n<p>환율이 올랐다거나 내렸다는 표현은 기준에 따라 해석이 달라질 수 있어 정확한 개념 이해가 필요합니다. 일반적으로 원·달러 환율을 기준으로 다음과 같이 구분합니다.</p>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px;\">\n    <thead>\n        <tr>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; background-color: #f5f5f5; font-weight: bold;\">구분</th>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; background-color: #f5f5f5; font-weight: bold;\">의미 (1달러 기준)</th>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; background-color: #f5f5f5; font-weight: bold;\">원화 가치의 변화</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #d32f2f;\">환율 상승</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1,200원 → 1,400원</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">원화 가치 하락 (원저)</td>\n        </tr>\n        <tr style=\"background-color: #f9f9f9;\">\n            <td style=\"padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #1a73e8;\">환율 하락</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1,400원 → 1,200원</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">원화 가치 상승 (원고)</td>\n        </tr>\n    </tbody>\n</table>\n\n<p>환율이 상승하면 달러의 가치가 높아지기 때문에 수입 물가가 오르고 해외여행 비용 부담이 커집니다. 반면, 환율이 하락하면 수입품 가격이 낮아져 소비자 물가 안정에 기여하는 측면이 있습니다.</p>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\"><strong>환율 변동이 경제에 미치는 실제 영향</strong></h2>\n\n<p>환율은 단순히 개인의 소비뿐만 아니라 국가 경제 전반에 큰 영향을 미칩니다. 100달러짜리 물건을 직구할 때 환율이 1,100원일 때는 11만 원이면 충분하지만, 1,400원이 되면 14만 원을 지불해야 합니다. 이러한 변동은 기업의 수출입 경쟁력과도 직결됩니다.</p>\n\n<p>특히 국제 정세나 금리 변화에 따라 변동성이 커질 수 있으므로, 거시적인 관점에서 <a href=\"/exchange-rate\">환율</a>의 흐름을 주기적으로 파악하는 것이 중요합니다. 시장의 흐름을 더 자세히 이해하고 싶다면 향후 발표되는 <a href=\"/exchange-rate-forecast\">환율 전망</a> 보고서를 참고하는 것도 좋은 방법입니다.</p>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\"><strong>자주 묻는 질문(FAQ)</strong></h2>\n\n<div style=\"margin: 20px 0;\">\n    <div style=\"margin-bottom: 20px;\">\n        <p style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율은 어디서 확인하는 것이 가장 정확한가요?</p>\n        <p style=\"margin-left: 10px;\">A: 주요 포털 사이트의 금융 섹션이나 시중 은행 앱에서 제공하는 실시간 고시 환율을 확인하는 것이 가장 정확합니다.</p>\n    </div>\n    <div style=\"margin-bottom: 20px;\">\n        <p style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환전은 언제 하는 것이 유리한가요?</p>\n        <p style=\"margin-left: 10px;\">A: 환율은 변동성이 크기 때문에 한 번에 큰 금액을 환전하기보다 시점을 나누어 환전하는 분할 매수 방식을 권장합니다.</p>\n    </div>\n</div>\n\n<div style=\"margin:28px 0 0; padding:14px 16px; border:1px solid #e5e7eb; background:#f8fafc; color:#6b7280; font-size:13px; line-height:1.7; border-radius:8px;\">\n본 콘텐츠는 일반적인 정보 제공 목적이며, 개별 투자자의 상황에 따라 결과는 달라질 수 있습니다. 모든 투자 판단과 그에 따른 책임은 본인에게 있습니다.\n</div>\n</div>",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-definition.webp",
   "naverIndexStatus": "requested",
+  "category": "경제 기초",
+  "publishDate": "2026-04-02T12:23:28.656Z",
+  "impressions": 8,
+  "id": "scm1K7XvtsSwfqk41LzA",
+  "publishHour": 21,
+  "googleIndexStatus": "indexed",
+  "description": "환율의 정의와 상승·하락 기준을 통해 경제 흐름을 쉽게 이해하는 방법입니다.",
   "flowType": "",
-  "impressions": 8
+  "googleRequestedAt": "2026-04-06T16:21:56.129Z",
+  "postViews": 8,
+  "seoDescription": "환율의 기본 개념과 상승 및 하락에 따른 원화 가치 변화를 정리합니다. 초보자도 이해하기 쉬운 환율 기초 가이드입니다.",
+  "seoTitle": "환율이란 무엇인가? 정의 및 기준 정리",
+  "updatedAt": "2026-04-02T12:23:28.656Z"
 }
