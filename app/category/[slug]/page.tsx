@@ -1,56 +1,31 @@
-﻿import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
+import { getPostsFromJson } from '@/src/lib/posts';
+import { getCategoryDisplayName } from '@/src/lib/category';
 import { cache } from 'react';
-import { getFlowIndex, getPostDetail, getPostsFromJson } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
-const CATEGORY_FLOW_INDEX_MAP: Record<string, string> = {
-  환율: '경제 기초',
-  etf: '경제 기초',
-  경제기초: '경제 기초',
-  미국증시: '경제 기초',
-  세금: '세금/지원금',
-};
+function normalizeCategoryKey(value: string) {
+  return value.replace(/\s+/g, '').toLowerCase();
+}
 
 const getPostsByCategory = cache(async (category: string) => {
   try {
-    const decodedCategory = decodeURIComponent(category).trim().toLowerCase();
-    console.log("category slug:", decodedCategory);
-    const flowIndexKey = CATEGORY_FLOW_INDEX_MAP[decodedCategory] || decodedCategory;
-    console.log("flowIndexKey:", flowIndexKey);
-    
-    // 1. Get slugs from flow-index.json
-    const flowIndex = getFlowIndex();
-    const slugs = flowIndex[flowIndexKey] || [];
-    console.log("flowIndex[flowIndexKey].length:", slugs.length);
-    console.log("slugs first 3:", slugs.slice(0, 3));
+    const decodedCategory = decodeURIComponent(category).trim();
+    const originalCategoryName = getCategoryDisplayName(category);
+    const categoryKeys = [originalCategoryName, decodedCategory].map(normalizeCategoryKey);
     const allPosts = getPostsFromJson();
-    console.log("posts.json total length:", allPosts.length);
-    
-    // 2. Fetch details for each slug
-    const now = new Date();
-    const detailResults = slugs.map((slug: string) => {
-      const post = getPostDetail(slug);
-      return post;
-    });
-    console.log("getPostDetail success count:", detailResults.filter(Boolean).length);
-    if (slugs.length > 0) {
-      const firstDetail = getPostDetail(slugs[0]);
-      console.log("first slug detail category:", firstDetail?.category);
-    }
-    const filteredPosts = detailResults
+
+    const fetchedPosts = allPosts
       .filter((post: any) => {
-        if (!post) return false;
-        // Basic filtering (published status is already handled by sync-json, but we check date)
-        if (!post.publishDate) return true;
-        return new Date(post.publishDate) <= now;
+        const postCategoryValues = [post.categorySlug, post.category]
+          .filter(Boolean)
+          .map((value: string) => normalizeCategoryKey(String(value)));
+
+        return postCategoryValues.some((value: string) => categoryKeys.includes(value));
       })
-    console.log("filter before count:", detailResults.length);
-    console.log("filter after count:", filteredPosts.length);
-    const fetchedPosts = filteredPosts
       .sort((a: any, b: any) => {
         const dateA = a.publishDate ? new Date(a.publishDate) : a.createdAt ? new Date(a.createdAt) : new Date(0);
         const dateB = b.publishDate ? new Date(b.publishDate) : b.createdAt ? new Date(b.createdAt) : new Date(0);
@@ -63,29 +38,25 @@ const getPostsByCategory = cache(async (category: string) => {
         const dd = String(dateObj.getDate()).padStart(2, '0');
         const hh = String(dateObj.getHours()).padStart(2, '0');
         const min = String(dateObj.getMinutes()).padStart(2, '0');
-        
+
         return {
           ...post,
-          date: `${yyyy}.${mm}.${dd} ${hh}:${min}`
+          category: originalCategoryName,
+          date: `${yyyy}.${mm}.${dd} ${hh}:${min}`,
         };
       });
-
-    console.log("fetched posts:", fetchedPosts.length);
-
-    // Try to get the original category name from the first post if available
-    const originalCategoryName = fetchedPosts.length > 0 ? fetchedPosts[0].category : decodeURIComponent(category);
 
     return { posts: fetchedPosts, originalCategoryName };
   } catch (error) {
     console.error('Error fetching posts by category:', error);
-    return { posts: [], originalCategoryName: decodeURIComponent(category) };
+    return { posts: [], originalCategoryName: getCategoryDisplayName(category) };
   }
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const { originalCategoryName } = await getPostsByCategory(slug);
-  
+
   const title = `${originalCategoryName} 카테고리 | 로보어드바이저 자산 가이드`;
   const description = `${originalCategoryName} 카테고리와 관련된 모든 게시글을 확인해보세요.`;
   const url = `https://robo-advisor.kr/category/${slug}`;
@@ -113,7 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { posts, originalCategoryName } = await getPostsByCategory(slug);
-  
+
   return (
     <MainLayout>
       <div className="w-full mx-auto px-6 lg:px-6 py-10 lg:py-12">
@@ -122,7 +93,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {originalCategoryName}
           </h1>
           <p className="text-gray-600">
-            해당 카테고리와 관련된 {posts.length}개의 글이 있습니다.
+            해당 카테고리와 관련된 {posts.length}개의 글을 확인해보세요.
           </p>
         </header>
 
@@ -140,7 +111,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">아직 글이 없습니다</h3>
-            <p className="text-gray-500 mb-6">이 카테고리의 글이 준비되면 이곳에 표시됩니다.</p>
+            <p className="text-gray-500 mb-6">이 카테고리의 글이 준비되면 여기에 표시됩니다.</p>
             <a href="/" className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
               다른 카테고리 둘러보기
             </a>
@@ -150,4 +121,3 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     </MainLayout>
   );
 }
-

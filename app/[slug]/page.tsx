@@ -5,6 +5,7 @@ import { Sidebar } from '@/src/components/Sidebar';
 import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
 import Link from 'next/link';
+import { getCategoryDisplayName } from '@/src/lib/category';
 import { getPostDetail } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
@@ -120,6 +121,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   );
 
   const description = post.seoDescription || post.description || post.shortDescription;
+  const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -168,7 +170,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <article className="lg:col-span-8 max-w-[840px]">
             <header className="mb-10 lg:mb-12">
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{post.category || ''}</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{categoryLabel}</span>
                 <span className="w-8 h-[1px] bg-gray-300"></span>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs text-gray-500 font-light">
                   <time dateTime={post.createdAtStr}>작성일: {post.createdAtStr}</time>
@@ -252,7 +254,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </article>
 
           <aside className="lg:col-span-4 sticky top-24 h-fit">
-            <Sidebar currentPostId={post.id} currentCategory={post.category} />
+            <Sidebar currentPostId={post.id} currentCategory={categoryLabel} />
           </aside>
         </div>
       </div>

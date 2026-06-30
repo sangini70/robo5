@@ -1,4 +1,4 @@
-﻿import fs from 'fs';
+import fs from 'fs';
 import path from 'path';
 
 export function getPostsFromJson() {
@@ -54,4 +54,3 @@ export function getPostDetail(slug: string) {
     return null;
   }
 }
-

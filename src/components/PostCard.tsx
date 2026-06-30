@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { PostCardTracking } from '@/src/components/PostCardTracking';
+import { getCategoryDisplayName } from '@/src/lib/category';
 
 interface PostCardProps {
   post: any;
@@ -8,6 +9,7 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   const trackingId = `post-card-${post.id ?? post.slug}`;
+  const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
 
   return (
     <article id={trackingId} className="group cursor-pointer flex flex-col">
@@ -31,7 +33,7 @@ export function PostCard({ post }: PostCardProps) {
           </Link>
         </h3>
         <span className="text-xs text-gray-500 font-medium tracking-[0.2em] uppercase shrink-0 mt-1">
-          {post.category}
+          {categoryLabel}
         </span>
       </div>
       

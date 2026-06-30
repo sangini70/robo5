@@ -1,4 +1,5 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
+import { getCategoryDisplayName } from '@/src/lib/category';
 import { getPostsFromJson } from '@/src/lib/posts';
 import { PopularPostsWidget } from './PopularPostsWidget';
 
@@ -33,12 +34,13 @@ async function getRelatedPosts(category?: string, excludeId?: string) {
   try {
     const allPosts = getPostsFromJson();
     const now = new Date();
+    const currentCategory = getCategoryDisplayName(category);
     
     const posts = allPosts
       .filter((post: any) => {
         if (post.language === 'en') return false;
         if (post.id === excludeId) return false;
-        if (post.category !== category) return false;
+        if (getCategoryDisplayName(post.category, post.categorySlug) !== currentCategory) return false;
         if (!post.publishDate) return true;
         return new Date(post.publishDate) <= now;
       })
@@ -141,4 +143,3 @@ export async function Sidebar({ currentPostId, currentCategory }: { currentPostI
     </div>
   );
 }
-
