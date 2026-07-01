@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
   description: '로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.',
+  metadataBase: new URL('https://robo-advisor.kr'),
   alternates: {
     canonical: 'https://robo-advisor.kr',
   },

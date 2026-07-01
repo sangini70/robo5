@@ -1,8 +1,40 @@
-import React from 'react';
+﻿import React from 'react';
+import { Metadata } from 'next';
 import { HomeContent } from '@/src/components/HomeContent';
 import { getPostsFromJson } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
+
+const SITE_URL = 'https://robo-advisor.kr';
+const SITE_TITLE = '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr';
+const SITE_DESCRIPTION = '로보어드바이저 수수료, ETF 자산 기초, 환율 계산 등 금융 정보를 쉽게 정리한 가이드 사이트입니다.';
+
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }): Promise<Metadata> {
+  const { page } = await params;
+  const pageNumber = Math.max(1, parseInt(page, 10) || 1);
+  const url = pageNumber <= 1 ? SITE_URL : `${SITE_URL}/page/${pageNumber}`;
+  const title = pageNumber <= 1 ? SITE_TITLE : `로보어드바이저·ETF·환율 정보 정리 - Page ${pageNumber} | robo-advisor.kr`;
+
+  return {
+    title,
+    description: SITE_DESCRIPTION,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description: SITE_DESCRIPTION,
+      url,
+      siteName: 'robo-advisor.kr',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: SITE_DESCRIPTION,
+    },
+  };
+}
 
 function normalizeHomePosts(posts: any[]) {
   return [...posts]
