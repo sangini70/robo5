@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
+import { createBreadcrumbList } from '@/src/lib/breadcrumb';
 import { cache } from 'react';
 import { getPostsFromJson } from '@/src/lib/posts';
 
@@ -91,6 +92,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { posts, originalTagName } = await getPostsByTagSlug(slug);
+  const breadcrumbStructuredData = createBreadcrumbList([
+    { name: 'Home', url: 'https://robo-advisor.kr/' },
+    { name: originalTagName, url: `https://robo-advisor.kr/tag/${slug}` },
+  ]);
 
   if (posts.length === 0) {
     notFound();
@@ -98,6 +103,10 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
 
   return (
     <MainLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
       <div className="w-full mx-auto px-6 lg:px-8 py-12">
         <header className="mb-12 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">

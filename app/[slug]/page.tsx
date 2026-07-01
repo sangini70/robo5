@@ -5,6 +5,7 @@ import { Sidebar } from '@/src/components/Sidebar';
 import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
 import Link from 'next/link';
+import { createBreadcrumbList } from '@/src/lib/breadcrumb';
 import { getCategoryDisplayName } from '@/src/lib/category';
 import { getPostDetail } from '@/src/lib/posts';
 
@@ -122,6 +123,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const description = post.seoDescription || post.description || post.shortDescription;
   const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
+  const breadcrumbStructuredData = createBreadcrumbList([
+    { name: 'Home', url: 'https://robo-advisor.kr/' },
+    { name: categoryLabel, url: `https://robo-advisor.kr/category/${encodeURIComponent(categoryLabel)}` },
+    { name: post.title, url: `https://robo-advisor.kr/${slug}` },
+  ]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -154,6 +160,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <MainLayout>
       <ViewTracker slug={post.slug} />
       {post.customCss && <style dangerouslySetInnerHTML={{ __html: post.customCss }} />}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

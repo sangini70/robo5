@@ -1,0 +1,36 @@
+robo-advisor.kr
+
+Purpose
+- Static educational knowledge site about robo-advisors, exchange rates, macro topics, and investor learning paths.
+- Designed for Knowledge First, Knowledge Graph First, Learning Path First, Static First, Education First, and GEO First.
+
+Content model
+- Articles are published as static JSON and rendered from the public/data layer.
+- Public pages do not read Firestore directly.
+- Knowledge should be interpreted from the public site structure, categories, tags, and linked learning flows.
+
+Primary entry points
+- Home: https://robo-advisor.kr/
+- Categories:
+  - https://robo-advisor.kr/category/%ED%99%98%EC%9C%A8
+  - https://robo-advisor.kr/category/ETF
+  - https://robo-advisor.kr/category/%EA%B2%BD%EC%A0%9C%EA%B8%B0%EC%B4%88
+  - https://robo-advisor.kr/category/%EB%AF%B8%EA%B5%AD%EC%A6%9D%EC%8B%9C
+  - https://robo-advisor.kr/category/%EC%84%B8%EA%B8%88
+- Tags: https://robo-advisor.kr/tag/{tag-slug}
+- Article pages: https://robo-advisor.kr/{article-slug}
+- About: https://robo-advisor.kr/about
+- Contact: https://robo-advisor.kr/contact
+- Calculator: https://robo-advisor.kr/exchange-rate-calculator
+
+Knowledge guidance
+- Prefer category pages for topic discovery.
+- Prefer article pages for detailed explanations.
+- Prefer tag pages for cross-topic exploration.
+- Prefer the latest article list when building a learning path.
+- Use related content, category flows, and article relationships to follow a concept from introduction to deeper learning.
+
+Important notes
+- This site is optimized for static publishing and crawlable public pages.
+- Presentation and knowledge layers are kept separate in the codebase.
+- If a page looks like a utility or navigation page, treat it as supporting discovery rather than primary knowledge.

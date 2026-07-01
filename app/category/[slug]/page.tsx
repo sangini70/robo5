@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { MainLayout } from '@/src/components/MainLayout';
 import { PostCard } from '@/src/components/PostCard';
+import { createBreadcrumbList } from '@/src/lib/breadcrumb';
 import { getPostsFromJson } from '@/src/lib/posts';
 import { getCategoryDisplayName } from '@/src/lib/category';
 import { cache } from 'react';
@@ -84,9 +85,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { posts, originalCategoryName } = await getPostsByCategory(slug);
+  const breadcrumbStructuredData = createBreadcrumbList([
+    { name: 'Home', url: 'https://robo-advisor.kr/' },
+    { name: originalCategoryName, url: `https://robo-advisor.kr/category/${slug}` },
+  ]);
 
   return (
     <MainLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
       <div className="w-full mx-auto px-6 lg:px-6 py-10 lg:py-12">
         <header className="mb-10 lg:mb-12 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
