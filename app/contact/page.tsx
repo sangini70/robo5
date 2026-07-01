@@ -4,6 +4,9 @@ import { MainLayout } from '@/src/components/MainLayout';
 export const metadata: Metadata = {
   title: '연락처 - robo-advisor.kr',
   description: '로보어드바이저 투자 가이드 사이트 연락처입니다.',
+  alternates: {
+    canonical: 'https://robo-advisor.kr/contact',
+  },
 };
 
 export default function Contact() {

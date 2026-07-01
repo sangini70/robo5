@@ -8,6 +8,9 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'English Posts | robo-advisor.kr',
   description: 'Read our latest financial guides and market updates in English.',
+  alternates: {
+    canonical: 'https://robo-advisor.kr/en',
+  },
 };
 
 async function getEnglishPosts() {

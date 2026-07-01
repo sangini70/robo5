@@ -5,6 +5,9 @@ import { ExchangeRateCalculator } from '@/src/components/ExchangeRateCalculator'
 export const metadata: Metadata = {
   title: '실속 환율 계산기 - 우대율 반영 체감 환율 계산 | robo-advisor.kr',
   description: '환전 수수료와 환율 우대율을 반영하여 실제 필요한 원화 금액과 체감 환율을 계산해주는 실용적인 환율 계산기입니다.',
+  alternates: {
+    canonical: 'https://robo-advisor.kr/exchange-rate-calculator',
+  },
 };
 
 export default function ExchangeRateCalculatorPage() {

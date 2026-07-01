@@ -4,6 +4,9 @@ import { MainLayout } from '@/src/components/MainLayout';
 export const metadata: Metadata = {
   title: '개인정보처리방침 - robo-advisor.kr',
   description: '로보어드바이저 투자 가이드 사이트 개인정보처리방침입니다.',
+  alternates: {
+    canonical: 'https://robo-advisor.kr/privacy',
+  },
 };
 
 export default function Privacy() {
