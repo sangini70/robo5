@@ -15,7 +15,7 @@ function normalizeCategoryKey(value: string) {
 const getPostsByCategory = cache(async (category: string) => {
   try {
     const decodedCategory = decodeURIComponent(category).trim();
-    const originalCategoryName = getCategoryDisplayName(category);
+    const originalCategoryName = getCategoryDisplayName(decodedCategory, decodedCategory);
     const categoryKeys = [originalCategoryName, decodedCategory].map(normalizeCategoryKey);
     const allPosts = getPostsFromJson();
 
