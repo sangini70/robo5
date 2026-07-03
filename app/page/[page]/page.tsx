@@ -62,7 +62,9 @@ function normalizeHomePosts(posts: any[]) {
 export default async function PaginatedHome({ params }: { params: Promise<{ page: string }> }) {
   const resolvedParams = await params;
   const page = parseInt(resolvedParams.page, 10);
-  const posts = normalizeHomePosts(getPostsFromJson());
+  const posts = normalizeHomePosts(
+    getPostsFromJson().filter((post: any) => post.language === 'ko')
+  );
   const pageSize = 8;
   const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
   const currentPage = Number.isNaN(page) || page < 1 ? 1 : Math.min(page, totalPages);

@@ -27,7 +27,9 @@ function normalizeHomePosts(posts: any[]) {
 }
 
 export default function Home() {
-  const posts = normalizeHomePosts(getPostsFromJson());
+  const posts = normalizeHomePosts(
+    getPostsFromJson().filter((post: any) => post.language === 'ko')
+  );
 
   return <HomeContent page={1} initialPosts={posts} />;
 }
