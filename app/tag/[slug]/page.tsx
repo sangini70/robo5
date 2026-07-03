@@ -17,7 +17,7 @@ const getPostsByTagSlug = cache(async (slug: string) => {
     const allPosts = getPostsFromJson();
     const now = new Date();
     
-    const originalTagName = decodeURIComponent(slug).replace(/-/g, ' ').trim();
+    let originalTagName = decodeURIComponent(slug).replace(/-/g, ' ').trim();
 
     const posts = allPosts
       .filter((post: any) => {
