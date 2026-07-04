@@ -10,11 +10,12 @@ interface PostCardProps {
 export function PostCard({ post }: PostCardProps) {
   const trackingId = `post-card-${post.id ?? post.slug}`;
   const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
+  const postHref = post.language === 'en' ? `/en/${post.slug}` : `/${post.slug}`;
 
   return (
     <article id={trackingId} className="group cursor-pointer flex flex-col">
       <PostCardTracking postId={post.id} trackingId={trackingId} slug={post.slug} />
-      <Link href={`/${post.slug}`} className="block w-full aspect-[4/3] bg-gray-100 overflow-hidden mb-6 relative rounded-sm">
+      <Link href={postHref} className="block w-full aspect-[4/3] bg-gray-100 overflow-hidden mb-6 relative rounded-sm">
         {post.thumbnail && (
           <img 
             src={post.thumbnail} 
@@ -28,7 +29,7 @@ export function PostCard({ post }: PostCardProps) {
       
       <div className="flex justify-between items-start mb-3 gap-4">
         <h3 className="text-xl font-medium tracking-tight text-gray-900 group-hover:text-black transition-colors line-clamp-2">
-          <Link href={`/${post.slug}`}>
+          <Link href={postHref}>
             {post.title}
           </Link>
         </h3>
