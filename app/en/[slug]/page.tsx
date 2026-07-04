@@ -12,6 +12,73 @@ import { getCategoryDisplayName } from '@/src/lib/category';
 
 export const dynamic = 'force-dynamic';
 
+const BLOCKED_SCHEMA_TYPES = new Set([
+  'BlogPosting',
+  'Article',
+  'Organization',
+  'BreadcrumbList',
+  'WebPage',
+  'ImageObject',
+]);
+
+function normalizeSchemaTypes(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.flatMap(normalizeSchemaTypes);
+  }
+
+  if (typeof value !== 'string') {
+    return [];
+  }
+
+  return value
+    .split(/\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function hasBlockedSchemaType(node: any) {
+  return normalizeSchemaTypes(node?.['@type']).some((type) => BLOCKED_SCHEMA_TYPES.has(type));
+}
+
+function sanitizeStructuredDataJsonLd(rawJsonLd?: string) {
+  if (!rawJsonLd || !rawJsonLd.trim()) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(rawJsonLd);
+
+    if (Array.isArray(parsed)) {
+      const filtered = parsed.filter((node) => !hasBlockedSchemaType(node));
+      return filtered.length > 0 ? JSON.stringify(filtered) : null;
+    }
+
+    if (!parsed || typeof parsed !== 'object') {
+      return null;
+    }
+
+    if (hasBlockedSchemaType(parsed)) {
+      return null;
+    }
+
+    if (Array.isArray((parsed as any)['@graph'])) {
+      const filteredGraph = (parsed as any)['@graph'].filter((node: any) => !hasBlockedSchemaType(node));
+      if (filteredGraph.length === 0) {
+        return null;
+      }
+
+      return JSON.stringify({
+        ...(parsed as Record<string, any>),
+        '@graph': filteredGraph,
+      });
+    }
+
+    return JSON.stringify(parsed);
+  } catch {
+    return null;
+  }
+}
+
 async function getEnglishPost(slug: string): Promise<any> {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'en', 'detail', `${slug}.json`);
@@ -77,6 +144,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description,
     alternates: {
       canonical: url,
+      languages: {
+        'ko-KR': `https://robo-advisor.kr/${slug}`,
+        'en-US': url,
+        'x-default': `https://robo-advisor.kr/${slug}`,
+      },
     },
     openGraph: {
       title,
@@ -116,6 +188,7 @@ export default async function EnglishPostPage({ params }: { params: Promise<{ sl
 
   const description = post.seoDescription || post.description || post.shortDescription;
   const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
+  const sanitizedStructuredDataJsonLd = sanitizeStructuredDataJsonLd(post.structuredDataJsonLd);
   const breadcrumbStructuredData = createBreadcrumbList([
     { name: 'Home', url: 'https://robo-advisor.kr/en' },
     { name: post.title, url: `https://robo-advisor.kr/en/${slug}` },
@@ -160,10 +233,10 @@ export default async function EnglishPostPage({ params }: { params: Promise<{ sl
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {post.structuredDataJsonLd && (
+      {sanitizedStructuredDataJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: post.structuredDataJsonLd }}
+          dangerouslySetInnerHTML={{ __html: sanitizedStructuredDataJsonLd }}
         />
       )}
 
