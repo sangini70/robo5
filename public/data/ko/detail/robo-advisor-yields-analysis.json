@@ -1,6 +1,6 @@
 {
-  "category": "경제 기초",
   "structuredDataJsonLd": "",
+  "category": "경제 기초",
   "slug": "robo-advisor-yields-analysis",
   "language": "ko",
   "tags": [
@@ -25,11 +25,11 @@
   "postViews": 5,
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "seoTitle": "로보어드바이저 수익률 분석 및 수수료 구조 안내",
-  "seoDescription": "2026년 최신 로보어드바이저 시장의 수익률 지표와 자산 양극화 현상을 분석합니다. 머신러닝 기반 자산배분 모형의 특징과 운용 비용 구조를 확인하세요.",
   "googleRequestedAt": "2026-06-30T03:20:48.733Z",
+  "seoDescription": "2026년 최신 로보어드바이저 시장의 수익률 지표와 자산 양극화 현상을 분석합니다. 머신러닝 기반 자산배분 모형의 특징과 운용 비용 구조를 확인하세요.",
   "id": "1782788647838",
-  "description": "로보어드바이저 수익률 통계와 AI 자산관리 수수료 구조 분석 정보입니다.",
   "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-yields-analysis.webp",
+  "description": "로보어드바이저 수익률 통계와 AI 자산관리 수수료 구조 분석 정보입니다.",
   "updatedAt": "2026-06-30T03:20:51.326Z",
   "status": "published",
   "customCss": "",
