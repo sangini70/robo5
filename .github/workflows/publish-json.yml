@@ -43,6 +43,38 @@ jobs:
           git fetch origin main
           git rebase --autostash origin/main
 
+      - name: Validate generated JSON files
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const root = path.join(process.cwd(), 'public', 'data');
+          const files = [];
+
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const fullPath = path.join(dir, entry.name);
+              if (entry.isDirectory()) {
+                walk(fullPath);
+              } else if (entry.isFile() && entry.name.endsWith('.json')) {
+                files.push(fullPath);
+              }
+            }
+          }
+
+          walk(root);
+
+          for (const file of files) {
+            const text = fs.readFileSync(file, 'utf8');
+            if (/^(<<<<<<<|=======|>>>>>>>)$/m.test(text)) {
+              throw new Error(`Conflict marker found in ${path.relative(process.cwd(), file)}`);
+            }
+            JSON.parse(text);
+          }
+          NODE
+
       - name: Check public data changes
         id: changes
         shell: bash
