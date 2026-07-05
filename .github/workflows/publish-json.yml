@@ -37,6 +37,12 @@ jobs:
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
 
+      - name: Sync with latest main before checking generated JSON
+        shell: bash
+        run: |
+          git fetch origin main
+          git rebase --autostash origin/main
+
       - name: Check public data changes
         id: changes
         shell: bash
@@ -56,6 +62,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/data
           git commit -m "chore(sync): regenerate public JSON [skip ci]"
+          git fetch origin main
+          git rebase origin/main
           git push origin HEAD:main
 
       - name: No generated JSON changes
