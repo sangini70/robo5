@@ -1,60 +1,22 @@
 {
-<<<<<<< Updated upstream
-  "publishDate": "2026-06-16T00:44:37.694Z",
-  "categorySlug": "경제 기초",
-  "flowType": "",
-  "publishHour": 9,
-  "id": "FUiQrOvVB4EQmFXINJis",
-  "structuredDataJsonLd": "",
-  "impressions": 14,
-  "naverIndexStatus": "requested",
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "title": "환율 1500원 돌파 이유 지금 1.25% 금리차 확대",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate.webp",
-  "googleIndexedAt": "2026-04-07T00:07:58.332Z",
-  "customCss": "",
-  "updatedAt": "2026-06-16T00:44:38.441Z",
-  "category": "경제 기초",
-  "content": "<div style=\"font-family: 'Noto Sans KR', sans-serif; line-height: 1.7; max-width: 800px; margin: 0 auto; font-size: 16px; color: #333; box-sizing: border-box;\">\n<div style=\"background-color: #f5f5f5; padding: 20px; border-radius: 8px; font-style: italic; margin-bottom: 25px; font-size: 15px; border-left: 5px solid #1a73e8;\"><strong>원·달러 환율 1,500원 돌파, '뉴노멀' 시대의 시작일까? 📈</strong> 2026년 4월, 환율이 심리적 마지노선인 1,500원을 넘어서며 고환율 고착화에 대한 우려가 커지고 있습니다. 중동 분쟁과 미국의 관세 정책 등 대외 악재 속에서 우리 자산을 어떻게 지켜야 할지 최신 리서치 데이터를 통해 분석합니다...a</div>\n\n<div style=\"background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd;\">\n    <p style=\"font-weight: bold; margin-bottom: 10px; color: #1a73e8;\">목차</p>\n    <ul style=\"list-style-type: none; padding-left: 0; margin: 0;\">\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section1\" style=\"color: #333; text-decoration: none;\">1. 1,506원 기록, 숫자로 보는 외환시장 현주소 📊</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section2\" style=\"color: #333; text-decoration: none;\">2. 환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section3\" style=\"color: #333; text-decoration: none;\">3. 정부의 대응책: WGBI 편입과 외환 방어막 🛡️</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section4\" style=\"color: #333; text-decoration: none;\">4. 향후 전망: 초고변동성 속 하향 안정화 가능성 📉</a></li>\n    </ul>\n</div>\n\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 현재, 원·달러 환율이 무려 1,500원을 넘어서며 우리 경제에 '고환율 뉴노멀'이라는 무거운 과제를 던져주고 있습니다. 단순히 수입 물가 상승을 넘어 우리 가계의 실질 구매력과 국가 경제의 근간을 점검해야 하는 시점인데요. 중동의 전운과 미국의 관세 장벽이 맞물린 지금, 환율의 향방을 리서치 센터 데이터를 기반으로 냉철하게 짚어보겠습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section1\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>1,506원 기록, 숫자로 보는 외환시장 현주소 📊</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 6일 기준, 원·달러 환율은 <span style=\"background-color: #fffde7; padding: 2px 4px; border-radius: 3px; font-weight: bold;\">1,506원</span>을 기록했습니다. 실제 송금 시에는 1,522원까지 지불해야 하는 상황으로, 이는 금융위기 이후 마주한 가장 높은 수준입니다.\n</p>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 20px 0;\">\n    <thead>\n        <tr style=\"background-color: #f5f5f5;\">\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">주요 지표</th>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">수치 (2026년 4월)</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">원·달러 환율 (매매기준율)</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1,506원</td>\n        </tr>\n        <tr style=\"background-color: #f9f9f9;\">\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">미국 연준 기준금리</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">3.50% ~ 3.75% (동결)</td>\n        </tr>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">한미 금리차</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1.25%p</td>\n        </tr>\n    </tbody>\n</table>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section2\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    금리 차이 외에도 '구조적 달러 유출'이 주요 원인으로 지목됩니다. 국민연금의 대규모 해외 투자와 개인 투자자들의 해외 주식 매수가 고착화되면서 달러가 만성적으로 빠져나가고 있습니다. 이러한 상황에서 고환율은 <a href=\"/high-oil-price-support\">고유가 지원금</a>과 같은 정부의 민생 대책 필요성을 더욱 높이고 있습니다.\n</p>\n\n<div style=\"background-color: #e8f4fd; border-left: 4px solid #1a73e8; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n    <strong>💡 환율 상승 핵심 요인</strong><br>\n    1. 에너지 쇼크: 중동 분쟁 심화로 인한 국제 유가 110달러 돌파<br>\n    2. 미국의 관세 정책: 보편관세 리스크에 따른 달러 리스크 프리미엄 발생<br>\n    3. 안전자산 선호: 글로벌 불확실성 증대로 인한 강달러 현상\n</div>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section3\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>정부의 대응책: WGBI 편입과 외환 방어막 🛡️</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    외환 당국은 시장 안정을 위해 <strong>세계국채지수(WGBI) 편입</strong>을 추진하고 있습니다. 2026년 4월부터 본격화된 편입을 통해 향후 막대한 외국인 패시브 자금이 유입될 예정이며, 이는 환율 하방 압력으로 작용할 전망입니다. 또한 국민연금과의 외환스왑 연장 및 환헤지 비율 상향 등 다각도의 방어막을 구축하고 있습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section4\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>향후 전망: 초고변동성 속 하향 안정화 가능성 📉</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    단기적으로는 1,450원에서 1,530원 사이의 초고변동성 장세가 이어질 것으로 보입니다. 고환율은 수입 물가를 자극하여 <a href=\"/high-oil-price-support-forecast\">고유가 지원금 정책 전망</a>에도 영향을 미칠 수 있습니다. 하지만 중장기적으로는 WGBI 자금 유입이 본격화되면서 완만한 하향 안정화 기조를 보일 것이라는 예측이 우세합니다.\n</p>\n\n<div style=\"background-color: #f0f2f5; padding: 25px; border-radius: 12px; border: 1px solid #e0e0e0; margin: 20px 0;\">\n    <h3 style=\"font-size: 20px; color: #1a73e8; margin: 0 0 15px;\">💡 환율 전망 핵심 요약</h3>\n    <div style=\"font-size: 16px; line-height: 1.6; color: #333;\">\n        <p><b>📉 현재 지표:</b> 환율 1,506원 및 유가 110달러 돌파</p>\n        <p><b>🛡️ 방어 기제:</b> WGBI 편입 자금 최대 90조 원 유입 개시</p>\n        <p><b>📅 향후 밴드:</b> 1,450원 ~ 1,530원 사이 초고변동성 장세 예상</p>\n    </div>\n</div>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\">\n    <strong>자주 묻는 질문 ❓</strong>\n</h2>\n<div style=\"margin: 30px 0;\">\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 1,500원이 계속 유지될까요?</div>\n        <div style=\"padding-left: 15px;\">A: 단기적으로는 대외 불확실성으로 인해 높은 변동성을 보이겠으나, WGBI 자금 유입이 하반기 안정을 이끌 것으로 보입니다.</div>\n    </div>\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 상승이 서민 경제에 미치는 영향은 무엇인가요?</div>\n        <div style=\"padding-left: 15px;\">A: 수입 물가를 인상시켜 소비자 물가를 상승시키고 가계의 실질 구매력을 약화시킵니다.</div>\n    </div>\n</div>\n\n<div style=\"margin:28px 0 0; padding:14px 16px; border:1px solid #e5e7eb; background:#f8fafc; color:#6b7280; font-size:13px; line-height:1.7; border-radius:8px;\">\n본 콘텐츠는 일반적인 정보 제공 목적이며, 개별 투자자의 상황에 따라 결과는 달라질 수 있습니다. 모든 투자 판단과 그에 따른 책임은 본인에게 있습니다. 환율 변동에 따른 위험 가능성을 충분히 고려하시기 바랍니다.\n</div>\n\n<div style=\"border-top: 1px dashed #ddd; margin: 30px 0;\"></div>\n<p style=\"font-size: 13px; color: #888; text-align: center;\">\n    ※ 본 글은 2026년 4월 리서치 데이터를 기준으로 작성되었습니다.\n<br><br></p><p style=\"font-size: 13px; color: #888; text-align: center;\"><br></p>\n</div>",
-  "googleIndexStatus": "indexed",
+  "seoDescription": "",
+  "createdAt": "2026-04-06T16:34:18.914Z",
   "description": "",
-  "language": "ko",
-  "clicks": 2,
-  "customJs": "",
-  "dailyImpressions": {
-    "2026-04-07": 4,
-    "2026-05-23": 2,
-    "2026-04-08": 1,
-    "2026-05-27": 1,
-    "2026-05-26": 1,
-    "2026-04-11": 3,
-    "2026-04-10": 1,
-    "2026-05-24": 1
-  },
-  "postViews": 32,
+  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate.webp",
+  "naverRequestedAt": "2026-04-07T00:07:52.018Z",
+  "structuredDataJsonLd": "",
+  "naverIndexStatus": "requested",
+  "publishDate": "2026-06-16T00:44:37.694Z",
   "slug": "exchange-rate",
-  "titleHistory": [],
-=======
-  "seoTitle": "",
-  "googleIndexStatus": "indexed",
   "dailyClicks": {
     "2026-05-24": 1,
     "2026-05-27": 1
   },
-  "impressions": 14,
-  "structuredDataJsonLd": "",
-  "dailyViews": {
-    "2026-05-28": 1,
-    "2026-05-29": 1,
-    "2026-05-24": 1,
-    "2026-04-07": 3,
-    "2026-04-11": 1,
-    "2026-04-13": 1,
-    "2026-05-27": 1
-  },
-  "flowType": "",
-  "seoDescription": "",
->>>>>>> Stashed changes
+  "id": "FUiQrOvVB4EQmFXINJis",
+  "postViews": 32,
+  "googleIndexStatus": "indexed",
+  "clicks": 2,
+  "category": "경제 기초",
   "tags": [
     "환율 전망",
     "원달러 환율 1500원",
@@ -64,60 +26,39 @@
     "exchange rate outlook",
     "USD KRW"
   ],
-<<<<<<< Updated upstream
-  "googleRequestedAt": "2026-04-07T00:07:50.112Z",
-  "seoTitle": "",
-  "createdAt": "2026-04-06T16:34:18.914Z",
-  "dailyClicks": {
-=======
-  "publishDate": "2026-06-16T00:44:37.694Z",
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "naverRequestedAt": "2026-04-07T00:07:52.018Z",
-  "content": "<div style=\"font-family: 'Noto Sans KR', sans-serif; line-height: 1.7; max-width: 800px; margin: 0 auto; font-size: 16px; color: #333; box-sizing: border-box;\">\n<div style=\"background-color: #f5f5f5; padding: 20px; border-radius: 8px; font-style: italic; margin-bottom: 25px; font-size: 15px; border-left: 5px solid #1a73e8;\"><strong>원·달러 환율 1,500원 돌파, '뉴노멀' 시대의 시작일까? 📈</strong> 2026년 4월, 환율이 심리적 마지노선인 1,500원을 넘어서며 고환율 고착화에 대한 우려가 커지고 있습니다. 중동 분쟁과 미국의 관세 정책 등 대외 악재 속에서 우리 자산을 어떻게 지켜야 할지 최신 리서치 데이터를 통해 분석합니다...a</div>\n\n<div style=\"background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd;\">\n    <p style=\"font-weight: bold; margin-bottom: 10px; color: #1a73e8;\">목차</p>\n    <ul style=\"list-style-type: none; padding-left: 0; margin: 0;\">\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section1\" style=\"color: #333; text-decoration: none;\">1. 1,506원 기록, 숫자로 보는 외환시장 현주소 📊</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section2\" style=\"color: #333; text-decoration: none;\">2. 환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section3\" style=\"color: #333; text-decoration: none;\">3. 정부의 대응책: WGBI 편입과 외환 방어막 🛡️</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section4\" style=\"color: #333; text-decoration: none;\">4. 향후 전망: 초고변동성 속 하향 안정화 가능성 📉</a></li>\n    </ul>\n</div>\n\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 현재, 원·달러 환율이 무려 1,500원을 넘어서며 우리 경제에 '고환율 뉴노멀'이라는 무거운 과제를 던져주고 있습니다. 단순히 수입 물가 상승을 넘어 우리 가계의 실질 구매력과 국가 경제의 근간을 점검해야 하는 시점인데요. 중동의 전운과 미국의 관세 장벽이 맞물린 지금, 환율의 향방을 리서치 센터 데이터를 기반으로 냉철하게 짚어보겠습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section1\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>1,506원 기록, 숫자로 보는 외환시장 현주소 📊</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 6일 기준, 원·달러 환율은 <span style=\"background-color: #fffde7; padding: 2px 4px; border-radius: 3px; font-weight: bold;\">1,506원</span>을 기록했습니다. 실제 송금 시에는 1,522원까지 지불해야 하는 상황으로, 이는 금융위기 이후 마주한 가장 높은 수준입니다.\n</p>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 20px 0;\">\n    <thead>\n        <tr style=\"background-color: #f5f5f5;\">\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">주요 지표</th>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">수치 (2026년 4월)</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">원·달러 환율 (매매기준율)</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1,506원</td>\n        </tr>\n        <tr style=\"background-color: #f9f9f9;\">\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">미국 연준 기준금리</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">3.50% ~ 3.75% (동결)</td>\n        </tr>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">한미 금리차</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1.25%p</td>\n        </tr>\n    </tbody>\n</table>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section2\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    금리 차이 외에도 '구조적 달러 유출'이 주요 원인으로 지목됩니다. 국민연금의 대규모 해외 투자와 개인 투자자들의 해외 주식 매수가 고착화되면서 달러가 만성적으로 빠져나가고 있습니다. 이러한 상황에서 고환율은 <a href=\"/high-oil-price-support\">고유가 지원금</a>과 같은 정부의 민생 대책 필요성을 더욱 높이고 있습니다.\n</p>\n\n<div style=\"background-color: #e8f4fd; border-left: 4px solid #1a73e8; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n    <strong>💡 환율 상승 핵심 요인</strong><br>\n    1. 에너지 쇼크: 중동 분쟁 심화로 인한 국제 유가 110달러 돌파<br>\n    2. 미국의 관세 정책: 보편관세 리스크에 따른 달러 리스크 프리미엄 발생<br>\n    3. 안전자산 선호: 글로벌 불확실성 증대로 인한 강달러 현상\n</div>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section3\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>정부의 대응책: WGBI 편입과 외환 방어막 🛡️</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    외환 당국은 시장 안정을 위해 <strong>세계국채지수(WGBI) 편입</strong>을 추진하고 있습니다. 2026년 4월부터 본격화된 편입을 통해 향후 막대한 외국인 패시브 자금이 유입될 예정이며, 이는 환율 하방 압력으로 작용할 전망입니다. 또한 국민연금과의 외환스왑 연장 및 환헤지 비율 상향 등 다각도의 방어막을 구축하고 있습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section4\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>향후 전망: 초고변동성 속 하향 안정화 가능성 📉</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    단기적으로는 1,450원에서 1,530원 사이의 초고변동성 장세가 이어질 것으로 보입니다. 고환율은 수입 물가를 자극하여 <a href=\"/high-oil-price-support-forecast\">고유가 지원금 정책 전망</a>에도 영향을 미칠 수 있습니다. 하지만 중장기적으로는 WGBI 자금 유입이 본격화되면서 완만한 하향 안정화 기조를 보일 것이라는 예측이 우세합니다.\n</p>\n\n<div style=\"background-color: #f0f2f5; padding: 25px; border-radius: 12px; border: 1px solid #e0e0e0; margin: 20px 0;\">\n    <h3 style=\"font-size: 20px; color: #1a73e8; margin: 0 0 15px;\">💡 환율 전망 핵심 요약</h3>\n    <div style=\"font-size: 16px; line-height: 1.6; color: #333;\">\n        <p><b>📉 현재 지표:</b> 환율 1,506원 및 유가 110달러 돌파</p>\n        <p><b>🛡️ 방어 기제:</b> WGBI 편입 자금 최대 90조 원 유입 개시</p>\n        <p><b>📅 향후 밴드:</b> 1,450원 ~ 1,530원 사이 초고변동성 장세 예상</p>\n    </div>\n</div>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\">\n    <strong>자주 묻는 질문 ❓</strong>\n</h2>\n<div style=\"margin: 30px 0;\">\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 1,500원이 계속 유지될까요?</div>\n        <div style=\"padding-left: 15px;\">A: 단기적으로는 대외 불확실성으로 인해 높은 변동성을 보이겠으나, WGBI 자금 유입이 하반기 안정을 이끌 것으로 보입니다.</div>\n    </div>\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 상승이 서민 경제에 미치는 영향은 무엇인가요?</div>\n        <div style=\"padding-left: 15px;\">A: 수입 물가를 인상시켜 소비자 물가를 상승시키고 가계의 실질 구매력을 약화시킵니다.</div>\n    </div>\n</div>\n\n<div style=\"margin:28px 0 0; padding:14px 16px; border:1px solid #e5e7eb; background:#f8fafc; color:#6b7280; font-size:13px; line-height:1.7; border-radius:8px;\">\n본 콘텐츠는 일반적인 정보 제공 목적이며, 개별 투자자의 상황에 따라 결과는 달라질 수 있습니다. 모든 투자 판단과 그에 따른 책임은 본인에게 있습니다. 환율 변동에 따른 위험 가능성을 충분히 고려하시기 바랍니다.\n</div>\n\n<div style=\"border-top: 1px dashed #ddd; margin: 30px 0;\"></div>\n<p style=\"font-size: 13px; color: #888; text-align: center;\">\n    ※ 본 글은 2026년 4월 리서치 데이터를 기준으로 작성되었습니다.\n<br><br></p><p style=\"font-size: 13px; color: #888; text-align: center;\"><br></p>\n</div>",
-  "category": "경제 기초",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate.webp",
-  "title": "환율 1500원 돌파 이유 지금 1.25% 금리차 확대",
-  "updatedAt": "2026-06-16T00:44:38.441Z",
-  "publishHour": 9,
-  "dailyImpressions": {
-    "2026-04-07": 4,
-    "2026-05-23": 2,
-    "2026-04-11": 3,
-    "2026-05-27": 1,
-    "2026-04-08": 1,
->>>>>>> Stashed changes
-    "2026-05-24": 1,
-    "2026-05-26": 1,
-    "2026-04-10": 1
-  },
-<<<<<<< Updated upstream
-  "status": "published",
-  "dailyViews": {
-    "2026-04-11": 1,
-    "2026-04-13": 1,
-    "2026-05-27": 1,
-    "2026-05-24": 1,
-    "2026-05-28": 1,
-    "2026-04-07": 3,
-    "2026-05-29": 1
-  },
-  "seoDescription": "",
-  "naverRequestedAt": "2026-04-07T00:07:52.018Z"
-=======
-  "description": "",
-  "customCss": "",
-  "postViews": 32,
-  "language": "ko",
-  "createdAt": "2026-04-06T16:34:18.914Z",
-  "id": "FUiQrOvVB4EQmFXINJis",
   "titleHistory": [],
   "customJs": "",
-  "status": "published",
-  "googleIndexedAt": "2026-04-07T00:07:58.332Z",
-  "categorySlug": "경제 기초",
-  "naverIndexStatus": "requested",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "googleRequestedAt": "2026-04-07T00:07:50.112Z",
-  "slug": "exchange-rate",
-  "clicks": 2
->>>>>>> Stashed changes
+  "dailyImpressions": {
+    "2026-04-08": 1,
+    "2026-05-23": 2,
+    "2026-05-27": 1,
+    "2026-05-26": 1,
+    "2026-04-10": 1,
+    "2026-04-07": 4,
+    "2026-04-11": 3,
+    "2026-05-24": 1
+  },
+  "status": "published",
+  "publishHour": 9,
+  "customCss": "",
+  "googleIndexedAt": "2026-04-07T00:07:58.332Z",
+  "dailyViews": {
+    "2026-04-11": 1,
+    "2026-05-24": 1,
+    "2026-05-28": 1,
+    "2026-05-29": 1,
+    "2026-04-07": 3,
+    "2026-04-13": 1,
+    "2026-05-27": 1
+  },
+  "language": "ko",
+  "updatedAt": "2026-06-16T00:44:38.441Z",
+  "categorySlug": "경제 기초",
+  "flowType": "",
+  "content": "<div style=\"font-family: 'Noto Sans KR', sans-serif; line-height: 1.7; max-width: 800px; margin: 0 auto; font-size: 16px; color: #333; box-sizing: border-box;\">\n<div style=\"background-color: #f5f5f5; padding: 20px; border-radius: 8px; font-style: italic; margin-bottom: 25px; font-size: 15px; border-left: 5px solid #1a73e8;\"><strong>원·달러 환율 1,500원 돌파, '뉴노멀' 시대의 시작일까? 📈</strong> 2026년 4월, 환율이 심리적 마지노선인 1,500원을 넘어서며 고환율 고착화에 대한 우려가 커지고 있습니다. 중동 분쟁과 미국의 관세 정책 등 대외 악재 속에서 우리 자산을 어떻게 지켜야 할지 최신 리서치 데이터를 통해 분석합니다...a</div>\n\n<div style=\"background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd;\">\n    <p style=\"font-weight: bold; margin-bottom: 10px; color: #1a73e8;\">목차</p>\n    <ul style=\"list-style-type: none; padding-left: 0; margin: 0;\">\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section1\" style=\"color: #333; text-decoration: none;\">1. 1,506원 기록, 숫자로 보는 외환시장 현주소 📊</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section2\" style=\"color: #333; text-decoration: none;\">2. 환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section3\" style=\"color: #333; text-decoration: none;\">3. 정부의 대응책: WGBI 편입과 외환 방어막 🛡️</a></li>\n        <li style=\"margin-bottom: 8px;\"><a href=\"#section4\" style=\"color: #333; text-decoration: none;\">4. 향후 전망: 초고변동성 속 하향 안정화 가능성 📉</a></li>\n    </ul>\n</div>\n\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 현재, 원·달러 환율이 무려 1,500원을 넘어서며 우리 경제에 '고환율 뉴노멀'이라는 무거운 과제를 던져주고 있습니다. 단순히 수입 물가 상승을 넘어 우리 가계의 실질 구매력과 국가 경제의 근간을 점검해야 하는 시점인데요. 중동의 전운과 미국의 관세 장벽이 맞물린 지금, 환율의 향방을 리서치 센터 데이터를 기반으로 냉철하게 짚어보겠습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section1\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>1,506원 기록, 숫자로 보는 외환시장 현주소 📊</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    2026년 4월 6일 기준, 원·달러 환율은 <span style=\"background-color: #fffde7; padding: 2px 4px; border-radius: 3px; font-weight: bold;\">1,506원</span>을 기록했습니다. 실제 송금 시에는 1,522원까지 지불해야 하는 상황으로, 이는 금융위기 이후 마주한 가장 높은 수준입니다.\n</p>\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 20px 0;\">\n    <thead>\n        <tr style=\"background-color: #f5f5f5;\">\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">주요 지표</th>\n            <th style=\"padding: 12px; text-align: left; border: 1px solid #ddd; font-weight: bold;\">수치 (2026년 4월)</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">원·달러 환율 (매매기준율)</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1,506원</td>\n        </tr>\n        <tr style=\"background-color: #f9f9f9;\">\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">미국 연준 기준금리</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">3.50% ~ 3.75% (동결)</td>\n        </tr>\n        <tr>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">한미 금리차</td>\n            <td style=\"padding: 12px; border: 1px solid #ddd;\">1.25%p</td>\n        </tr>\n    </tbody>\n</table>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section2\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>환율 폭등의 원인: 구조적 유출과 대외 리스크 💸</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    금리 차이 외에도 '구조적 달러 유출'이 주요 원인으로 지목됩니다. 국민연금의 대규모 해외 투자와 개인 투자자들의 해외 주식 매수가 고착화되면서 달러가 만성적으로 빠져나가고 있습니다. 이러한 상황에서 고환율은 <a href=\"/high-oil-price-support\">고유가 지원금</a>과 같은 정부의 민생 대책 필요성을 더욱 높이고 있습니다.\n</p>\n\n<div style=\"background-color: #e8f4fd; border-left: 4px solid #1a73e8; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n    <strong>💡 환율 상승 핵심 요인</strong><br>\n    1. 에너지 쇼크: 중동 분쟁 심화로 인한 국제 유가 110달러 돌파<br>\n    2. 미국의 관세 정책: 보편관세 리스크에 따른 달러 리스크 프리미엄 발생<br>\n    3. 안전자산 선호: 글로벌 불확실성 증대로 인한 강달러 현상\n</div>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section3\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>정부의 대응책: WGBI 편입과 외환 방어막 🛡️</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    외환 당국은 시장 안정을 위해 <strong>세계국채지수(WGBI) 편입</strong>을 추진하고 있습니다. 2026년 4월부터 본격화된 편입을 통해 향후 막대한 외국인 패시브 자금이 유입될 예정이며, 이는 환율 하방 압력으로 작용할 전망입니다. 또한 국민연금과의 외환스왑 연장 및 환헤지 비율 상향 등 다각도의 방어막을 구축하고 있습니다.\n</p>\n\n<p data-ke-size=\"size16\">&nbsp;</p>\n\n<h2 id=\"section4\" style=\"font-size: 22px; color: white; background: linear-gradient(to right, #1a73e8, #004d99); margin: 30px 0 15px; border-radius: 10px; padding: 12px 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-weight: 700; box-shadow: 0 4px 8px rgba(0,0,0,0.1);\">\n    <strong>향후 전망: 초고변동성 속 하향 안정화 가능성 📉</strong>\n</h2>\n<p style=\"margin-bottom: 15px;\">\n    단기적으로는 1,450원에서 1,530원 사이의 초고변동성 장세가 이어질 것으로 보입니다. 고환율은 수입 물가를 자극하여 <a href=\"/high-oil-price-support-forecast\">고유가 지원금 정책 전망</a>에도 영향을 미칠 수 있습니다. 하지만 중장기적으로는 WGBI 자금 유입이 본격화되면서 완만한 하향 안정화 기조를 보일 것이라는 예측이 우세합니다.\n</p>\n\n<div style=\"background-color: #f0f2f5; padding: 25px; border-radius: 12px; border: 1px solid #e0e0e0; margin: 20px 0;\">\n    <h3 style=\"font-size: 20px; color: #1a73e8; margin: 0 0 15px;\">💡 환율 전망 핵심 요약</h3>\n    <div style=\"font-size: 16px; line-height: 1.6; color: #333;\">\n        <p><b>📉 현재 지표:</b> 환율 1,506원 및 유가 110달러 돌파</p>\n        <p><b>🛡️ 방어 기제:</b> WGBI 편입 자금 최대 90조 원 유입 개시</p>\n        <p><b>📅 향후 밴드:</b> 1,450원 ~ 1,530원 사이 초고변동성 장세 예상</p>\n    </div>\n</div>\n\n<h2 style=\"font-size: 22px; color: #1a73e8; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eaeaea;\">\n    <strong>자주 묻는 질문 ❓</strong>\n</h2>\n<div style=\"margin: 30px 0;\">\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 1,500원이 계속 유지될까요?</div>\n        <div style=\"padding-left: 15px;\">A: 단기적으로는 대외 불확실성으로 인해 높은 변동성을 보이겠으나, WGBI 자금 유입이 하반기 안정을 이끌 것으로 보입니다.</div>\n    </div>\n    <div style=\"margin-bottom: 20px;\">\n        <div style=\"font-weight: bold; margin-bottom: 5px;\">Q: 환율 상승이 서민 경제에 미치는 영향은 무엇인가요?</div>\n        <div style=\"padding-left: 15px;\">A: 수입 물가를 인상시켜 소비자 물가를 상승시키고 가계의 실질 구매력을 약화시킵니다.</div>\n    </div>\n</div>\n\n<div style=\"margin:28px 0 0; padding:14px 16px; border:1px solid #e5e7eb; background:#f8fafc; color:#6b7280; font-size:13px; line-height:1.7; border-radius:8px;\">\n본 콘텐츠는 일반적인 정보 제공 목적이며, 개별 투자자의 상황에 따라 결과는 달라질 수 있습니다. 모든 투자 판단과 그에 따른 책임은 본인에게 있습니다. 환율 변동에 따른 위험 가능성을 충분히 고려하시기 바랍니다.\n</div>\n\n<div style=\"border-top: 1px dashed #ddd; margin: 30px 0;\"></div>\n<p style=\"font-size: 13px; color: #888; text-align: center;\">\n    ※ 본 글은 2026년 4월 리서치 데이터를 기준으로 작성되었습니다.\n<br><br></p><p style=\"font-size: 13px; color: #888; text-align: center;\"><br></p>\n</div>",
+  "title": "환율 1500원 돌파 이유 지금 1.25% 금리차 확대",
+  "seoTitle": "",
+  "impressions": 14
 }
