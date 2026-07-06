@@ -1,5 +1,6 @@
 {
   "환율": [
+    "exchange-rate-live-check",
     "exchange-rate-definition",
     "real-time-exchange-rate-sites",
     "exchange-rate-check-methods",
@@ -30,7 +31,6 @@
     "high-oil-price-support-vs-fuel-tax-cut",
     "high-oil-price-support-how-to-apply",
     "high-oil-price-support-definition",
-    "exchange-rate-live-check",
     "exchange-rate-fall-reasons",
     "exchange-rate-economic-impact"
   ],
