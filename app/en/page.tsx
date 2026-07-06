@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   description: 'Read our latest financial guides and market updates in English.',
   alternates: {
     canonical: 'https://robo-advisor.kr/en',
+    languages: {
+      'ko-KR': 'https://robo-advisor.kr/',
+      'en-US': 'https://robo-advisor.kr/en',
+      'x-default': 'https://robo-advisor.kr/',
+    },
   },
 };
 

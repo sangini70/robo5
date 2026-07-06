@@ -74,6 +74,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description,
     alternates: {
       canonical: url,
+      languages: {
+        'ko-KR': url,
+        'x-default': url,
+      },
     },
     openGraph: {
       title,

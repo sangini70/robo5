@@ -1,7 +1,19 @@
+import { Metadata } from 'next';
 import { HomeContent } from '@/src/components/HomeContent';
 import { getPostsFromJson } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://robo-advisor.kr/',
+    languages: {
+      'ko-KR': 'https://robo-advisor.kr/',
+      'en-US': 'https://robo-advisor.kr/en',
+      'x-default': 'https://robo-advisor.kr/',
+    },
+  },
+};
 
 function normalizeHomePosts(posts: any[]) {
   return [...posts]

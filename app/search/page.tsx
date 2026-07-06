@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: 'robo-advisor.kr?먯꽌 ?먰븯??湲덉쑖 ?뺣낫瑜?寃?됲빐蹂댁꽭??',
   alternates: {
     canonical: 'https://robo-advisor.kr/search',
+    languages: {
+      'ko-KR': 'https://robo-advisor.kr/search',
+      'x-default': 'https://robo-advisor.kr/search',
+    },
   },
   robots: {
     index: false,
