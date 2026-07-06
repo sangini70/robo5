@@ -1,17 +1,18 @@
 {
+  "세금/지원금": [
+    "high-oil-price-support-eligibility-check",
+    "high-oil-price-support-forecast",
+    "high-oil-price-support-impact-inflation",
+    "high-oil-price-support-oil-price",
+    "go-yuga-jiwongeum",
+    "high-oil-price-support"
+  ],
   "환율": [
     "exchange-rate-interest-rate",
     "exchange-rate-2026-2027-outlook",
     "exchange-rate-rise-reasons",
     "exchange-rate",
     "exchange-rate-surge-reasons"
-  ],
-  "세금/지원금": [
-    "high-oil-price-support-forecast",
-    "high-oil-price-support-impact-inflation",
-    "high-oil-price-support-oil-price",
-    "go-yuga-jiwongeum",
-    "high-oil-price-support"
   ],
   "economy-basics": [
     "why-robo-advisors-use-etfs-screening-criteria",
@@ -30,7 +31,6 @@
     "high-oil-price-support-expansion-causes",
     "high-oil-price-support-reasons",
     "high-oil-price-support-vs-fuel-tax-cut",
-    "high-oil-price-support-eligibility-check",
     "high-oil-price-support-how-to-apply",
     "high-oil-price-support-definition",
     "robo-advisor-investment-principles-and-asset-allocation",
