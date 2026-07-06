@@ -2,18 +2,32 @@ import fs from 'fs';
 import path from 'path';
 
 export function getPostsFromJson() {
+  const filePath = path.join(process.cwd(), 'public', 'data', 'posts.json');
   try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'posts.json');
-    console.log("cwd:", process.cwd());
-    console.log("posts path:", filePath);
-    console.log("posts exists:", fs.existsSync(filePath));
     if (!fs.existsSync(filePath)) {
       return [];
     }
     const fileContents = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(fileContents);
   } catch (error) {
-    console.error('Error reading posts.json:', error);
+    const exists = fs.existsSync(filePath);
+    let fileHead = '';
+
+    if (exists) {
+      try {
+        fileHead = fs.readFileSync(filePath, 'utf8').slice(0, 120);
+      } catch (readError) {
+        fileHead = `<failed to read file head: ${readError instanceof Error ? readError.message : String(readError)}>`;
+      }
+    }
+
+    console.error('Error reading posts.json:', {
+      cwd: process.cwd(),
+      filePath,
+      exists,
+      fileHead,
+      errorMessage: error instanceof Error ? error.message : String(error),
+    });
     return [];
   }
 }
