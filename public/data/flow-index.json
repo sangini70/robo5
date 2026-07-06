@@ -1,14 +1,15 @@
 {
+  "환율": [
+    "exchange-rate-rise-reasons",
+    "exchange-rate",
+    "exchange-rate-surge-reasons"
+  ],
   "세금/지원금": [
     "high-oil-price-support-forecast",
     "high-oil-price-support-impact-inflation",
     "high-oil-price-support-oil-price",
     "go-yuga-jiwongeum",
     "high-oil-price-support"
-  ],
-  "환율": [
-    "exchange-rate",
-    "exchange-rate-surge-reasons"
   ],
   "economy-basics": [
     "why-robo-advisors-use-etfs-screening-criteria",
@@ -20,7 +21,6 @@
     "5-key-benefits-of-robo-advisor",
     "robo-advisor-yields-analysis",
     "robo-advisor-yields",
-    "exchange-rate-rise-reasons",
     "exchange-rate-forecast",
     "exchange-rate-fixed-vs-floating",
     "exchange-rate-trade-balance",
