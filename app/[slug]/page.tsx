@@ -135,7 +135,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${title} | robo-advisor.kr`,
     description: description,
     alternates: {
-      canonical: `https://robo-advisor.kr/${slug}`,
+      canonical: post.language === 'en'
+        ? `https://robo-advisor.kr/en/${slug}`
+        : `https://robo-advisor.kr/${slug}`,
       languages: {
         'ko-KR': `https://robo-advisor.kr/${slug}`,
         'en-US': `https://robo-advisor.kr/en/${slug}`,
