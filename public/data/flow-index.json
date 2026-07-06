@@ -1,4 +1,14 @@
 {
+  "환율": [
+    "real-time-exchange-rate-sites",
+    "exchange-rate-check-methods",
+    "exchange-rate-basics-guide",
+    "exchange-rate-interest-rate",
+    "exchange-rate-2026-2027-outlook",
+    "exchange-rate-rise-reasons",
+    "exchange-rate",
+    "exchange-rate-surge-reasons"
+  ],
   "경제 기초": [
     "robo-advisor-fee-comparison-guide",
     "robo-advisor-definition-and-guide",
@@ -19,20 +29,10 @@
     "high-oil-price-support-vs-fuel-tax-cut",
     "high-oil-price-support-how-to-apply",
     "high-oil-price-support-definition",
-    "real-time-exchange-rate-sites",
     "exchange-rate-definition",
     "exchange-rate-live-check",
     "exchange-rate-fall-reasons",
     "exchange-rate-economic-impact"
-  ],
-  "환율": [
-    "exchange-rate-check-methods",
-    "exchange-rate-basics-guide",
-    "exchange-rate-interest-rate",
-    "exchange-rate-2026-2027-outlook",
-    "exchange-rate-rise-reasons",
-    "exchange-rate",
-    "exchange-rate-surge-reasons"
   ],
   "세금/지원금": [
     "high-oil-price-support-eligibility-check",
