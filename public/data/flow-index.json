@@ -1,4 +1,12 @@
 {
+  "환율": [
+    "exchange-rate-basics-guide",
+    "exchange-rate-interest-rate",
+    "exchange-rate-2026-2027-outlook",
+    "exchange-rate-rise-reasons",
+    "exchange-rate",
+    "exchange-rate-surge-reasons"
+  ],
   "경제 기초": [
     "robo-advisor-tax-guide-capital-gains",
     "robo-advisor-selection-criteria-mdd-guide",
@@ -15,7 +23,6 @@
     "high-oil-price-support-vs-fuel-tax-cut",
     "high-oil-price-support-how-to-apply",
     "high-oil-price-support-definition",
-    "exchange-rate-basics-guide",
     "exchange-rate-check-methods",
     "robo-advisor-definition-and-pros-cons",
     "nasdaq-futures-checking-guide",
@@ -34,13 +41,6 @@
     "high-oil-price-support-oil-price",
     "go-yuga-jiwongeum",
     "high-oil-price-support"
-  ],
-  "환율": [
-    "exchange-rate-interest-rate",
-    "exchange-rate-2026-2027-outlook",
-    "exchange-rate-rise-reasons",
-    "exchange-rate",
-    "exchange-rate-surge-reasons"
   ],
   "economy-basics": [
     "why-robo-advisors-use-etfs-screening-criteria",
