@@ -1,4 +1,15 @@
 {
+  "세금/지원금": [
+    "high-oil-price-support-impact-inflation",
+    "high-oil-price-support-oil-price",
+    "go-yuga-jiwongeum",
+    "high-oil-price-support",
+    "high-oil-price-support-forecast"
+  ],
+  "환율": [
+    "exchange-rate",
+    "exchange-rate-surge-reasons"
+  ],
   "economy-basics": [
     "why-robo-advisors-use-etfs-screening-criteria",
     "automated-portfolio-rebalancing-mechanism",
@@ -9,7 +20,6 @@
     "5-key-benefits-of-robo-advisor",
     "robo-advisor-yields-analysis",
     "robo-advisor-yields",
-    "exchange-rate",
     "exchange-rate-rise-reasons",
     "exchange-rate-forecast",
     "exchange-rate-fixed-vs-floating",
@@ -40,15 +50,5 @@
   ],
   "financial-tech": [
     "robo-advisor-definition-history"
-  ],
-  "환율": [
-    "exchange-rate-surge-reasons"
-  ],
-  "세금/지원금": [
-    "high-oil-price-support-oil-price",
-    "go-yuga-jiwongeum",
-    "high-oil-price-support",
-    "high-oil-price-support-impact-inflation",
-    "high-oil-price-support-forecast"
   ]
 }
