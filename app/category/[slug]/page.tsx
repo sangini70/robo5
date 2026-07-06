@@ -21,6 +21,7 @@ const getPostsByCategory = cache(async (category: string) => {
 
     const fetchedPosts = allPosts
       .filter((post: any) => {
+        if (post.language !== 'ko') return false;
         const postCategoryValues = [post.categorySlug, post.category]
           .filter(Boolean)
           .map((value: string) => normalizeCategoryKey(String(value)));
