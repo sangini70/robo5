@@ -1,4 +1,7 @@
 {
+  "": [
+    "robo-advisor-performance-metric"
+  ],
   "economy-basics": [
     "robo-advisor-performance-metrics-sharpe-twr-irr",
     "why-robo-advisors-use-etfs-screening-criteria",
