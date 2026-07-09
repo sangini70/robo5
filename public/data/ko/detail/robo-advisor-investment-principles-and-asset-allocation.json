@@ -27,28 +27,28 @@
     "2026-04-02": 3,
     "2026-04-03": 7
   },
-  "updatedAt": "2026-07-06T07:11:00.438Z",
   "dailyClicks": {
     "2026-04-02": 1,
     "2026-04-03": 1
   },
-  "categorySlug": "경제 기초",
+  "updatedAt": "2026-07-06T07:11:00.438Z",
   "category": "경제 기초",
+  "categorySlug": "경제 기초",
   "dailyViews": {
-    "2026-04-11": 1,
-    "2026-04-06": 1,
     "2026-04-02": 1,
+    "2026-04-06": 1,
+    "2026-04-11": 1,
     "2026-04-03": 2,
     "2026-04-07": 1
   },
-  "status": "published",
   "description": "복잡한 금융 공학 알고리즘 뒤에 숨겨진 로보어드바이저의 3단계 핵심 투자 원리(성향 분석, 자산 배분, 리밸런싱)를 알기 쉽게 설명합니다.",
+  "status": "published",
   "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-investment-principles-and-asset-allocation.webp",
   "customJs": "function calculateTax() {\n            const profit = parseFloat(document.getElementById('totalProfit').value);\n            if (isNaN(profit)) {\n                alert('수익 금액을 입력해주세요.');\n                return;\n            }\n            \n            const deduction = 2500000;\n            const taxable = Math.max(0, profit - deduction);\n            const tax = taxable * 0.22;\n\n            document.getElementById('taxableIncome').textContent = taxable.toLocaleString();\n            document.getElementById('finalTax').textContent = Math.round(tax).toLocaleString();\n            document.getElementById('taxResultBox').style.display = 'block';\n        }",
   "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"해외 로보어드바이저 투자의 공제 한도는 얼마인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 매년 1월 1일부터 12월 31일까지 발생한 실현 수익 중 250만 원까지 기본 공제됩니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"양도소득세 세율은 어떻게 되나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 기본 공제액 250만 원을 제외한 나머지 수익에 대해 22%(지방소득세 포함)가 적용됩니다.\"\n                }\n            }\n        ]\n    }",
   "titleHistory": [],
-  "language": "ko",
-  "naverRequestedAt": "2026-04-06T13:31:58.242Z",
   "slug": "robo-advisor-investment-principles-and-asset-allocation",
+  "naverRequestedAt": "2026-04-06T13:31:58.242Z",
+  "language": "ko",
   "title": "손실 피하는 로보어드바이저 투자의 3단계 반전 원리"
 }
