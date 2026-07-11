@@ -7,6 +7,7 @@ import { MainLayout } from '@/src/components/MainLayout';
 import { Sidebar } from '@/src/components/Sidebar';
 import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
+import { PostContentRenderer } from '@/src/components/PostContentRenderer';
 import { createBreadcrumbList } from '@/src/lib/breadcrumb';
 import { getCategoryDisplayName } from '@/src/lib/category';
 
@@ -282,12 +283,7 @@ export default async function EnglishPostPage({ params }: { params: Promise<{ sl
               </div>
             )}
 
-            <div
-              className="prose prose-lg prose-gray mx-auto leading-relaxed max-w-none break-words [overflow-wrap:anywhere]"
-              dangerouslySetInnerHTML={{
-                __html: post.content,
-              }}
-            />
+            <PostContentRenderer content={post.content} language={post.language} />
 
             {post.tags && post.tags.length > 0 && (
               <div className="mt-12 lg:mt-14 pt-8 border-t border-gray-200 flex flex-wrap gap-3">
