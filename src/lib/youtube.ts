@@ -34,6 +34,10 @@ function decodeHtmlEntities(value: string) {
     .replace(/&gt;/gi, '>');
 }
 
+function stripHtmlTags(value: string) {
+  return value.replace(/<[^>]*>/g, '');
+}
+
 function normalizeHost(hostname: string) {
   return hostname.toLowerCase().replace(/^www\./, '');
 }
@@ -125,12 +129,16 @@ export function transformStandaloneYouTubeUrlsToCards(html: string, language: Yo
     return html;
   }
 
-  return html.replace(/<p>([\s\S]*?)<\/p>/gi, (match, innerHtml: string) => {
-    if (/[<>\n\r]/.test(innerHtml)) {
+  return html.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, (match, innerHtml: string) => {
+    if (/<\s*(a|iframe)\b/i.test(innerHtml)) {
       return match;
     }
 
-    const cleanedText = decodeHtmlEntities(innerHtml).replace(/\u00a0/g, ' ').trim();
+    const cleanedText = stripHtmlTags(decodeHtmlEntities(innerHtml))
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
     const videoId = extractYouTubeVideoId(cleanedText);
 
     if (!videoId) {
