@@ -3,6 +3,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
+type AdminDateParts = {
+  date: string;
+  time: string;
+};
+
+function formatAdminDateParts(value?: string | null): AdminDateParts | null {
+  if (!value) return null;
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  const parts = formatter.formatToParts(date);
+  const lookup = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return {
+    date: `${lookup.year}.${lookup.month}.${lookup.day}`,
+    time: `${lookup.hour}:${lookup.minute}`,
+  };
+}
+
 export default function AdminPosts() {
   const restoreInputRef = useRef<HTMLInputElement | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
@@ -442,6 +472,8 @@ export default function AdminPosts() {
             <tr>
               <th className="px-6 py-4 font-medium">Title</th>
               <th className="px-6 py-4 font-medium">Status</th>
+              <th className="px-6 py-4 font-medium">최초 발행</th>
+              <th className="px-6 py-4 font-medium">최근 수정</th>
               <th className="px-6 py-4 font-medium">Google</th>
               <th className="px-6 py-4 font-medium">Naver</th>
               <th className="px-6 py-4 font-medium">Views</th>
@@ -455,6 +487,8 @@ export default function AdminPosts() {
 
               const googleStatus = post.googleIndexStatus || 'none';
               const naverStatus = post.naverIndexStatus || 'none';
+              const publishDateParts = formatAdminDateParts(post.publishDate);
+              const updatedAtParts = formatAdminDateParts(post.updatedAt);
 
               return (
               <tr key={post.id} id={`post-row-${post.id}`} className="hover:bg-gray-50 transition-colors">
@@ -470,6 +504,26 @@ export default function AdminPosts() {
                   }`}>
                     {isScheduled ? 'scheduled' : post.status}
                   </span>
+                </td>
+                <td className="px-6 py-4">
+                  {publishDateParts ? (
+                    <div className="text-xs leading-4 text-gray-700 whitespace-nowrap">
+                      <div>{publishDateParts.date}</div>
+                      <div>{publishDateParts.time}</div>
+                    </div>
+                  ) : (
+                    <span className="text-xs text-gray-400">-</span>
+                  )}
+                </td>
+                <td className="px-6 py-4">
+                  {updatedAtParts ? (
+                    <div className="text-xs leading-4 text-gray-700 whitespace-nowrap">
+                      <div>{updatedAtParts.date}</div>
+                      <div>{updatedAtParts.time}</div>
+                    </div>
+                  ) : (
+                    <span className="text-xs text-gray-400">-</span>
+                  )}
                 </td>
                 <td className="px-6 py-4">
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
@@ -531,7 +585,7 @@ export default function AdminPosts() {
             })}
             {paginatedPosts.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                <td colSpan={8} className="px-6 py-8 text-center text-gray-500">
                   寃뚯떆湲???놁뒿?덈떎.
                 </td>
               </tr>
