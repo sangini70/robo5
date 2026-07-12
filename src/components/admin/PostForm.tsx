@@ -10,6 +10,274 @@ interface PostFormProps {
   postId?: string;
 }
 
+type OptimizationStatus = '충족' | '검토' | '누락';
+
+type OptimizationCheck = {
+  status: OptimizationStatus;
+  detail: string;
+  count?: number;
+};
+
+type OptimizationAnalysis = {
+  mainKeyword: OptimizationCheck;
+  title: OptimizationCheck;
+  seoTitle: OptimizationCheck;
+  seoDescription: OptimizationCheck;
+  firstParagraph: OptimizationCheck;
+  headings: OptimizationCheck;
+  bodyUsage: OptimizationCheck;
+  repetition: OptimizationCheck;
+};
+
+const SEARCH_INTENT_OPTIONS = [
+  { value: '', label: '선택 안함' },
+  { value: 'informational', label: '정보형' },
+  { value: 'definition', label: '정의형' },
+  { value: 'comparison', label: '비교형' },
+  { value: 'problem-solving', label: '문제 해결형' },
+  { value: 'decision', label: '의사결정형' },
+] as const;
+
+const OPTIMIZATION_IGNORED_SELECTOR = [
+  'table',
+  'thead',
+  'tbody',
+  'tfoot',
+  'nav',
+  'aside',
+  'blockquote',
+  'figure',
+  'script',
+  'style',
+  'iframe',
+  'noscript',
+  'template',
+  '[data-toc]',
+  '.toc',
+  '.table-of-contents',
+  '.faq',
+  '.faq-item',
+  '.notice-box',
+  '.info-box',
+  '.guide-box',
+  '.callout',
+  '.tip-box',
+].join(', ');
+
+function normalizeOptimizationText(value: string) {
+  return value
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function splitOptimizationKeywords(value: string) {
+  return value
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter(Boolean);
+}
+
+function countExactKeywordOccurrences(text: string, keyword: string) {
+  const normalizedText = normalizeOptimizationText(text);
+  const normalizedKeyword = normalizeOptimizationText(keyword);
+
+  if (!normalizedText || !normalizedKeyword) {
+    return 0;
+  }
+
+  let count = 0;
+  let index = 0;
+
+  while (index !== -1) {
+    index = normalizedText.indexOf(normalizedKeyword, index);
+    if (index === -1) {
+      break;
+    }
+    count += 1;
+    index += normalizedKeyword.length;
+  }
+
+  return count;
+}
+
+function createOptimizationCheck(status: OptimizationStatus, detail: string, count?: number): OptimizationCheck {
+  return { status, detail, count };
+}
+
+function getEmptyOptimizationAnalysis(): OptimizationAnalysis {
+  const neutral = createOptimizationCheck('검토', '키워드 입력 후 점검됩니다.');
+  return {
+    mainKeyword: createOptimizationCheck('누락', '메인 키워드를 입력해 주세요.'),
+    title: neutral,
+    seoTitle: neutral,
+    seoDescription: neutral,
+    firstParagraph: neutral,
+    headings: neutral,
+    bodyUsage: createOptimizationCheck('검토', '본문 사용 횟수를 계산합니다.', 0),
+    repetition: createOptimizationCheck('검토', '반복 경고를 계산합니다.', 0),
+  };
+}
+
+function analyzeContentOptimization(params: {
+  title: string;
+  seoTitle: string;
+  seoDescription: string;
+  content: string;
+  mainKeyword: string;
+  secondaryKeywords: string;
+}): OptimizationAnalysis {
+  const title = normalizeOptimizationText(params.title);
+  const seoTitle = normalizeOptimizationText(params.seoTitle);
+  const seoDescription = normalizeOptimizationText(params.seoDescription);
+  const mainKeyword = normalizeOptimizationText(params.mainKeyword);
+  const secondaryKeywords = splitOptimizationKeywords(params.secondaryKeywords).map((keyword) =>
+    normalizeOptimizationText(keyword)
+  );
+
+  if (!params.content || typeof DOMParser === 'undefined') {
+    const mainKeywordStatus: OptimizationStatus = mainKeyword ? '충족' : '누락';
+    return {
+      mainKeyword: createOptimizationCheck(mainKeywordStatus, mainKeyword ? '메인 키워드가 설정되어 있습니다.' : '메인 키워드를 입력해 주세요.'),
+      title: createOptimizationCheck(mainKeyword ? '검토' : '검토', '본문 편집 후 자동 점검됩니다.'),
+      seoTitle: createOptimizationCheck(mainKeyword ? '검토' : '검토', '본문 편집 후 자동 점검됩니다.'),
+      seoDescription: createOptimizationCheck(mainKeyword ? '검토' : '검토', '본문 편집 후 자동 점검됩니다.'),
+      firstParagraph: createOptimizationCheck(mainKeyword ? '검토' : '검토', '본문 편집 후 자동 점검됩니다.'),
+      headings: createOptimizationCheck(mainKeyword ? '검토' : '검토', '본문 편집 후 자동 점검됩니다.'),
+      bodyUsage: createOptimizationCheck('검토', '본문 사용 횟수를 계산합니다.', 0),
+      repetition: createOptimizationCheck('검토', '반복 경고를 계산합니다.', 0),
+    };
+  }
+
+  const parser = new DOMParser();
+  const parsedDocument = parser.parseFromString(
+    `<div data-optimization-root="true">${params.content || ''}</div>`,
+    'text/html'
+  );
+  const root = parsedDocument.body.querySelector('[data-optimization-root="true"]');
+
+  if (!root) {
+    return getEmptyOptimizationAnalysis();
+  }
+
+  const cleanedRoot = root.cloneNode(true) as HTMLElement;
+  cleanedRoot.querySelectorAll('script, style, iframe, noscript, template').forEach((node) => node.remove());
+  cleanedRoot.querySelectorAll(OPTIMIZATION_IGNORED_SELECTOR).forEach((node) => node.remove());
+
+  const bodyText = normalizeOptimizationText(cleanedRoot.textContent || '');
+  const paragraphs = Array.from(root.querySelectorAll('p'))
+    .filter((paragraph) => {
+      const element = paragraph as HTMLElement;
+      const text = normalizeOptimizationText(element.textContent || '');
+      return Boolean(text) && !element.closest(OPTIMIZATION_IGNORED_SELECTOR);
+    })
+    .map((paragraph) => normalizeOptimizationText((paragraph as HTMLElement).textContent || ''))
+    .filter(Boolean);
+
+  const headings = Array.from(root.querySelectorAll('h2, h3'))
+    .filter((heading) => {
+      const element = heading as HTMLElement;
+      const text = normalizeOptimizationText(element.textContent || '');
+      return Boolean(text) && !element.closest(OPTIMIZATION_IGNORED_SELECTOR);
+    })
+    .map((heading) => normalizeOptimizationText((heading as HTMLElement).textContent || ''))
+    .filter(Boolean);
+
+  const firstParagraph = paragraphs[0] || '';
+  const bodyCount = mainKeyword ? countExactKeywordOccurrences(bodyText, mainKeyword) : 0;
+  const mainKeywordHitsInHeadings = headings.some((heading) => heading.includes(mainKeyword));
+  const secondaryKeywordHitsInHeadings = secondaryKeywords.some((keyword) =>
+    headings.some((heading) => heading.includes(keyword))
+  );
+
+  const titleStatus: OptimizationStatus = !title ? '누락' : mainKeyword && title.includes(mainKeyword) ? '충족' : '검토';
+  const seoTitleStatus: OptimizationStatus = !seoTitle
+    ? '누락'
+    : mainKeyword && seoTitle.includes(mainKeyword)
+      ? '충족'
+      : '검토';
+  const seoDescriptionStatus: OptimizationStatus = !seoDescription
+    ? '누락'
+    : mainKeyword && seoDescription.includes(mainKeyword)
+      ? '충족'
+      : '검토';
+  const firstParagraphStatus: OptimizationStatus = !firstParagraph
+    ? '누락'
+    : mainKeyword && firstParagraph.includes(mainKeyword)
+      ? '충족'
+      : '검토';
+  const headingsStatus: OptimizationStatus = !headings.length
+    ? '누락'
+    : (mainKeywordHitsInHeadings || secondaryKeywordHitsInHeadings)
+      ? '충족'
+      : '검토';
+
+  const bodyUsageStatus: OptimizationStatus = !bodyText
+    ? '누락'
+    : !mainKeyword
+      ? '검토'
+      : bodyCount === 0
+        ? '검토'
+        : bodyCount >= 5
+          ? '검토'
+          : '충족';
+
+  const repetitionStatus: OptimizationStatus = !bodyText
+    ? '누락'
+    : !mainKeyword
+      ? '검토'
+      : bodyCount >= 5
+        ? '검토'
+        : '충족';
+
+  return {
+    mainKeyword: createOptimizationCheck(
+      mainKeyword ? '충족' : '누락',
+      mainKeyword ? '메인 키워드가 설정되어 있습니다.' : '메인 키워드를 입력해 주세요.'
+    ),
+    title: createOptimizationCheck(titleStatus, title ? '제목을 점검했습니다.' : '제목이 비어 있습니다.'),
+    seoTitle: createOptimizationCheck(seoTitleStatus, seoTitle ? 'SEO 제목을 점검했습니다.' : 'SEO 제목이 비어 있습니다.'),
+    seoDescription: createOptimizationCheck(
+      seoDescriptionStatus,
+      seoDescription ? 'SEO 설명을 점검했습니다.' : 'SEO 설명이 비어 있습니다.'
+    ),
+    firstParagraph: createOptimizationCheck(
+      firstParagraphStatus,
+      firstParagraph ? '첫 문단을 점검했습니다.' : '첫 문단이 없습니다.'
+    ),
+    headings: createOptimizationCheck(
+      headingsStatus,
+      headings.length ? 'H2/H3를 점검했습니다.' : 'H2/H3가 없습니다.'
+    ),
+    bodyUsage: createOptimizationCheck(
+      bodyUsageStatus,
+      mainKeyword ? `정확 일치 ${bodyCount}회` : '메인 키워드 입력 후 횟수를 계산합니다.',
+      bodyCount
+    ),
+    repetition: createOptimizationCheck(
+      repetitionStatus,
+      mainKeyword
+        ? bodyCount >= 5
+          ? '반복이 많아 검토가 필요합니다.'
+          : '반복 과다로 보이지 않습니다.'
+        : '메인 키워드 입력 후 반복을 계산합니다.',
+      bodyCount
+    ),
+  };
+}
+
+function getOptimizationBadgeClass(status: OptimizationStatus) {
+  switch (status) {
+    case '충족':
+      return 'bg-emerald-100 text-emerald-700';
+    case '검토':
+      return 'bg-amber-100 text-amber-800';
+    default:
+      return 'bg-rose-100 text-rose-700';
+  }
+}
+
 export function PostForm({ initialData, postId }: PostFormProps) {
   const router = useRouter();
   const contentEditorContainerRef = useRef<HTMLDivElement>(null);
@@ -24,6 +292,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     thumbnail: '',
     status: 'draft',
     publishDate: '',
+    mainKeyword: '',
+    secondaryKeywords: '',
+    searchIntent: '',
     seoTitle: '',
     seoDescription: '',
     customCss: '',
@@ -39,6 +310,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const [toastMessage, setToastMessage] = useState('');
   const [originalTitle, setOriginalTitle] = useState('');
   const [titleHistory, setTitleHistory] = useState<any[]>([]);
+  const [optimizationAnalysis, setOptimizationAnalysis] = useState<OptimizationAnalysis>(getEmptyOptimizationAnalysis());
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -67,6 +339,11 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         thumbnail: initialData.thumbnail || '',
         status: initialData.status || 'draft',
         publishDate: normalizedPublishDate,
+        mainKeyword: initialData.mainKeyword || '',
+        secondaryKeywords: Array.isArray(initialData.secondaryKeywords)
+          ? initialData.secondaryKeywords.join(', ')
+          : initialData.secondaryKeywords || '',
+        searchIntent: initialData.searchIntent || '',
         seoTitle: initialData.seoTitle || '',
         seoDescription: initialData.seoDescription || '',
         customCss: initialData.customCss || '',
@@ -80,6 +357,26 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       }
     }
   }, [initialData]);
+
+  useEffect(() => {
+    setOptimizationAnalysis(
+      analyzeContentOptimization({
+        title: formData.title,
+        seoTitle: formData.seoTitle,
+        seoDescription: formData.seoDescription,
+        content: formData.content,
+        mainKeyword: formData.mainKeyword,
+        secondaryKeywords: formData.secondaryKeywords,
+      })
+    );
+  }, [
+    formData.title,
+    formData.seoTitle,
+    formData.seoDescription,
+    formData.content,
+    formData.mainKeyword,
+    formData.secondaryKeywords,
+  ]);
 
   const generateSlug = (title: string) => {
     return title
@@ -324,6 +621,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         thumbnail: formData.thumbnail,
         status: formData.status,
         publishDate: publishTimestamp,
+        mainKeyword: formData.mainKeyword.trim(),
+        secondaryKeywords: splitOptimizationKeywords(formData.secondaryKeywords),
+        searchIntent: formData.searchIntent,
         seoTitle: formData.seoTitle,
         seoDescription: formData.seoDescription,
         customCss: cleaned.customCss,
@@ -685,6 +985,89 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               placeholder="Used for post cards..."
             />
           </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm flex flex-col gap-4">
+          <h3 className="text-sm font-semibold text-gray-900 border-b border-gray-100 pb-3">CONTENT OPTIMIZATION</h3>
+
+          <div className="space-y-5">
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">메인 키워드</label>
+              <input
+                type="text"
+                name="mainKeyword"
+                value={formData.mainKeyword}
+                onChange={handleChange}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="예: 로보어드바이저"
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">서브 키워드</label>
+              <textarea
+                name="secondaryKeywords"
+                value={formData.secondaryKeywords}
+                onChange={handleChange}
+                rows={2}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="예: ETF, 자산배분, 분산투자"
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">검색 의도</label>
+              <select
+                name="searchIntent"
+                value={formData.searchIntent}
+                onChange={handleChange}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+              >
+                {SEARCH_INTENT_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-100 pt-4">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">검사 결과</h4>
+            <div className="space-y-3">
+              {[
+                { label: '제목', check: optimizationAnalysis.title },
+                { label: 'SEO Title', check: optimizationAnalysis.seoTitle },
+                { label: 'SEO Description', check: optimizationAnalysis.seoDescription },
+                { label: '첫 문단', check: optimizationAnalysis.firstParagraph },
+                { label: 'H2/H3', check: optimizationAnalysis.headings },
+                { label: '본문 사용 횟수', check: optimizationAnalysis.bodyUsage },
+                { label: '반복 여부', check: optimizationAnalysis.repetition },
+              ].map((item) => (
+                <div key={item.label} className="flex items-start justify-between gap-4 rounded-md border border-gray-100 bg-gray-50 px-4 py-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-gray-900">{item.label}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {item.label === '본문 사용 횟수'
+                        ? typeof item.check.count === 'number'
+                          ? `본문 사용 ${item.check.count}회`
+                          : item.check.detail
+                        : item.check.detail}
+                    </p>
+                  </div>
+                  <span className={`shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getOptimizationBadgeClass(item.check.status)}`}>
+                    {item.check.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {!formData.mainKeyword && (
+            <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              메인 키워드를 입력하면 콘텐츠 점검이 활성화됩니다.
+            </div>
+          )}
         </div>
 
         <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm flex flex-col gap-4">
