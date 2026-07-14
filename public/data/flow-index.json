@@ -1,4 +1,7 @@
 {
+  "us-market": [
+    "nasdaq-futures-definition"
+  ],
   "economy-basics": [
     "robo-advisor-versus-human-pb-hybrid-wealth-management",
     "diy-investing-versus-robo-advisor-statistical-comparison",
