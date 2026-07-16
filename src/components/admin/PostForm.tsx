@@ -29,6 +29,90 @@ type OptimizationAnalysis = {
   repetition: OptimizationCheck;
 };
 
+type PlannerMetaField =
+  | 'title'
+  | 'slug'
+  | 'status'
+  | 'mainKeyword'
+  | 'secondaryKeywords'
+  | 'searchIntent'
+  | 'category'
+  | 'categorySlug'
+  | 'seoTitle'
+  | 'seoDescription'
+  | 'description'
+  | 'tags';
+
+type PlannerMetaValues = Partial<Record<PlannerMetaField, string>>;
+
+type PlannerMetaApplyState = {
+  kind: 'idle' | 'success' | 'warning' | 'error';
+  message: string;
+  appliedLabels: string[];
+  missingLabels: string[];
+  appliedCount: number;
+};
+
+const PLANNER_META_FIELD_MAP: Record<string, PlannerMetaField> = {
+  TITLE: 'title',
+  SLUG: 'slug',
+  'POST STATUS': 'status',
+  'POST URL': 'slug',
+  'MAIN KEYWORD': 'mainKeyword',
+  'SECONDARY KEYWORDS': 'secondaryKeywords',
+  'SEARCH INTENT': 'searchIntent',
+  CATEGORY: 'category',
+  'CATEGORY SLUG': 'categorySlug',
+  'SEO TITLE': 'seoTitle',
+  'META DESCRIPTION': 'seoDescription',
+  EXCERPT: 'description',
+  TAGS: 'tags',
+};
+
+const PLANNER_META_IGNORED_LABELS = new Set([
+  'SCHEMA TYPE',
+  'HUB ANCHOR TEXT',
+  'INTERNAL LINK URLS',
+]);
+
+const PLANNER_META_DISPLAY_ORDER: Array<{
+  field: PlannerMetaField;
+  label: string;
+  required?: boolean;
+}> = [
+  { field: 'title', label: 'TITLE', required: true },
+  { field: 'slug', label: 'SLUG', required: true },
+  { field: 'mainKeyword', label: 'MAIN KEYWORD', required: true },
+  { field: 'secondaryKeywords', label: 'SECONDARY KEYWORDS' },
+  { field: 'searchIntent', label: 'SEARCH INTENT' },
+  { field: 'category', label: 'CATEGORY', required: true },
+  { field: 'categorySlug', label: 'CATEGORY SLUG' },
+  { field: 'status', label: 'POST STATUS' },
+  { field: 'seoTitle', label: 'SEO TITLE' },
+  { field: 'seoDescription', label: 'META DESCRIPTION' },
+  { field: 'description', label: 'EXCERPT' },
+  { field: 'tags', label: 'TAGS' },
+];
+
+const PLANNER_META_LABELS = [
+  'CATEGORY SLUG',
+  'SECONDARY KEYWORDS',
+  'SEARCH INTENT',
+  'META DESCRIPTION',
+  'HUB ANCHOR TEXT',
+  'INTERNAL LINK URLS',
+  'POST STATUS',
+  'POST URL',
+  'MAIN KEYWORD',
+  'SEO TITLE',
+  'SCHEMA TYPE',
+  'EXCERPT',
+  'CATEGORY',
+  'TITLE',
+  'SLUG',
+  'TAGS',
+];
+
 const SEARCH_INTENT_OPTIONS = [
   { value: '', label: '선택 안함' },
   { value: 'informational', label: '정보형' },
@@ -278,6 +362,173 @@ function getOptimizationBadgeClass(status: OptimizationStatus) {
   }
 }
 
+function extractPlannerMetaBlock(text: string) {
+  const startMarker = '[PLANNER POST META 시작]';
+  const endMarker = '[PLANNER POST META 종료]';
+  const startIndex = text.indexOf(startMarker);
+  const endIndex = text.indexOf(endMarker);
+
+  if (startIndex === -1 || endIndex === -1 || endIndex <= startIndex) {
+    return null;
+  }
+
+  return text.slice(startIndex + startMarker.length, endIndex);
+}
+
+function stripPlannerDecorations(line: string) {
+  return line
+    .replace(/^\s*[-*•]+\s*/, '')
+    .replace(/^#{1,6}\s*/, '')
+    .replace(/\*\*/g, '')
+    .replace(/__/g, '')
+    .trim();
+}
+
+function normalizePlannerIntent(value: string) {
+  const normalized = value.trim().toLowerCase();
+
+  const lookup: Record<string, string> = {
+    informational: 'informational',
+    정보형: 'informational',
+    definition: 'definition',
+    정의형: 'definition',
+    comparison: 'comparison',
+    비교형: 'comparison',
+    'problem-solving': 'problem-solving',
+    'problem solving': 'problem-solving',
+    '문제 해결형': 'problem-solving',
+    decision: 'decision',
+    의사결정형: 'decision',
+  };
+
+  return lookup[normalized] || '';
+}
+
+function normalizePlannerStatus(value: string) {
+  const normalized = value.trim().toLowerCase();
+  if (!normalized) return '';
+
+  const lookup: Record<string, string> = {
+    draft: 'draft',
+    임시저장: 'draft',
+    임시: 'draft',
+    published: 'published',
+    발행: 'published',
+    공개: 'published',
+  };
+
+  return lookup[normalized] || '';
+}
+
+function normalizePlannerSlug(value: string) {
+  const raw = value.trim();
+  if (!raw) return '';
+
+  try {
+    if (/^https?:\/\//i.test(raw)) {
+      const url = new URL(raw);
+      const segments = url.pathname.split('/').filter(Boolean);
+      return (segments[segments.length - 1] || '').trim();
+    }
+  } catch {
+    // Fall through to plain text normalization.
+  }
+
+  return raw
+    .replace(/^\/+|\/+$/g, '')
+    .trim();
+}
+
+function normalizePlannerTags(value: string) {
+  return value
+    .split(/[\n,]/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .join(', ');
+}
+
+function parsePlannerMeta(text: string) {
+  const block = extractPlannerMetaBlock(text);
+  const values: PlannerMetaValues = {};
+
+  if (!block) {
+    return { values, found: false };
+  }
+
+  const lines = block.split(/\r?\n/);
+  let currentField: PlannerMetaField | null = null;
+  let ignoringField = false;
+  let currentParts: string[] = [];
+
+  const commitCurrentField = () => {
+    if (!currentField) return;
+    const value = currentParts.join(' ').trim();
+    if (value) {
+      values[currentField] = value;
+    }
+    currentField = null;
+    currentParts = [];
+  };
+
+  for (const rawLine of lines) {
+    const line = stripPlannerDecorations(rawLine);
+    if (!line) continue;
+
+    const upperLine = line.toUpperCase();
+    const matchedLabel = PLANNER_META_LABELS.find((label) => {
+      return upperLine === label || upperLine.startsWith(`${label}:`);
+    });
+
+    if (matchedLabel) {
+      commitCurrentField();
+      ignoringField = false;
+
+      const field = PLANNER_META_FIELD_MAP[matchedLabel];
+      const inlineValue = line.slice(matchedLabel.length).replace(/^:\s*/, '').trim();
+
+      if (field && !PLANNER_META_IGNORED_LABELS.has(matchedLabel)) {
+        currentField = field;
+        currentParts = [];
+        if (inlineValue) {
+          values[field] = inlineValue;
+          currentField = null;
+        }
+      } else {
+        currentField = null;
+        currentParts = [];
+        ignoringField = true;
+      }
+      continue;
+    }
+
+    if (currentField) {
+      currentParts.push(line);
+    } else if (ignoringField) {
+      continue;
+    }
+  }
+
+  commitCurrentField();
+
+  if (values.searchIntent) {
+    values.searchIntent = normalizePlannerIntent(values.searchIntent);
+  }
+
+  if (values.status) {
+    values.status = normalizePlannerStatus(values.status);
+  }
+
+  if (values.slug) {
+    values.slug = normalizePlannerSlug(values.slug);
+  }
+
+  if (values.tags) {
+    values.tags = normalizePlannerTags(values.tags);
+  }
+
+  return { values, found: true };
+}
+
 export function PostForm({ initialData, postId }: PostFormProps) {
   const router = useRouter();
   const contentEditorContainerRef = useRef<HTMLDivElement>(null);
@@ -311,6 +562,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const [originalTitle, setOriginalTitle] = useState('');
   const [titleHistory, setTitleHistory] = useState<any[]>([]);
   const [optimizationAnalysis, setOptimizationAnalysis] = useState<OptimizationAnalysis>(getEmptyOptimizationAnalysis());
+  const [plannerMetaOpen, setPlannerMetaOpen] = useState(false);
+  const [plannerMetaText, setPlannerMetaText] = useState('');
+  const [plannerMetaResult, setPlannerMetaResult] = useState<PlannerMetaApplyState | null>(null);
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -432,6 +686,74 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handlePlannerMetaApply = () => {
+    const parsed = parsePlannerMeta(plannerMetaText);
+    const entries = Object.entries(parsed.values) as Array<[PlannerMetaField, string]>;
+
+    if (!parsed.found) {
+      setPlannerMetaResult({
+        kind: 'error',
+        message: 'PLANNER POST META를 찾을 수 없습니다.',
+        appliedLabels: [],
+        missingLabels: [],
+        appliedCount: 0,
+      });
+      return;
+    }
+
+    if (entries.length === 0) {
+      setPlannerMetaResult({
+        kind: 'error',
+        message: '적용할 항목이 없습니다.',
+        appliedLabels: [],
+        missingLabels: [],
+        appliedCount: 0,
+      });
+      return;
+    }
+
+    const nextFormData: Record<string, string> = {};
+    const changedSlugs: string[] = [];
+
+    setFormData(prev => {
+      const nextState = { ...prev };
+
+      for (const [field, value] of entries) {
+        const trimmedValue = value.trim();
+        if (!trimmedValue) continue;
+        nextState[field] = trimmedValue;
+        if (field === 'slug') {
+          changedSlugs.push(trimmedValue);
+        }
+        nextFormData[field] = trimmedValue;
+      }
+
+      return nextState;
+    });
+
+    if (changedSlugs[0]) {
+      checkSlugAvailability(changedSlugs[0]);
+    }
+
+    const appliedLabels = PLANNER_META_DISPLAY_ORDER
+      .filter(({ field }) => Boolean(nextFormData[field]?.trim()))
+      .map(({ label }) => label);
+
+    const missingLabels = PLANNER_META_DISPLAY_ORDER
+      .filter(({ field, required }) => required && !nextFormData[field]?.trim())
+      .map(({ label }) => label);
+
+    setPlannerMetaResult({
+      kind: missingLabels.length ? 'warning' : 'success',
+      message: missingLabels.length
+        ? '누락된 항목이 있습니다.'
+        : 'PLANNER META 적용 완료',
+      appliedLabels,
+      missingLabels,
+      appliedCount: appliedLabels.length,
+    });
   };
 
   const handleContentChange = (content: string) => {
@@ -985,6 +1307,87 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               placeholder="Used for post cards..."
             />
           </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
+            <h3 className="text-sm font-semibold text-gray-900">PLANNER META</h3>
+            {!plannerMetaOpen && (
+              <button
+                type="button"
+                onClick={() => setPlannerMetaOpen(true)}
+                className="text-xs font-medium text-indigo-600 hover:text-indigo-900 transition-colors"
+              >
+                메타 붙여넣기 열기
+              </button>
+            )}
+          </div>
+
+          {plannerMetaOpen ? (
+            <div className="space-y-4">
+              <textarea
+                value={plannerMetaText}
+                onChange={(e) => setPlannerMetaText(e.target.value)}
+                rows={10}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm font-mono leading-6"
+                placeholder={'[PLANNER POST META 시작]\nTITLE\n로보어드바이저 수수료 비교\n...\n[PLANNER POST META 종료]'}
+              />
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handlePlannerMetaApply}
+                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors"
+                >
+                  적용하기
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlannerMetaOpen(false)}
+                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  닫기
+                </button>
+              </div>
+              {plannerMetaResult && (
+                <div
+                  className={`rounded-md border px-4 py-3 text-sm ${
+                    plannerMetaResult.kind === 'success'
+                      ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
+                      : plannerMetaResult.kind === 'warning'
+                        ? 'border-amber-200 bg-amber-50 text-amber-900'
+                        : 'border-rose-200 bg-rose-50 text-rose-900'
+                  }`}
+                >
+                  <p className="font-medium">{plannerMetaResult.message}</p>
+                  {plannerMetaResult.appliedLabels.length > 0 && (
+                    <div className="mt-3">
+                      <p className="text-xs font-semibold uppercase tracking-wider opacity-80">적용 항목</p>
+                      <ul className="mt-2 space-y-1 text-sm">
+                        {plannerMetaResult.appliedLabels.map((label) => (
+                          <li key={label}>- {label}</li>
+                        ))}
+                      </ul>
+                      <p className="mt-3 text-xs opacity-80">총 {plannerMetaResult.appliedCount}개 항목 적용</p>
+                    </div>
+                  )}
+                  {plannerMetaResult.missingLabels.length > 0 && (
+                    <div className="mt-3 rounded-md border border-current/20 bg-white/50 px-3 py-2">
+                      <p className="text-xs font-semibold uppercase tracking-wider">누락된 항목</p>
+                      <ul className="mt-2 space-y-1 text-sm">
+                        {plannerMetaResult.missingLabels.map((label) => (
+                          <li key={label}>- {label}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-500">
+              PLANNER POST META 블록을 붙여넣어 기존 입력 필드를 자동 반영합니다.
+            </p>
+          )}
         </div>
 
         <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm flex flex-col gap-4">
