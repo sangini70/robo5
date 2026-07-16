@@ -1,5 +1,6 @@
-﻿import '@/src/index.css';
+import '@/src/index.css';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: '로보어드바이저·ETF·환율 정보 정리 | robo-advisor.kr',
@@ -35,10 +36,16 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <div className="min-h-screen flex flex-col font-sans">
+          <Script
+            id="adsense-auto-ads"
+            async
+            strategy="afterInteractive"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6091782335427561"
+            crossOrigin="anonymous"
+          />
           {children}
         </div>
       </body>
     </html>
   );
 }
-
