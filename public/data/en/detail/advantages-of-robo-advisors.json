@@ -1,11 +1,11 @@
 {
-  "customJs": "",
   "naverRequestedAt": "2026-07-04T14:55:07.480Z",
-  "language": "en",
+  "customJs": "",
   "naverIndexStatus": "requested",
+  "language": "en",
   "googleIndexStatus": "requested",
-  "slug": "advantages-of-robo-advisors",
   "impressions": 0,
+  "slug": "advantages-of-robo-advisors",
   "flowType": "위로의 방향",
   "updatedAt": "2026-07-04T14:55:07.519Z",
   "seoDescription": "Explore the 5 core benefits of robo-advisors. Learn how automated asset allocation slashes fees, reduces risk by 30%, and optimizes tax-loss harvesting.",
@@ -33,11 +33,11 @@
   "clicks": 0,
   "createdAt": "2026-07-03T06:12:26.098Z",
   "postViews": 6,
-  "googleRequestedAt": "2026-07-04T14:55:03.800Z",
   "publishDate": "2026-07-03T06:12:26.098Z",
+  "googleRequestedAt": "2026-07-04T14:55:03.800Z",
   "description": "A structural analysis of the core advantages offered by modern robo-advisory platforms. This guide details how digital management engines optimize risk-adjusted returns, automate millisecond-level rebalancing, and lower historical wealth management fee barriers.",
+  "structuredDataJsonLd": "",
   "id": "1783059146232",
   "publishHour": 15,
-  "structuredDataJsonLd": "",
   "titleHistory": []
 }
