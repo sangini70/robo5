@@ -1,4 +1,8 @@
 {
+  "us-market": [
+    "nasdaq-futures-forecast",
+    "nasdaq-futures-definition"
+  ],
   "nasdaq-futures": [
     "nasdaq-futures-live",
     "nasdaq-futures-exchange-rate",
@@ -19,9 +23,6 @@
   ],
   "glossary": [
     "etf-definition"
-  ],
-  "us-market": [
-    "nasdaq-futures-definition"
   ],
   "economy-basics": [
     "robo-advisor-versus-human-pb-hybrid-wealth-management",
