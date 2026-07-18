@@ -1,5 +1,6 @@
 {
   "nasdaq-futures": [
+    "nasdaq-futures-exchange-rate",
     "nasdaq-futures-korean-market",
     "nasdaq-futures-investing"
   ],
