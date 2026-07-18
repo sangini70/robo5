@@ -1,4 +1,17 @@
 {
+  "publishDate": "2026-04-06T13:36:38.992Z",
+  "googleRequestedAt": "2026-04-06T16:21:32.691Z",
+  "description": "해외여행 전 필수! 헷갈리는 환율표 읽는 법과 수수료 아끼는 팁을 정보형으로 안내합니다.",
+  "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"살 때와 팔 때의 차이가 왜 이렇게 큰가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 그 차이가 바로 은행의 환전 수수료이기 때문입니다. 실물 달러 관리 비용이 포함되어 있습니다.\" \n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"환율 우대 100%는 정말 공짜인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 수수료를 100% 깎아준다는 의미로, 매매기준율 가격 그대로 환전이 가능하다는 뜻입니다.\" \n                }\n            }\n        ]\n    }",
+  "id": "unQImMRf54HfRDiprdlZ",
+  "publishHour": 22,
+  "titleHistory": [],
+  "dailyImpressions": {
+    "2026-04-11": 1,
+    "2026-04-02": 5,
+    "2026-04-07": 2,
+    "2026-04-03": 2
+  },
   "tags": [
     "TAGS: 환율 보는 법",
     "환율 살 때 팔 때",
@@ -10,35 +23,8 @@
   ],
   "createdAt": "2026-04-01T02:57:27.852Z",
   "postViews": 14,
-  "googleRequestedAt": "2026-04-06T16:21:32.691Z",
-  "publishDate": "2026-04-06T13:36:38.992Z",
-  "description": "해외여행 전 필수! 헷갈리는 환율표 읽는 법과 수수료 아끼는 팁을 정보형으로 안내합니다.",
-  "publishHour": 22,
-  "id": "unQImMRf54HfRDiprdlZ",
-  "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"살 때와 팔 때의 차이가 왜 이렇게 큰가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 그 차이가 바로 은행의 환전 수수료이기 때문입니다. 실물 달러 관리 비용이 포함되어 있습니다.\" \n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"환율 우대 100%는 정말 공짜인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 수수료를 100% 깎아준다는 의미로, 매매기준율 가격 그대로 환전이 가능하다는 뜻입니다.\" \n                }\n            }\n        ]\n    }",
-  "titleHistory": [],
-  "dailyImpressions": {
-    "2026-04-11": 1,
-    "2026-04-03": 2,
-    "2026-04-02": 5,
-    "2026-04-07": 2
-  },
-  "customJs": "function calcExchange() {\n            const base = parseFloat(document.getElementById('baseRate').value);\n            const discount = parseFloat(document.getElementById('spreadDiscount').value) / 100;\n            const usd = parseFloat(document.getElementById('usdAmount').value);\n            \n            if (isNaN(base) || isNaN(usd)) {\n                alert('정확한 값을 입력해주세요.'); \n                return;\n            }\n\n            // 일반적인 은행 현찰 수수료율 1.75% 가정\n            const spreadRate = 0.0175;\n            const feePerDollar = base * spreadRate;\n            const discountedFee = feePerDollar * (1 - discount);\n            const finalExchangeRate = base + discountedFee;\n            const totalKrw = finalExchangeRate * usd;\n\n            document.getElementById('finalRate').textContent = finalExchangeRate.toFixed(2); \n            document.getElementById('finalKrw').textContent = Math.floor(totalKrw).toLocaleString(); \n            document.getElementById('resultArea').style.display = 'block'; \n        }",
-  "naverRequestedAt": "2026-04-06T13:36:59.962Z",
-  "language": "ko",
-  "naverIndexStatus": "requested",
-  "googleIndexStatus": "indexed",
-  "slug": "exchange-rate-how-to-read",
-  "impressions": 10,
-  "flowType": "",
-  "dailyViews": {
-    "2026-04-07": 1,
-    "2026-04-13": 1,
-    "2026-04-11": 7,
-    "2026-04-06": 2
-  },
-  "updatedAt": "2026-04-06T13:36:38.992Z",
   "seoDescription": "은행 앱 환율표의 현찰 살 때와 팔 때 차이를 쉽게 설명하고, 매매기준율과 환율 우대의 의미를 정리해 드립니다.",
+  "updatedAt": "2026-04-06T13:36:38.992Z",
   "category": "경제 기초",
   "status": "published",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
@@ -48,5 +34,19 @@
   "seoTitle": "환율 보는 법 정리! 살 때 팔 때 차이 기준 방법",
   "googleIndexedAt": "2026-04-07T00:14:17.321Z",
   "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-how-to-read.webp",
-  "title": "환율 보는 법 정리! 살 때 팔 때 차이 기준 방법"
+  "title": "환율 보는 법 정리! 살 때 팔 때 차이 기준 방법",
+  "naverRequestedAt": "2026-04-06T13:36:59.962Z",
+  "customJs": "function calcExchange() {\n            const base = parseFloat(document.getElementById('baseRate').value);\n            const discount = parseFloat(document.getElementById('spreadDiscount').value) / 100;\n            const usd = parseFloat(document.getElementById('usdAmount').value);\n            \n            if (isNaN(base) || isNaN(usd)) {\n                alert('정확한 값을 입력해주세요.'); \n                return;\n            }\n\n            // 일반적인 은행 현찰 수수료율 1.75% 가정\n            const spreadRate = 0.0175;\n            const feePerDollar = base * spreadRate;\n            const discountedFee = feePerDollar * (1 - discount);\n            const finalExchangeRate = base + discountedFee;\n            const totalKrw = finalExchangeRate * usd;\n\n            document.getElementById('finalRate').textContent = finalExchangeRate.toFixed(2); \n            document.getElementById('finalKrw').textContent = Math.floor(totalKrw).toLocaleString(); \n            document.getElementById('resultArea').style.display = 'block'; \n        }",
+  "naverIndexStatus": "requested",
+  "language": "ko",
+  "googleIndexStatus": "indexed",
+  "impressions": 10,
+  "slug": "exchange-rate-how-to-read",
+  "dailyViews": {
+    "2026-04-06": 2,
+    "2026-04-11": 7,
+    "2026-04-07": 1,
+    "2026-04-13": 1
+  },
+  "flowType": ""
 }
