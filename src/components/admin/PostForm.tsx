@@ -903,10 +903,11 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       setFormData(prev => ({ ...prev, ...cleaned }));
 
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
-      
-      let publishTimestamp = null;
+      const existingPublishDateValue = normalizeJsonDateValue(initialData?.publishDate);
+
+      let publishTimestamp = existingPublishDateValue;
       let publishHour: number | null = null;
-      if (formData.status === 'published') {
+      if (!publishTimestamp && formData.status === 'published') {
         if (publishMode === 'schedule' && formData.publishDate) {
           const kstDate = new Date(`${formData.publishDate}+09:00`);
           publishTimestamp = kstDate.toISOString();

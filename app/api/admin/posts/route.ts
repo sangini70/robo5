@@ -464,7 +464,11 @@ function buildFirestorePayload(postData: Record<string, any>, mode: 'create' | '
     || normalizeTimestampInput(existingPost?.createdAt)
     || nowIso;
   const updatedAtValue = nowIso;
-  const publishDateValue = normalizeTimestampInput(postData.publishDate);
+  const existingPublishDateValue = normalizeTimestampInput(existingPost?.publishDate);
+  const incomingPublishDateValue = normalizeTimestampInput(postData.publishDate);
+  const publishDateValue = mode === 'edit' && existingPublishDateValue
+    ? existingPublishDateValue
+    : incomingPublishDateValue;
 
   const documentData: Record<string, any> = {
     ...(mode === 'edit' && existingPost ? existingPost : {}),
