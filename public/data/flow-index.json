@@ -1,6 +1,6 @@
 {
   "exchange-rate": [
-    "/exchange-rate-upward-movements",
+    "exchange-rate-upward-movements",
     "usd-krw-exchange-rate",
     "exchange-rate-quotation",
     "exchange-rate-calculation-examples",
