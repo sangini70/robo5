@@ -1,14 +1,30 @@
 {
+  "status": "published",
+  "googleRequestedAt": "2026-04-06T16:21:46.616Z",
+  "createdAt": "2026-03-24T15:17:14.151Z",
+  "dailyImpressions": {
+    "2026-04-02": 3,
+    "2026-04-03": 9
+  },
+  "title": "로보어드바이저 단점 4가지, 시작 전 반드시 알아야 할 리스크",
+  "naverIndexStatus": "requested",
+  "naverRequestedAt": "2026-04-06T13:32:11.054Z",
+  "titleHistory": [],
+  "customJs": "",
+  "updatedAt": "2026-07-06T07:13:05.464Z",
+  "impressions": 12,
+  "seoDescription": "인공지능 자산관리 서비스인 로보어드바이저의 알고리즘 한계와 비용 부담 등 주요 리스크 4가지를 상세히 분석합니다. 급변하는 시장에서의 대응력과 투명성을 검토하여 안전한 투자 전략을 수립해 보세요.",
+  "id": "7kaRRQqSEAmpJ8937Oe9",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "language": "ko",
   "googleIndexedAt": "2026-04-07T08:01:38.275Z",
+  "language": "ko",
   "publishDate": "2026-07-06T07:13:06.341Z",
   "description": "안정적인 자산 관리를 위한 로보어드바이저 신뢰성 및 안정성 확인 가이드입니다.",
   "category": "경제 기초",
   "googleIndexStatus": "indexed",
   "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-selection-criteria-mdd-guide.webp",
-  "customCss": "",
   "publishHour": 16,
+  "customCss": "",
   "slug": "robo-advisor-selection-criteria-mdd-guide",
   "structuredDataJsonLd": "",
   "seoTitle": "로보어드바이저 추천 선택 기준 4가지 정리",
@@ -23,21 +39,5 @@
     "risk management"
   ],
   "categorySlug": "경제 기초",
-  "flowType": "과거에서 찾는 답",
-  "status": "published",
-  "googleRequestedAt": "2026-04-06T16:21:46.616Z",
-  "createdAt": "2026-03-24T15:17:14.151Z",
-  "dailyImpressions": {
-    "2026-04-02": 3,
-    "2026-04-03": 9
-  },
-  "title": "로보어드바이저 단점 4가지, 시작 전 반드시 알아야 할 리스크",
-  "naverIndexStatus": "requested",
-  "naverRequestedAt": "2026-04-06T13:32:11.054Z",
-  "customJs": "",
-  "titleHistory": [],
-  "updatedAt": "2026-07-06T07:13:05.464Z",
-  "impressions": 12,
-  "seoDescription": "인공지능 자산관리 서비스인 로보어드바이저의 알고리즘 한계와 비용 부담 등 주요 리스크 4가지를 상세히 분석합니다. 급변하는 시장에서의 대응력과 투명성을 검토하여 안전한 투자 전략을 수립해 보세요.",
-  "id": "7kaRRQqSEAmpJ8937Oe9"
+  "flowType": "과거에서 찾는 답"
 }
