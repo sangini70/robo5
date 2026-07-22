@@ -32,17 +32,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isProduction = process.env.NODE_ENV === 'production';
+
   return (
     <html lang="ko">
       <body>
         <div className="min-h-screen flex flex-col font-sans">
-          <Script
-            id="adsense-auto-ads"
-            async
-            strategy="afterInteractive"
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6091782335427561"
-            crossOrigin="anonymous"
-          />
+          {isProduction && (
+            <>
+              <Script
+                id="adsense-auto-ads"
+                async
+                strategy="afterInteractive"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6091782335427561"
+                crossOrigin="anonymous"
+              />
+              <Script
+                id="ga4-tag"
+                async
+                strategy="afterInteractive"
+                src="https://www.googletagmanager.com/gtag/js?id=G-W8ET67HGWC"
+              />
+              <Script id="ga4-config" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-W8ET67HGWC');
+                `}
+              </Script>
+            </>
+          )}
           {children}
         </div>
       </body>
