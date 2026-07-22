@@ -11,29 +11,30 @@
   "customJs": "",
   "naverIndexStatus": "requested",
   "publishDate": "2026-07-17T14:55:00.000Z",
-  "impressions": 0,
   "secondaryKeywords": [
     "CME",
     "Globex",
     "한국시간",
     "미국장"
   ],
+  "impressions": 0,
   "id": "1784275814924",
   "titleHistory": [],
   "createdAt": "2026-07-17T08:10:15.205Z",
-  "structuredDataJsonLd": "",
   "googleIndexStatus": "requested",
+  "structuredDataJsonLd": "",
   "mainKeyword": "나스닥 선물 거래시간",
   "title": "나스닥 선물 거래시간 완벽 총정리 (서머타임 및 한국시간 KST 시뮬레이션)",
   "thumbnail": "https://robo-advisor.kr/thumbnails/nasdaq-futures-trading-hours.webp",
   "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f8fafc;\n            margin: 30px 0;\n            border-radius: 12px;\n            border: 1px solid #cbd5e1;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1e3a8a;\n            padding-bottom: 12px;\n            margin-bottom: 15px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 30px;\n            color: #1e3a8a;\n            margin-right: 12px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 22px;\n            color: #1e3a8a;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            font-size: 15px;\n            line-height: 1.6;\n            color: #334155;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-content strong {\n            color: #1e3a8a;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #f1f5f9;\n            padding: 2px 6px;\n            border-radius: 4px;\n            font-weight: bold;\n            color: #0f172a;\n        }\n        .single-summary-card .card-content .formula {\n            background-color: #f1f5f9;\n            padding: 8px 12px;\n            border-radius: 4px;\n            font-size: 0.95em;\n            text-align: center;\n            margin-top: 5px;\n            color: #1e293b;\n            font-weight: bold;\n            border: 1px solid #cbd5e1;\n        }\n        .single-summary-card .card-footer {\n            font-size: 13px;\n            color: #64748b;\n            text-align: center;\n            padding-top: 15px;\n            border-top: 1px dashed #cbd5e1;\n            margin-top: 15px;\n        }\n\n        @media (max-width: 768px) {\n            .single-summary-card {\n                padding: 18px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 26px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 18px;\n            }\n            .single-summary-card .card-content {\n                font-size: 14px;\n            }\n            .single-summary-card .card-footer {\n                font-size: 12px;\n            }\n        }",
   "categorySlug": "finance-investment-knowledge",
   "flowType": "과거에서 찾는 답",
-  "clicks": 0,
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "updatedAt": "2026-07-18T02:55:59.684Z",
-  "naverRequestedAt": "2026-07-18T02:56:00.997Z",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
+  "clicks": 0,
   "language": "ko",
+  "naverRequestedAt": "2026-07-18T02:56:00.997Z",
+  "publishHour": 23,
   "seoDescription": "CME Globex에 상장된 나스닥 선물 거래시간표의 모든 규칙을 분석합니다. 표준 동부시(ET)와 한국시간(KST)의 차이, 일일 점검 정비 시간, 서머타임 자동 계산 변환기를 제공합니다.",
   "tags": [
     "나스닥선물거래시간",
@@ -48,6 +49,5 @@
     "마이크로나스닥선물",
     "변동성밀집시간",
     "선물거래위험"
-  ],
-  "publishHour": 23
+  ]
 }
