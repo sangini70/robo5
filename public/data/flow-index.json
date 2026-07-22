@@ -1,8 +1,6 @@
 {
-  "exchange-rate previous slug exchange-rate-discount next slug related slugs exchange-rate-spread, exchange-rate-discount, exchange-rate-calculation, exchange-rate-calculation-examples, exchange-rate-risk-management": [
-    "currency-exchange-fees"
-  ],
   "exchange-rate": [
+    "exchange-rate-inflation",
     "exchange-rate-discount",
     "exchange-rate-spread",
     "effective-exchange-rate",
@@ -18,6 +16,9 @@
     "exchange-rate-calculation",
     "exchange-rate-determination",
     "exchange-rate-meaning"
+  ],
+  "exchange-rate previous slug exchange-rate-discount next slug related slugs exchange-rate-spread, exchange-rate-discount, exchange-rate-calculation, exchange-rate-calculation-examples, exchange-rate-risk-management": [
+    "currency-exchange-fees"
   ],
   "exchange-rate previous slug exchange-rate-determination next slug exchange-rate-calculation related slugs exchange-rate-quotation, usd-krw-exchange-rate, exchange-rate-calculation": [
     "exchange-rate-guide"
