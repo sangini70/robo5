@@ -37,11 +37,15 @@ export default function AdminPosts() {
   const restoreInputRef = useRef<HTMLInputElement | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [postToDelete, setPostToDelete] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<'latest' | 'views' | 'naver_unrequested'>('latest');
   const [searchQuery, setSearchQuery] = useState('');
   const [naverFilter, setNaverFilter] = useState<'all' | 'unrequested' | 'requested'>('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCursors, setPageCursors] = useState<(string | null)[]>([null]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [restoreLoading, setRestoreLoading] = useState(false);
   const [restoreError, setRestoreError] = useState('');
@@ -50,23 +54,83 @@ export default function AdminPosts() {
   const [restoreApplyLoading, setRestoreApplyLoading] = useState(false);
   const [restoreApplyError, setRestoreApplyError] = useState('');
   const [restoreApplyResult, setRestoreApplyResult] = useState<any | null>(null);
-  const POSTS_PER_PAGE = 20;
+  const ADMIN_PAGE_SIZE = 10;
+
+  const loadPosts = async (options: { cursor?: string | null; pageNumber?: number } = {}) => {
+    const pageNumber = options.pageNumber ?? currentPage;
+    const cursor = typeof options.cursor !== 'undefined'
+      ? options.cursor
+      : pageCursors[pageNumber - 1] ?? null;
+
+    try {
+      setLoading(true);
+
+      const params = new URLSearchParams({
+        limit: String(ADMIN_PAGE_SIZE),
+      });
+
+      if (cursor) {
+        params.set('cursor', cursor);
+      }
+
+      const response = await fetch(`/api/admin/posts?${params.toString()}`);
+      const data = await response.json();
+
+      if (!response.ok || (data && data.success === false)) {
+        const message = data?.message || data?.error || '관리자 목록 로딩 실패: 데이터를 불러오지 못했습니다.';
+        console.error('ADMIN POSTS API ERROR', data);
+        setPosts([]);
+        setNextCursor(null);
+        setHasMore(false);
+        setLoadError(message);
+        return false;
+      }
+
+      let nextPosts: any[] = [];
+      let nextPageCursor: string | null = null;
+      let nextHasMore = false;
+
+      if (Array.isArray(data)) {
+        nextPosts = data;
+      } else if (data && Array.isArray(data.posts)) {
+        nextPosts = data.posts;
+        nextPageCursor = typeof data.nextCursor === 'string' && data.nextCursor.trim() ? data.nextCursor : null;
+        nextHasMore = Boolean(data.hasMore);
+      } else {
+        console.error('ADMIN POSTS API INVALID RESPONSE', data);
+        setPosts([]);
+        setNextCursor(null);
+        setHasMore(false);
+        setLoadError('관리자 목록 로딩 실패: 잘못된 응답 형식입니다.');
+        return false;
+      }
+
+      console.log('ADMIN POSTS API FIRST', nextPosts[0] ?? null);
+      setPosts(nextPosts);
+      setNextCursor(nextPageCursor);
+      setHasMore(nextHasMore);
+      setCurrentPage(pageNumber);
+      setPageCursors((prev) => {
+        const next = [...prev];
+        next[pageNumber - 1] = cursor;
+        return next;
+      });
+      setLoadError('');
+      return true;
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPosts([]);
+      setNextCursor(null);
+      setHasMore(false);
+      setLoadError('관리자 목록 로딩 실패: 데이터를 불러오지 못했습니다.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/admin/posts');
-        const data = await response.json();
-        console.log('ADMIN POSTS API FIRST', data?.[0] ?? null);
-        setPosts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
+    loadPosts();
   }, []);
 
   useEffect(() => {
@@ -175,8 +239,7 @@ export default function AdminPosts() {
       });
       showToast('援ш? ?붿껌 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
       // Refresh list
-      const response = await fetch('/api/admin/posts');
-      setPosts(await response.json());
+      await loadPosts({ cursor: pageCursors[currentPage - 1] ?? null, pageNumber: currentPage });
     } catch (error) {
       console.error("Error updating google status:", error);
     }
@@ -196,8 +259,7 @@ export default function AdminPosts() {
       });
       showToast('援ш? ?됱씤 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
       // Refresh list
-      const response = await fetch('/api/admin/posts');
-      setPosts(await response.json());
+      await loadPosts({ cursor: pageCursors[currentPage - 1] ?? null, pageNumber: currentPage });
     } catch (error) {
       console.error("Error updating google status:", error);
     }
@@ -233,8 +295,7 @@ export default function AdminPosts() {
       showToast('?ㅼ씠踰??붿껌 ?꾨즺濡??쒖떆?섏뿀?듬땲??');
 
       // Refresh list
-      const response = await fetch('/api/admin/posts');
-      setPosts(await response.json());
+      await loadPosts({ cursor: pageCursors[currentPage - 1] ?? null, pageNumber: currentPage });
 
       // Auto-scroll to the next unrequested post
       if (nextUnrequestedId) {
@@ -297,17 +358,35 @@ export default function AdminPosts() {
     return result;
   }, [posts, searchQuery, sortBy, naverFilter]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredAndSortedPosts.length / POSTS_PER_PAGE);
-  const paginatedPosts = filteredAndSortedPosts.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
-  );
+  const displayedPosts = filteredAndSortedPosts;
 
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, sortBy, naverFilter]);
+  const handlePrevPage = async () => {
+    if (currentPage === 1) {
+      return;
+    }
+
+    const prevPageNumber = currentPage - 1;
+    const prevCursor = pageCursors[prevPageNumber - 1] ?? null;
+    await loadPosts({ cursor: prevCursor, pageNumber: prevPageNumber });
+  };
+
+  const handleNextPage = async () => {
+    if (!hasMore || !nextCursor) {
+      return;
+    }
+
+    const nextPageNumber = currentPage + 1;
+    await loadPosts({ cursor: nextCursor, pageNumber: nextPageNumber });
+  };
+
+  const handlePageSelect = async (pageNumber: number) => {
+    if (pageNumber === currentPage || pageNumber < 1 || pageNumber > pageCursors.length) {
+      return;
+    }
+
+    const cursor = pageCursors[pageNumber - 1] ?? null;
+    await loadPosts({ cursor, pageNumber });
+  };
 
   const handleDeleteClick = (id: string) => {
     setPostToDelete(id);
@@ -318,8 +397,7 @@ export default function AdminPosts() {
       try {
         await fetch(`/api/admin/posts?id=${postToDelete}`, { method: 'DELETE' });
         // Refresh list
-        const response = await fetch('/api/admin/posts');
-        setPosts(await response.json());
+        await loadPosts({ cursor: pageCursors[currentPage - 1] ?? null, pageNumber: currentPage });
       } catch (error) {
         console.error("Error deleting post:", error);
       } finally {
@@ -341,6 +419,12 @@ export default function AdminPosts() {
       {toastMessage && (
         <div className="fixed top-4 right-4 z-50 bg-gray-900 text-white px-6 py-3 rounded-md shadow-lg animate-fade-in-up">
           {toastMessage}
+        </div>
+      )}
+
+      {loadError && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {loadError}
         </div>
       )}
 
@@ -481,7 +565,7 @@ export default function AdminPosts() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {paginatedPosts.map(post => {
+            {displayedPosts.map(post => {
               const isScheduled = post.status === 'published' && post.publishDate && new Date(post.publishDate) > new Date();
               const isPublished = post.status === 'published' && !isScheduled;
 
@@ -583,7 +667,7 @@ export default function AdminPosts() {
               </tr>
               );
             })}
-            {paginatedPosts.length === 0 && (
+            {displayedPosts.length === 0 && (
               <tr>
                 <td colSpan={8} className="px-6 py-8 text-center text-gray-500">
                   寃뚯떆湲???놁뒿?덈떎.
@@ -594,41 +678,45 @@ export default function AdminPosts() {
         </table>
       </div>
 
-      {totalPages > 1 && (
-        <div className="mt-6 flex justify-center items-center gap-2">
-          <button
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            ?댁쟾
-          </button>
+      <div className="mt-6 flex flex-wrap justify-center items-center gap-3">
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          이전
+        </button>
 
-          <div className="flex gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+        <div className="flex flex-wrap items-center gap-2">
+          {pageCursors.map((_, index) => {
+            const pageNumber = index + 1;
+            const isCurrent = pageNumber === currentPage;
+
+            return (
               <button
-                key={pageNum}
-                onClick={() => setCurrentPage(pageNum)}
-                className={`w-10 h-10 flex items-center justify-center rounded-md text-sm font-medium transition-colors ${
-                  pageNum === currentPage
-                    ? 'bg-gray-900 text-white'
-                    : 'text-gray-700 hover:bg-gray-50'
+                key={pageNumber}
+                onClick={() => handlePageSelect(pageNumber)}
+                aria-current={isCurrent ? 'page' : undefined}
+                className={`min-w-9 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                  isCurrent
+                    ? 'border-indigo-600 bg-indigo-600 text-white'
+                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                {pageNum}
+                {pageNumber}
               </button>
-            ))}
-          </div>
-
-          <button
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            ?ㅼ쓬
-          </button>
+            );
+          })}
         </div>
-      )}
+
+        <button
+          onClick={handleNextPage}
+          disabled={!hasMore}
+          className="px-4 py-2 border border-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          다음
+        </button>
+      </div>
 
       {postToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

@@ -20,6 +20,14 @@ type FirestoreDocument = {
   fields?: Record<string, FirestoreValue>;
 };
 
+type FirestoreRunQueryResponse = {
+  document?: FirestoreDocument;
+  done?: boolean;
+  readTime?: string;
+  skippedResults?: number;
+  transaction?: string;
+};
+
 type FirestoreAdminConfig = {
   projectId: string;
   databaseId: string;
@@ -400,7 +408,164 @@ async function firestoreRequest(path: string, init: RequestInit = {}) {
   return response;
 }
 
-async function listFirestorePosts() {
+type ListFirestorePostsOptions = {
+  pageSize?: number;
+  pageToken?: string | null;
+};
+
+type FirestorePostsPage = {
+  posts: Record<string, any>[];
+  nextCursor: string | null;
+  hasMore: boolean;
+};
+
+type AdminPostsCursor = {
+  updatedAt: string;
+  name: string;
+};
+
+function encodeAdminPostsCursor(cursor: AdminPostsCursor | null): string | null {
+  if (!cursor) {
+    return null;
+  }
+
+  return JSON.stringify(cursor);
+}
+
+function decodeAdminPostsCursor(value: string | null): AdminPostsCursor | null {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(value);
+    const updatedAt = typeof parsed?.updatedAt === 'string' ? parsed.updatedAt.trim() : '';
+    const name = typeof parsed?.name === 'string' ? parsed.name.trim() : '';
+
+    if (!updatedAt || !name) {
+      return null;
+    }
+
+    const parsedDate = new Date(updatedAt);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return null;
+    }
+
+    return {
+      updatedAt: parsedDate.toISOString(),
+      name,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function extractAdminPostsCursor(document: FirestoreDocument): AdminPostsCursor | null {
+  const updatedAtValue = document.fields?.updatedAt && 'timestampValue' in document.fields.updatedAt
+    ? document.fields.updatedAt.timestampValue
+    : null;
+
+  if (!updatedAtValue || !document.name) {
+    return null;
+  }
+
+  const parsedDate = new Date(updatedAtValue);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return null;
+  }
+
+  return {
+    updatedAt: parsedDate.toISOString(),
+    name: document.name,
+  };
+}
+
+function parseRunQueryResponses(bodyText: string): FirestoreRunQueryResponse[] {
+  const trimmed = bodyText.trim();
+  if (!trimmed) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(trimmed);
+    if (Array.isArray(parsed)) {
+      return parsed as FirestoreRunQueryResponse[];
+    }
+
+    return [parsed as FirestoreRunQueryResponse];
+  } catch {
+    return trimmed
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as FirestoreRunQueryResponse);
+  }
+}
+
+async function listFirestorePosts(options: ListFirestorePostsOptions = {}): Promise<Record<string, any>[] | FirestorePostsPage> {
+  const hasPagedRequest = typeof options.pageSize === 'number' && options.pageSize > 0;
+
+  if (hasPagedRequest) {
+    const { projectId, databaseId } = getFirestoreAdminConfig();
+    const cursor = decodeAdminPostsCursor(options.pageToken || null);
+    const requestBody: Record<string, any> = {
+      structuredQuery: {
+        from: [
+          {
+            collectionId: 'posts',
+          },
+        ],
+        orderBy: [
+          {
+            field: {
+              fieldPath: 'updatedAt',
+            },
+            direction: 'DESCENDING',
+          },
+          {
+            field: {
+              fieldPath: '__name__',
+            },
+            direction: 'DESCENDING',
+          },
+        ],
+        limit: options.pageSize,
+      },
+    };
+
+    if (cursor) {
+      requestBody.structuredQuery.startAt = {
+        before: false,
+        values: [
+          {
+            timestampValue: cursor.updatedAt,
+          },
+          {
+            referenceValue: cursor.name,
+          },
+        ],
+      };
+    }
+
+    const response = await firestoreRequest(`projects/${projectId}/databases/${databaseId}/documents:runQuery`, {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+    });
+
+    const payload = parseRunQueryResponses(await response.text());
+    const documents = payload
+      .map((entry) => entry.document)
+      .filter((document): document is FirestoreDocument => Boolean(document));
+    const posts = documents.map((document) => normalizePostDocument(fromFirestoreDocument(document)));
+    const nextCursor = documents.length > 0 ? encodeAdminPostsCursor(extractAdminPostsCursor(documents[documents.length - 1])) : null;
+
+    return {
+      posts,
+      nextCursor,
+      hasMore: posts.length === options.pageSize,
+    };
+  }
+
   const posts: Record<string, any>[] = [];
   let pageToken: string | undefined;
   const { projectId, databaseId } = getFirestoreAdminConfig();
@@ -489,6 +654,27 @@ function buildFirestorePayload(postData: Record<string, any>, mode: 'create' | '
   };
 }
 
+function shouldDispatchPublishWorkflow(
+  mode: 'create' | 'edit',
+  documentData: Record<string, any>,
+  existingPost: Record<string, any> | null
+) {
+  const nextStatus = String(documentData.status ?? existingPost?.status ?? '').trim();
+  if (nextStatus !== 'published') {
+    return false;
+  }
+
+  const publishDateValue = normalizeTimestampInput(documentData.publishDate ?? existingPost?.publishDate);
+  if (publishDateValue) {
+    const publishDate = new Date(publishDateValue);
+    if (!Number.isNaN(publishDate.getTime()) && publishDate > new Date()) {
+      return false;
+    }
+  }
+
+  return mode === 'create' || mode === 'edit';
+}
+
 async function writeFirestorePost(postData: Record<string, any>) {
   const mode: 'create' | 'edit' = postData.id ? 'edit' : 'create';
   const docId = postData.id || Date.now().toString();
@@ -510,7 +696,9 @@ async function writeFirestorePost(postData: Record<string, any>) {
     }
   );
 
-  const workflowTriggered = await dispatchPublishWorkflow('save', docId);
+  const workflowTriggered = shouldDispatchPublishWorkflow(mode, documentData, existingPost)
+    ? await dispatchPublishWorkflow('save', docId)
+    : false;
 
   return {
     docId,
@@ -550,15 +738,54 @@ async function deleteFirestorePost(id: string) {
   };
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const requestUrl = new URL(request.url);
+    const hasPagedQuery = requestUrl.searchParams.has('limit') || requestUrl.searchParams.has('cursor');
+
+    if (hasPagedQuery) {
+      const requestedLimit = Number(requestUrl.searchParams.get('limit') || '10');
+      const pageSize = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.min(requestedLimit, 10) : 10;
+      const cursor = requestUrl.searchParams.get('cursor');
+      const page = await listFirestorePosts({
+        pageSize,
+        pageToken: cursor || null,
+      });
+
+      if (Array.isArray(page)) {
+        return NextResponse.json({
+          success: true,
+          posts: page,
+          nextCursor: null,
+          hasMore: false,
+          pageSize,
+        });
+      }
+
+      console.log('ADMIN POSTS SOURCE DEBUG', {
+        dataSource: 'Firestore posts collection',
+        postsCount: page.posts.length,
+        firstSlug: page.posts[0]?.slug ?? null,
+        pageSize,
+        cursor: cursor || null,
+      });
+      console.log('ADMIN POSTS RESPONSE FIRST', page.posts[0] ?? null);
+      return NextResponse.json({
+        success: true,
+        posts: page.posts,
+        nextCursor: page.nextCursor,
+        hasMore: page.hasMore,
+        pageSize,
+      });
+    }
+
     const posts = await listFirestorePosts();
     console.log('ADMIN POSTS SOURCE DEBUG', {
       dataSource: 'Firestore posts collection',
-      postsCount: posts.length,
-      firstSlug: posts[0]?.slug ?? null,
+      postsCount: Array.isArray(posts) ? posts.length : 0,
+      firstSlug: Array.isArray(posts) ? posts[0]?.slug ?? null : null,
     });
-    console.log('ADMIN POSTS RESPONSE FIRST', posts[0] ?? null);
+    console.log('ADMIN POSTS RESPONSE FIRST', Array.isArray(posts) ? posts[0] ?? null : null);
     return NextResponse.json(posts);
   } catch (error: any) {
     console.error('ADMIN POSTS GET ERROR', error);
