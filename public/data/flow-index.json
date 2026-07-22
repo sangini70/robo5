@@ -1,5 +1,6 @@
 {
   "exchange-rate": [
+    "exchange-rate-spread",
     "effective-exchange-rate",
     "fixed-vs-floating-exchange-rate",
     "exchange-rate-dollar-index",
