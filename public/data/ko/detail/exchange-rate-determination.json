@@ -7,14 +7,15 @@
   "description": "환율은 매일, 아니 매분 매초 왜 변하는 걸까요? 거창한 경제 지식이나 복잡한 수학 공식이 없어도 괜찮습니다. 동네 청과물 시장에서 사과 가격이 정해지는 원리만 알면, 복잡해 보이는 환율 결정 메커니즘도 단번에 이해할 수 있습니다.",
   "searchIntent": "informational",
   "language": "ko",
-  "postViews": 5,
   "categorySlug": "exchange-rate",
+  "postViews": 5,
   "category": "환율",
   "publishHour": 7,
   "seoTitle": "환율은 어떻게 결정될까? 과일 시장으로 쉽게 이해하는 환율 결정 원리",
   "title": "환율은 어떻게 결정될까? 과일 시장으로 쉽게 이해하는 환율 결정 원리",
   "updatedAt": "2026-07-19T13:56:58.502Z",
   "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f4f8;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.1);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #cfd8dc;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #1a73e8;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #e8f4fd;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-content .formula {\n            background-color: #f8f9fa;\n            padding: 6px 10px;\n            border-radius: 4px;\n            font-size: 0.9em;\n            text-align: center;\n            margin-top: 5px;\n            color: #333;\n            border: 1px solid #cfd8dc;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #cfd8dc;\n            margin-top: auto;\n        }\n\n        @media (max-width: 768px) {\n            .single-summary-card {\n                padding: 18px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 28px;\n                margin-right: 10px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 20px;\n            }\n            .single-summary-card .card-content {\n                font-size: 15px;\n                line-height: 1.5;\n            }\n            .single-summary-card .card-content .section {\n                margin-bottom: 8px;\n            }\n            .single-summary-card .card-content .formula {\n                padding: 5px 8px;\n                font-size: 0.85em;\n            }\n            .single-summary-card .card-footer {\n                font-size: 13px;\n                padding-top: 10px;\n            }\n        }",
+  "naverRequestedAt": "2026-07-19T13:56:58.102Z",
   "tags": [
     "환율 결정 원리",
     "외환 수요와 공급",
@@ -27,7 +28,6 @@
     "무역기업",
     "중앙은행"
   ],
-  "naverRequestedAt": "2026-07-19T13:56:58.102Z",
   "customJs": "",
   "secondaryKeywords": [
     "외환 수요와 공급",
@@ -41,12 +41,12 @@
   "googleIndexStatus": "requested",
   "id": "1784357438270",
   "flowType": "위로의 방향",
-  "titleHistory": [],
   "structuredDataJsonLd": "",
+  "titleHistory": [],
   "googleRequestedAt": "2026-07-19T13:56:52.846Z",
   "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-determination.webp",
-  "slug": "exchange-rate-determination",
   "clicks": 0,
   "seoDescription": "환율은 정부나 은행이 마음대로 정하는 숫자가 아닙니다. 사과 시장의 수요와 공급 원리처럼, 거대한 외환시장에서 달러를 사고파는 사람들에 의해 실시간으로 결정되는 환율의 기본 원리를 아주 쉽게 설명해 드립니다.",
+  "slug": "exchange-rate-determination",
   "naverIndexStatus": "requested"
 }
