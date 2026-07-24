@@ -1,5 +1,6 @@
 {
   "exchange-rate": [
+    "exchange-rate-us-stock-returns",
     "exchange-rate-export",
     "exchange-rate-import",
     "exchange-rate-outlook-guide",
