@@ -1,11 +1,11 @@
 {
   "updatedAt": "2026-07-06T07:27:17.283Z",
-  "dailyImpressions": {
-    "2026-04-11": 2,
-    "2026-04-07": 1,
-    "2026-04-02": 5
-  },
   "slug": "exchange-rate-definition",
+  "dailyImpressions": {
+    "2026-04-07": 1,
+    "2026-04-02": 5,
+    "2026-04-11": 2
+  },
   "language": "ko",
   "category": "환율",
   "googleIndexedAt": "2026-04-07T08:06:02.094Z",
@@ -25,8 +25,8 @@
   "naverRequestedAt": "2026-04-06T13:34:47.588Z",
   "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-definition.webp",
   "naverIndexStatus": "requested",
-  "seoDescription": "환율의 기본 개념과 상승 및 하락에 따른 원화 가치 변화를 정리합니다. 초보자도 이해하기 쉬운 환율 기초 가이드입니다.",
   "seoTitle": "환율이란 무엇인가? 정의 및 기준 정리",
+  "seoDescription": "환율의 기본 개념과 상승 및 하락에 따른 원화 가치 변화를 정리합니다. 초보자도 이해하기 쉬운 환율 기초 가이드입니다.",
   "tags": [
     "환율",
     "달러",
@@ -43,8 +43,8 @@
   "publishDate": "2026-07-06T07:27:17.652Z",
   "dailyViews": {
     "2026-04-07": 2,
-    "2026-04-03": 1,
     "2026-04-06": 2,
+    "2026-04-03": 1,
     "2026-04-11": 1
   }
 }
