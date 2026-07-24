@@ -2,6 +2,7 @@
   "exchange-rate": [
     "exchange-rate-export",
     "exchange-rate-import",
+    "exchange-rate-outlook-guide",
     "exchange-rate-inflation",
     "exchange-rate-discount",
     "exchange-rate-spread",
