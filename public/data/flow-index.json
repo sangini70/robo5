@@ -1,5 +1,6 @@
 {
   "exchange-rate": [
+    "exchange-rate-export",
     "exchange-rate-import",
     "exchange-rate-inflation",
     "exchange-rate-discount",
