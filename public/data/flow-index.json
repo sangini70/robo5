@@ -1,5 +1,6 @@
 {
   "exchange-rate": [
+    "exchange-rate-risk-management",
     "exchange-rate-nasdaq",
     "exchange-rate-us-stock-returns",
     "exchange-rate-export",
