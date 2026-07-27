@@ -1,4 +1,16 @@
 {
+  "category": "환율",
+  "flowType": "과거에서 찾는 답",
+  "clicks": 0,
+  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f4f6f9;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.08);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #e1e6eb;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #1a73e8;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #e8f0fe;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n            color: #1a73e8;\n        }\n        .single-summary-card .card-content .formula {\n            background-color: #f4f6f9;\n            padding: 6px 10px;\n            border-radius: 4px;\n            font-size: 0.9em;\n            text-align: center;\n            margin-top: 5px;\n            color: #1a73e8;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #e1e6eb;\n            margin-top: auto;\n        }\n        @media (max-width: 768px) {\n            .single-summary-card { padding: 18px; }\n            .single-summary-card .card-header-icon { font-size: 28px; margin-right: 10px; }\n            .single-summary-card .card-header h3 { font-size: 20px; }\n            .single-summary-card .card-content { font-size: 15px; line-height: 1.5; }\n            .single-summary-card .card-content .section { margin-bottom: 8px; }\n            .single-summary-card .card-content .formula { padding: 5px 8px; }\n            .single-summary-card .card-footer { font-size: 13px; padding-top: 10px; }\n        }\n        @media (max-width: 480px) {\n            .single-summary-card { padding: 15px; }\n            .single-summary-card .card-header-icon { font-size: 26px; }\n            .single-summary-card .card-header h3 { font-size: 18px; }\n            .single-summary-card .card-content { font-size: 14px; line-height: 1.4; }\n            .single-summary-card .card-content .section { margin-bottom: 6px; }\n            .single-summary-card .card-content .formula { padding: 4px 6px; }\n            .single-summary-card .card-footer { font-size: 12px; padding-top: 8px; }\n        }",
+  "searchIntent": "definition",
+  "seoTitle": "환율 표시 방법: 기준통화와 상대통화",
+  "impressions": 0,
+  "status": "published",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-quotation.webp",
+  "customJs": "",
+  "title": "환율 표시 방법: 기준통화와 상대통화",
+  "description": "USD/KRW에서 슬래시(/)는 나누기 기호가 아닙니다! 전 세계 외환시장의 약속인 기준통화와 상대통화의 진짜 의미, 그리고 통화쌍 표기 뒤에 숨겨진 서열 규칙을 직관적인 그래픽 카드와 함께 쉽게 풀어드립니다.",
   "seoDescription": "환율 표시 방법을 외환시장 표준 규격에 따라 기준통화와 상대통화의 개념으로 명확하게 정립합니다. 슬래시(/) 기호의 나눗셈 오독과 분모·분자 혼동을 바로잡고, ISO 4217 규격 및 서열 체계(Priority Hierarchy)에 기반한 자국통화표시법(직접표시법)과 외국통화표시법(간접표시법)의 차이를 글로벌 주요 통화쌍 사례와 함께 설명합니다.",
   "naverIndexStatus": "requested",
   "tags": [
@@ -18,6 +30,7 @@
   "language": "ko",
   "slug": "exchange-rate-quotation",
   "categorySlug": "exchange-rate",
+  "structuredDataJsonLd": "",
   "secondaryKeywords": [
     "기준통화",
     "상대통화",
@@ -25,7 +38,6 @@
     "통화쌍",
     "USD/KRW"
   ],
-  "structuredDataJsonLd": "",
   "naverRequestedAt": "2026-07-20T12:33:40.238Z",
   "id": "1784475770913",
   "postViews": 3,
@@ -33,21 +45,9 @@
   "googleRequestedAt": "2026-07-20T12:33:34.301Z",
   "mainKeyword": "환율 표시 방법",
   "createdAt": "2026-07-19T15:42:50.345Z",
-  "publishDate": "2026-07-19T22:31:00.000Z",
   "updatedAt": "2026-07-20T12:33:39.849Z",
   "titleHistory": [],
+  "publishDate": "2026-07-19T22:31:00.000Z",
   "googleIndexStatus": "requested",
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "category": "환율",
-  "flowType": "과거에서 찾는 답",
-  "clicks": 0,
-  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f4f6f9;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.08);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #e1e6eb;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #1a73e8;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #e8f0fe;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n            color: #1a73e8;\n        }\n        .single-summary-card .card-content .formula {\n            background-color: #f4f6f9;\n            padding: 6px 10px;\n            border-radius: 4px;\n            font-size: 0.9em;\n            text-align: center;\n            margin-top: 5px;\n            color: #1a73e8;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #e1e6eb;\n            margin-top: auto;\n        }\n        @media (max-width: 768px) {\n            .single-summary-card { padding: 18px; }\n            .single-summary-card .card-header-icon { font-size: 28px; margin-right: 10px; }\n            .single-summary-card .card-header h3 { font-size: 20px; }\n            .single-summary-card .card-content { font-size: 15px; line-height: 1.5; }\n            .single-summary-card .card-content .section { margin-bottom: 8px; }\n            .single-summary-card .card-content .formula { padding: 5px 8px; }\n            .single-summary-card .card-footer { font-size: 13px; padding-top: 10px; }\n        }\n        @media (max-width: 480px) {\n            .single-summary-card { padding: 15px; }\n            .single-summary-card .card-header-icon { font-size: 26px; }\n            .single-summary-card .card-header h3 { font-size: 18px; }\n            .single-summary-card .card-content { font-size: 14px; line-height: 1.4; }\n            .single-summary-card .card-content .section { margin-bottom: 6px; }\n            .single-summary-card .card-content .formula { padding: 4px 6px; }\n            .single-summary-card .card-footer { font-size: 12px; padding-top: 8px; }\n        }",
-  "searchIntent": "definition",
-  "seoTitle": "환율 표시 방법: 기준통화와 상대통화",
-  "impressions": 0,
-  "status": "published",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-quotation.webp",
-  "customJs": "",
-  "title": "환율 표시 방법: 기준통화와 상대통화",
-  "description": "USD/KRW에서 슬래시(/)는 나누기 기호가 아닙니다! 전 세계 외환시장의 약속인 기준통화와 상대통화의 진짜 의미, 그리고 통화쌍 표기 뒤에 숨겨진 서열 규칙을 직관적인 그래픽 카드와 함께 쉽게 풀어드립니다."
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52"
 }
