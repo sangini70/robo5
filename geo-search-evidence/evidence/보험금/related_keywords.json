@@ -1,0 +1,217 @@
+{
+  "keyword": "보험금",
+  "relatedKeywords": [
+    {
+      "keyword": "보험금",
+      "monthlyPc": 510,
+      "monthlyMobile": 480,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "생명보험",
+      "monthlyPc": 1920,
+      "monthlyMobile": 5210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험",
+      "monthlyPc": 7720,
+      "monthlyMobile": 14900,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교사이트",
+      "monthlyPc": 1240,
+      "monthlyMobile": 1770,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계사이트",
+      "monthlyPc": 140,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "정기보험",
+      "monthlyPc": 600,
+      "monthlyMobile": 1390,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교",
+      "monthlyPc": 1530,
+      "monthlyMobile": 2810,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종신보험",
+      "monthlyPc": 2150,
+      "monthlyMobile": 8370,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트보험",
+      "monthlyPc": 2510,
+      "monthlyMobile": 5000,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험신청",
+      "monthlyPc": 40,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "질병사망보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 140,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "생명보험사",
+      "monthlyPc": 140,
+      "monthlyMobile": 210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "사망보험",
+      "monthlyPc": 500,
+      "monthlyMobile": 1090,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계",
+      "monthlyPc": 400,
+      "monthlyMobile": 940,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사종류",
+      "monthlyPc": 140,
+      "monthlyMobile": 800,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "질병수술비",
+      "monthlyPc": 230,
+      "monthlyMobile": 790,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험증권",
+      "monthlyPc": 660,
+      "monthlyMobile": 1370,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험회사",
+      "monthlyPc": 480,
+      "monthlyMobile": 1720,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험문의",
+      "monthlyPc": 50,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입",
+      "monthlyPc": 530,
+      "monthlyMobile": 1200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험확인",
+      "monthlyPc": 1240,
+      "monthlyMobile": 3600,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험종류",
+      "monthlyPc": 720,
+      "monthlyMobile": 3350,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상담신청",
+      "monthlyPc": 20,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "3대보험",
+      "monthlyPc": 80,
+      "monthlyMobile": 240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험견적",
+      "monthlyPc": 190,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무료상담",
+      "monthlyPc": 70,
+      "monthlyMobile": 390,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무배당보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계사",
+      "monthlyPc": 1620,
+      "monthlyMobile": 5150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "통합보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "질병후유장애보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "질병입원일당보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "외국계보험회사",
+      "monthlyPc": 30,
+      "monthlyMobile": 260,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험금비교",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무갱신보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "맞춤형보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    }
+  ],
+  "source": "NAVER",
+  "collectedAt": "2026-07-30T17:34:59.216Z"
+}

@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-07-30T17:35:04.896Z",
+  "keywords": [
+    {
+      "keyword": "기본예탁금",
+      "metadata": {
+        "keyword": "기본예탁금",
+        "createdAt": "2026-07-30T17:17:34.709Z",
+        "updatedAt": "2026-07-30T17:34:57.548Z",
+        "collectorVersion": "0.1.0",
+        "validationVersion": "0.1.0"
+      },
+      "searchVolume": {
+        "keyword": "기본예탁금",
+        "searchVolume": {
+          "keyword": "기본예탁금",
+          "monthlyPc": 490,
+          "monthlyMobile": 1620,
+          "source": "NAVER"
+        },
+        "source": "NAVER",
+        "collectedAt": "2026-07-30T17:34:57.422Z"
+      },
+      "relatedKeywords": {
+        "keyword": "기본예탁금",
+        "relatedKeywords": [
+          {
+            "keyword": "기본예탁금",
+            "monthlyPc": 490,
+            "monthlyMobile": 1620,
+            "source": "NAVER"
+          }
+        ],
+        "source": "NAVER",
+        "collectedAt": "2026-07-30T17:34:57.465Z"
+      },
+      "autocomplete": {
+        "keyword": "기본예탁금",
+        "suggestions": [
+          "레버리지 기본예탁금",
+          "기본예탁금",
+          "기본예탁금 부족",
+          "레버리지 etf 기본예탁금",
+          "기본예탁금 뜻",
+          "기본예탁금 충족",
+          "기본예탁금 기준",
+          "삼성증권 기본예탁금",
+          "기본예탁금 충족 계좌",
+          "etf 기본 예탁금"
+        ],
+        "source": "NAVER",
+        "collectedAt": "2026-07-30T17:34:57.509Z"
+      }
+    }
+  ],
+  "issue": "단일종목 레버리지 기본예탁금 상향"
+}

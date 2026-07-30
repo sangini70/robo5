@@ -103,6 +103,7 @@ export function isPlannerPromptInput(value: unknown): value is PlannerPromptInpu
   return (
     isRecord(value) &&
     isString(value.generatedAt) &&
+    (value.issue === undefined || isString(value.issue)) &&
     Array.isArray(value.keywords) &&
     value.keywords.every(isPlannerInputKeywordEntry)
   );

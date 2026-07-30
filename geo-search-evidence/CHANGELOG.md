@@ -109,6 +109,12 @@ Project Initialization
 - Added `output/planner-prompt.md` generation for GEO Planner.
 - Kept `Collected Evidence`, `Planner Task`, and `Planner Rules` separated in the prompt output.
 
+### Markdown Batch Input
+
+- Added a Markdown strategy input reader for multi-keyword batch collection.
+- Added a sequential batch collector service that reuses the existing collector flow.
+- Added `npm run collect:md` to process `input/strategy-input.md` or a provided Markdown path.
+
 ---
 
 ## Added

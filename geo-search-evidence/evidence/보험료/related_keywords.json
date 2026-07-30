@@ -1,0 +1,3475 @@
+{
+  "keyword": "보험료",
+  "relatedKeywords": [
+    {
+      "keyword": "보험료",
+      "monthlyPc": 390,
+      "monthlyMobile": 1100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교",
+      "monthlyPc": 1530,
+      "monthlyMobile": 2810,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교사이트",
+      "monthlyPc": 1240,
+      "monthlyMobile": 1770,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험분석",
+      "monthlyPc": 170,
+      "monthlyMobile": 360,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험확인",
+      "monthlyPc": 320,
+      "monthlyMobile": 480,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트보험",
+      "monthlyPc": 2510,
+      "monthlyMobile": 5000,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계",
+      "monthlyPc": 400,
+      "monthlyMobile": 940,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보장분석",
+      "monthlyPc": 180,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교사이트순위",
+      "monthlyPc": 460,
+      "monthlyMobile": 1040,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험보장분석",
+      "monthlyPc": 190,
+      "monthlyMobile": 200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험리모델링",
+      "monthlyPc": 460,
+      "monthlyMobile": 610,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "가입보험확인",
+      "monthlyPc": 40,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종합보험",
+      "monthlyPc": 730,
+      "monthlyMobile": 2520,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험비교사이트",
+      "monthlyPc": 6340,
+      "monthlyMobile": 8500,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험컨설팅",
+      "monthlyPc": 90,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료계산",
+      "monthlyPc": 260,
+      "monthlyMobile": 920,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험분석",
+      "monthlyPc": 110,
+      "monthlyMobile": 290,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "생명보험",
+      "monthlyPc": 1920,
+      "monthlyMobile": 5210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료비교",
+      "monthlyPc": 300,
+      "monthlyMobile": 550,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험",
+      "monthlyPc": 7720,
+      "monthlyMobile": 14900,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료조회",
+      "monthlyPc": 130,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험확인",
+      "monthlyPc": 1240,
+      "monthlyMobile": 3600,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험종류",
+      "monthlyPc": 720,
+      "monthlyMobile": 3350,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "손해보험",
+      "monthlyPc": 1710,
+      "monthlyMobile": 2890,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료확인",
+      "monthlyPc": 30,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교견적",
+      "monthlyPc": 110,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험견적",
+      "monthlyPc": 190,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입증명서",
+      "monthlyPc": 1260,
+      "monthlyMobile": 1990,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계사이트",
+      "monthlyPc": 140,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험정리",
+      "monthlyPc": 100,
+      "monthlyMobile": 200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험점검",
+      "monthlyPc": 360,
+      "monthlyMobile": 550,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내자동차보험확인",
+      "monthlyPc": 320,
+      "monthlyMobile": 3210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험료조회",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험료계산",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트화재보험",
+      "monthlyPc": 520,
+      "monthlyMobile": 1830,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험조회",
+      "monthlyPc": 120,
+      "monthlyMobile": 390,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험계산",
+      "monthlyPc": 10,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "굿리치보험",
+      "monthlyPc": 590,
+      "monthlyMobile": 3010,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험비교",
+      "monthlyPc": 920,
+      "monthlyMobile": 2440,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험추천",
+      "monthlyPc": 650,
+      "monthlyMobile": 1330,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상담",
+      "monthlyPc": 350,
+      "monthlyMobile": 930,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계사",
+      "monthlyPc": 1620,
+      "monthlyMobile": 5150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입",
+      "monthlyPc": 530,
+      "monthlyMobile": 1200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상품",
+      "monthlyPc": 40,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사",
+      "monthlyPc": 560,
+      "monthlyMobile": 1500,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험금청구",
+      "monthlyPc": 790,
+      "monthlyMobile": 6050,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "수술비보험",
+      "monthlyPc": 770,
+      "monthlyMobile": 2290,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "GA보험",
+      "monthlyPc": 460,
+      "monthlyMobile": 1380,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "건강보험",
+      "monthlyPc": 69700,
+      "monthlyMobile": 28500,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험관리",
+      "monthlyPc": 30,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4인가족보험료",
+      "monthlyPc": 60,
+      "monthlyMobile": 210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "22살보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보장성보험료",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종합보험비용",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종합보험견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "30대보험료",
+      "monthlyPc": 40,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종합보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "종합보험가격",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비",
+      "monthlyPc": 50,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료알아보기",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가액확인",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입선물",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험거절",
+      "monthlyPc": 20,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험등록확인",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료산정기준",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료예상견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험비료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험연령특약",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험의무",
+      "monthlyPc": 40,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험통합",
+      "monthlyPc": 20,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험항목",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차의무보험가격",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자차보험계산",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량세금",
+      "monthlyPc": 100,
+      "monthlyMobile": 230,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "상해사망보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "손보사",
+      "monthlyPc": 60,
+      "monthlyMobile": 140,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험견적비교",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험견적사이트",
+      "monthlyPc": 30,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료모의계산",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차아무나보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험금",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료산출",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료납입증명서",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험상차량기준가액",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험한도",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입내역",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험12개월할부",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입연령",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "초보운전자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량출고보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료할증",
+      "monthlyPc": 110,
+      "monthlyMobile": 420,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험분할",
+      "monthlyPc": 10,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험서비스",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험할인율",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험담보",
+      "monthlyPc": 40,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험선물",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "의무보험",
+      "monthlyPc": 50,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험료견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료할인",
+      "monthlyPc": 30,
+      "monthlyMobile": 210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험피보험자",
+      "monthlyPc": 50,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험운전자범위",
+      "monthlyPc": 70,
+      "monthlyMobile": 230,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험금",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험비",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험료계산기",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차첫보험료",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험차량기준가액",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차기본보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험무이자할부",
+      "monthlyPc": 50,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료검색",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차QHGJA",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험의차량기준가액",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차운전보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험할증조회",
+      "monthlyPc": 70,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량2대자동차보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보허",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "신차자동차보험가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험고객센터",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험요율",
+      "monthlyPc": 110,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험환급금",
+      "monthlyPc": 60,
+      "monthlyMobile": 400,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험보장내용",
+      "monthlyPc": 20,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험가입증명서",
+      "monthlyPc": 30,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험공동명의",
+      "monthlyPc": 70,
+      "monthlyMobile": 250,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험료조회",
+      "monthlyPc": 110,
+      "monthlyMobile": 270,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입내역조회",
+      "monthlyPc": 60,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험옵션",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험비",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험기준가액",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험기간",
+      "monthlyPc": 60,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료할부",
+      "monthlyPc": 40,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험명의",
+      "monthlyPc": 30,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험검색",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료알아보기",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험포인트",
+      "monthlyPc": 50,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험약관",
+      "monthlyPc": 150,
+      "monthlyMobile": 150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "치매보험비교사이트",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동자보험",
+      "monthlyPc": 70,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험계산",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험무이자",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차종합보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험들기",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험특약",
+      "monthlyPc": 170,
+      "monthlyMobile": 250,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험미가입과태료",
+      "monthlyPc": 440,
+      "monthlyMobile": 1670,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험추천",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험견적",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험이력조회",
+      "monthlyPc": 520,
+      "monthlyMobile": 1240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보",
+      "monthlyPc": 10,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험경력확인",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험비계산",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자차보험료",
+      "monthlyPc": 20,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험금계산기",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입조건",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험승계",
+      "monthlyPc": 140,
+      "monthlyMobile": 490,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험보장",
+      "monthlyPc": 30,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료예상",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험할인특약",
+      "monthlyPc": 20,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료납부",
+      "monthlyPc": 20,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험설계사",
+      "monthlyPc": 30,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험추가",
+      "monthlyPc": 30,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "1일보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험견적사은품",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "저렴한자동차보험추천",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차2대보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입시간",
+      "monthlyPc": 10,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험료조회",
+      "monthlyPc": 30,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험차량가액",
+      "monthlyPc": 100,
+      "monthlyMobile": 200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자도차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입여부확인",
+      "monthlyPc": 50,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험운전경력",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험1위",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차2대보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험동일증권",
+      "monthlyPc": 280,
+      "monthlyMobile": 670,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료환급",
+      "monthlyPc": 60,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험청약서",
+      "monthlyPc": 10,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험무료견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험금액",
+      "monthlyPc": 30,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입기간",
+      "monthlyPc": 50,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차공동명의보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험견적사이트",
+      "monthlyPc": 30,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입혜택",
+      "monthlyPc": 60,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험질권설정",
+      "monthlyPc": 290,
+      "monthlyMobile": 340,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험알아보기",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "3대진단금",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "DB암보험다이렉트",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "고관절수술비용",
+      "monthlyPc": 140,
+      "monthlyMobile": 1320,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입선물",
+      "monthlyPc": 40,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "의료배상보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "정기보험5억",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "프로미보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험료견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사은품",
+      "monthlyPc": 20,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험회사추천",
+      "monthlyPc": 30,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험조회",
+      "monthlyPc": 9050,
+      "monthlyMobile": 30700,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험행사",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험자동차",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험경력",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "건강보험견적",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험회사",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험할부",
+      "monthlyPc": 70,
+      "monthlyMobile": 370,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험등급확인",
+      "monthlyPc": 40,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차의무보험가입",
+      "monthlyPc": 60,
+      "monthlyMobile": 520,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험누구나",
+      "monthlyPc": 20,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험이전",
+      "monthlyPc": 50,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료차이",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험료계산",
+      "monthlyPc": 70,
+      "monthlyMobile": 240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가격",
+      "monthlyPc": 80,
+      "monthlyMobile": 330,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험점유율",
+      "monthlyPc": 30,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "주말보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험등급조회",
+      "monthlyPc": 80,
+      "monthlyMobile": 150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험증명서",
+      "monthlyPc": 70,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료계산하기",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차누구나보험",
+      "monthlyPc": 60,
+      "monthlyMobile": 610,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내자동차보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 290,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험납부",
+      "monthlyPc": 30,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내차보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험등급",
+      "monthlyPc": 180,
+      "monthlyMobile": 320,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험자상",
+      "monthlyPc": 190,
+      "monthlyMobile": 690,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험팁",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료가격",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험견적조회",
+      "monthlyPc": 20,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험카드결제혜택",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "건강보험료계산",
+      "monthlyPc": 3090,
+      "monthlyMobile": 4350,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차명의이전보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사이트",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험카드무이자",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험상품권",
+      "monthlyPc": 30,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험분할납부",
+      "monthlyPc": 60,
+      "monthlyMobile": 340,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성다이렉트자동차보험특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성다이렉트특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재다이렉트자동차보험특약",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재다이렉트추가특약",
+      "monthlyPc": 20,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재다이렉트특약",
+      "monthlyPc": 30,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재자동차보험특약",
+      "monthlyPc": 40,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험특약변경",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험특약종류",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료산출이벤트",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트100세건강보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료분납",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험가입",
+      "monthlyPc": 50,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입하기",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료산출",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험계산기",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험산출",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사추천",
+      "monthlyPc": 100,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "저렴한보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입서류",
+      "monthlyPc": 30,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내가가입한자동차보험조회",
+      "monthlyPc": 150,
+      "monthlyMobile": 640,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험어디가좋은가요",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입순위",
+      "monthlyPc": 20,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험좋은곳",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입시유의사항",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료저렴한곳",
+      "monthlyPc": 20,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "2종소형보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "공동명의차량보험가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "모든자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "엄마차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "임시운전자특약비용",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험1주일",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료납입",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험비교방법",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차임시운전자특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차출고보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차대번호로보험가입",
+      "monthlyPc": 70,
+      "monthlyMobile": 200,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차대번호보험가입",
+      "monthlyPc": 120,
+      "monthlyMobile": 290,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험가액조회",
+      "monthlyPc": 40,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량의무보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성자동차보험특약",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료카드결제",
+      "monthlyPc": 20,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입확인",
+      "monthlyPc": 90,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료이벤트",
+      "monthlyPc": 40,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험상담",
+      "monthlyPc": 20,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입방법",
+      "monthlyPc": 40,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "특약",
+      "monthlyPc": 210,
+      "monthlyMobile": 560,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자차보험조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차종합보험가격",
+      "monthlyPc": 20,
+      "monthlyMobile": 150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험광고",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입경력",
+      "monthlyPc": 40,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험가격",
+      "monthlyPc": 0,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험브랜드",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입여부",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험월납",
+      "monthlyPc": 30,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험계약조회",
+      "monthlyPc": 110,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "대구자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성다이렉트자동차보험가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성다이렉트자동차보험운전자추가",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재다이렉트자동차보험무이자할부",
+      "monthlyPc": 60,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험한달만",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차책임보험단기가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "20대실손보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "30대실비보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "40대실손보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비보험보장",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비비교",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험계산",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험이란",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손의료비보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손전환",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "50대실손보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재4세대실비",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재4세대실손",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재4세대실손보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재실비보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비2세대4세대",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험료청구",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손4세대",
+      "monthlyPc": 60,
+      "monthlyMobile": 250,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험4세대전환",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "남자종합보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험조회",
+      "monthlyPc": 10,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사종류",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입연령",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험점검서비스",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험가격",
+      "monthlyPc": 70,
+      "monthlyMobile": 210,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입조회",
+      "monthlyPc": 260,
+      "monthlyMobile": 810,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료청구",
+      "monthlyPc": 170,
+      "monthlyMobile": 1520,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험추가특약",
+      "monthlyPc": 60,
+      "monthlyMobile": 140,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험금조회",
+      "monthlyPc": 430,
+      "monthlyMobile": 2120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트이벤트",
+      "monthlyPc": 20,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험의무보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 140,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험이벤트",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "만29세보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "만30세보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입금액",
+      "monthlyPc": 70,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험나라",
+      "monthlyPc": 40,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료다이어트",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료절감",
+      "monthlyPc": 50,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료찾기",
+      "monthlyPc": 30,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사비교사이트",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상품조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계하기",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험정보",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험커뮤니티",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험확인하기",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "적정보험료",
+      "monthlyPc": 40,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "특약보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자보",
+      "monthlyPc": 170,
+      "monthlyMobile": 770,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료환급",
+      "monthlyPc": 140,
+      "monthlyMobile": 530,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "신용카드자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험현대카드",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "현대카드보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "현대해상다이렉트자동차보험주유권",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "현대해상자동차보험주유권",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험1인지정",
+      "monthlyPc": 10,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험보험료",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험조회",
+      "monthlyPc": 1560,
+      "monthlyMobile": 2660,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험혜택",
+      "monthlyPc": 120,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료할인",
+      "monthlyPc": 30,
+      "monthlyMobile": 100,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "60대남자보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험4세대",
+      "monthlyPc": 60,
+      "monthlyMobile": 230,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험추천",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험저렴",
+      "monthlyPc": 50,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무보험차상해보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성자동차보험카드",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험거부",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차현재가액",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량보험사",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차보험추천",
+      "monthlyPc": 30,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "처음자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "건강보험료조회",
+      "monthlyPc": 4390,
+      "monthlyMobile": 6990,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험갱신혜택",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험료비교",
+      "monthlyPc": 20,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험인터넷가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험료인상",
+      "monthlyPc": 30,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "교정보험",
+      "monthlyPc": 90,
+      "monthlyMobile": 520,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "맞춤보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무료보험설계",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험마트",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사리스트",
+      "monthlyPc": 10,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험소개",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험쇼핑",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험의필요성",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험재무설계",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험판매",
+      "monthlyPc": 20,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "우리나라보험사",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "좋은보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무심사보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입사은품",
+      "monthlyPc": 50,
+      "monthlyMobile": 150,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "대인배상Ⅱ",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "삼성화재대물배상",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험회사종류",
+      "monthlyPc": 60,
+      "monthlyMobile": 260,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "싼자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손의료보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "사용자배상책임보험",
+      "monthlyPc": 100,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험6월",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차부부보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차책임보험과태료",
+      "monthlyPc": 110,
+      "monthlyMobile": 500,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험보장분석센터",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험상품",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험가입",
+      "monthlyPc": 20,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험다나와",
+      "monthlyPc": 230,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사순위",
+      "monthlyPc": 160,
+      "monthlyMobile": 360,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차동승자보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험해약환급금",
+      "monthlyPc": 180,
+      "monthlyMobile": 1010,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험공동인수",
+      "monthlyPc": 60,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험비급여",
+      "monthlyPc": 20,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손의료보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비4세대",
+      "monthlyPc": 120,
+      "monthlyMobile": 470,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험료조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "치매보험가입연령",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "디지털보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "손해배상보험",
+      "monthlyPc": 130,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "누구나보험",
+      "monthlyPc": 110,
+      "monthlyMobile": 460,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가족한정특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료계산이벤트",
+      "monthlyPc": 60,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "40대실비보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내차보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험플래너",
+      "monthlyPc": 60,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험주유권",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가족특약",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험보장",
+      "monthlyPc": 110,
+      "monthlyMobile": 600,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험료",
+      "monthlyPc": 120,
+      "monthlyMobile": 520,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험재설계",
+      "monthlyPc": 30,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험료조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "일주일보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험업체",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "유상운송보험특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험다이렉트혜택",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험부모님밑",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험수리",
+      "monthlyPc": 30,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험안들면",
+      "monthlyPc": 50,
+      "monthlyMobile": 300,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "지게차자동차보험",
+      "monthlyPc": 50,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험줄이기",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무료상담신청",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험청구",
+      "monthlyPc": 570,
+      "monthlyMobile": 4470,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내차보험료조회",
+      "monthlyPc": 30,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차개인보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "예상자동차보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험보장확인",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차대인보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험한눈에",
+      "monthlyPc": 30,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "장기보험",
+      "monthlyPc": 60,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "연습면허보험",
+      "monthlyPc": 40,
+      "monthlyMobile": 460,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험진단",
+      "monthlyPc": 180,
+      "monthlyMobile": 320,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험설계비교",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실비보험보험료",
+      "monthlyPc": 20,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자기부담금",
+      "monthlyPc": 380,
+      "monthlyMobile": 720,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험가입확인",
+      "monthlyPc": 170,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "허리보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험포털",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험회사비교",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험통합조회",
+      "monthlyPc": 90,
+      "monthlyMobile": 240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다른자동차운전담보특약",
+      "monthlyPc": 180,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험운전자추가",
+      "monthlyPc": 140,
+      "monthlyMobile": 550,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트보험설계",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료카드",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험분납",
+      "monthlyPc": 50,
+      "monthlyMobile": 160,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "6개월자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "30대실손보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실손보험다이렉트",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "60대실비보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험료계산",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험료인상",
+      "monthlyPc": 40,
+      "monthlyMobile": 140,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험QLRY",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험4세대",
+      "monthlyPc": 60,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "개인보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "일반보험",
+      "monthlyPc": 70,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험1인추가",
+      "monthlyPc": 20,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험보장",
+      "monthlyPc": 20,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료무이자할부",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "2030보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험연말정산",
+      "monthlyPc": 50,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험처리",
+      "monthlyPc": 70,
+      "monthlyMobile": 270,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "공동명의자동차보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험계산기",
+      "monthlyPc": 30,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "차량공동명의보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차책임보험가입증명서",
+      "monthlyPc": 40,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험기간조회",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "신차자동차보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차상해특약",
+      "monthlyPc": 120,
+      "monthlyMobile": 470,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험보장비교",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험지정1인",
+      "monthlyPc": 80,
+      "monthlyMobile": 270,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상품검색",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험교육",
+      "monthlyPc": 80,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험만기환급금",
+      "monthlyPc": 180,
+      "monthlyMobile": 1120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비교추천",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험직접가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험플랜",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "비교견적사이트",
+      "monthlyPc": 20,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료계산기",
+      "monthlyPc": 120,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "실손보험료",
+      "monthlyPc": 140,
+      "monthlyMobile": 590,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험계약서",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험6개월",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험점검",
+      "monthlyPc": 50,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "1년자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "가입자동차보험조회",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "공동명의자동차보험가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다이렉트자동차보험할부",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무면허자동차보험가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "신혼부부자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "외국인자동차보험가입",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차기본보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차단기책임보험",
+      "monthlyPc": 80,
+      "monthlyMobile": 280,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험1등",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험2일",
+      "monthlyPc": 0,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험3일",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입필요서류",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험개인사업자",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험견적쿠폰",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험결제카드",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험계약기간",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험군경력",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험대인2",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험료결제",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험부모님밑으로",
+      "monthlyPc": 40,
+      "monthlyMobile": 170,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험운전연령",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험추가가입",
+      "monthlyPc": 10,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험할증계산",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차임의보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차한달보험료",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "타인자동차보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험피보험자변경",
+      "monthlyPc": 60,
+      "monthlyMobile": 180,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험증권",
+      "monthlyPc": 200,
+      "monthlyMobile": 420,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차책임보험가입방법",
+      "monthlyPc": 150,
+      "monthlyMobile": 270,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자기신체사고자동차상해",
+      "monthlyPc": 750,
+      "monthlyMobile": 800,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험가입확인방법",
+      "monthlyPc": 30,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험중도변경",
+      "monthlyPc": 30,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험중도해지",
+      "monthlyPc": 100,
+      "monthlyMobile": 430,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "대인배상",
+      "monthlyPc": 80,
+      "monthlyMobile": 240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "3대질병보험비교",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험부부특약",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험다이렉트사이트",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "무료상담",
+      "monthlyPc": 70,
+      "monthlyMobile": 390,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "6월자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료산정",
+      "monthlyPc": 20,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "신차구입자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험사변경",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사종류",
+      "monthlyPc": 140,
+      "monthlyMobile": 800,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차가액",
+      "monthlyPc": 300,
+      "monthlyMobile": 400,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차보험내역",
+      "monthlyPc": 20,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "다나와자동차보험",
+      "monthlyPc": 70,
+      "monthlyMobile": 90,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험무료상담",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험손해보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차긴급출동",
+      "monthlyPc": 10,
+      "monthlyMobile": 240,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "3월자동차보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "첫차보험료계산",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "4세대실비보험추천",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "내보험정리",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료리모델링",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험방문상담",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비갱신",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험비용",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사추천",
+      "monthlyPc": 30,
+      "monthlyMobile": 120,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험솔루션",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험안내",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험상담",
+      "monthlyPc": 10,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험설계사",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "자동차사고보험",
+      "monthlyPc": 60,
+      "monthlyMobile": 220,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "경영자보험",
+      "monthlyPc": 30,
+      "monthlyMobile": 40,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료줄이기",
+      "monthlyPc": 10,
+      "monthlyMobile": 60,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "당뇨고혈압보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "국내보험사",
+      "monthlyPc": 30,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "만원보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "맞춤형보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 10,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상담사은품",
+      "monthlyPc": 10,
+      "monthlyMobile": 70,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험상품명",
+      "monthlyPc": 0,
+      "monthlyMobile": 0,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "필수보험",
+      "monthlyPc": 50,
+      "monthlyMobile": 110,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "CI보험",
+      "monthlyPc": 970,
+      "monthlyMobile": 2330,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험회사순위",
+      "monthlyPc": 190,
+      "monthlyMobile": 1050,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "꼭필요한보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 130,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험중복",
+      "monthlyPc": 10,
+      "monthlyMobile": 80,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "세입자보험",
+      "monthlyPc": 10,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험백화점",
+      "monthlyPc": 50,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "고령자보험",
+      "monthlyPc": 20,
+      "monthlyMobile": 190,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "암보험비",
+      "monthlyPc": 0,
+      "monthlyMobile": 20,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "복리보험",
+      "monthlyPc": 0,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험료견적",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "source": "NAVER"
+    },
+    {
+      "keyword": "보험사비교",
+      "monthlyPc": 30,
+      "monthlyMobile": 50,
+      "source": "NAVER"
+    }
+  ],
+  "source": "NAVER",
+  "collectedAt": "2026-07-30T17:34:57.828Z"
+}

@@ -71,19 +71,25 @@ async function loadKeywordEntry(keywordDir: string): Promise<PlannerInputKeyword
   };
 }
 
-export function buildPlannerInputDocument(keywords: PlannerInputKeywordEntry[]): PlannerInputDocument {
-  return {
+export function buildPlannerInputDocument(keywords: PlannerInputKeywordEntry[], issue?: string): PlannerInputDocument {
+  const document: PlannerInputDocument = {
     generatedAt: new Date().toISOString(),
     keywords,
   };
+
+  if (issue !== undefined && issue.trim().length > 0) {
+    document.issue = issue.trim();
+  }
+
+  return document;
 }
 
 export class PlannerInputExporter implements Exporter<PlannerInputExportResult> {
   constructor(private readonly outputPath: string = path.join(OUTPUT_DIR, "planner-input.json")) {}
 
-  async export(): Promise<PlannerInputExportResult> {
-    const entries = await this.loadEntries();
-    const document = buildPlannerInputDocument(entries);
+  async export(options: { issue?: string; keywords?: readonly string[] } = {}): Promise<PlannerInputExportResult> {
+    const entries = await this.loadEntries(options.keywords);
+    const document = buildPlannerInputDocument(entries, options.issue);
 
     await mkdir(path.dirname(this.outputPath), { recursive: true });
     await writeFile(this.outputPath, `${JSON.stringify(document, null, 2)}\n`, "utf8");
@@ -95,7 +101,20 @@ export class PlannerInputExporter implements Exporter<PlannerInputExportResult> 
     };
   }
 
-  private async loadEntries(): Promise<PlannerInputKeywordEntry[]> {
+  private async loadEntries(allowedKeywords?: readonly string[]): Promise<PlannerInputKeywordEntry[]> {
+    if (allowedKeywords !== undefined) {
+      const entries: PlannerInputKeywordEntry[] = [];
+
+      for (const keyword of allowedKeywords) {
+        const entry = await loadKeywordEntry(path.join(EVIDENCE_DIR, keyword));
+        if (entry !== null) {
+          entries.push(entry);
+        }
+      }
+
+      return entries;
+    }
+
     const directories = await readdir(EVIDENCE_DIR, { withFileTypes: true });
     const entries: PlannerInputKeywordEntry[] = [];
 

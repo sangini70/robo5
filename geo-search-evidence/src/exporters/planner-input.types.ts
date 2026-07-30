@@ -13,6 +13,7 @@ export interface PlannerInputKeywordEntry {
 
 export interface PlannerInputDocument {
   generatedAt: string;
+  issue?: string;
   keywords: PlannerInputKeywordEntry[];
 }
 
