@@ -12,7 +12,10 @@ export type { Collector } from "./collector.interface";
 export {
   buildNaverSearchVolumeRequest,
   FetchNaverHttpClient,
+  buildNaverRelatedKeywordRequest,
+  RelatedKeywordCollector,
   parseNaverSearchVolumeResponse,
+  parseNaverRelatedKeywordResponse,
   SearchVolumeCollector,
 } from "./naver";
 export type {
@@ -21,4 +24,9 @@ export type {
   NaverSearchVolumeRequest,
   NaverSearchVolumeRecord,
   SearchVolumeEvidence,
+  NaverRelatedKeywordRawResponse,
+  NaverRelatedKeywordRecord,
+  NaverRelatedKeywordRequest,
+  RelatedKeywordEvidence,
+  RelatedKeywordItem,
 } from "./naver";

@@ -67,6 +67,12 @@ Project Initialization
 - Added `.env.example` with NAVER credential placeholders.
 - Connected `SearchVolumeCollector` to the real HTTP client while keeping result creation inside the collector.
 
+### Related Keyword Collector
+
+- Added `RelatedKeywordCollector` with request builder and response parser.
+- Reused the existing NAVER HTTP client and env loading.
+- Updated the main entry to execute the related keyword flow and print evidence.
+
 ---
 
 ## Added

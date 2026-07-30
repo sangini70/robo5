@@ -6,7 +6,7 @@ import {
   SUPPORTED_EXPORT_FORMATS,
 } from "./config";
 import type { CollectorInput } from "./collectors";
-import { FetchNaverHttpClient, SearchVolumeCollector } from "./collectors";
+import { FetchNaverHttpClient, RelatedKeywordCollector } from "./collectors";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -40,22 +40,23 @@ const sampleEvidence: SearchEvidence = {
 };
 
 const collectorInput: CollectorInput = {
-  keyword: "네이버",
+  keyword: "보험",
   language: DEFAULT_LANGUAGE,
   country: DEFAULT_COUNTRY,
 };
 
 const naverHttpClient = new FetchNaverHttpClient();
-const searchVolumeCollector = new SearchVolumeCollector(naverHttpClient);
+const relatedKeywordCollector = new RelatedKeywordCollector(naverHttpClient);
 
 async function main(): Promise<void> {
   void foundationCheck;
   void sampleEvidence;
   void naverHttpClient;
 
-  const result = await searchVolumeCollector.collect(collectorInput);
+  const result = await relatedKeywordCollector.collect(collectorInput);
   if (result.status === "success") {
-    console.log(result.data);
+    const evidence = result.data;
+    console.log(evidence);
     return;
   }
 

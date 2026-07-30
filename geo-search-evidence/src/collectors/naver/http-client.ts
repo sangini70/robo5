@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import type { NaverHttpClient } from "./http-client.interface";
 import type { NaverSearchVolumeRequest } from "./types";
+import type { NaverRelatedKeywordRequest } from "./related.types";
 
 function toSignature(timestamp: string, method: string, path: string, secretKey: string): string {
   const message = `${timestamp}.${method}.${path}`;
@@ -16,7 +17,7 @@ function requireCredential(value: string | null, name: string): string {
 }
 
 export class FetchNaverHttpClient implements NaverHttpClient {
-  async request(request: NaverSearchVolumeRequest): Promise<unknown> {
+  async request(request: NaverSearchVolumeRequest | NaverRelatedKeywordRequest): Promise<unknown> {
     const apiKey = requireCredential(request.apiKey, "NAVER_API_KEY");
     const secretKey = requireCredential(request.secretKey, "NAVER_SECRET_KEY");
     const customerId = requireCredential(request.customerId, "NAVER_CUSTOMER_ID");
