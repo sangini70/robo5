@@ -5,6 +5,7 @@ import {
   DEFAULT_LANGUAGE,
   SUPPORTED_EXPORT_FORMATS,
 } from "./config";
+import type { Collector, CollectorInput, CollectorResult } from "./collectors";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -37,7 +38,35 @@ const sampleEvidence: SearchEvidence = {
   autocomplete: [],
 };
 
+const collectorInput: CollectorInput = {
+  keyword: "sample",
+  language: DEFAULT_LANGUAGE,
+  country: DEFAULT_COUNTRY,
+};
+
+const collectorResult: CollectorResult<unknown> = {
+  kind: "search_volume",
+  source: "NAVER",
+  status: "failed",
+  collectedAt: new Date(0).toISOString(),
+  data: null,
+  error: {
+    message: "Not implemented",
+  },
+};
+
+const collectorContract: Collector<unknown> = {
+  kind: "search_volume",
+  source: "NAVER",
+  async collect(_input) {
+    return collectorResult;
+  },
+};
+
 void foundationCheck;
 void sampleEvidence;
+void collectorInput;
+void collectorResult;
+void collectorContract;
 
 console.log("Project initialized.");

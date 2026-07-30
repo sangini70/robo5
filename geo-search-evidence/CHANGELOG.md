@@ -46,6 +46,13 @@ Project Initialization
 - Added barrel exports for `src/types` and `src/config`.
 - Updated `src/index.ts` to verify foundation imports only.
 
+### Collector Contract
+
+- Added minimal Collector kind, input, error, and result types.
+- Added a minimal Collector interface with `kind`, `source`, and `collect()`.
+- Added barrel exports for `src/collectors`.
+- Updated `src/index.ts` to verify Collector contract imports only.
+
 ---
 
 ## Added
