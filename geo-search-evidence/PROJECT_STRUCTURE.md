@@ -301,3 +301,9 @@ PROJECT_STRUCTURE.md
 문서를 먼저 수정하거나
 
 사용자에게 변경을 제안한다.
+
+input/
+- 사람이 작성하거나 AI가 생성한 실행 입력 문서
+- strategy-input.md 등 배치 수집 요청 파일 보관
+- 실행 결과나 Evidence 저장 금지
+- API 비밀정보 저장 금지
