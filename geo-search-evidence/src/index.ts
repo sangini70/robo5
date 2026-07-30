@@ -1,5 +1,7 @@
 import { APP_NAME, DEFAULT_COUNTRY, DEFAULT_LANGUAGE, SUPPORTED_EXPORT_FORMATS } from "./config/constants";
+import { PlannerInputExporter } from "./exporters";
 import { collectorService } from "./shared";
+import { generatePlannerPrompt } from "./prompts";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -38,6 +40,9 @@ async function main(): Promise<void> {
 
   const result = await collectorService.collect("보험");
   console.log(result);
+
+  await new PlannerInputExporter().export();
+  await generatePlannerPrompt();
 }
 
 void main().catch((error) => {

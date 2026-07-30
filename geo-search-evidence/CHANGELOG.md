@@ -103,6 +103,12 @@ Project Initialization
 - Added a single-file `planner-input.json` export under `output/`.
 - Added exporter interfaces and planner input types.
 
+### Planner Prompt Builder
+
+- Added a Markdown prompt builder that reads `output/planner-input.json`.
+- Added `output/planner-prompt.md` generation for GEO Planner.
+- Kept `Collected Evidence`, `Planner Task`, and `Planner Rules` separated in the prompt output.
+
 ---
 
 ## Added
