@@ -53,6 +53,20 @@ Project Initialization
 - Added barrel exports for `src/collectors`.
 - Updated `src/index.ts` to verify Collector contract imports only.
 
+### NAVER Search Volume Collector
+
+- Added NAVER Search Volume Collector module structure under `src/collectors/naver/`.
+- Added a request builder for NAVER Search Volume requests without performing HTTP calls.
+- Added a response parser that converts NAVER response data into `SearchVolumeEvidence`.
+- Added a minimal HTTP client interface for later phase integration.
+
+### NAVER API Integration
+
+- Added a real Fetch-based NAVER HTTP client for `/keywordstool`.
+- Added NAVER credential loading for API key, secret key, and customer ID.
+- Added `.env.example` with NAVER credential placeholders.
+- Connected `SearchVolumeCollector` to the real HTTP client while keeping result creation inside the collector.
+
 ---
 
 ## Added

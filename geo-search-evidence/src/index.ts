@@ -5,7 +5,8 @@ import {
   DEFAULT_LANGUAGE,
   SUPPORTED_EXPORT_FORMATS,
 } from "./config";
-import type { Collector, CollectorInput, CollectorResult } from "./collectors";
+import type { CollectorInput } from "./collectors";
+import { FetchNaverHttpClient, SearchVolumeCollector } from "./collectors";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -39,34 +40,29 @@ const sampleEvidence: SearchEvidence = {
 };
 
 const collectorInput: CollectorInput = {
-  keyword: "sample",
+  keyword: "네이버",
   language: DEFAULT_LANGUAGE,
   country: DEFAULT_COUNTRY,
 };
 
-const collectorResult: CollectorResult<unknown> = {
-  kind: "search_volume",
-  source: "NAVER",
-  status: "failed",
-  collectedAt: new Date(0).toISOString(),
-  data: null,
-  error: {
-    message: "Not implemented",
-  },
-};
+const naverHttpClient = new FetchNaverHttpClient();
+const searchVolumeCollector = new SearchVolumeCollector(naverHttpClient);
 
-const collectorContract: Collector<unknown> = {
-  kind: "search_volume",
-  source: "NAVER",
-  async collect(_input) {
-    return collectorResult;
-  },
-};
+async function main(): Promise<void> {
+  void foundationCheck;
+  void sampleEvidence;
+  void naverHttpClient;
 
-void foundationCheck;
-void sampleEvidence;
-void collectorInput;
-void collectorResult;
-void collectorContract;
+  const result = await searchVolumeCollector.collect(collectorInput);
+  if (result.status === "success") {
+    console.log(result.data);
+    return;
+  }
 
-console.log("Project initialized.");
+  console.error(result.error);
+}
+
+void main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

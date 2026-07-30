@@ -10,6 +10,9 @@ export const DEFAULT_COLLECTOR_VERSION = APP_VERSION;
 export const ENV_NAMES = {
   NODE_ENV: "NODE_ENV",
   LOG_LEVEL: "LOG_LEVEL",
+  NAVER_API_KEY: "NAVER_API_KEY",
+  NAVER_SECRET_KEY: "NAVER_SECRET_KEY",
+  NAVER_CUSTOMER_ID: "NAVER_CUSTOMER_ID",
 } as const;
 
 export const SUPPORTED_EXPORT_FORMATS = ["json", "markdown", "notebooklm"] as const satisfies readonly ExportFormat[];

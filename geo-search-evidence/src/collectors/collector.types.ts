@@ -1,6 +1,6 @@
 import type { CollectionSource } from "../types";
 
-export type CollectionKind = "search_volume" | "related_keywords" | "autocomplete";
+export type CollectorKind = "search_volume" | "related_keywords" | "autocomplete";
 
 export type CollectorStatus = "success" | "failed";
 
@@ -22,7 +22,7 @@ export interface CollectorError {
 }
 
 export interface CollectorSuccessResult<TData> {
-  kind: CollectionKind;
+  kind: CollectorKind;
   source: CollectionSource;
   status: "success";
   collectedAt: string;
@@ -31,7 +31,7 @@ export interface CollectorSuccessResult<TData> {
 }
 
 export interface CollectorFailureResult {
-  kind: CollectionKind;
+  kind: CollectorKind;
   source: CollectionSource;
   status: "failed";
   collectedAt: string;

@@ -6,6 +6,9 @@ export type LogLevel = (typeof LOG_LEVEL_VALUES)[number];
 export interface AppEnv {
   nodeEnv: NodeEnv;
   logLevel: LogLevel;
+  naverApiKey: string;
+  naverSecretKey: string;
+  naverCustomerId: string;
 }
 
 function readOptionalEnv(name: string): string | undefined {
@@ -49,6 +52,9 @@ export function loadEnv(): AppEnv {
   return {
     nodeEnv: resolveNodeEnv(readOptionalEnv("NODE_ENV")),
     logLevel: resolveLogLevel(readOptionalEnv("LOG_LEVEL")),
+    naverApiKey: readRequiredEnv("NAVER_API_KEY"),
+    naverSecretKey: readRequiredEnv("NAVER_SECRET_KEY"),
+    naverCustomerId: readRequiredEnv("NAVER_CUSTOMER_ID"),
   };
 }
 
