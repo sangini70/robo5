@@ -85,6 +85,24 @@ Project Initialization
 - Added validators for Search Volume, Related Keyword, and Autocomplete evidence.
 - Added a shared validation result contract and validator interface.
 
+### Storage Layer
+
+- Added a JSON-based storage layer under `src/storage/`.
+- Added evidence-by-keyword folder storage using the raw keyword as the folder name.
+- Added storage path building, save/read/exists support, and metadata JSON output.
+
+### Collector Service
+
+- Added a sequential collector service that runs Search Volume, Related Keyword, and Autocomplete collection in order.
+- Added validation and storage steps between each collector stage.
+- Updated the main entry to invoke the collector service for the sample keyword.
+
+### Exporter Layer
+
+- Added a planner input exporter that reads evidence from `evidence/<keyword>/`.
+- Added a single-file `planner-input.json` export under `output/`.
+- Added exporter interfaces and planner input types.
+
 ---
 
 ## Added

@@ -1,12 +1,5 @@
-import {
-  APP_NAME,
-  DEFAULT_COLLECTOR_VERSION,
-  DEFAULT_COUNTRY,
-  DEFAULT_LANGUAGE,
-  SUPPORTED_EXPORT_FORMATS,
-} from "./config";
-import type { CollectorInput } from "./collectors";
-import { AutocompleteCollector, FetchNaverHttpClient } from "./collectors";
+import { APP_NAME, DEFAULT_COUNTRY, DEFAULT_LANGUAGE, SUPPORTED_EXPORT_FORMATS } from "./config/constants";
+import { collectorService } from "./shared";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -28,7 +21,7 @@ const sampleMetadata: EvidenceMetadata = {
   createdAt: new Date(0).toISOString(),
   updatedAt: new Date(0).toISOString(),
   collectedAt: new Date(0).toISOString(),
-  collectorVersion: DEFAULT_COLLECTOR_VERSION,
+  collectorVersion: "0.1.0",
   source: "NAVER",
 };
 
@@ -39,28 +32,12 @@ const sampleEvidence: SearchEvidence = {
   autocomplete: [],
 };
 
-const collectorInput: CollectorInput = {
-  keyword: "보험",
-  language: DEFAULT_LANGUAGE,
-  country: DEFAULT_COUNTRY,
-};
-
-const naverHttpClient = new FetchNaverHttpClient();
-const autocompleteCollector = new AutocompleteCollector(naverHttpClient);
-
 async function main(): Promise<void> {
   void foundationCheck;
   void sampleEvidence;
-  void naverHttpClient;
 
-  const result = await autocompleteCollector.collect(collectorInput);
-  if (result.status === "success") {
-    const evidence = result.data;
-    console.log(evidence);
-    return;
-  }
-
-  console.error(result.error);
+  const result = await collectorService.collect("보험");
+  console.log(result);
 }
 
 void main().catch((error) => {
