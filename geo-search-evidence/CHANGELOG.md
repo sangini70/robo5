@@ -79,6 +79,12 @@ Project Initialization
 - Reused the shared NAVER HTTP client structure.
 - Updated the main entry to execute the autocomplete flow and print evidence.
 
+### Validation Layer
+
+- Added a dedicated validation layer under `src/validation/`.
+- Added validators for Search Volume, Related Keyword, and Autocomplete evidence.
+- Added a shared validation result contract and validator interface.
+
 ---
 
 ## Added
