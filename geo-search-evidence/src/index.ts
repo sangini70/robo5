@@ -6,7 +6,7 @@ import {
   SUPPORTED_EXPORT_FORMATS,
 } from "./config";
 import type { CollectorInput } from "./collectors";
-import { FetchNaverHttpClient, RelatedKeywordCollector } from "./collectors";
+import { AutocompleteCollector, FetchNaverHttpClient } from "./collectors";
 import type { EvidenceMetadata, SearchEvidence } from "./types";
 
 const foundationCheck = {
@@ -46,14 +46,14 @@ const collectorInput: CollectorInput = {
 };
 
 const naverHttpClient = new FetchNaverHttpClient();
-const relatedKeywordCollector = new RelatedKeywordCollector(naverHttpClient);
+const autocompleteCollector = new AutocompleteCollector(naverHttpClient);
 
 async function main(): Promise<void> {
   void foundationCheck;
   void sampleEvidence;
   void naverHttpClient;
 
-  const result = await relatedKeywordCollector.collect(collectorInput);
+  const result = await autocompleteCollector.collect(collectorInput);
   if (result.status === "success") {
     const evidence = result.data;
     console.log(evidence);

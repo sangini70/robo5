@@ -73,6 +73,12 @@ Project Initialization
 - Reused the existing NAVER HTTP client and env loading.
 - Updated the main entry to execute the related keyword flow and print evidence.
 
+### Autocomplete Collector
+
+- Added `AutocompleteCollector` with request builder and response parser.
+- Reused the shared NAVER HTTP client structure.
+- Updated the main entry to execute the autocomplete flow and print evidence.
+
 ---
 
 ## Added

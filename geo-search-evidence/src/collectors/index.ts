@@ -13,9 +13,12 @@ export {
   buildNaverSearchVolumeRequest,
   FetchNaverHttpClient,
   buildNaverRelatedKeywordRequest,
+  buildNaverAutocompleteRequest,
   RelatedKeywordCollector,
+  AutocompleteCollector,
   parseNaverSearchVolumeResponse,
   parseNaverRelatedKeywordResponse,
+  parseNaverAutocompleteResponse,
   SearchVolumeCollector,
 } from "./naver";
 export type {
@@ -29,4 +32,8 @@ export type {
   NaverRelatedKeywordRequest,
   RelatedKeywordEvidence,
   RelatedKeywordItem,
+  NaverAutocompleteRawResponse,
+  NaverAutocompleteRecord,
+  NaverAutocompleteRequest,
+  AutocompleteEvidence,
 } from "./naver";
