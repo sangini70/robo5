@@ -1,13 +1,29 @@
 {
-  "dailyImpressions": {
-    "2026-05-23": 1,
-    "2026-05-26": 1,
+  "titleHistory": [],
+  "id": "ya1Ru1MJgDU5b87Rbl7G",
+  "dailyViews": {
     "2026-04-10": 1,
-    "2026-04-07": 3,
-    "2026-04-02": 3,
+    "2026-04-07": 1,
+    "2026-04-03": 2,
+    "2026-04-06": 4,
+    "2026-04-02": 4,
+    "2026-04-11": 7
+  },
+  "categorySlug": "경제 기초",
+  "seoTitle": "로보어드바이저 수수료 체계 및 업체별 비교 기준 정리",
+  "flowType": "과거에서 찾는 답",
+  "naverRequestedAt": "2026-04-06T13:34:36.129Z",
+  "title": "로보어드바이저 수수료 체계 및 업체별 비교 기준 정리",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-fee-comparison-guide.webp",
+  "dailyImpressions": {
+    "2026-05-27": 1,
     "2026-04-11": 1,
     "2026-04-08": 1,
-    "2026-05-27": 1
+    "2026-04-02": 3,
+    "2026-04-07": 3,
+    "2026-05-26": 1,
+    "2026-05-23": 1,
+    "2026-04-10": 1
   },
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "googleRequestedAt": "2026-04-06T16:21:52.410Z",
@@ -16,29 +32,9 @@
   "publishDate": "2026-07-06T07:24:21.468Z",
   "language": "ko",
   "googleIndexStatus": "indexed",
-  "titleHistory": [],
-  "id": "ya1Ru1MJgDU5b87Rbl7G",
-  "dailyViews": {
-    "2026-04-02": 4,
-    "2026-04-11": 7,
-    "2026-04-10": 1,
-    "2026-04-07": 1,
-    "2026-04-03": 2,
-    "2026-04-06": 4
-  },
-  "categorySlug": "경제 기초",
-  "seoTitle": "로보어드바이저 수수료 체계 및 업체별 비교 기준 정리",
-  "flowType": "과거에서 찾는 답",
-  "naverRequestedAt": "2026-04-06T13:34:36.129Z",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-fee-comparison-guide.webp",
-  "title": "로보어드바이저 수수료 체계 및 업체별 비교 기준 정리",
-  "structuredDataJsonLd": "{\n    \"@context\": \"[https://schema.org](https://schema.org)\",\n    \"@type\": \"FAQPage\",\n    \"mainEntity\": [\n        {\n            \"@type\": \"Question\",\n            \"name\": \"손실이 났을 때도 수수료를 내야 하나요?\",\n            \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"기본 운용 수수료 방식은 손실 여부와 상관없이 자산 평가액을 기준으로 부과되며, 성과 수수료 방식은 약관에 명시된 수익 발생 요건을 충족할 때만 부과됩니다.\"\n            }\n        },\n        {\n            \"@type\": \"Question\",\n            \"name\": \"로보어드바이저 수수료 평균은 어느 정도인가요?\",\n            \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"국내 서비스의 경우 연 0.2%에서 0.5% 사이의 운용 보수를 받거나, 수익금의 약 10%에서 15%를 성과 보수로 책정하는 경우가 많습니다.\"\n            }\n        }\n    ]\n}",
-  "customCss": "",
-  "createdAt": "2026-03-24T14:24:07.441Z",
-  "seoDescription": "로보어드바이저의 정액 보수와 성과 수수료 차이점을 상세히 비교합니다. 장기 투자 시 수익률에 영향을 미치는 운용 비용과 체크리스트를 확인하세요.",
   "customJs": "",
-  "status": "published",
   "updatedAt": "2026-07-06T07:24:20.609Z",
+  "status": "published",
   "impressions": 12,
   "publishHour": 16,
   "googleIndexedAt": "2026-04-07T08:05:12.471Z",
@@ -54,5 +50,9 @@
     "investment cost"
   ],
   "postViews": 31,
-  "description": "효율적인 자산 관리를 위한 로보어드바이저 수수료 유형별 특징과 투자 규모에 따른 비용 최적화 가이드입니다."
+  "description": "효율적인 자산 관리를 위한 로보어드바이저 수수료 유형별 특징과 투자 규모에 따른 비용 최적화 가이드입니다.",
+  "structuredDataJsonLd": "{\n    \"@context\": \"[https://schema.org](https://schema.org)\",\n    \"@type\": \"FAQPage\",\n    \"mainEntity\": [\n        {\n            \"@type\": \"Question\",\n            \"name\": \"손실이 났을 때도 수수료를 내야 하나요?\",\n            \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"기본 운용 수수료 방식은 손실 여부와 상관없이 자산 평가액을 기준으로 부과되며, 성과 수수료 방식은 약관에 명시된 수익 발생 요건을 충족할 때만 부과됩니다.\"\n            }\n        },\n        {\n            \"@type\": \"Question\",\n            \"name\": \"로보어드바이저 수수료 평균은 어느 정도인가요?\",\n            \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"국내 서비스의 경우 연 0.2%에서 0.5% 사이의 운용 보수를 받거나, 수익금의 약 10%에서 15%를 성과 보수로 책정하는 경우가 많습니다.\"\n            }\n        }\n    ]\n}",
+  "customCss": "",
+  "createdAt": "2026-03-24T14:24:07.441Z",
+  "seoDescription": "로보어드바이저의 정액 보수와 성과 수수료 차이점을 상세히 비교합니다. 장기 투자 시 수익률에 영향을 미치는 운용 비용과 체크리스트를 확인하세요."
 }
