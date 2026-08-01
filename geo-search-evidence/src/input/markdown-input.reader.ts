@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import type { StrategyInput } from "./strategy-input.types";
 
-type SectionName = "issue" | "keywords" | "notes" | null;
+type SectionName = "issue" | "keywords" | "seedKeywords" | "notes" | null;
 
 function isSectionHeading(line: string): SectionName {
   const trimmed = line.trim();
@@ -12,6 +12,10 @@ function isSectionHeading(line: string): SectionName {
 
   if (/^##\s+Keywords$/i.test(trimmed)) {
     return "keywords";
+  }
+
+  if (/^##\s+Seed Keywords$/i.test(trimmed)) {
+    return "seedKeywords";
   }
 
   if (/^##\s+Notes$/i.test(trimmed)) {
@@ -41,10 +45,32 @@ function parseKeywordLine(line: string): string | null {
   return value.length > 0 ? value : null;
 }
 
+function parseSeedKeywordLine(line: string): readonly [string, string] | null {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith("-")) {
+    return null;
+  }
+
+  const value = trimmed.slice(1).trim();
+  const separatorIndex = value.indexOf(":");
+  if (separatorIndex === -1) {
+    return null;
+  }
+
+  const keyword = value.slice(0, separatorIndex).trim();
+  const seedKeyword = value.slice(separatorIndex + 1).trim();
+  if (keyword.length === 0 || seedKeyword.length === 0) {
+    return null;
+  }
+
+  return [keyword, seedKeyword];
+}
+
 export function parseStrategyInputMarkdown(content: string): StrategyInput {
   const sections: Record<Exclude<SectionName, null>, string[]> = {
     issue: [],
     keywords: [],
+    seedKeywords: [],
     notes: [],
   };
 
@@ -82,6 +108,24 @@ export function parseStrategyInputMarkdown(content: string): StrategyInput {
     keywords.push(normalized);
   }
 
+  const seedKeywords: Record<string, string> = {};
+  const seenSeedKeywords = new Set<string>();
+
+  for (const line of sections.seedKeywords) {
+    const parsed = parseSeedKeywordLine(line);
+    if (parsed === null) {
+      continue;
+    }
+
+    const [keyword, seedKeyword] = parsed;
+    if (seenSeedKeywords.has(keyword)) {
+      continue;
+    }
+
+    seenSeedKeywords.add(keyword);
+    seedKeywords[keyword] = seedKeyword;
+  }
+
   if (keywords.length === 0) {
     throw new Error("Strategy input markdown contains no keywords.");
   }
@@ -89,6 +133,7 @@ export function parseStrategyInputMarkdown(content: string): StrategyInput {
   return {
     issue: collapseText(sections.issue),
     keywords,
+    seedKeywords: Object.keys(seedKeywords).length > 0 ? seedKeywords : undefined,
     notes: collapseText(sections.notes),
   };
 }

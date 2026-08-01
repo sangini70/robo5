@@ -34,9 +34,10 @@ export class CollectorService {
   private readonly storage = new JsonStorage();
 
   async collect(keyword: string, seedKeyword?: string): Promise<CollectorServiceResult> {
+    const effectiveKeyword = seedKeyword ?? keyword;
     const searchVolume = await this.collectSearchVolume(keyword, seedKeyword);
-    const relatedKeywords = await this.collectRelatedKeywords(keyword);
-    const autocomplete = await this.collectAutocomplete(keyword);
+    const relatedKeywords = await this.collectRelatedKeywords(effectiveKeyword);
+    const autocomplete = await this.collectAutocomplete(effectiveKeyword);
 
     return {
       searchVolume,
