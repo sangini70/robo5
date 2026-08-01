@@ -19,7 +19,7 @@ Do not treat news or search terms themselves as knowledge.
 
 #### Input Keyword
 - keyword: 청년미래적금
-- collectedAt: 2026-08-01T13:24:22.022Z
+- collectedAt: 2026-08-01T13:51:07.300Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -30,7 +30,7 @@ Do not treat news or search terms themselves as knowledge.
 {
   "keyword": "청년미래적금",
   "createdAt": "2026-08-01T13:08:19.219Z",
-  "updatedAt": "2026-08-01T13:24:32.653Z",
+  "updatedAt": "2026-08-01T13:51:18.015Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -48,7 +48,7 @@ Do not treat news or search terms themselves as knowledge.
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:22.022Z"
+  "collectedAt": "2026-08-01T13:51:07.300Z"
 }
 ```
 
@@ -66,7 +66,7 @@ Do not treat news or search terms themselves as knowledge.
     }
   ],
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:32.603Z"
+  "collectedAt": "2026-08-01T13:51:17.954Z"
 }
 ```
 
@@ -88,7 +88,7 @@ Do not treat news or search terms themselves as knowledge.
     "청년미래적금 신청"
   ],
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:32.648Z"
+  "collectedAt": "2026-08-01T13:51:17.999Z"
 }
 ```
 
@@ -96,7 +96,7 @@ Do not treat news or search terms themselves as knowledge.
 
 #### Input Keyword
 - keyword: 청년미래적금 가입조건
-- collectedAt: 2026-08-01T13:24:23.448Z
+- collectedAt: 2026-08-01T13:51:08.757Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -107,7 +107,7 @@ Do not treat news or search terms themselves as knowledge.
 {
   "keyword": "청년미래적금 가입조건",
   "createdAt": "2026-08-01T13:08:20.553Z",
-  "updatedAt": "2026-08-01T13:24:23.490Z",
+  "updatedAt": "2026-08-01T13:51:08.795Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -125,7 +125,7 @@ Do not treat news or search terms themselves as knowledge.
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:23.448Z"
+  "collectedAt": "2026-08-01T13:51:08.757Z"
 }
 ```
 
@@ -145,7 +145,7 @@ null
 
 #### Input Keyword
 - keyword: 청년도약계좌 갈아타기
-- collectedAt: 2026-08-01T13:24:24.763Z
+- collectedAt: 2026-08-01T13:51:10.050Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -156,7 +156,7 @@ null
 {
   "keyword": "청년도약계좌 갈아타기",
   "createdAt": "2026-08-01T13:08:21.837Z",
-  "updatedAt": "2026-08-01T13:24:24.798Z",
+  "updatedAt": "2026-08-01T13:51:10.087Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -174,7 +174,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:24.763Z"
+  "collectedAt": "2026-08-01T13:51:10.050Z"
 }
 ```
 
@@ -194,7 +194,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 신청
-- collectedAt: 2026-08-01T13:24:26.081Z
+- collectedAt: 2026-08-01T13:51:11.398Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -205,7 +205,7 @@ null
 {
   "keyword": "청년미래적금 신청",
   "createdAt": "2026-08-01T13:08:23.123Z",
-  "updatedAt": "2026-08-01T13:24:26.130Z",
+  "updatedAt": "2026-08-01T13:51:11.438Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -223,7 +223,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:26.081Z"
+  "collectedAt": "2026-08-01T13:51:11.398Z"
 }
 ```
 
@@ -243,7 +243,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 신청방법
-- collectedAt: 2026-08-01T13:24:27.386Z
+- collectedAt: 2026-08-01T13:51:12.701Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -254,7 +254,7 @@ null
 {
   "keyword": "청년미래적금 신청방법",
   "createdAt": "2026-08-01T13:08:24.412Z",
-  "updatedAt": "2026-08-01T13:24:27.410Z",
+  "updatedAt": "2026-08-01T13:51:12.739Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -272,7 +272,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:27.386Z"
+  "collectedAt": "2026-08-01T13:51:12.701Z"
 }
 ```
 
@@ -292,7 +292,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 신청기간
-- collectedAt: 2026-08-01T13:24:28.653Z
+- collectedAt: 2026-08-01T13:51:14.003Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -303,7 +303,7 @@ null
 {
   "keyword": "청년미래적금 신청기간",
   "createdAt": "2026-08-01T13:08:25.681Z",
-  "updatedAt": "2026-08-01T13:24:28.693Z",
+  "updatedAt": "2026-08-01T13:51:14.041Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -321,7 +321,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:28.653Z"
+  "collectedAt": "2026-08-01T13:51:14.003Z"
 }
 ```
 
@@ -341,7 +341,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 혜택
-- collectedAt: 2026-08-01T13:24:29.945Z
+- collectedAt: 2026-08-01T13:51:15.311Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -352,7 +352,7 @@ null
 {
   "keyword": "청년미래적금 혜택",
   "createdAt": "2026-08-01T13:08:26.938Z",
-  "updatedAt": "2026-08-01T13:24:29.990Z",
+  "updatedAt": "2026-08-01T13:51:15.351Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -370,7 +370,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:29.945Z"
+  "collectedAt": "2026-08-01T13:51:15.311Z"
 }
 ```
 
@@ -390,7 +390,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 소득기준
-- collectedAt: 2026-08-01T13:24:31.267Z
+- collectedAt: 2026-08-01T13:51:16.633Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -401,7 +401,7 @@ null
 {
   "keyword": "청년미래적금 소득기준",
   "createdAt": "2026-08-01T13:08:28.204Z",
-  "updatedAt": "2026-08-01T13:24:31.300Z",
+  "updatedAt": "2026-08-01T13:51:16.660Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -419,7 +419,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:31.267Z"
+  "collectedAt": "2026-08-01T13:51:16.633Z"
 }
 ```
 
@@ -439,7 +439,7 @@ null
 
 #### Input Keyword
 - keyword: 청년미래적금 가구소득
-- collectedAt: 2026-08-01T13:24:32.555Z
+- collectedAt: 2026-08-01T13:51:17.906Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -450,7 +450,7 @@ null
 {
   "keyword": "청년미래적금 가구소득",
   "createdAt": "2026-08-01T13:08:29.485Z",
-  "updatedAt": "2026-08-01T13:24:32.599Z",
+  "updatedAt": "2026-08-01T13:51:17.951Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -468,7 +468,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:32.555Z"
+  "collectedAt": "2026-08-01T13:51:17.906Z"
 }
 ```
 
@@ -488,7 +488,7 @@ null
 
 #### Input Keyword
 - keyword: 미래적금
-- collectedAt: 2026-08-01T13:24:33.857Z
+- collectedAt: 2026-08-01T13:51:19.232Z
 - source: NAVER
 - collectorVersion: 0.1.0
 - validationVersion: 0.1.0
@@ -499,7 +499,7 @@ null
 {
   "keyword": "미래적금",
   "createdAt": "2026-08-01T13:08:30.775Z",
-  "updatedAt": "2026-08-01T13:24:33.956Z",
+  "updatedAt": "2026-08-01T13:51:19.347Z",
   "collectorVersion": "0.1.0",
   "validationVersion": "0.1.0"
 }
@@ -517,7 +517,7 @@ null
     "source": "NAVER"
   },
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:33.857Z"
+  "collectedAt": "2026-08-01T13:51:19.232Z"
 }
 ```
 
@@ -535,7 +535,7 @@ null
     }
   ],
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:33.901Z"
+  "collectedAt": "2026-08-01T13:51:19.287Z"
 }
 ```
 
@@ -557,7 +557,7 @@ null
     "미래적금"
   ],
   "source": "NAVER",
-  "collectedAt": "2026-08-01T13:24:33.951Z"
+  "collectedAt": "2026-08-01T13:51:19.338Z"
 }
 ```
 

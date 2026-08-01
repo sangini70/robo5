@@ -5,6 +5,7 @@ import type { RelatedKeywordEvidence } from "../collectors/naver/related.types";
 import type { SearchVolumeEvidence } from "../collectors/naver/types";
 import { JsonStorage } from "../storage";
 import { AutocompleteValidator, RelatedValidator, SearchVolumeValidator } from "../validation";
+import type { KeywordContext } from "./keyword-context";
 
 export interface CollectorServiceResult {
   searchVolume: SearchVolumeEvidence;
@@ -33,11 +34,10 @@ export class CollectorService {
 
   private readonly storage = new JsonStorage();
 
-  async collect(keyword: string, seedKeyword?: string): Promise<CollectorServiceResult> {
-    const effectiveKeyword = seedKeyword ?? keyword;
-    const searchVolume = await this.collectSearchVolume(keyword, seedKeyword);
-    const relatedKeywords = await this.collectRelatedKeywords(effectiveKeyword);
-    const autocomplete = await this.collectAutocomplete(effectiveKeyword);
+  async collect(context: KeywordContext): Promise<CollectorServiceResult> {
+    const searchVolume = await this.collectSearchVolume(context);
+    const relatedKeywords = await this.collectRelatedKeywords(context);
+    const autocomplete = await this.collectAutocomplete(context);
 
     return {
       searchVolume,
@@ -46,12 +46,12 @@ export class CollectorService {
     };
   }
 
-  private async collectSearchVolume(keyword: string, seedKeyword?: string): Promise<SearchVolumeEvidence> {
+  private async collectSearchVolume(context: KeywordContext): Promise<SearchVolumeEvidence> {
     const result = await this.searchVolumeCollector.collect({
-      keyword,
+      keyword: context.originalKeyword,
       language: DEFAULT_LANGUAGE,
       country: DEFAULT_COUNTRY,
-      options: seedKeyword === undefined ? undefined : { seedKeyword },
+      options: context.seedKeyword === undefined ? undefined : { seedKeyword: context.seedKeyword },
     });
 
     if (result.status !== "success" || result.data === null) {
@@ -71,9 +71,9 @@ export class CollectorService {
     return validation.data;
   }
 
-  private async collectRelatedKeywords(keyword: string): Promise<RelatedKeywordEvidence> {
+  private async collectRelatedKeywords(context: KeywordContext): Promise<RelatedKeywordEvidence> {
     const result = await this.relatedKeywordCollector.collect({
-      keyword,
+      keyword: context.effectiveKeyword,
       language: DEFAULT_LANGUAGE,
       country: DEFAULT_COUNTRY,
     });
@@ -95,9 +95,9 @@ export class CollectorService {
     return validation.data;
   }
 
-  private async collectAutocomplete(keyword: string): Promise<AutocompleteEvidence> {
+  private async collectAutocomplete(context: KeywordContext): Promise<AutocompleteEvidence> {
     const result = await this.autocompleteCollector.collect({
-      keyword,
+      keyword: context.effectiveKeyword,
       language: DEFAULT_LANGUAGE,
       country: DEFAULT_COUNTRY,
     });

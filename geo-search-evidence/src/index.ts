@@ -38,7 +38,10 @@ async function main(): Promise<void> {
   void foundationCheck;
   void sampleEvidence;
 
-  const result = await collectorService.collect("보험");
+  const result = await collectorService.collect({
+    originalKeyword: "보험",
+    effectiveKeyword: "보험",
+  });
   console.log(result);
 
   await new PlannerInputExporter().export();

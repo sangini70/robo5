@@ -6,3 +6,4 @@ export type {
   BatchCollectorKeywordSuccess,
   BatchCollectorResult,
 } from "./batch-collector.service";
+export type { KeywordContext } from "./keyword-context";

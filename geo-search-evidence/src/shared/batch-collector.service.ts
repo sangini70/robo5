@@ -2,6 +2,7 @@ import path from "node:path";
 import { PlannerEvidenceExporter, PlannerInputExporter } from "../exporters";
 import { generatePlannerPrompt, PLANNER_PROMPT_PATH } from "../prompts";
 import { collectorService } from "./collector-service";
+import type { KeywordContext } from "./keyword-context";
 import type { StrategyInput } from "../input";
 import { readStrategyInputMarkdown } from "../input";
 
@@ -52,8 +53,13 @@ export class BatchCollectorService {
     for (let index = 0; index < strategyInput.keywords.length; index += 1) {
       const keyword = strategyInput.keywords[index];
       const seedKeyword = strategyInput.seedKeywords?.[keyword];
+      const context: KeywordContext = {
+        originalKeyword: keyword,
+        effectiveKeyword: seedKeyword ?? keyword,
+        seedKeyword,
+      };
       try {
-        await collectorService.collect(keyword, seedKeyword);
+        await collectorService.collect(context);
         successKeywords.push({ keyword });
       } catch (error) {
         failedKeywords.push({ keyword, error: toErrorMessage(error) });
