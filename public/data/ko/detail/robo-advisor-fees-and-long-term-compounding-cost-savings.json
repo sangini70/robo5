@@ -1,6 +1,6 @@
 {
-  "customJs": "",
   "title": "로보어드바이저 수수료 체계와 음의 복리의 진실",
+  "customJs": "",
   "googleRequestedAt": "2026-07-09T14:45:47.736Z",
   "titleHistory": [],
   "language": "ko",
@@ -23,11 +23,11 @@
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "publishHour": 11,
   "category": "경제 기초",
-  "seoTitle": "로보어드바이저 수수료 체계와 음의 복리의 진실",
   "postViews": 17,
   "publishDate": "2026-07-08T02:37:09.646Z",
-  "createdAt": "2026-07-08T02:37:09.646Z",
+  "seoTitle": "로보어드바이저 수수료 체계와 음의 복리의 진실",
   "description": "연 수수료 1% 차이가 은퇴 자금 수억 원을 날려버린다?\" 내 지갑 속 소리 없는 암살자인 '음의 복리'를 타격하고 자산 보존 법칙을 완성하는 로보어드바이저 요율의 비밀을 공개합니다.",
+  "createdAt": "2026-07-08T02:37:09.646Z",
   "structuredDataJsonLd": "",
   "naverRequestedAt": "2026-07-09T14:45:53.648Z",
   "googleIndexStatus": "requested",
@@ -37,8 +37,8 @@
   "categorySlug": "economy-basics",
   "status": "published",
   "id": "1783478229480",
+  "clicks": 0,
   "flowType": "과거에서 찾는 답",
   "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-fees-and-long-term-compounding-cost-savings.webp",
-  "clicks": 0,
   "naverIndexStatus": "requested"
 }
