@@ -33,8 +33,8 @@ export class CollectorService {
 
   private readonly storage = new JsonStorage();
 
-  async collect(keyword: string): Promise<CollectorServiceResult> {
-    const searchVolume = await this.collectSearchVolume(keyword);
+  async collect(keyword: string, seedKeyword?: string): Promise<CollectorServiceResult> {
+    const searchVolume = await this.collectSearchVolume(keyword, seedKeyword);
     const relatedKeywords = await this.collectRelatedKeywords(keyword);
     const autocomplete = await this.collectAutocomplete(keyword);
 
@@ -45,11 +45,12 @@ export class CollectorService {
     };
   }
 
-  private async collectSearchVolume(keyword: string): Promise<SearchVolumeEvidence> {
+  private async collectSearchVolume(keyword: string, seedKeyword?: string): Promise<SearchVolumeEvidence> {
     const result = await this.searchVolumeCollector.collect({
       keyword,
       language: DEFAULT_LANGUAGE,
       country: DEFAULT_COUNTRY,
+      options: seedKeyword === undefined ? undefined : { seedKeyword },
     });
 
     if (result.status !== "success" || result.data === null) {

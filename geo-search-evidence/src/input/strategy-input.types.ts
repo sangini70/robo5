@@ -1,6 +1,7 @@
 export interface StrategyInput {
   issue?: string;
   keywords: string[];
+  seedKeywords?: Record<string, string>;
   notes?: string;
 }
 

@@ -1,5 +1,5 @@
 import path from "node:path";
-import { PlannerInputExporter } from "../exporters";
+import { PlannerEvidenceExporter, PlannerInputExporter } from "../exporters";
 import { generatePlannerPrompt, PLANNER_PROMPT_PATH } from "../prompts";
 import { collectorService } from "./collector-service";
 import type { StrategyInput } from "../input";
@@ -16,10 +16,12 @@ export interface BatchCollectorKeywordSuccess {
 
 export interface BatchCollectorResult {
   issue?: string;
+  notes?: string;
   inputPath: string;
   successKeywords: BatchCollectorKeywordSuccess[];
   failedKeywords: BatchCollectorKeywordFailure[];
   plannerInputPath?: string;
+  plannerEvidencePath?: string;
   plannerPromptPath?: string;
 }
 
@@ -49,8 +51,9 @@ export class BatchCollectorService {
 
     for (let index = 0; index < strategyInput.keywords.length; index += 1) {
       const keyword = strategyInput.keywords[index];
+      const seedKeyword = strategyInput.seedKeywords?.[keyword];
       try {
-        await collectorService.collect(keyword);
+        await collectorService.collect(keyword, seedKeyword);
         successKeywords.push({ keyword });
       } catch (error) {
         failedKeywords.push({ keyword, error: toErrorMessage(error) });
@@ -75,14 +78,27 @@ export class BatchCollectorService {
       keywords: allowedKeywords,
     });
 
+    const plannerEvidenceResult = await new PlannerEvidenceExporter().export({
+      issue: strategyInput.issue,
+      notes: strategyInput.notes,
+      requestedKeywords: strategyInput.keywords,
+      successfulKeywords: allowedKeywords,
+      failedKeywords: failedKeywords.map((item) => ({
+        keyword: item.keyword,
+        reason: item.error,
+      })),
+    });
+
     await generatePlannerPrompt(plannerInputResult.path, PLANNER_PROMPT_PATH);
 
     return {
       issue: strategyInput.issue,
+      notes: strategyInput.notes,
       inputPath,
       successKeywords,
       failedKeywords,
       plannerInputPath: plannerInputResult.path,
+      plannerEvidencePath: plannerEvidenceResult.path,
       plannerPromptPath: PLANNER_PROMPT_PATH,
     };
   }
