@@ -7,41 +7,33 @@
   "slug": "robo-advisor-investment-principles-and-asset-allocation",
   "createdAt": "2026-03-24T15:46:12.753Z",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "naverRequestedAt": "2026-04-06T13:31:58.242Z",
-  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f2f5;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            border: 1px solid #e0e0e0;\n            box-sizing: border-box;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #fffde7;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #ddd;\n            margin-top: 15px;\n        }\n.single-summary-card-container { font-family: 'Noto Sans KR', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px 10px; background-color: #f0f2f5; margin: 20px 0; } .single-summary-card { width: 100%; max-width: 700px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); padding: 25px; display: flex; flex-direction: column; border: 1px solid #e0e0e0; box-sizing: border-box; } .single-summary-card .card-header { display: flex; align-items: center; border-bottom: 2px solid #1a73e8; padding-bottom: 12px; margin-bottom: 12px; } .single-summary-card .card-header-icon { font-size: 34px; color: #1a73e8; margin-right: 14px; } .single-summary-card .card-header h3 { font-size: 26px; color: #1a73e8; margin: 0; line-height: 1.3; font-weight: 700; } .single-summary-card .card-content { font-size: 17px; line-height: 1.65; color: #333; } .single-summary-card .card-content .highlight { background-color: #fffde7; padding: 2px 6px; border-radius: 3px; font-weight: bold; } .single-summary-card .card-footer { font-size: 14px; color: #777; text-align: center; padding-top: 12px; border-top: 1px dashed #ddd; margin-top: 15px; }",
-  "googleRequestedAt": "2026-04-06T16:21:46.026Z",
   "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-investment-principles-and-asset-allocation.webp",
+  "googleRequestedAt": "2026-04-06T16:21:46.026Z",
   "dailyImpressions": {
     "2026-04-02": 3,
     "2026-04-03": 7
   },
   "publishHour": 16,
   "titleHistory": [],
+  "naverRequestedAt": "2026-04-06T13:31:58.242Z",
+  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f2f5;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            border: 1px solid #e0e0e0;\n            box-sizing: border-box;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #fffde7;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #ddd;\n            margin-top: 15px;\n        }\n.single-summary-card-container { font-family: 'Noto Sans KR', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px 10px; background-color: #f0f2f5; margin: 20px 0; } .single-summary-card { width: 100%; max-width: 700px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); padding: 25px; display: flex; flex-direction: column; border: 1px solid #e0e0e0; box-sizing: border-box; } .single-summary-card .card-header { display: flex; align-items: center; border-bottom: 2px solid #1a73e8; padding-bottom: 12px; margin-bottom: 12px; } .single-summary-card .card-header-icon { font-size: 34px; color: #1a73e8; margin-right: 14px; } .single-summary-card .card-header h3 { font-size: 26px; color: #1a73e8; margin: 0; line-height: 1.3; font-weight: 700; } .single-summary-card .card-content { font-size: 17px; line-height: 1.65; color: #333; } .single-summary-card .card-content .highlight { background-color: #fffde7; padding: 2px 6px; border-radius: 3px; font-weight: bold; } .single-summary-card .card-footer { font-size: 14px; color: #777; text-align: center; padding-top: 12px; border-top: 1px dashed #ddd; margin-top: 15px; }",
+  "language": "ko",
+  "dailyViews": {
+    "2026-04-06": 1,
+    "2026-04-03": 2,
+    "2026-04-02": 1,
+    "2026-04-07": 1,
+    "2026-04-11": 1
+  },
+  "flowType": "과거에서 찾는 답",
+  "naverIndexStatus": "requested",
+  "status": "published",
   "id": "9NrwMNNd00g9l8T9WGom",
   "updatedAt": "2026-07-06T07:11:00.438Z",
   "category": "경제 기초",
   "customJs": "function calculateTax() {\n            const profit = parseFloat(document.getElementById('totalProfit').value);\n            if (isNaN(profit)) {\n                alert('수익 금액을 입력해주세요.');\n                return;\n            }\n            \n            const deduction = 2500000;\n            const taxable = Math.max(0, profit - deduction);\n            const tax = taxable * 0.22;\n\n            document.getElementById('taxableIncome').textContent = taxable.toLocaleString();\n            document.getElementById('finalTax').textContent = Math.round(tax).toLocaleString();\n            document.getElementById('taxResultBox').style.display = 'block';\n        }",
   "publishDate": "2026-07-06T07:11:01.333Z",
   "clicks": 2,
-  "language": "ko",
-  "dailyViews": {
-    "2026-04-07": 1,
-    "2026-04-11": 1,
-    "2026-04-06": 1,
-    "2026-04-02": 1,
-    "2026-04-03": 2
-  },
-  "flowType": "과거에서 찾는 답",
-  "naverIndexStatus": "requested",
-  "status": "published",
-  "tags": [
-    "로보어드바이저",
-    "자산배분",
-    "포트폴리오",
-    "리밸런싱",
-    "투자알고리즘"
-  ],
-  "seoDescription": "로보어드바이저의 핵심 투자 원리는 단순한 주가 예측이 아닌 현대 포트폴리오 이론에 기반한 자산 배분과 자동 리밸런싱입니다. 감정에 휘둘리지 않고 철저한 데이터 기반으로 리스크를 관리하는 3단계 과정을 확인해 보세요.",
   "postViews": 15,
   "googleIndexedAt": "2026-04-07T08:01:38.304Z",
   "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"해외 로보어드바이저 투자의 공제 한도는 얼마인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 매년 1월 1일부터 12월 31일까지 발생한 실현 수익 중 250만 원까지 기본 공제됩니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"양도소득세 세율은 어떻게 되나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 기본 공제액 250만 원을 제외한 나머지 수익에 대해 22%(지방소득세 포함)가 적용됩니다.\"\n                }\n            }\n        ]\n    }",
@@ -50,5 +42,13 @@
     "2026-04-02": 1,
     "2026-04-03": 1
   },
-  "categorySlug": "경제 기초"
+  "categorySlug": "경제 기초",
+  "tags": [
+    "로보어드바이저",
+    "자산배분",
+    "포트폴리오",
+    "리밸런싱",
+    "투자알고리즘"
+  ],
+  "seoDescription": "로보어드바이저의 핵심 투자 원리는 단순한 주가 예측이 아닌 현대 포트폴리오 이론에 기반한 자산 배분과 자동 리밸런싱입니다. 감정에 휘둘리지 않고 철저한 데이터 기반으로 리스크를 관리하는 3단계 과정을 확인해 보세요."
 }
