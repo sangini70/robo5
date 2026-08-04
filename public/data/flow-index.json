@@ -1,4 +1,7 @@
 {
+  "financial-products": [
+    "cheongnyeon-mirae-savings-eligibility"
+  ],
   "exchange-rate": [
     "exchange-rate-risk-management",
     "exchange-rate-nasdaq",
