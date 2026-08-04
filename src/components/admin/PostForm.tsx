@@ -61,6 +61,7 @@ const PLANNER_META_FIELD_MAP: Record<string, PlannerMetaField> = {
   'MAIN KEYWORD': 'mainKeyword',
   'SECONDARY KEYWORDS': 'secondaryKeywords',
   'SEARCH INTENT': 'searchIntent',
+  '검색 의도': 'searchIntent',
   CATEGORY: 'category',
   'CATEGORY SLUG': 'categorySlug',
   'SEO TITLE': 'seoTitle',
@@ -69,11 +70,39 @@ const PLANNER_META_FIELD_MAP: Record<string, PlannerMetaField> = {
   TAGS: 'tags',
 };
 
-const PLANNER_META_IGNORED_LABELS = new Set([
-  'SCHEMA TYPE',
-  'HUB ANCHOR TEXT',
-  'INTERNAL LINK URLS',
-]);
+type PlannerMetaLabelDefinition = {
+  labels: string[];
+  field?: PlannerMetaField;
+  ignored?: boolean;
+};
+
+const PLANNER_META_LABEL_DEFINITIONS: PlannerMetaLabelDefinition[] = [
+  { labels: ['TITLE'], field: 'title' },
+  { labels: ['SLUG', 'POST URL'], field: 'slug' },
+  { labels: ['POST STATUS'], field: 'status' },
+  { labels: ['MAIN KEYWORD'], field: 'mainKeyword' },
+  { labels: ['SECONDARY KEYWORDS'], field: 'secondaryKeywords' },
+  { labels: ['SEARCH INTENT', '검색 의도'], field: 'searchIntent' },
+  { labels: ['CATEGORY'], field: 'category' },
+  { labels: ['CATEGORY SLUG'], field: 'categorySlug' },
+  { labels: ['SEO TITLE'], field: 'seoTitle' },
+  { labels: ['META DESCRIPTION'], field: 'seoDescription' },
+  { labels: ['EXCERPT'], field: 'description' },
+  { labels: ['TAGS'], field: 'tags' },
+  { labels: ['HUB', '부모 허브', 'PARENT HUB'], ignored: true },
+  { labels: ['USER QUESTION'], ignored: true },
+  { labels: ['DIRECT ANSWER GOAL'], ignored: true },
+  { labels: ['UNDERSTANDING GOAL'], ignored: true },
+  { labels: ['콘텐츠 유형', 'CONTENT TYPE'], ignored: true },
+  { labels: ['선행 노드', 'PREVIOUS'], ignored: true },
+  { labels: ['후속 노드', 'NEXT'], ignored: true },
+  { labels: ['내부 링크(OUT)', 'OUTBOUND INTERNAL LINKS'], ignored: true },
+  { labels: ['내부 링크(IN)', 'INBOUND INTERNAL LINKS'], ignored: true },
+  { labels: ['VERIFICATION REQUIRED'], ignored: true },
+  { labels: ['SCHEMA TYPE'], ignored: true },
+  { labels: ['HUB ANCHOR TEXT'], ignored: true },
+  { labels: ['INTERNAL LINK URLS'], ignored: true },
+];
 
 const PLANNER_META_DISPLAY_ORDER: Array<{
   field: PlannerMetaField;
@@ -94,24 +123,7 @@ const PLANNER_META_DISPLAY_ORDER: Array<{
   { field: 'tags', label: 'TAGS' },
 ];
 
-const PLANNER_META_LABELS = [
-  'CATEGORY SLUG',
-  'SECONDARY KEYWORDS',
-  'SEARCH INTENT',
-  'META DESCRIPTION',
-  'HUB ANCHOR TEXT',
-  'INTERNAL LINK URLS',
-  'POST STATUS',
-  'POST URL',
-  'MAIN KEYWORD',
-  'SEO TITLE',
-  'SCHEMA TYPE',
-  'EXCERPT',
-  'CATEGORY',
-  'TITLE',
-  'SLUG',
-  'TAGS',
-];
+const PLANNER_META_LABELS = PLANNER_META_LABEL_DEFINITIONS.flatMap((definition) => definition.labels);
 
 const SEARCH_INTENT_OPTIONS = [
   { value: '', label: '선택 안함' },
@@ -368,6 +380,10 @@ function extractPlannerMetaBlock(text: string) {
   const startIndex = text.indexOf(startMarker);
   const endIndex = text.indexOf(endMarker);
 
+  if (startIndex === -1 && endIndex === -1) {
+    return text;
+  }
+
   if (startIndex === -1 || endIndex === -1 || endIndex <= startIndex) {
     return null;
   }
@@ -391,6 +407,7 @@ function normalizePlannerIntent(value: string) {
     informational: 'informational',
     정보형: 'informational',
     definition: 'definition',
+    정의: 'definition',
     정의형: 'definition',
     comparison: 'comparison',
     비교형: 'comparison',
@@ -447,6 +464,34 @@ function normalizePlannerTags(value: string) {
     .join(', ');
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function matchPlannerMetaLabel(line: string) {
+  const normalizedLine = line.trim();
+  if (!normalizedLine) return null;
+
+  for (const definition of PLANNER_META_LABEL_DEFINITIONS) {
+    for (const label of definition.labels) {
+      if (normalizedLine.toUpperCase() === label.toUpperCase()) {
+        return { definition, inlineValue: '' };
+      }
+
+      const inlinePattern = new RegExp(
+        `^${escapeRegExp(label)}(?:\\s*[:：]\\s*|\\t+|\\s{2,}|\\s+)(.+)$`,
+        'i'
+      );
+      const inlineMatch = normalizedLine.match(inlinePattern);
+      if (inlineMatch) {
+        return { definition, inlineValue: inlineMatch[1].trim() };
+      }
+    }
+  }
+
+  return null;
+}
+
 function parsePlannerMeta(text: string) {
   const block = extractPlannerMetaBlock(text);
   const values: PlannerMetaValues = {};
@@ -459,6 +504,9 @@ function parsePlannerMeta(text: string) {
   let currentField: PlannerMetaField | null = null;
   let ignoringField = false;
   let currentParts: string[] = [];
+  let recognizedAny = false;
+  const hasExplicitMarkers =
+    text.includes('[PLANNER POST META 시작]') && text.includes('[PLANNER POST META 종료]');
 
   const commitCurrentField = () => {
     if (!currentField) return;
@@ -474,19 +522,17 @@ function parsePlannerMeta(text: string) {
     const line = stripPlannerDecorations(rawLine);
     if (!line) continue;
 
-    const upperLine = line.toUpperCase();
-    const matchedLabel = PLANNER_META_LABELS.find((label) => {
-      return upperLine === label || upperLine.startsWith(`${label}:`);
-    });
+    const matchedLabel = matchPlannerMetaLabel(line);
 
     if (matchedLabel) {
+      recognizedAny = true;
       commitCurrentField();
       ignoringField = false;
 
-      const field = PLANNER_META_FIELD_MAP[matchedLabel];
-      const inlineValue = line.slice(matchedLabel.length).replace(/^:\s*/, '').trim();
+      const field = matchedLabel.definition.field;
+      const inlineValue = matchedLabel.inlineValue;
 
-      if (field && !PLANNER_META_IGNORED_LABELS.has(matchedLabel)) {
+      if (field) {
         currentField = field;
         currentParts = [];
         if (inlineValue) {
@@ -526,7 +572,7 @@ function parsePlannerMeta(text: string) {
     values.tags = normalizePlannerTags(values.tags);
   }
 
-  return { values, found: true };
+  return { values, found: hasExplicitMarkers || recognizedAny };
 }
 
 export function PostForm({ initialData, postId }: PostFormProps) {
