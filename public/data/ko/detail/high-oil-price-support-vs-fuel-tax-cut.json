@@ -7,32 +7,41 @@
   "naverRequestedAt": "2026-04-06T13:30:07.391Z",
   "customCss": "",
   "naverIndexStatus": "requested",
-  "slug": "high-oil-price-support-vs-fuel-tax-cut",
   "dailyImpressions": {
-    "2026-04-07": 1,
-    "2026-04-11": 2,
     "2026-04-05": 1,
-    "2026-04-06": 1
+    "2026-04-06": 1,
+    "2026-04-07": 1,
+    "2026-04-11": 2
   },
   "updatedAt": "2026-04-03T14:59:00.078Z",
-  "googleRequestedAt": "2026-04-06T16:21:36.356Z",
-  "structuredDataJsonLd": "",
+  "slug": "high-oil-price-support-vs-fuel-tax-cut",
   "status": "published",
   "id": "u3I3VAVpsa6MapP18xIa",
+  "googleRequestedAt": "2026-04-06T16:21:36.356Z",
+  "structuredDataJsonLd": "",
   "customJs": "",
   "seoDescription": "2026년 4월 도입되는 고유가 지원금 60만 원과 유류세 인하의 실질적인 체감 효과를 비교했습니다. 운전자와 비운전자 중 누구에게 더 유리한지 확인하세요.",
   "googleIndexStatus": "indexed",
   "publishDate": "2026-04-04T00:19:00.000Z",
   "flowType": "",
   "clicks": 0,
+  "category": "경제 기초",
   "categorySlug": "경제 기초",
   "titleHistory": [],
-  "category": "경제 기초",
   "createdAt": "2026-04-03T14:59:00.078Z",
   "description": "최대 60만 원 현금 지원과 유류세 인하 조치의 차이점 및 본인에게 유리한 정책 선택 기준을 정보 위주로 상세히 안내합니다.",
   "seoTitle": "고유가 지원금 vs 유류세 인하 차이점 및 혜택 비교",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/high-oil-price-support-vs-fuel-tax-cut.webp",
   "impressions": 5,
+  "thumbnail": "https://robo-advisor.kr/thumbnails/high-oil-price-support-vs-fuel-tax-cut.webp",
+  "dailyViews": {
+    "2026-04-04": 1,
+    "2026-04-05": 1,
+    "2026-04-13": 1,
+    "2026-04-06": 1,
+    "2026-04-11": 1,
+    "2026-04-07": 2
+  },
+  "postViews": 11,
   "tags": [
     "고유가 지원금",
     "유류세 인하",
@@ -42,14 +51,5 @@
     "fuel tax cut",
     "energy subsidy"
   ],
-  "dailyViews": {
-    "2026-04-13": 1,
-    "2026-04-06": 1,
-    "2026-04-11": 1,
-    "2026-04-07": 2,
-    "2026-04-04": 1,
-    "2026-04-05": 1
-  },
-  "postViews": 11,
   "publishHour": 9
 }

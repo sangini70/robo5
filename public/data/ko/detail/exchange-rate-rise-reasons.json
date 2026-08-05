@@ -1,13 +1,5 @@
 {
   "publishHour": 16,
-  "dailyViews": {
-    "2026-04-11": 2,
-    "2026-04-13": 1,
-    "2026-04-06": 1,
-    "2026-04-02": 3,
-    "2026-04-09": 1
-  },
-  "postViews": 23,
   "tags": [
     "환율",
     "달러",
@@ -17,38 +9,46 @@
     "exchange rate",
     "dollar rise"
   ],
-  "impressions": 20,
+  "dailyViews": {
+    "2026-04-11": 2,
+    "2026-04-06": 1,
+    "2026-04-13": 1,
+    "2026-04-02": 3,
+    "2026-04-09": 1
+  },
+  "postViews": 23,
   "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-rise-reasons.webp",
+  "impressions": 20,
+  "createdAt": "2026-04-01T04:41:49.960Z",
+  "seoTitle": "환율 상승 이유 4가지 핵심 원인 정리",
+  "description": "복잡한 경제 지표를 통해 환율이 오르는 이유를 분석하고 실생활에 미치는 영향을 정리해 드립니다.",
   "dailyClicks": {
     "2026-04-02": 1
   },
-  "createdAt": "2026-04-01T04:41:49.960Z",
-  "description": "복잡한 경제 지표를 통해 환율이 오르는 이유를 분석하고 실생활에 미치는 영향을 정리해 드립니다.",
-  "seoTitle": "환율 상승 이유 4가지 핵심 원인 정리",
-  "category": "환율",
   "categorySlug": "환율",
   "titleHistory": [],
+  "category": "환율",
   "clicks": 1,
-  "publishDate": "2026-07-06T07:00:02.110Z",
   "flowType": "위로의 방향",
+  "publishDate": "2026-07-06T07:00:02.110Z",
   "seoDescription": "미국 금리 인상부터 무역수지 적자까지 환율이 오르는 4가지 핵심 이유를 알기 쉽게 설명합니다. 고환율 시대의 원인과 대처법을 확인하세요.",
   "googleIndexStatus": "indexed",
   "customJs": "",
-  "status": "published",
-  "id": "NwU7eAtJDg7rAyhEYkHL",
   "googleRequestedAt": "2026-04-06T16:21:57.939Z",
   "structuredDataJsonLd": "",
+  "status": "published",
+  "id": "NwU7eAtJDg7rAyhEYkHL",
+  "slug": "exchange-rate-rise-reasons",
   "dailyImpressions": {
-    "2026-04-03": 1,
-    "2026-05-23": 1,
-    "2026-04-02": 10,
     "2026-04-08": 1,
     "2026-04-10": 1,
+    "2026-04-11": 2,
     "2026-04-07": 4,
-    "2026-04-11": 2
+    "2026-04-03": 1,
+    "2026-04-02": 10,
+    "2026-05-23": 1
   },
   "updatedAt": "2026-07-06T07:00:01.658Z",
-  "slug": "exchange-rate-rise-reasons",
   "naverIndexStatus": "requested",
   "naverRequestedAt": "2026-04-06T13:37:38.495Z",
   "customCss": "",
