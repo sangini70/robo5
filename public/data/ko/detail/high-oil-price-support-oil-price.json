@@ -1,7 +1,7 @@
 {
   "createdAt": "2026-04-13T05:12:34.000Z",
-  "description": "유가 폭등 시 현금 지원이 필요한 이유와 인플레이션 리스크를 포함한 고유가 지원금 정책의 핵심을 정리했습니다.",
   "seoTitle": "국제유가 폭등과 고유가 지원금 관계 및 경제적 영향 정리",
+  "description": "유가 폭등 시 현금 지원이 필요한 이유와 인플레이션 리스크를 포함한 고유가 지원금 정책의 핵심을 정리했습니다.",
   "dailyClicks": {
     "2026-05-23": 1
   },
@@ -25,8 +25,8 @@
   "publishHour": 22,
   "seoDescription": "2026년 4월 국제유가 58.6% 폭등 상황에서 정부가 추진하는 고유가 지원금 60만 원의 배경과 실질적인 경제적 가치를 분석합니다.",
   "googleIndexStatus": "none",
-  "flowType": "위로의 방향",
   "publishDate": "2026-06-27T13:38:27.787Z",
+  "flowType": "위로의 방향",
   "clicks": 1,
   "categorySlug": "세금/지원금",
   "titleHistory": [],
@@ -35,9 +35,9 @@
   "slug": "high-oil-price-support-oil-price",
   "updatedAt": "2026-06-27T13:38:26.546Z",
   "dailyImpressions": {
-    "2026-05-27": 1,
+    "2026-05-26": 1,
     "2026-05-23": 1,
-    "2026-05-26": 1
+    "2026-05-27": 1
   },
   "structuredDataJsonLd": "",
   "status": "published",
