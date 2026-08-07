@@ -631,7 +631,14 @@ function buildFirestorePayload(postData: Record<string, any>, mode: 'create' | '
   const updatedAtValue = nowIso;
   const existingPublishDateValue = normalizeTimestampInput(existingPost?.publishDate);
   const incomingPublishDateValue = normalizeTimestampInput(postData.publishDate);
-  const publishDateValue = mode === 'edit' && existingPublishDateValue
+  const existingPublishDate = existingPublishDateValue ? new Date(existingPublishDateValue) : null;
+  const isImmutablePublishedDate =
+    mode === 'edit'
+    && String(existingPost?.status ?? '').trim() === 'published'
+    && existingPublishDate
+    && !Number.isNaN(existingPublishDate.getTime())
+    && existingPublishDate <= new Date();
+  const publishDateValue = isImmutablePublishedDate
     ? existingPublishDateValue
     : incomingPublishDateValue;
 

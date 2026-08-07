@@ -887,18 +887,25 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     setShowPreview(true);
   };
 
-  const normalizeJsonDateValue = (value: any) => {
-    if (!value) return null;
-    if (typeof value?.toDate === 'function') return value.toDate().toISOString();
-    if (value instanceof Date) return value.toISOString();
-    if (typeof value === 'string') return value;
-    return null;
-  };
+    const normalizeJsonDateValue = (value: any) => {
+      if (!value) return null;
+      if (typeof value?.toDate === 'function') return value.toDate().toISOString();
+      if (value instanceof Date) return value.toISOString();
+      if (typeof value === 'string') return value;
+      return null;
+    };
 
-  const buildJsonPostPayload = (sourcePostData: any, currentMode: 'create' | 'edit') => {
-    const jsonPayload = { ...sourcePostData };
-    const publishDateValue = normalizeJsonDateValue(sourcePostData.publishDate) || (
-      formData.status === 'published'
+    const isImmutablePublishedDate = (value: any, status: any) => {
+      const normalizedValue = normalizeJsonDateValue(value);
+      if (!normalizedValue || status !== 'published') return false;
+      const publishDate = new Date(normalizedValue);
+      return !Number.isNaN(publishDate.getTime()) && publishDate <= new Date();
+    };
+
+    const buildJsonPostPayload = (sourcePostData: any, currentMode: 'create' | 'edit') => {
+      const jsonPayload = { ...sourcePostData };
+      const publishDateValue = normalizeJsonDateValue(sourcePostData.publishDate) || (
+        formData.status === 'published'
         ? (publishMode === 'schedule' && formData.publishDate
           ? new Date(`${formData.publishDate}+09:00`).toISOString()
           : new Date().toISOString())
@@ -950,8 +957,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
       const existingPublishDateValue = normalizeJsonDateValue(initialData?.publishDate);
+      const isImmutableExistingPublishedDate = isImmutablePublishedDate(initialData?.publishDate, initialData?.status);
 
-      let publishTimestamp = existingPublishDateValue;
+      let publishTimestamp = isImmutableExistingPublishedDate ? existingPublishDateValue : null;
       let publishHour: number | null = null;
       if (!publishTimestamp && formData.status === 'published') {
         if (publishMode === 'schedule' && formData.publishDate) {
