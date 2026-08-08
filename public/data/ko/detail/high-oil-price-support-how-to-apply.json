@@ -8,13 +8,13 @@
   "language": "ko",
   "flowType": "",
   "impressions": 2,
-  "googleRequestedAt": "2026-04-06T16:21:38.405Z",
   "customCss": "",
-  "dailyImpressions": {
-    "2026-04-05": 1,
-    "2026-04-06": 1
-  },
+  "googleRequestedAt": "2026-04-06T16:21:38.405Z",
   "seoTitle": "고유가 지원금 신청 방법 및 대상 60만원 정리",
+  "dailyImpressions": {
+    "2026-04-06": 1,
+    "2026-04-05": 1
+  },
   "tags": [
     "고유가 지원금",
     "유가 폭등 대책",
@@ -26,10 +26,10 @@
   ],
   "description": "최대 60만 원이 지급되는 고유가 지원금의 대상 확인 방법과 도입 배경을 정보 중심으로 상세히 안내해 드립니다.",
   "dailyViews": {
-    "2026-04-06": 4,
     "2026-04-07": 1,
     "2026-04-11": 3,
-    "2026-04-09": 1
+    "2026-04-09": 1,
+    "2026-04-06": 4
   },
   "title": "고유가 지원금 신청 방법 및 대상 60만원 정리",
   "publishHour": 2,
@@ -45,7 +45,7 @@
   "thumbnail": "https://robo-advisor.kr/thumbnails/high-oil-price-support-how-to-apply.webp",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "clicks": 0,
-  "id": "mZUMVrWMTwhmGWFqMSkf",
   "publishDate": "2026-04-03T17:09:00.000Z",
+  "id": "mZUMVrWMTwhmGWFqMSkf",
   "categorySlug": "경제 기초"
 }
