@@ -1,4 +1,8 @@
 {
+  "national-pension": [
+    "national-pension-contribution-rate-current",
+    "national-pension-reform"
+  ],
   "": [
     "national-pension-contribution-rate-definition",
     "nasdaq-futures"
@@ -20,9 +24,6 @@
     "national-pension-reform-impact",
     "national-pension-income-replacement-rate",
     "national-pension-premium-change"
-  ],
-  "national-pension": [
-    "national-pension-reform"
   ],
   "financial-support": [
     "cheongnyeon-mirae-savings-transfer-vs-keep",
