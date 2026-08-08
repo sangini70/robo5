@@ -1,4 +1,8 @@
 {
+  "": [
+    "national-pension-contribution-rate-definition",
+    "nasdaq-futures"
+  ],
   "taxation": [
     "tax-reform-2026-impact",
     "tax-reform-2026-income-tax-deduction-credit-changes",
@@ -74,9 +78,6 @@
     "nasdaq-futures-trading-hours",
     "nasdaq-futures-fall-reasons",
     "nasdaq-futures-rise-reasons"
-  ],
-  "": [
-    "nasdaq-futures"
   ],
   "financial-basics": [
     "types-of-etf-explained"
