@@ -1,14 +1,4 @@
 {
-  "title": "로보어드바이저 프로파일링 원리! AI성향진단의 비밀",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-investor-profiling-algorithm.webp",
-  "id": "1783257884922",
-  "customJs": "function testProfiling() {\n            var ans1 = document.querySelector('input[name=\"ans1\"]:checked').value;\n            var ans2 = document.querySelector('input[name=\"ans2\"]:checked').value;\n            var resultBox = document.getElementById('profilingResult');\n            resultBox.style.display = 'block';\n            \n            if (ans1 === 'safe' && ans2 === 'risk') {\n                resultBox.innerHTML = '<strong>⚠️ [일관성 페널티 발동]</strong><br>손실 거부 성향과 위험 상품 선호 성향 간의 심각한 모순이 감지되었습니다. 알고리즘 내부의 <strong>최소치 지배 규칙(Min-Weighting Rule)</strong>에 의해 사용자의 공격성 선택은 무효화되며, 자산을 보호하기 위해 포트폴리오가 <strong>[안정추구형]</strong>으로 강제 자동 하향 배정됩니다.';\n            } else if (ans1 === 'risk' && ans2 === 'safe') {\n                resultBox.innerHTML = '<strong>⚠️ [일관성 페널티 발동]</strong><br>높은 변동성 수용 의사에 반해 극도로 안전한 상품만을 조합하는 불일치가 확인되었습니다. 엔진이 신뢰도를 조정하여 포트폴리오 비중을 위험중립 수준의 균등형 자산배분으로 완충 제어합니다.';\n            } else if (ans1 === 'safe' && ans2 === 'safe') {\n                resultBox.innerHTML = '<strong>진단 완료: [안정추구형 (Conservative)]</strong><br>응답의 논리적 일관성이 매우 높습니다. 알고리즘은 원금 보존에 초점을 맞추어 단기 채권 및 머니마켓펀드(MMF) 위주로 안전망을 극대화합니다.';\n            } else {\n                resultBox.innerHTML = '<strong>진단 완료: [공격투자형 (Aggressive)]</strong><br>적극적으로 위험을 감수하겠다는 의지가 일관되게 확인되었습니다. 장기 복리 시너지를 위해 글로벌 주식 지수 및 원자재 등 변동성이 높은 성장성 자산 위주로 포트폴리오를 채웁니다.';\n            }\n        }",
-  "seoTitle": "로보어드바이저 프로파일링 원리! AI성향진단의 비밀",
-  "slug": "robo-advisor-investor-profiling-algorithm",
-  "titleHistory": [],
-  "language": "ko",
-  "status": "published",
-  "description": "내가 누른 설문조사 답변 몇 개가 내 돈 수천만 원의 운명을 결정한다? 모순을 필터링하고 지갑 사정을 추적하는 로보어드바이저 프로파일링의 소름 돋는 연산 이면을 파헤칩니다.",
   "createdAt": "2026-07-05T13:24:45.025Z",
   "categorySlug": "economy-basics",
   "impressions": 0,
@@ -41,5 +31,15 @@
   "postViews": 4,
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"설문조사 결과가 제 실제 성향과 다르게 너무 방어적으로 나왔어요. 수수료를 내는데 왜 제 마음대로 공격적인 자산 비중을 높이지 못하게 막는 건가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 금융소비자보호법(금소법)상 적합성의 원칙 때문입니다. 고객의 실제 재무 상태나 자금 목적에 비해 지나치게 위험한 자산을 배정하는 것은 법적 부당 권유에 해당하므로, 알고리즘이 일관성 페널티 및 최소치 지배 규칙을 발동하여 투자자의 자산을 선제적으로 보호하기 위해 위험 등급을 강제 하향 조정한 것입니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"자연어 처리(NLP)나 금융 디지털 트윈 같은 차세대 프로파일링 기술은 기존 진단과 무엇이 다른가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 차세대 프로파일링 기술은 고정된 설문지를 넘어 가상 공간의 디지털 쌍둥이(트윈)에게 수만 번의 역사적 경제 위기 시뮬레이션을 통과시키고, 상담 텍스트 내 어조를 NLP 감성 분석으로 실시간 추적하여 투자자가 폭락 국면에서 패닉 셀링(뇌동매매)을 감행할 잠재적 임계점까지 정교하게 예측해 냅니다.\"\n                }\n            }\n        ]\n    }",
-  "updatedAt": "2026-07-05T13:30:25.901Z"
+  "updatedAt": "2026-07-05T13:30:25.901Z",
+  "title": "로보어드바이저 프로파일링 원리! AI성향진단의 비밀",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/robo-advisor-investor-profiling-algorithm.webp",
+  "id": "1783257884922",
+  "customJs": "function testProfiling() {\n            var ans1 = document.querySelector('input[name=\"ans1\"]:checked').value;\n            var ans2 = document.querySelector('input[name=\"ans2\"]:checked').value;\n            var resultBox = document.getElementById('profilingResult');\n            resultBox.style.display = 'block';\n            \n            if (ans1 === 'safe' && ans2 === 'risk') {\n                resultBox.innerHTML = '<strong>⚠️ [일관성 페널티 발동]</strong><br>손실 거부 성향과 위험 상품 선호 성향 간의 심각한 모순이 감지되었습니다. 알고리즘 내부의 <strong>최소치 지배 규칙(Min-Weighting Rule)</strong>에 의해 사용자의 공격성 선택은 무효화되며, 자산을 보호하기 위해 포트폴리오가 <strong>[안정추구형]</strong>으로 강제 자동 하향 배정됩니다.';\n            } else if (ans1 === 'risk' && ans2 === 'safe') {\n                resultBox.innerHTML = '<strong>⚠️ [일관성 페널티 발동]</strong><br>높은 변동성 수용 의사에 반해 극도로 안전한 상품만을 조합하는 불일치가 확인되었습니다. 엔진이 신뢰도를 조정하여 포트폴리오 비중을 위험중립 수준의 균등형 자산배분으로 완충 제어합니다.';\n            } else if (ans1 === 'safe' && ans2 === 'safe') {\n                resultBox.innerHTML = '<strong>진단 완료: [안정추구형 (Conservative)]</strong><br>응답의 논리적 일관성이 매우 높습니다. 알고리즘은 원금 보존에 초점을 맞추어 단기 채권 및 머니마켓펀드(MMF) 위주로 안전망을 극대화합니다.';\n            } else {\n                resultBox.innerHTML = '<strong>진단 완료: [공격투자형 (Aggressive)]</strong><br>적극적으로 위험을 감수하겠다는 의지가 일관되게 확인되었습니다. 장기 복리 시너지를 위해 글로벌 주식 지수 및 원자재 등 변동성이 높은 성장성 자산 위주로 포트폴리오를 채웁니다.';\n            }\n        }",
+  "seoTitle": "로보어드바이저 프로파일링 원리! AI성향진단의 비밀",
+  "slug": "robo-advisor-investor-profiling-algorithm",
+  "titleHistory": [],
+  "language": "ko",
+  "status": "published",
+  "description": "내가 누른 설문조사 답변 몇 개가 내 돈 수천만 원의 운명을 결정한다? 모순을 필터링하고 지갑 사정을 추적하는 로보어드바이저 프로파일링의 소름 돋는 연산 이면을 파헤칩니다."
 }
