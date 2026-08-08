@@ -29,13 +29,11 @@ export class SearchVolumeCollector implements Collector<SearchVolumeEvidence> {
     const collectedAt = new Date().toISOString();
 
     try {
-      const seedKeyword =
-        typeof input.options?.seedKeyword === "string" && input.options.seedKeyword.trim().length > 0
-          ? input.options.seedKeyword
-          : undefined;
-      const request = buildNaverSearchVolumeRequest(
-        seedKeyword === undefined ? input : { ...input, keyword: seedKeyword },
-      );
+      const requestKeyword = input.keyword.replace(/\s+/g, "");
+      const request = buildNaverSearchVolumeRequest({
+        ...input,
+        keyword: requestKeyword,
+      });
       const response = await this.httpClient.request(request);
       const data = parseNaverSearchVolumeResponse(response, input, collectedAt);
 
