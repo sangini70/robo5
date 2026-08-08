@@ -748,6 +748,26 @@ async function deleteFirestorePost(id: string) {
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
+    const searchTerm = requestUrl.searchParams.get('search')?.trim();
+    if (searchTerm) {
+      const allPosts = await listFirestorePosts();
+      const normalizedSearch = searchTerm.toLowerCase();
+      const matchingPosts = (Array.isArray(allPosts) ? allPosts : []).filter((post) => {
+        const title = String(post.title || '').toLowerCase();
+        const slug = String(post.slug || '').toLowerCase();
+        return title.includes(normalizedSearch) || slug.includes(normalizedSearch);
+      });
+
+      return NextResponse.json({
+        success: true,
+        posts: matchingPosts,
+        nextCursor: null,
+        hasMore: false,
+        pageSize: matchingPosts.length,
+        search: searchTerm,
+      });
+    }
+
     const hasPagedQuery = requestUrl.searchParams.has('limit') || requestUrl.searchParams.has('cursor');
 
     if (hasPagedQuery) {
