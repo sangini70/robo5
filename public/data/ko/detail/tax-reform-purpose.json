@@ -1,7 +1,13 @@
 {
-  "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"세제개편은 세금을 더 걷기 위해서만 하나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 아닙니다. 세수 확보 외에도 소득 재분배, 경기 조절, 서민 생활 지원, 첨단산업 육성 등 다양한 경제·사회 정책적 목적을 위해 추진됩니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"정부는 왜 세액공제나 감면 제도를 바꾸나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 기업의 투자와 고용을 특정 첨단 산업으로 유도하거나, 서민층의 자산 형성을 지원하는 등 정책적 인센티브를 제공하기 위해 감면 제도를 재설계합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"경기 상황에 따라 세법도 달라질 수 있나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 네, 그렇습니다. 경기 침체기에는 세 부담을 완화해 소비와 투자를 활성화하고, 과열기에는 조세를 조율하는 재량적 재정정책 수단으로 세법을 활용합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"산업 지원을 위해 세제를 사용하는 이유는 무엇인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 R&D나 시설투자는 비용과 위험이 커 시장에만 맡기면 과소 투자되기 쉽습니다. 따라서 세금 감면 혜택을 제공하여 국가 전략 기술 투자를 유인합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"비과세·감면 제도를 줄이는 것도 세제개편인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 네, 그렇습니다. 기한이 도래한 비과세·감면 제도를 평가하여 실효성이 낮은 혜택을 줄이는 정비 작업도 세정의 투명성과 재정 건전성을 높이는 중요한 개편입니다.\"\n                }\n            }\n        ]\n    }",
-  "publishHour": 4,
-  "title": "정부는 왜 세제개편을 하는가? 세제개편 목적 5가지 핵심 구조",
+  "category": "세금/지원금",
+  "naverRequestedAt": "2026-08-07T00:57:18.320Z",
+  "createdAt": "2026-08-06T17:12:33.972Z",
+  "seoDescription": "세제개편 목적은 단순 세수 확보를 넘어 소득 재분배, 경기 조절, 첨단 산업 지원, 과세 기반 정비 등 종합적인 정책 수단으로 추진되는 배경과 원리를 쉽게 설명합니다.",
+  "titleHistory": [],
+  "language": "ko",
+  "searchIntent": "problem-solving",
+  "flowType": "위로의 방향",
+  "customJs": "",
   "description": "정부가 세제개편을 추진하는 5가지 주요 정책 목적(재원 확보, 소득 재분배, 경기 대응, 민생 지원, 과세 기반 정비)을 체계적으로 구조화하여 소개해 드립니다.",
   "seoTitle": "정부는 왜 세제개편을 하는가? 세제개편 목적 5가지 핵심 구조",
   "tags": [
@@ -16,21 +22,21 @@
     "국가전략기술",
     "경기안정화"
   ],
-  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f2f5;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #e0e0e0;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #005cb2;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #fffde7;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #ddd;\n            margin-top: auto;\n        }\n        @media (max-width: 768px) {\n            .single-summary-card {\n                padding: 18px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 28px;\n                margin-right: 10px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 20px;\n            }\n            .single-summary-card .card-content {\n                font-size: 15px;\n                line-height: 1.5;\n            }\n            .single-summary-card .card-content .section {\n                margin-bottom: 8px;\n            }\n            .single-summary-card .card-footer {\n                font-size: 13px;\n                padding-top: 10px;\n            }\n        }\n        @media (max-width: 480px) {\n            .single-summary-card {\n                padding: 15px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 26px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 18px;\n            }\n            .single-summary-card .card-content {\n                font-size: 14px;\n                line-height: 1.4;\n            }\n            .single-summary-card .card-content .section {\n                margin-bottom: 6px;\n            }\n            .single-summary-card .card-footer {\n                font-size: 12px;\n                padding-top: 8px;\n            }\n        }",
   "googleRequestedAt": "2026-08-07T00:57:00.304Z",
+  "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f2f5;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #e0e0e0;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 26px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 17px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #005cb2;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #fffde7;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-footer {\n            font-size: 14px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #ddd;\n            margin-top: auto;\n        }\n        @media (max-width: 768px) {\n            .single-summary-card {\n                padding: 18px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 28px;\n                margin-right: 10px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 20px;\n            }\n            .single-summary-card .card-content {\n                font-size: 15px;\n                line-height: 1.5;\n            }\n            .single-summary-card .card-content .section {\n                margin-bottom: 8px;\n            }\n            .single-summary-card .card-footer {\n                font-size: 13px;\n                padding-top: 10px;\n            }\n        }\n        @media (max-width: 480px) {\n            .single-summary-card {\n                padding: 15px;\n            }\n            .single-summary-card .card-header-icon {\n                font-size: 26px;\n            }\n            .single-summary-card .card-header h3 {\n                font-size: 18px;\n            }\n            .single-summary-card .card-content {\n                font-size: 14px;\n                line-height: 1.4;\n            }\n            .single-summary-card .card-content .section {\n                margin-bottom: 6px;\n            }\n            .single-summary-card .card-footer {\n                font-size: 12px;\n                padding-top: 8px;\n            }\n        }",
   "impressions": 0,
-  "flowType": "위로의 방향",
-  "searchIntent": "problem-solving",
-  "language": "ko",
-  "customJs": "",
-  "category": "세금/지원금",
-  "naverRequestedAt": "2026-08-07T00:57:18.320Z",
-  "createdAt": "2026-08-06T17:12:33.972Z",
-  "seoDescription": "세제개편 목적은 단순 세수 확보를 넘어 소득 재분배, 경기 조절, 첨단 산업 지원, 과세 기반 정비 등 종합적인 정책 수단으로 추진되는 배경과 원리를 쉽게 설명합니다.",
-  "titleHistory": [],
-  "id": "1786036354640",
-  "publishDate": "2026-08-06T19:32:00.000Z",
-  "categorySlug": "taxation",
+  "publishHour": 4,
+  "structuredDataJsonLd": "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"FAQPage\",\n        \"mainEntity\": [\n            {\n                \"@type\": \"Question\",\n                \"name\": \"세제개편은 세금을 더 걷기 위해서만 하나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 아닙니다. 세수 확보 외에도 소득 재분배, 경기 조절, 서민 생활 지원, 첨단산업 육성 등 다양한 경제·사회 정책적 목적을 위해 추진됩니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"정부는 왜 세액공제나 감면 제도를 바꾸나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 기업의 투자와 고용을 특정 첨단 산업으로 유도하거나, 서민층의 자산 형성을 지원하는 등 정책적 인센티브를 제공하기 위해 감면 제도를 재설계합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"경기 상황에 따라 세법도 달라질 수 있나요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 네, 그렇습니다. 경기 침체기에는 세 부담을 완화해 소비와 투자를 활성화하고, 과열기에는 조세를 조율하는 재량적 재정정책 수단으로 세법을 활용합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"산업 지원을 위해 세제를 사용하는 이유는 무엇인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 R&D나 시설투자는 비용과 위험이 커 시장에만 맡기면 과소 투자되기 쉽습니다. 따라서 세금 감면 혜택을 제공하여 국가 전략 기술 투자를 유인합니다.\"\n                }\n            },\n            {\n                \"@type\": \"Question\",\n                \"name\": \"비과세·감면 제도를 줄이는 것도 세제개편인가요?\",\n                \"acceptedAnswer\": {\n                    \"@type\": \"Answer\",\n                    \"text\": \"👉 네, 그렇습니다. 기한이 도래한 비과세·감면 제도를 평가하여 실효성이 낮은 혜택을 줄이는 정비 작업도 세정의 투명성과 재정 건전성을 높이는 중요한 개편입니다.\"\n                }\n            }\n        ]\n    }",
+  "title": "정부는 왜 세제개편을 하는가? 세제개편 목적 5가지 핵심 구조",
+  "postViews": 0,
+  "googleIndexStatus": "requested",
+  "secondaryKeywords": [
+    "세제개편 이유",
+    "세법개정 이유",
+    "세금 정책 목적"
+  ],
+  "mainKeyword": "세제개편 목적",
+  "updatedAt": "2026-08-07T00:57:18.736Z",
   "clicks": 0,
   "thumbnail": "https://robo-advisor.kr/thumbnails/tax-reform-purpose.webp",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
@@ -38,13 +44,7 @@
   "slug": "tax-reform-purpose",
   "status": "published",
   "naverIndexStatus": "requested",
-  "mainKeyword": "세제개편 목적",
-  "updatedAt": "2026-08-07T00:57:18.736Z",
-  "googleIndexStatus": "requested",
-  "postViews": 0,
-  "secondaryKeywords": [
-    "세제개편 이유",
-    "세법개정 이유",
-    "세금 정책 목적"
-  ]
+  "id": "1786036354640",
+  "publishDate": "2026-08-06T19:32:00.000Z",
+  "categorySlug": "taxation"
 }
