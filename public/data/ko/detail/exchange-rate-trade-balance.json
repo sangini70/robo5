@@ -14,13 +14,13 @@
   ],
   "language": "ko",
   "dailyImpressions": {
-    "2026-04-07": 3,
-    "2026-04-08": 1,
-    "2026-04-06": 1,
     "2026-04-03": 9,
-    "2026-04-10": 1,
+    "2026-04-06": 1,
+    "2026-04-08": 1,
+    "2026-04-07": 3,
+    "2026-04-11": 2,
     "2026-04-05": 1,
-    "2026-04-11": 2
+    "2026-04-10": 1
   },
   "publishHour": 2,
   "title": "환율과 무역수지 관계: 수출입 성적표의 핵심 기준 정리",
@@ -38,8 +38,8 @@
   "categorySlug": "경제 기초",
   "createdAt": "2026-04-02T15:22:35.537Z",
   "customCss": "",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-trade-balance.webp",
   "googleIndexStatus": "indexed",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-trade-balance.webp",
   "postViews": 13,
   "slug": "exchange-rate-trade-balance",
   "impressions": 18,
