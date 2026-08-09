@@ -4,8 +4,8 @@
   "updatedAt": "2026-07-06T06:52:23.589Z",
   "naverRequestedAt": "2026-04-13T05:16:56.681Z",
   "dailyImpressions": {
-    "2026-05-23": 1,
     "2026-04-08": 1,
+    "2026-05-23": 1,
     "2026-04-10": 1
   },
   "categorySlug": "세금/지원금",
@@ -13,13 +13,13 @@
   "status": "published",
   "googleIndexStatus": "indexed",
   "dailyViews": {
-    "2026-04-07": 2,
+    "2026-04-11": 1,
     "2026-04-13": 2,
-    "2026-04-11": 1
+    "2026-04-07": 2
   },
+  "seoDescription": "2026년 26.2조원 규모의 고유가 지원금이 물가에 미치는 영향과 거시경제적 리스크를 심층 분석합니다. 환율 1,500원 시대의 가계 경제 대응 방안을 확인하세요.",
   "customCss": "",
   "customJs": "",
-  "seoDescription": "2026년 26.2조원 규모의 고유가 지원금이 물가에 미치는 영향과 거시경제적 리스크를 심층 분석합니다. 환율 1,500원 시대의 가계 경제 대응 방안을 확인하세요.",
   "createdAt": "2026-04-07T12:41:58.902Z",
   "clicks": 0,
   "googleRequestedAt": "2026-04-13T05:16:51.437Z",
@@ -35,7 +35,6 @@
   "structuredDataJsonLd": "",
   "thumbnail": "https://robo-advisor.kr/thumbnails/high-oil-price-support-impact-inflation.webp",
   "impressions": 3,
-  "flowType": "지금 시장 흐름",
   "tags": [
     "고유가 지원금",
     "추가경정예산",
@@ -45,6 +44,7 @@
     "민생회복지원금",
     "inflation"
   ],
+  "flowType": "지금 시장 흐름",
   "title": "고유가 지원금 60만원 왜 26.2조원 풀리며 물가 오른다",
   "postViews": 17,
   "publishDate": "2026-07-06T06:52:24.655Z"

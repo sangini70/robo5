@@ -30,11 +30,11 @@
     "2026-04-13": 2
   },
   "status": "published",
-  "createdAt": "2026-04-10T04:52:06.808Z",
   "clicks": 0,
+  "createdAt": "2026-04-10T04:52:06.808Z",
+  "customJs": "",
   "seoDescription": "2026년 4월 유가 폭등에 대응하는 60만 원 고유가 지원금의 정책 전망과 국회 통과 시나리오, 인플레이션 리스크를 분석합니다.",
   "customCss": "",
-  "customJs": "",
   "language": "ko",
   "googleRequestedAt": "2026-04-13T05:30:46.703Z",
   "titleHistory": [],
