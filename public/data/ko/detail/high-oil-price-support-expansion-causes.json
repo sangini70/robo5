@@ -1,7 +1,16 @@
 {
+  "dailyViews": {
+    "2026-04-06": 1,
+    "2026-04-04": 1,
+    "2026-04-07": 2,
+    "2026-04-11": 1
+  },
+  "title": "고유가 지원금 확대 원인 및 경제 지표 분석",
+  "structuredDataJsonLd": "",
+  "publishHour": 16,
   "impressions": 3,
-  "customCss": "",
   "googleRequestedAt": "2026-04-06T16:21:34.252Z",
+  "customCss": "",
   "tags": [
     "고유가 지원금",
     "지원금 확대",
@@ -11,30 +20,24 @@
     "민생 대책",
     "oil price subsidy causes"
   ],
+  "seoTitle": "고유가 지원금 확대 원인 및 경제 지표 분석",
   "dailyImpressions": {
     "2026-04-11": 1,
     "2026-04-05": 1,
     "2026-04-06": 1
   },
-  "seoTitle": "고유가 지원금 확대 원인 및 경제 지표 분석",
   "description": "최대 60만 원이 지급되는 고유가 지원금의 확대 원인과 중동 위기에 따른 경제 지표 변화를 정보 중심으로 상세히 안내합니다.",
-  "dailyViews": {
-    "2026-04-07": 2,
-    "2026-04-11": 1,
-    "2026-04-06": 1,
-    "2026-04-04": 1
-  },
-  "title": "고유가 지원금 확대 원인 및 경제 지표 분석",
-  "publishHour": 16,
-  "structuredDataJsonLd": "",
+  "customJs": "",
+  "flowType": "",
+  "language": "ko",
   "titleHistory": [],
   "seoDescription": "2026년 4월 유가 58.6% 폭등과 환율 1,500원 돌파에 대응한 고유가 지원금 확대 배경을 분석했습니다. 26.2조 원 추경 편성의 핵심 원인을 확인하세요.",
   "createdAt": "2026-04-04T00:53:49.238Z",
   "naverRequestedAt": "2026-04-06T13:29:00.942Z",
   "category": "경제 기초",
-  "customJs": "",
-  "language": "ko",
-  "flowType": "",
+  "categorySlug": "경제 기초",
+  "id": "gtiOUCyIJ4ciZzurd87N",
+  "publishDate": "2026-04-04T07:27:00.000Z",
   "naverIndexStatus": "requested",
   "slug": "high-oil-price-support-expansion-causes",
   "status": "published",
@@ -42,11 +45,8 @@
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "thumbnail": "https://robo-advisor.kr/thumbnails/high-oil-price-support-expansion-causes.webp",
   "clicks": 0,
-  "categorySlug": "경제 기초",
-  "id": "gtiOUCyIJ4ciZzurd87N",
-  "publishDate": "2026-04-04T07:27:00.000Z",
-  "googleIndexStatus": "indexed",
-  "postViews": 8,
   "updatedAt": "2026-04-04T00:53:49.238Z",
-  "googleIndexedAt": "2026-04-07T07:47:57.708Z"
+  "googleIndexedAt": "2026-04-07T07:47:57.708Z",
+  "postViews": 8,
+  "googleIndexStatus": "indexed"
 }
