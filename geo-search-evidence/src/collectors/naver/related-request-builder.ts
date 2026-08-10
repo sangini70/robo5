@@ -3,6 +3,8 @@ import type { CollectorInput } from "../collector.types";
 import type { NaverRelatedKeywordRequest } from "./related.types";
 
 export function buildNaverRelatedKeywordRequest(input: CollectorInput): NaverRelatedKeywordRequest {
+  const hintKeywords = input.keyword.replace(/\s+/g, "");
+
   return {
     kind: "related_keywords",
     keyword: input.keyword,
@@ -12,7 +14,7 @@ export function buildNaverRelatedKeywordRequest(input: CollectorInput): NaverRel
     method: "GET",
     path: "/keywordstool",
     query: {
-      hintKeywords: input.keyword,
+      hintKeywords,
       showDetail: "1",
     },
   };
