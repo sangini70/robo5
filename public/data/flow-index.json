@@ -1,4 +1,7 @@
 {
+  "finance": [
+    "isa-definition"
+  ],
   "national-pension": [
     "national-pension-contribution-rate-current",
     "national-pension-reform"
