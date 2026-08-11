@@ -1,5 +1,6 @@
 {
   "finance": [
+    "isa-account-opening",
     "isa-account-types",
     "isa-benefits-and-limitations",
     "isa-definition"
