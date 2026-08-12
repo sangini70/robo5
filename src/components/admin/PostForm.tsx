@@ -689,33 +689,47 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
+    const shouldAutoGenerateSlug = !postId && (!formData.slug || formData.slug === generateSlug(formData.title));
+    const generatedSlug = shouldAutoGenerateSlug ? generateSlug(title) : '';
+
     setFormData(prev => {
       // Only auto-generate slug if it's a new post and user hasn't manually edited slug much
-      if (!postId && (!prev.slug || prev.slug === generateSlug(prev.title))) {
-        return { ...prev, title, slug: generateSlug(title) };
+      if (shouldAutoGenerateSlug) {
+        return { ...prev, title, slug: generatedSlug };
       }
       return { ...prev, title };
     });
+
+    if (shouldAutoGenerateSlug) {
+      void checkSlugAvailability(generatedSlug);
+    }
   };
 
   const checkSlugAvailability = async (slug: string) => {
-    if (!slug) return;
+    const normalizedSlug = slug.trim();
+    if (!normalizedSlug) {
+      return false;
+    }
     try {
-      const response = await fetch('/api/admin/posts', { cache: 'no-store' });
+      const response = await fetch(`/api/admin/posts?slug=${encodeURIComponent(normalizedSlug)}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error('게시글 목록을 불러오지 못했습니다.');
       }
       const posts = await response.json();
       const isDuplicate = Array.isArray(posts)
-        ? posts.some((doc: any) => doc.slug === slug && doc.id !== postId)
+        ? posts.some((doc: any) => doc.slug === normalizedSlug && doc.id !== postId)
         : false;
       if (isDuplicate) {
         setSlugError('이미 사용 중인 슬러그입니다.');
+        return false;
       } else {
         setSlugError('');
+        return true;
       }
     } catch (error) {
       console.error("Error checking slug:", error);
+      setSlugError('슬러그 중복 확인에 실패했습니다. 다시 시도해 주세요.');
+      return false;
     }
   };
 
@@ -933,14 +947,17 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (slugError) {
-      showToast('슬러그 오류를 확인해 주세요.');
-      return;
-    }
     if (formData.flowType === '') {
       showToast('플로우 타입을 선택하세요');
       return;
     }
+
+    const slugIsAvailable = await checkSlugAvailability(formData.slug);
+    if (!slugIsAvailable) {
+      showToast('슬러그 오류를 확인해 주세요.');
+      return;
+    }
+
     setLoading(true);
 
     try {

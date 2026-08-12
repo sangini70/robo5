@@ -326,6 +326,58 @@ function getDocumentPath(id: string) {
   return `${getCollectionPath()}/${encodeURIComponent(id)}`;
 }
 
+async function findFirestorePostsBySlug(slug: string) {
+  const normalizedSlug = slug.trim();
+  if (!normalizedSlug) {
+    return [];
+  }
+
+  const { projectId, databaseId } = getFirestoreAdminConfig();
+  const response = await firestoreRequest(`projects/${projectId}/databases/${databaseId}/documents:runQuery`, {
+    method: 'POST',
+    body: JSON.stringify({
+      structuredQuery: {
+        from: [
+          {
+            collectionId: 'posts',
+          },
+        ],
+        where: {
+          fieldFilter: {
+            field: {
+              fieldPath: 'slug',
+            },
+            op: 'EQUAL',
+            value: {
+              stringValue: normalizedSlug,
+            },
+          },
+        },
+      },
+    }),
+  });
+
+  const payload = parseRunQueryResponses(await response.text());
+  return payload
+    .filter((entry) => entry?.document?.name)
+    .map((entry) => normalizePostDocument(fromFirestoreDocument(entry.document)));
+}
+
+function createSlugConflictError() {
+  const error = new Error('이미 사용 중인 슬러그입니다.');
+  (error as any).status = 409;
+  return error;
+}
+
+async function assertUniqueSlug(slug: string, currentDocId: string) {
+  const matchingPosts = await findFirestorePostsBySlug(slug);
+  const conflictingPosts = matchingPosts.filter((post) => String(post.id || '').trim() !== currentDocId.trim());
+
+  if (conflictingPosts.length > 0) {
+    throw createSlugConflictError();
+  }
+}
+
 function createSignedJwt() {
   const { clientEmail, privateKey } = getFirestoreAdminConfig();
   const now = Math.floor(Date.now() / 1000);
@@ -687,6 +739,10 @@ async function writeFirestorePost(postData: Record<string, any>) {
   const docId = postData.id || Date.now().toString();
   const existingPost = mode === 'edit' ? await getFirestorePost(docId) : null;
   const { documentData } = buildFirestorePayload({ ...postData, id: docId }, mode, existingPost);
+  const normalizedSlug = String(documentData.slug ?? '').trim();
+  if (normalizedSlug) {
+    await assertUniqueSlug(normalizedSlug, docId);
+  }
   const fields = encodeFirestoreFields(documentData);
   const { projectId, databaseId } = getFirestoreAdminConfig();
   const updateMask = new URLSearchParams();
@@ -748,6 +804,12 @@ async function deleteFirestorePost(id: string) {
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
+    const exactSlug = requestUrl.searchParams.get('slug')?.trim();
+    if (exactSlug) {
+      const posts = await findFirestorePostsBySlug(exactSlug);
+      return NextResponse.json(posts);
+    }
+
     const searchTerm = requestUrl.searchParams.get('search')?.trim();
     if (searchTerm) {
       const allPosts = await listFirestorePosts();
@@ -838,6 +900,9 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error('Firestore POST Error:', error);
+    if (error?.status === 409 || /이미 사용 중인 슬러그입니다/.test(error?.message || '')) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 409 });
+    }
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
