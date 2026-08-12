@@ -5,17 +5,17 @@
   "description": "환율이 수출에 미치는 영향을 설명합니다. 원/달러 환율 상승이 수출 가격경쟁력, 단기 장부상 환차익, 장기 원가 파급에 미치는 구체적 메커니즘을 한국무역협회와 KDI 연구 데이터로 정리해 드립니다.",
   "googleIndexStatus": "requested",
   "customJs": "",
-  "category": "환율",
   "seoTitle": "환율이 수출에 미치는 영향: 가격경쟁력과 기업 수익성 구조 정리",
+  "category": "환율",
   "naverRequestedAt": "2026-07-24T13:57:52.726Z",
-  "seoDescription": "환율이 수출에 미치는 영향을 설명합니다. 원/달러 환율 상승이 수출 가격경쟁력, 단기 장부상 환차익, 장기 원가 파급에 미치는 구체적 메커니즘을 한국무역협회와 KDI 연구 데이터로 정리해 드립니다.",
   "impressions": 0,
   "language": "ko",
-  "googleRequestedAt": "2026-07-24T13:57:48.470Z",
+  "seoDescription": "환율이 수출에 미치는 영향을 설명합니다. 원/달러 환율 상승이 수출 가격경쟁력, 단기 장부상 환차익, 장기 원가 파급에 미치는 구체적 메커니즘을 한국무역협회와 KDI 연구 데이터로 정리해 드립니다.",
   "publishDate": "2026-07-24T10:28:00.000Z",
   "customCss": ".single-summary-card-container {\n            font-family: 'Noto Sans KR', sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            padding: 20px 10px;\n            background-color: #f0f2f5;\n            margin: 20px 0;\n        }\n        .single-summary-card {\n            width: 100%;\n            max-width: 700px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n            padding: 25px;\n            display: flex;\n            flex-direction: column;\n            overflow: hidden;\n            border: 1px solid #e0e0e0;\n            box-sizing: border-box;\n            height: auto;\n        }\n        .single-summary-card .card-header {\n            display: flex;\n            align-items: center;\n            border-bottom: 2px solid #1a73e8;\n            padding-bottom: 12px;\n            margin-bottom: 12px;\n        }\n        .single-summary-card .card-header-icon {\n            font-size: 34px;\n            color: #1a73e8;\n            margin-right: 14px;\n        }\n        .single-summary-card .card-header h3 {\n            font-size: 24px;\n            color: #1a73e8;\n            margin: 0;\n            line-height: 1.3;\n            font-weight: 700;\n        }\n        .single-summary-card .card-content {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-around;\n            font-size: 16px;\n            line-height: 1.65;\n            color: #333;\n        }\n        .single-summary-card .card-content .section {\n            margin-bottom: 10px;\n        }\n        .single-summary-card .card-content strong {\n            color: #005cb2;\n            font-weight: 600;\n        }\n        .single-summary-card .card-content .highlight {\n            background-color: #e8f4fd;\n            padding: 2px 6px;\n            border-radius: 3px;\n            font-weight: bold;\n        }\n        .single-summary-card .card-content .formula {\n            background-color: #e8f4fd;\n            padding: 6px 10px;\n            border-radius: 4px;\n            font-size: 0.9em;\n            text-align: center;\n            margin-top: 5px;\n            color: #155724;\n        }\n        .single-summary-card .card-footer {\n            font-size: 13px;\n            color: #777;\n            text-align: center;\n            padding-top: 12px;\n            border-top: 1px dashed #ddd;\n            margin-top: auto;\n        }\n        @media (max-width: 768px) {\n            .single-summary-card { padding: 18px; }\n            .single-summary-card .card-header-icon { font-size: 28px; margin-right: 10px; }\n            .single-summary-card .card-header h3 { font-size: 20px; }\n            .single-summary-card .card-content { font-size: 15px; line-height: 1.5; }\n            .single-summary-card .card-content .section { margin-bottom: 8px; }\n        }\n        @media (max-width: 480px) {\n            .single-summary-card { padding: 15px; }\n            .single-summary-card .card-header-icon { font-size: 26px; }\n            .single-summary-card .card-header h3 { font-size: 18px; }\n            .single-summary-card .card-content { font-size: 14px; line-height: 1.4; }\n        }",
   "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "thumbnail": "https://robo-advisor.kr/thumbnails/exchange-rate-export.webp",
+  "googleRequestedAt": "2026-07-24T13:57:48.470Z",
   "secondaryKeywords": [
     "수출 가격경쟁력",
     "원화 약세",
@@ -26,10 +26,11 @@
   "mainKeyword": "환율이 수출에 미치는 영향",
   "postViews": 28,
   "titleHistory": [],
-  "clicks": 0,
   "updatedAt": "2026-07-24T13:57:52.449Z",
-  "structuredDataJsonLd": "",
+  "clicks": 0,
   "title": "환율이 수출에 미치는 영향: 가격경쟁력과 기업 수익성 구조 정리",
+  "structuredDataJsonLd": "",
+  "slug": "exchange-rate-export",
   "tags": [
     "환율이수출에미치는영향",
     "수출가격경쟁력",
@@ -43,10 +44,9 @@
     "환율전가율"
   ],
   "status": "published",
-  "slug": "exchange-rate-export",
-  "categorySlug": "exchange-rate",
   "flowType": "과거에서 찾는 답",
+  "categorySlug": "exchange-rate",
   "publishHour": 19,
-  "naverIndexStatus": "requested",
-  "searchIntent": "informational"
+  "searchIntent": "informational",
+  "naverIndexStatus": "requested"
 }
