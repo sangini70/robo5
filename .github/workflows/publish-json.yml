@@ -14,9 +14,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  sync-json:
+  gate:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      has_pending_publication: ${{ steps.gate.outputs.has_pending_publication }}
 
     steps:
       - name: Checkout repository
@@ -32,8 +34,15 @@ jobs:
 
       - name: Check scheduled publication gate
         id: gate
-        if: github.event_name == 'schedule'
-        run: node scripts/check-pending-scheduled-publication.mjs
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            node scripts/check-pending-scheduled-publication.mjs
+          else
+            echo "has_pending_publication=true" >> "$GITHUB_OUTPUT"
+            echo "gate_reason=workflow_dispatch" >> "$GITHUB_OUTPUT"
+            echo "last_success_started_at=" >> "$GITHUB_OUTPUT"
+            echo "candidate_count=" >> "$GITHUB_OUTPUT"
+          fi
         env:
           FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
@@ -47,12 +56,27 @@ jobs:
         if: github.event_name == 'schedule' && steps.gate.outputs.has_pending_publication != 'true'
         run: echo "No pending scheduled posts detected. Skipping sync-json."
 
+  sync-json:
+    needs: gate
+    if: github.ref == 'refs/heads/main' && needs.gate.outputs.has_pending_publication == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
       - name: Install dependencies
-        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true'
         run: npm ci
 
       - name: Generate public JSON
-        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true'
         run: npm run sync-json
         env:
           FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
@@ -60,14 +84,12 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
 
       - name: Sync with latest main before checking generated JSON
-        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true'
         shell: bash
         run: |
           git fetch origin main
           git rebase --autostash origin/main
 
       - name: Validate generated JSON files
-        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true'
         shell: bash
         run: |
           node <<'NODE'
@@ -101,7 +123,6 @@ jobs:
 
       - name: Check public data changes
         id: changes
-        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true'
         shell: bash
         run: |
           if [ -n "$(git status --short -- public/data)" ]; then
@@ -112,7 +133,7 @@ jobs:
           fi
 
       - name: Commit and push generated JSON
-        if: (github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true') && steps.changes.outputs.has_changes == 'true'
+        if: steps.changes.outputs.has_changes == 'true'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -124,5 +145,5 @@ jobs:
           git push origin HEAD:main
 
       - name: No generated JSON changes
-        if: (github.event_name == 'workflow_dispatch' || steps.gate.outputs.has_pending_publication == 'true') && steps.changes.outputs.has_changes != 'true'
+        if: steps.changes.outputs.has_changes != 'true'
         run: echo "No public data changes detected."
