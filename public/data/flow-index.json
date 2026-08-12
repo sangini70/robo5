@@ -1,5 +1,6 @@
 {
   "finance": [
+    "isa-maturity",
     "isa-contribution-and-withdrawal",
     "isa-account-opening",
     "isa-account-types",
