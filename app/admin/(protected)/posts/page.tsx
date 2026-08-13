@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { fetchAdminPosts } from '@/src/lib/admin-api';
 
 type AdminDateParts = {
   date: string;
@@ -83,7 +84,7 @@ export default function AdminPosts() {
         params.set('cursor', cursor);
       }
 
-      const response = await fetch(`/api/admin/posts?${params.toString()}`);
+      const response = await fetchAdminPosts(`/api/admin/posts?${params.toString()}`);
       const data = await response.json();
 
       if (!response.ok || (data && data.success === false)) {
@@ -277,7 +278,7 @@ export default function AdminPosts() {
   const handleGoogleComplete = async (id: string) => {
     try {
       const post = activePosts.find(p => p.id === id);
-      await fetch('/api/admin/posts', {
+      await fetchAdminPosts('/api/admin/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -297,7 +298,7 @@ export default function AdminPosts() {
   const handleGoogleIndexed = async (id: string) => {
     try {
       const post = activePosts.find(p => p.id === id);
-      await fetch('/api/admin/posts', {
+      await fetchAdminPosts('/api/admin/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -332,7 +333,7 @@ export default function AdminPosts() {
         }
       }
 
-      await fetch('/api/admin/posts', {
+      await fetchAdminPosts('/api/admin/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -484,7 +485,7 @@ export default function AdminPosts() {
   const confirmDelete = async () => {
     if (postToDelete) {
       try {
-        await fetch(`/api/admin/posts?id=${postToDelete}`, { method: 'DELETE' });
+        await fetchAdminPosts(`/api/admin/posts?id=${postToDelete}`, { method: 'DELETE' });
         // Refresh list
         await refreshCurrentView();
       } catch (error) {

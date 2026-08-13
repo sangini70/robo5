@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../../firebase';
+import { fetchAdminPosts } from '../../lib/admin-api';
 import DOMPurify from 'dompurify';
 import { RichTextEditor } from './RichTextEditor';
 
@@ -711,7 +712,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       return false;
     }
     try {
-      const response = await fetch(`/api/admin/posts?slug=${encodeURIComponent(normalizedSlug)}`, { cache: 'no-store' });
+      const response = await fetchAdminPosts(`/api/admin/posts?slug=${encodeURIComponent(normalizedSlug)}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error('게시글 목록을 불러오지 못했습니다.');
       }
@@ -1060,7 +1061,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         payloadKeys: Object.keys(savePayload),
       });
 
-      const response = await fetch('/api/admin/posts', {
+      const response = await fetchAdminPosts('/api/admin/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

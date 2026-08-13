@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { fetchAdminPosts } from '@/src/lib/admin-api';
 
 const PostForm = dynamic(() => import('@/src/components/admin/PostForm').then(mod => mod.PostForm), { ssr: false });
 
@@ -17,7 +18,7 @@ export default function AdminEditPost() {
     const fetchPost = async () => {
       if (!id) return;
       try {
-        const response = await fetch('/api/admin/posts');
+        const response = await fetchAdminPosts('/api/admin/posts');
         const posts = await response.json();
         const post = posts.find((p: any) => p.id === id);
         if (post) {

@@ -3,12 +3,42 @@
 import React, { useState } from 'react';
 import { db } from '../../../../src/firebase';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { fetchAdminPosts } from '../../../../src/lib/admin-api';
 
 const VALID_CATEGORIES = ['환율', 'ETF', '경제 기초', '미국 증시', '세금/지원금'];
 
 export default function MigratePage() {
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
+
+  const runSearchIndexMigration = async () => {
+    setLoading(true);
+    setLogs(['Starting searchIndex migration...']);
+
+    try {
+      const response = await fetchAdminPosts('/api/admin/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'backfill-search-index' }),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result?.message || result?.error || 'searchIndex migration failed.');
+      }
+
+      setLogs((prev) => [
+        ...prev,
+        `Plan: Reads ${result.reads}, Writes ${result.writes}, Skipped ${result.skipped}.`,
+        `Documents with missing or invalid title/slug: ${result.missingSourceFieldCount}. Original fields were not changed.`,
+        `searchIndex migration complete. Updated ${result.updated} posts.`,
+      ]);
+    } catch (error: any) {
+      setLogs((prev) => [...prev, `searchIndex migration error: ${error.message}`]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const runMigration = async () => {
     setLoading(true);
@@ -72,6 +102,13 @@ export default function MigratePage() {
         className="bg-indigo-600 text-white px-4 py-2 rounded disabled:opacity-50"
       >
         {loading ? 'Running...' : 'Run Migration'}
+      </button>
+      <button
+        onClick={runSearchIndexMigration}
+        disabled={loading}
+        className="ml-3 bg-gray-800 text-white px-4 py-2 rounded disabled:opacity-50"
+      >
+        {loading ? 'Running...' : 'Backfill searchIndex'}
       </button>
       
       <div className="mt-8 bg-gray-100 p-4 rounded h-64 overflow-y-auto font-mono text-sm">

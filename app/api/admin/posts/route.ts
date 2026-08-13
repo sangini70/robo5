@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSign } from 'crypto';
 import firebaseConfig from '../../../../firebase-applet-config.json';
+import { buildSearchIndex } from '../../../../src/lib/admin-search';
 
 type FirestoreValue =
   | { stringValue: string }
@@ -45,6 +46,9 @@ type PublishWorkflowConfig = {
 
 const FIRESTORE_SCOPE = 'https://www.googleapis.com/auth/datastore';
 const FIRESTORE_BASE_URL = 'https://firestore.googleapis.com/v1';
+const IDENTITY_TOOLKIT_BASE_URL = 'https://identitytoolkit.googleapis.com/v1';
+const ADMIN_UID = 'Jg6IVXTLOCLlLRU7EzHZGTQMXb52';
+const ADMIN_EMAIL = 'luganopizza@gmail.com';
 
 let cachedAccessToken: { token: string; expiresAt: number } | null = null;
 
@@ -460,6 +464,79 @@ async function firestoreRequest(path: string, init: RequestInit = {}) {
   return response;
 }
 
+function createAuthError(status: 401 | 403, message: string) {
+  return Object.assign(new Error(message), { status });
+}
+
+function getBearerToken(request: Request) {
+  const authorization = request.headers.get('authorization') || '';
+  const match = authorization.match(/^Bearer\s+(.+)$/i);
+  if (!match?.[1]) {
+    throw createAuthError(401, 'Authentication is required.');
+  }
+
+  return match[1].trim();
+}
+
+async function verifyFirebaseIdToken(idToken: string) {
+  const response = await fetch(
+    `${IDENTITY_TOOLKIT_BASE_URL}/accounts:lookup?key=${encodeURIComponent(firebaseConfig.apiKey)}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken }),
+    }
+  );
+
+  if (!response.ok) {
+    throw createAuthError(401, 'Invalid or expired authentication token.');
+  }
+
+  const payload = await response.json();
+  const user = Array.isArray(payload?.users) ? payload.users[0] : null;
+  if (!user?.localId) {
+    throw createAuthError(401, 'Invalid authentication token.');
+  }
+
+  return {
+    uid: String(user.localId),
+    email: typeof user.email === 'string' ? user.email.toLowerCase() : '',
+    emailVerified: user.emailVerified === true,
+  };
+}
+
+async function isFirebaseAdmin(user: { uid: string; email: string; emailVerified: boolean }) {
+  if (user.uid === ADMIN_UID) {
+    return true;
+  }
+
+  if (user.email === ADMIN_EMAIL && user.emailVerified) {
+    return true;
+  }
+
+  const { projectId, databaseId } = getFirestoreAdminConfig();
+  try {
+    const response = await firestoreRequest(
+      `projects/${projectId}/databases/${databaseId}/documents/users/${encodeURIComponent(user.uid)}`,
+      { method: 'GET' }
+    );
+    const userDocument = fromFirestoreDocument(await response.json());
+    return userDocument.role === 'admin';
+  } catch (error: any) {
+    if (String(error?.message || '').includes('(404)')) {
+      return false;
+    }
+    throw error;
+  }
+}
+
+async function requireAdminRequest(request: Request) {
+  const user = await verifyFirebaseIdToken(getBearerToken(request));
+  if (!(await isFirebaseAdmin(user))) {
+    throw createAuthError(403, 'Administrator permission is required.');
+  }
+}
+
 type ListFirestorePostsOptions = {
   pageSize?: number;
   pageToken?: string | null;
@@ -703,6 +780,8 @@ function buildFirestorePayload(postData: Record<string, any>, mode: 'create' | '
     publishDate: publishDateValue ?? null,
   };
 
+  documentData.searchIndex = buildSearchIndex(documentData.title, documentData.slug);
+
   if (typeof documentData.authorId === 'undefined') {
     delete documentData.authorId;
   }
@@ -801,8 +880,47 @@ async function deleteFirestorePost(id: string) {
   };
 }
 
+async function backfillSearchIndex() {
+  const posts = await listFirestorePosts();
+  const plannedUpdates = (Array.isArray(posts) ? posts : []).filter((post) => {
+    const searchIndex = buildSearchIndex(post.title, post.slug);
+    return JSON.stringify(post.searchIndex) !== JSON.stringify(searchIndex);
+  }).map((post) => ({
+    id: String(post.id || '').trim(),
+    searchIndex: buildSearchIndex(post.title, post.slug),
+  })).filter((post) => post.id);
+
+  const missingSourceFieldCount = (Array.isArray(posts) ? posts : []).filter(
+    (post) => typeof post.title !== 'string' || typeof post.slug !== 'string'
+  ).length;
+
+  for (const plannedUpdate of plannedUpdates) {
+    const updateMask = new URLSearchParams();
+    updateMask.append('updateMask.fieldPaths', 'searchIndex');
+
+    await firestoreRequest(
+      `projects/${getFirestoreAdminConfig().projectId}/databases/${getFirestoreAdminConfig().databaseId}/documents/posts/${encodeURIComponent(plannedUpdate.id)}?${updateMask.toString()}`,
+      {
+        method: 'PATCH',
+        body: JSON.stringify({
+          fields: encodeFirestoreFields({ searchIndex: plannedUpdate.searchIndex }),
+        }),
+      }
+    );
+  }
+
+  return {
+    reads: Array.isArray(posts) ? posts.length : 0,
+    writes: plannedUpdates.length,
+    skipped: (Array.isArray(posts) ? posts.length : 0) - plannedUpdates.length,
+    missingSourceFieldCount,
+    updated: plannedUpdates.length,
+  };
+}
+
 export async function GET(request: Request) {
   try {
+    await requireAdminRequest(request);
     const requestUrl = new URL(request.url);
     const exactSlug = requestUrl.searchParams.get('slug')?.trim();
     if (exactSlug) {
@@ -884,14 +1002,23 @@ export async function GET(request: Request) {
         error: 'Failed to fetch posts',
         message: error instanceof Error ? error.message : String(error),
       },
-      { status: 500 }
+      { status: error?.status === 401 || error?.status === 403 ? error.status : 500 }
     );
   }
 }
 
 export async function POST(request: Request) {
   try {
+    await requireAdminRequest(request);
     const postData = await request.json();
+    if (postData?.action === 'backfill-search-index') {
+      const result = await backfillSearchIndex();
+      return NextResponse.json({
+        success: true,
+        ...result,
+      });
+    }
+
     const publishResult = await writeFirestorePost(postData);
 
     return NextResponse.json({
@@ -903,12 +1030,16 @@ export async function POST(request: Request) {
     if (error?.status === 409 || /이미 사용 중인 슬러그입니다/.test(error?.message || '')) {
       return NextResponse.json({ success: false, error: error.message }, { status: 409 });
     }
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: error?.status === 401 || error?.status === 403 ? error.status : 500 }
+    );
   }
 }
 
 export async function DELETE(request: Request) {
   try {
+    await requireAdminRequest(request);
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -923,6 +1054,9 @@ export async function DELETE(request: Request) {
     });
   } catch (error: any) {
     console.error('Firestore DELETE Error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: error?.status === 401 || error?.status === 403 ? error.status : 500 }
+    );
   }
 }
