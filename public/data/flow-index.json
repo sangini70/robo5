@@ -1,4 +1,7 @@
 {
+  "tax-account": [
+    "isa-termination"
+  ],
   "finance": [
     "isa-maturity",
     "isa-contribution-and-withdrawal",
