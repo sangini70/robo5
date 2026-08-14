@@ -35,11 +35,10 @@ export default function AdminLayout({
       <header className="border-b border-gray-200 sticky top-0 bg-white/90 backdrop-blur-sm z-40">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link href="/admin/dashboard" className="text-base font-medium tracking-tight text-gray-900">
+            <Link href="/admin/posts" className="text-base font-medium tracking-tight text-gray-900">
               Admin Panel
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium text-gray-500">
-              <Link href="/admin/dashboard" className="hover:text-gray-900 transition-colors">Dashboard</Link>
               <Link href="/admin/posts" className="hover:text-gray-900 transition-colors">Posts</Link>
               <Link href="/admin/settings" className="hover:text-gray-900 transition-colors">Settings</Link>
               <Link href="/" className="hover:text-gray-900 transition-colors" target="_blank">View Site</Link>
