@@ -368,8 +368,17 @@ async function findFirestorePostsBySlug(slug: string) {
 }
 
 async function findFirestorePostsBySearchToken(searchToken: string) {
-  const normalizedToken = buildSearchToken(searchToken);
-  if (!normalizedToken) {
+  const normalizedSearch = buildSearchToken(searchToken);
+  const queryTokens = Array.from(
+    new Set(
+      searchToken
+        .split(/[\s-]+/)
+        .map((value) => buildSearchToken(value))
+        .filter(Boolean),
+    ),
+  ).slice(0, 30);
+
+  if (!normalizedSearch || queryTokens.length === 0) {
     return [];
   }
 
@@ -388,9 +397,13 @@ async function findFirestorePostsBySearchToken(searchToken: string) {
             field: {
               fieldPath: 'searchIndex.tokens',
             },
-            op: 'ARRAY_CONTAINS',
+            op: 'ARRAY_CONTAINS_ANY',
             value: {
-              stringValue: normalizedToken,
+              arrayValue: {
+                values: queryTokens.map((token) => ({
+                  stringValue: token,
+                })),
+              },
             },
           },
         },
@@ -399,9 +412,15 @@ async function findFirestorePostsBySearchToken(searchToken: string) {
   });
 
   const payload = parseRunQueryResponses(await response.text());
-  return payload
+  const candidatePosts = payload
     .filter((entry) => entry?.document?.name)
     .map((entry) => normalizePostDocument(fromFirestoreDocument(entry.document)));
+
+  return candidatePosts.filter((post) => {
+    const normalizedTitle = buildSearchToken(post.title);
+    const normalizedSlug = buildSearchToken(post.slug);
+    return normalizedTitle.includes(normalizedSearch) || normalizedSlug.includes(normalizedSearch);
+  });
 }
 
 function createSlugConflictError() {
