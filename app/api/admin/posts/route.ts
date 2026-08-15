@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSign } from 'crypto';
 import firebaseConfig from '../../../../firebase-applet-config.json';
-import { buildSearchIndex } from '../../../../src/lib/admin-search';
+import { buildSearchIndex, buildSearchToken } from '../../../../src/lib/admin-search';
 
 type FirestoreValue =
   | { stringValue: string }
@@ -354,6 +354,43 @@ async function findFirestorePostsBySlug(slug: string) {
             op: 'EQUAL',
             value: {
               stringValue: normalizedSlug,
+            },
+          },
+        },
+      },
+    }),
+  });
+
+  const payload = parseRunQueryResponses(await response.text());
+  return payload
+    .filter((entry) => entry?.document?.name)
+    .map((entry) => normalizePostDocument(fromFirestoreDocument(entry.document)));
+}
+
+async function findFirestorePostsBySearchToken(searchToken: string) {
+  const normalizedToken = buildSearchToken(searchToken);
+  if (!normalizedToken) {
+    return [];
+  }
+
+  const { projectId, databaseId } = getFirestoreAdminConfig();
+  const response = await firestoreRequest(`projects/${projectId}/databases/${databaseId}/documents:runQuery`, {
+    method: 'POST',
+    body: JSON.stringify({
+      structuredQuery: {
+        from: [
+          {
+            collectionId: 'posts',
+          },
+        ],
+        where: {
+          fieldFilter: {
+            field: {
+              fieldPath: 'searchIndex.tokens',
+            },
+            op: 'ARRAY_CONTAINS',
+            value: {
+              stringValue: normalizedToken,
             },
           },
         },
@@ -930,13 +967,7 @@ export async function GET(request: Request) {
 
     const searchTerm = requestUrl.searchParams.get('search')?.trim();
     if (searchTerm) {
-      const allPosts = await listFirestorePosts();
-      const normalizedSearch = searchTerm.toLowerCase();
-      const matchingPosts = (Array.isArray(allPosts) ? allPosts : []).filter((post) => {
-        const title = String(post.title || '').toLowerCase();
-        const slug = String(post.slug || '').toLowerCase();
-        return title.includes(normalizedSearch) || slug.includes(normalizedSearch);
-      });
+      const matchingPosts = await findFirestorePostsBySearchToken(searchTerm);
 
       return NextResponse.json({
         success: true,
