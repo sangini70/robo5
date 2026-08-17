@@ -1,4 +1,9 @@
 {
+  "": [
+    "SA 계좌 해지",
+    "national-pension-contribution-rate-definition",
+    "nasdaq-futures"
+  ],
   "tax-account": [
     "isa-termination"
   ],
@@ -13,10 +18,6 @@
   "national-pension": [
     "national-pension-contribution-rate-current",
     "national-pension-reform"
-  ],
-  "": [
-    "national-pension-contribution-rate-definition",
-    "nasdaq-futures"
   ],
   "taxation": [
     "tax-reform-2026-impact",
