@@ -206,47 +206,84 @@ async function getLastSuccessfulRunStartedAt() {
     return null;
   }
 
-  const response = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${encodeURIComponent(workflowFile)}/runs?branch=${encodeURIComponent(branch)}&status=success&per_page=1`,
-    {
-      headers: {
-        Accept: 'application/vnd.github+json',
-        Authorization: `Bearer ${token}`,
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+
+  for (let page = 1; ; page += 1) {
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${encodeURIComponent(workflowFile)}/runs?branch=${encodeURIComponent(branch)}&status=success&per_page=100&page=${page}`,
+      { headers }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn('GATE WARNING', {
+        reason: 'GitHub workflow run lookup failed',
+        owner,
+        repo,
+        workflowFile,
+        branch,
+        status: response.status,
+        error: errorText || response.statusText,
+      });
+      return null;
     }
-  );
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.warn('GATE WARNING', {
-      reason: 'GitHub workflow run lookup failed',
-      owner,
-      repo,
-      workflowFile,
-      branch,
-      status: response.status,
-      error: errorText || response.statusText,
-    });
-    return null;
+    const payload = await response.json();
+    const runs = Array.isArray(payload.workflow_runs) ? payload.workflow_runs : [];
+
+    for (const run of runs) {
+      if (!run?.id) continue;
+
+      const jobsResponse = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/actions/runs/${encodeURIComponent(run.id)}/jobs?per_page=100`,
+        { headers }
+      );
+
+      if (!jobsResponse.ok) {
+        const errorText = await jobsResponse.text();
+        console.warn('GATE WARNING', {
+          reason: 'GitHub workflow jobs lookup failed',
+          owner,
+          repo,
+          workflowFile,
+          branch,
+          runId: run.id,
+          status: jobsResponse.status,
+          error: errorText || jobsResponse.statusText,
+        });
+        return null;
+      }
+
+      const jobsPayload = await jobsResponse.json();
+      const syncJob = Array.isArray(jobsPayload.jobs)
+        ? jobsPayload.jobs.find(
+            (job) => job?.name === 'sync-json' && job.status === 'completed' && job.conclusion === 'success'
+          )
+        : null;
+
+      if (syncJob) {
+        const startedAt = normalizeTimestampInput(syncJob.started_at || run.run_started_at || run.created_at);
+        if (startedAt) return startedAt;
+      }
+    }
+
+    if (runs.length === 0 || runs.length < 100) {
+      break;
+    }
   }
 
-  const payload = await response.json();
-  const run = Array.isArray(payload.workflow_runs) ? payload.workflow_runs[0] : null;
-  const startedAt = normalizeTimestampInput(run?.run_started_at || run?.created_at);
-
-  if (!startedAt) {
-    console.warn('GATE WARNING', {
-      reason: 'No successful workflow run timestamp found',
-      owner,
-      repo,
-      workflowFile,
-      branch,
-    });
-    return null;
-  }
-
-  return startedAt;
+  console.warn('GATE WARNING', {
+    reason: 'No successful sync-json job found',
+    owner,
+    repo,
+    workflowFile,
+    branch,
+  });
+  return null;
 }
 
 async function hasPendingScheduledPublication() {
