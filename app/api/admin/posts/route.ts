@@ -263,7 +263,12 @@ function getCollectionPath() {
   return `${FIRESTORE_BASE_URL}/projects/${projectId}/databases/${databaseId}/documents/posts`;
 }
 
-async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string) {
+type PublishDispatchResult = {
+  ok: boolean;
+  reason: 'dispatched' | 'missing_github_token' | 'github_http_error' | 'dispatch_exception';
+};
+
+async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string): Promise<PublishDispatchResult> {
   const { owner, repo, workflowFile, branch, token } = getPublishWorkflowConfig();
 
   if (!token) {
@@ -276,7 +281,7 @@ async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string
       workflowFile,
       branch,
     });
-    return false;
+    return { ok: false, reason: 'missing_github_token' };
   }
 
   try {
@@ -308,10 +313,10 @@ async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string
         status: response.status,
         error: errorText || response.statusText,
       });
-      return false;
+      return { ok: false, reason: 'github_http_error' };
     }
 
-    return true;
+    return { ok: true, reason: 'dispatched' };
   } catch (error) {
     console.warn('PUBLISH WORKFLOW DISPATCH WARNING', {
       trigger,
@@ -320,9 +325,9 @@ async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string
       repo,
       workflowFile,
       branch,
-      error,
+      error: error instanceof Error ? error.message : String(error),
     });
-    return false;
+    return { ok: false, reason: 'dispatch_exception' };
   }
 }
 
@@ -894,18 +899,28 @@ async function writeFirestorePost(postData: Record<string, any>) {
     }
   );
 
-  const workflowTriggered = shouldDispatchPublishWorkflow(mode, documentData, existingPost)
+  const shouldDispatch = shouldDispatchPublishWorkflow(mode, documentData, existingPost);
+  const dispatchResult = shouldDispatch
     ? await dispatchPublishWorkflow('save', docId)
-    : false;
+    : { ok: true, reason: 'not_required' as const };
+  const publishSyncStatus = !shouldDispatch
+    ? 'not_required'
+    : dispatchResult.ok
+      ? 'dispatched'
+      : 'failed';
 
   return {
     docId,
     saved: true,
     published: false,
     publishMode: 'manual' as const,
-    nextStep: workflowTriggered
+    publishSyncStatus,
+    publishSyncReason: dispatchResult.reason,
+    nextStep: publishSyncStatus === 'dispatched'
       ? 'GitHub Actions workflow dispatched for JSON export.'
-      : 'Firestore save completed. JSON export trigger failed; check GitHub Actions.',
+      : publishSyncStatus === 'not_required'
+        ? 'Firestore save completed. JSON export dispatch was not required.'
+        : 'Firestore save completed, but JSON export dispatch failed; check GitHub Actions.',
   };
 }
 
@@ -924,15 +939,17 @@ async function deleteFirestorePost(id: string) {
     }
   }
 
-  const workflowTriggered = await dispatchPublishWorkflow('delete', id);
+  const dispatchResult = await dispatchPublishWorkflow('delete', id);
 
   return {
     saved: true,
     published: false,
     publishMode: 'manual' as const,
-    nextStep: workflowTriggered
+    publishSyncStatus: dispatchResult.ok ? 'dispatched' : 'failed',
+    publishSyncReason: dispatchResult.reason,
+    nextStep: dispatchResult.ok
       ? 'GitHub Actions workflow dispatched for JSON export.'
-      : 'Firestore save completed. JSON export trigger failed; check GitHub Actions.',
+      : 'Firestore save completed, but JSON export dispatch failed; check GitHub Actions.',
   };
 }
 
