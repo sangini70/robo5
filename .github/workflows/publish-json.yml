@@ -44,9 +44,6 @@ jobs:
             echo "candidate_count=" >> "$GITHUB_OUTPUT"
           fi
         env:
-          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_WORKFLOW_FILE: publish-json.yml
@@ -125,9 +122,9 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if [ -n "$(git status --short -- public/data)" ]; then
+          if [ -n "$(git status --short -- public/data .github/pending-publication.json)" ]; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            git status --short -- public/data
+            git status --short -- public/data .github/pending-publication.json
           else
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
@@ -138,7 +135,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data
+          git add public/data .github/pending-publication.json
           git commit -m "chore(sync): regenerate public JSON [skip ci]"
           git fetch origin main
           git rebase origin/main

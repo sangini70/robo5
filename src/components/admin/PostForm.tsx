@@ -1074,7 +1074,9 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         throw new Error(result?.error || '게시글 저장에 실패했습니다.');
       }
 
-      const successMessage = result?.publishSyncStatus === 'failed'
+      const successMessage = result?.pendingPublicationMarkerStatus === 'failed'
+        ? '게시글 저장 완료. 예약 발행 marker 갱신에 실패했습니다.'
+        : result?.publishSyncStatus === 'failed'
         ? '게시글 저장 완료. 공개 JSON 반영 요청에 실패했습니다.'
         : result?.publishSyncStatus === 'not_required' || result?.published === false
           ? '게시글 저장 완료! 공개 반영은 수동입니다.'

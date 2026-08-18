@@ -268,6 +268,13 @@ type PublishDispatchResult = {
   reason: 'dispatched' | 'missing_github_token' | 'github_http_error' | 'dispatch_exception';
 };
 
+type PendingPublicationMarkerResult = {
+  ok: boolean;
+  reason: 'updated' | 'unchanged' | 'missing_github_token' | 'github_http_error' | 'marker_exception';
+};
+
+const PENDING_PUBLICATION_MARKER_PATH = '.github/pending-publication.json';
+
 async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string): Promise<PublishDispatchResult> {
   const { owner, repo, workflowFile, branch, token } = getPublishWorkflowConfig();
 
@@ -328,6 +335,103 @@ async function dispatchPublishWorkflow(trigger: 'save' | 'delete', docId: string
       error: error instanceof Error ? error.message : String(error),
     });
     return { ok: false, reason: 'dispatch_exception' };
+  }
+}
+
+async function updatePendingPublicationMarker(nextPublishDate: string): Promise<PendingPublicationMarkerResult> {
+  const { owner, repo, branch, token } = getPublishWorkflowConfig();
+
+  if (!token) {
+    console.warn('PENDING PUBLICATION MARKER WARNING', {
+      reason: 'Missing GITHUB_TOKEN',
+      owner,
+      repo,
+      branch,
+    });
+    return { ok: false, reason: 'missing_github_token' };
+  }
+
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+  const contentsUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${PENDING_PUBLICATION_MARKER_PATH}`;
+
+  try {
+    const currentResponse = await fetch(`${contentsUrl}?ref=${encodeURIComponent(branch)}`, { headers });
+    let sha: string | undefined;
+    let currentNextPublishDate: string | null = null;
+
+    if (currentResponse.ok) {
+      const currentPayload = await currentResponse.json();
+      sha = typeof currentPayload?.sha === 'string' ? currentPayload.sha : undefined;
+      if (typeof currentPayload?.content === 'string') {
+        try {
+          const currentMarker = JSON.parse(Buffer.from(currentPayload.content, 'base64').toString('utf8'));
+          currentNextPublishDate = normalizeTimestampInput(currentMarker?.nextPublishDate);
+        } catch {
+          currentNextPublishDate = null;
+        }
+      }
+    } else if (currentResponse.status !== 404) {
+      const errorText = await currentResponse.text();
+      console.warn('PENDING PUBLICATION MARKER WARNING', {
+        reason: 'GitHub marker read failed',
+        owner,
+        repo,
+        branch,
+        status: currentResponse.status,
+        error: errorText || currentResponse.statusText,
+      });
+      return { ok: false, reason: 'github_http_error' };
+    }
+
+    const candidateDate = normalizeTimestampInput(nextPublishDate);
+    const currentDate = currentNextPublishDate ? new Date(currentNextPublishDate) : null;
+    const candidate = candidateDate ? new Date(candidateDate) : null;
+    if (!candidate || (currentDate && !Number.isNaN(currentDate.getTime()) && currentDate <= candidate)) {
+      return { ok: true, reason: 'unchanged' };
+    }
+
+    const marker = JSON.stringify({ nextPublishDate: candidate.toISOString() }, null, 2) + '\n';
+    const updateResponse = await fetch(contentsUrl, {
+      method: 'PUT',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: 'chore(sync): update pending publication marker',
+        content: Buffer.from(marker, 'utf8').toString('base64'),
+        branch,
+        ...(sha ? { sha } : {}),
+      }),
+    });
+
+    if (!updateResponse.ok) {
+      const errorText = await updateResponse.text();
+      console.warn('PENDING PUBLICATION MARKER WARNING', {
+        reason: 'GitHub marker write failed',
+        owner,
+        repo,
+        branch,
+        status: updateResponse.status,
+        error: errorText || updateResponse.statusText,
+      });
+      return { ok: false, reason: 'github_http_error' };
+    }
+
+    return { ok: true, reason: 'updated' };
+  } catch (error) {
+    console.warn('PENDING PUBLICATION MARKER WARNING', {
+      reason: 'GitHub marker exception',
+      owner,
+      repo,
+      branch,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return { ok: false, reason: 'marker_exception' };
   }
 }
 
@@ -874,6 +978,20 @@ function shouldDispatchPublishWorkflow(
   return mode === 'create' || mode === 'edit';
 }
 
+function getPendingPublishDate(documentData: Record<string, any>) {
+  if (String(documentData.status ?? '').trim() !== 'published') {
+    return null;
+  }
+
+  const publishDateValue = normalizeTimestampInput(documentData.publishDate);
+  if (!publishDateValue) return null;
+
+  const publishDate = new Date(publishDateValue);
+  return !Number.isNaN(publishDate.getTime()) && publishDate > new Date()
+    ? publishDate.toISOString()
+    : null;
+}
+
 async function writeFirestorePost(postData: Record<string, any>) {
   const mode: 'create' | 'edit' = postData.id ? 'edit' : 'create';
   const docId = postData.id || Date.now().toString();
@@ -899,6 +1017,10 @@ async function writeFirestorePost(postData: Record<string, any>) {
     }
   );
 
+  const pendingPublishDate = getPendingPublishDate(documentData);
+  const markerResult = pendingPublishDate
+    ? await updatePendingPublicationMarker(pendingPublishDate)
+    : { ok: true, reason: 'unchanged' as const };
   const shouldDispatch = shouldDispatchPublishWorkflow(mode, documentData, existingPost);
   const dispatchResult = shouldDispatch
     ? await dispatchPublishWorkflow('save', docId)
@@ -916,7 +1038,13 @@ async function writeFirestorePost(postData: Record<string, any>) {
     publishMode: 'manual' as const,
     publishSyncStatus,
     publishSyncReason: dispatchResult.reason,
-    nextStep: publishSyncStatus === 'dispatched'
+    pendingPublicationMarkerStatus: pendingPublishDate
+      ? markerResult.ok ? markerResult.reason : 'failed'
+      : 'not_required',
+    pendingPublicationMarkerReason: pendingPublishDate ? markerResult.reason : 'not_required',
+    nextStep: pendingPublishDate && !markerResult.ok
+      ? 'Firestore save completed, but the pending publication marker update failed; retry the scheduled post save.'
+      : publishSyncStatus === 'dispatched'
       ? 'GitHub Actions workflow dispatched for JSON export.'
       : publishSyncStatus === 'not_required'
         ? 'Firestore save completed. JSON export dispatch was not required.'

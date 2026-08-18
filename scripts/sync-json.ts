@@ -28,6 +28,7 @@ type FirestoreAdminConfig = {
 
 const FIRESTORE_SCOPE = 'https://www.googleapis.com/auth/datastore';
 const FIRESTORE_BASE_URL = 'https://firestore.googleapis.com/v1';
+const PENDING_PUBLICATION_MARKER_PATH = path.join(process.cwd(), '.github', 'pending-publication.json');
 
 let cachedAccessToken: { token: string; expiresAt: number } | null = null;
 
@@ -131,6 +132,28 @@ function filterPublicPosts(posts: any[]) {
       const dateB = new Date(b.publishDate || b.createdAt).getTime();
       return dateB - dateA;
     });
+}
+
+function findNextPendingPublication(posts: any[]) {
+  const futureDates = posts
+    .filter((post) => post.status === 'published')
+    .map((post) => normalizeTimestampInput(post.publishDate))
+    .filter((publishDate): publishDate is string => {
+      if (!publishDate) return false;
+      return new Date(publishDate).getTime() > Date.now();
+    })
+    .sort();
+
+  return futureDates[0] || null;
+}
+
+function writePendingPublicationMarker(posts: any[]) {
+  fs.mkdirSync(path.dirname(PENDING_PUBLICATION_MARKER_PATH), { recursive: true });
+  fs.writeFileSync(
+    PENDING_PUBLICATION_MARKER_PATH,
+    `${JSON.stringify({ nextPublishDate: findNextPendingPublication(posts) }, null, 2)}\n`,
+    'utf8'
+  );
 }
 
 function normalizeTimestampInput(value: any): string | null {
@@ -334,6 +357,7 @@ async function main() {
   console.log('Reading posts from Firestore posts collection...');
 
   const firestorePosts = await listFirestorePosts();
+  writePendingPublicationMarker(firestorePosts);
   const publicPosts = filterPublicPosts(normalizeMasterPosts(firestorePosts));
 
   console.log(`Loaded ${firestorePosts.length} posts from Firestore posts collection.`);
