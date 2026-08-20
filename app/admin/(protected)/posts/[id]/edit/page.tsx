@@ -18,9 +18,8 @@ export default function AdminEditPost() {
     const fetchPost = async () => {
       if (!id) return;
       try {
-        const response = await fetchAdminPosts('/api/admin/posts');
-        const posts = await response.json();
-        const post = posts.find((p: any) => p.id === id);
+        const response = await fetchAdminPosts(`/api/admin/posts?id=${encodeURIComponent(id)}`);
+        const post = await response.json();
         if (post) {
           setInitialData(post);
         } else {

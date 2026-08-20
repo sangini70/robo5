@@ -1123,6 +1123,12 @@ export async function GET(request: Request) {
   try {
     await requireAdminRequest(request);
     const requestUrl = new URL(request.url);
+    const id = requestUrl.searchParams.get('id')?.trim();
+    if (id) {
+      const post = await getFirestorePost(id);
+      return NextResponse.json(post);
+    }
+
     const exactSlug = requestUrl.searchParams.get('slug')?.trim();
     if (exactSlug) {
       const posts = await findFirestorePostsBySlug(exactSlug);
