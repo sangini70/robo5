@@ -612,6 +612,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const [plannerMetaOpen, setPlannerMetaOpen] = useState(false);
   const [plannerMetaText, setPlannerMetaText] = useState('');
   const [plannerMetaResult, setPlannerMetaResult] = useState<PlannerMetaApplyState | null>(null);
+  const lastCheckedSlugRef = useRef('');
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -701,9 +702,6 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       return { ...prev, title };
     });
 
-    if (shouldAutoGenerateSlug) {
-      void checkSlugAvailability(generatedSlug);
-    }
   };
 
   const checkSlugAvailability = async (slug: string) => {
@@ -720,6 +718,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       const isDuplicate = Array.isArray(posts)
         ? posts.some((doc: any) => doc.slug === normalizedSlug && doc.id !== postId)
         : false;
+      lastCheckedSlugRef.current = normalizedSlug;
       if (isDuplicate) {
         setSlugError('이미 사용 중인 슬러그입니다.');
         return false;
@@ -737,11 +736,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const slug = e.target.value;
     setFormData(prev => ({ ...prev, slug }));
-    checkSlugAvailability(slug);
   };
 
   const handleSlugBlur = () => {
-    checkSlugAvailability(formData.slug);
+    const normalizedSlug = formData.slug.trim();
+    if (normalizedSlug && normalizedSlug === lastCheckedSlugRef.current) {
+      return;
+    }
+    void checkSlugAvailability(formData.slug);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
