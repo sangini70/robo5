@@ -2,21 +2,6 @@ import { NextResponse } from 'next/server';
 import { createSign } from 'crypto';
 import firebaseConfig from '../../../firebase-applet-config.json';
 
-type FirestoreValue =
-  | { stringValue: string }
-  | { integerValue: string }
-  | { doubleValue: number }
-  | { booleanValue: boolean }
-  | { nullValue: null }
-  | { timestampValue: string }
-  | { mapValue: { fields: Record<string, FirestoreValue> } }
-  | { arrayValue: { values: FirestoreValue[] } };
-
-type FirestoreDocument = {
-  name?: string;
-  fields?: Record<string, FirestoreValue>;
-};
-
 type FirestoreAdminConfig = {
   projectId: string;
   databaseId: string;
@@ -74,54 +59,6 @@ function normalizeFirestoreValue(value: any): any {
     );
   }
   return value;
-}
-
-function fromFirestoreValue(value: FirestoreValue): any {
-  if ('nullValue' in value) return null;
-  if ('stringValue' in value) return value.stringValue;
-  if ('integerValue' in value) return Number(value.integerValue);
-  if ('doubleValue' in value) return value.doubleValue;
-  if ('booleanValue' in value) return value.booleanValue;
-  if ('timestampValue' in value) return value.timestampValue;
-
-  if ('arrayValue' in value) {
-    return (value.arrayValue.values || []).map((item) => fromFirestoreValue(item));
-  }
-
-  if ('mapValue' in value) {
-    const result: Record<string, any> = {};
-    const fields = value.mapValue.fields || {};
-    for (const [key, nestedValue] of Object.entries(fields)) {
-      result[key] = fromFirestoreValue(nestedValue);
-    }
-    return result;
-  }
-
-  return null;
-}
-
-function fromFirestoreDocument(document: FirestoreDocument) {
-  const data: Record<string, any> = {};
-  const fields = document.fields || {};
-
-  for (const [key, value] of Object.entries(fields)) {
-    data[key] = fromFirestoreValue(value);
-  }
-
-  if (!data.id && document.name) {
-    data.id = document.name.split('/').pop() || data.id;
-  }
-
-  return data;
-}
-
-function normalizePostDocument(post: Record<string, any>) {
-  const normalized = { ...normalizeFirestoreValue(post) };
-  if (!normalized.id && normalized.slug) {
-    normalized.id = normalized.slug;
-  }
-
-  return normalized;
 }
 
 function createSignedJwt() {
@@ -206,71 +143,45 @@ async function firestoreRequest(path: string, init: RequestInit = {}) {
   return response;
 }
 
-async function findFirestorePostBySlug(slug: string) {
+async function updateFirestorePostViews(postId: string) {
   const { projectId, databaseId } = getFirestoreAdminConfig();
-  const response = await firestoreRequest(`projects/${projectId}/databases/${databaseId}/documents:runQuery`, {
-    method: 'POST',
-    body: JSON.stringify({
-      structuredQuery: {
-        from: [{ collectionId: 'posts' }],
-        where: {
-          fieldFilter: {
-            field: { fieldPath: 'slug' },
-            op: 'EQUAL',
-            value: { stringValue: slug },
-          },
-        },
-        limit: 1,
-      },
-    }),
-  });
-
-  const payload = await response.json();
-  const hit = Array.isArray(payload)
-    ? payload.find((item: any) => item?.document?.name)
-    : null;
-
-  if (!hit?.document) {
-    return null;
-  }
-
-  return normalizePostDocument(fromFirestoreDocument(hit.document));
-}
-
-async function updateFirestorePostViews(post: Record<string, any>) {
-  const { projectId, databaseId } = getFirestoreAdminConfig();
-  const docId = post.id || post.slug;
-  const currentViews = Number(post.postViews || 0);
-  const nextViews = currentViews + 1;
-
-  await firestoreRequest(
-    `projects/${projectId}/databases/${databaseId}/documents/posts/${encodeURIComponent(docId)}?updateMask.fieldPaths=postViews`,
+  const document = `projects/${projectId}/databases/${databaseId}/documents/posts/${encodeURIComponent(postId)}`;
+  const response = await firestoreRequest(
+    `projects/${projectId}/databases/${databaseId}/documents:commit`,
     {
-      method: 'PATCH',
+      method: 'POST',
       body: JSON.stringify({
-        fields: {
-          postViews: {
-            integerValue: String(nextViews),
+        writes: [
+          {
+            currentDocument: { exists: true },
+            transform: {
+              document,
+              fieldTransforms: [
+                {
+                  fieldPath: 'postViews',
+                  increment: { integerValue: '1' },
+                },
+              ],
+            },
           },
-        },
+        ],
       }),
     }
   );
 
-  return nextViews;
+  const payload = await response.json();
+  const views = payload?.writeResults?.[0]?.transformResults?.[0]?.integerValue;
+  return typeof views === 'string' ? Number(views) : null;
 }
 
 export async function POST(request: Request) {
   try {
-    const { slug } = await request.json();
-    if (!slug) return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
-
-    const post = await findFirestorePostBySlug(slug);
-    if (!post) {
-      return NextResponse.json({ success: true, views: 0 });
+    const { postId } = await request.json();
+    if (typeof postId !== 'string' || !postId.trim()) {
+      return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
 
-    const views = await updateFirestorePostViews(post);
+    const views = await updateFirestorePostViews(postId.trim());
     return NextResponse.json({ success: true, views });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

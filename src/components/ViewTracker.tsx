@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useEffect, useRef } from 'react';
-export function ViewTracker({ slug }: { slug: string }) {
+export function ViewTracker({ postId }: { postId: string }) {
   const hasTracked = useRef(false);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export function ViewTracker({ slug }: { slug: string }) {
     const trackView = async () => {
       try {
         // 2. Check localStorage for duplicate views within 12 hours
-        const viewKey = `viewed_${slug}`;
+        const viewKey = `viewed_${postId}`;
         const lastViewed = localStorage.getItem(viewKey);
         const now = Date.now();
         const TWELVE_HOURS = 12 * 60 * 60 * 1000;
@@ -26,7 +26,7 @@ export function ViewTracker({ slug }: { slug: string }) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ slug }),
+          body: JSON.stringify({ postId }),
         });
 
         // 4. Update localStorage
@@ -37,7 +37,7 @@ export function ViewTracker({ slug }: { slug: string }) {
     };
 
     trackView();
-  }, [slug]);
+  }, [postId]);
 
   return null;
 }

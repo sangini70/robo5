@@ -224,7 +224,7 @@ export default async function EnglishPostPage({ params }: { params: Promise<{ sl
 
   return (
     <MainLayout>
-      <ViewTracker slug={post.slug} />
+      <ViewTracker postId={post.id} />
       {post.customCss && <style dangerouslySetInnerHTML={{ __html: post.customCss }} />}
       <script
         type="application/ld+json"
