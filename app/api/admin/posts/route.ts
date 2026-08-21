@@ -466,6 +466,7 @@ async function findFirestorePostsBySlug(slug: string) {
             },
           },
         },
+        limit: 1,
       },
     }),
   });
