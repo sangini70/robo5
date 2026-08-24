@@ -1,32 +1,9 @@
 {
-  "economy-basics": [
-    "aaa116",
-    "aaa115",
-    "aaa114",
-    "aaa113",
-    "aaa112",
-    "robo-advisor-versus-human-pb-hybrid-wealth-management",
-    "diy-investing-versus-robo-advisor-statistical-comparison",
-    "robo-advisor-fees-and-long-term-compounding-cost-savings",
-    "robo-advisor-performance-metrics-sharpe-twr-irr",
-    "why-robo-advisors-use-etfs-screening-criteria",
-    "automated-portfolio-rebalancing-mechanism",
-    "robo-advisor-investor-profiling-algorithm",
-    "advisory-vs-discretionary-robo-advisor"
-  ],
   "tax-account": [
     "isa-reform-status",
     "isa-overseas-stock-investing",
     "isa-account-transfer",
     "isa-termination"
-  ],
-  "": [
-    "국민연금 보험료율",
-    "ISA 계좌 뜻",
-    "ISA 계좌 만기",
-    "SA 계좌 해지",
-    "national-pension-contribution-rate-definition",
-    "nasdaq-futures"
   ],
   "finance": [
     "isa-maturity",
@@ -39,6 +16,10 @@
   "national-pension": [
     "national-pension-contribution-rate-current",
     "national-pension-reform"
+  ],
+  "": [
+    "national-pension-contribution-rate-definition",
+    "nasdaq-futures"
   ],
   "taxation": [
     "tax-reform-2026-impact",
@@ -118,6 +99,16 @@
   ],
   "glossary": [
     "etf-definition"
+  ],
+  "economy-basics": [
+    "robo-advisor-versus-human-pb-hybrid-wealth-management",
+    "diy-investing-versus-robo-advisor-statistical-comparison",
+    "robo-advisor-fees-and-long-term-compounding-cost-savings",
+    "robo-advisor-performance-metrics-sharpe-twr-irr",
+    "why-robo-advisors-use-etfs-screening-criteria",
+    "automated-portfolio-rebalancing-mechanism",
+    "robo-advisor-investor-profiling-algorithm",
+    "advisory-vs-discretionary-robo-advisor"
   ],
   "환율": [
     "exchange-rate-economic-impact",
