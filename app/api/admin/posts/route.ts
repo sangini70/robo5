@@ -223,17 +223,6 @@ function fromFirestoreValue(value: any): any {
 }
 
 function fromFirestoreDocument(document: FirestoreDocument) {
-  console.log("FIRESTORE RAW FIELDS", {
-    keys: Object.keys(document.fields ?? {}),
-    fields: document.fields,
-    title: document.fields?.title,
-    slug: document.fields?.slug,
-    status: document.fields?.status,
-    category: document.fields?.category,
-    categorySlug: document.fields?.categorySlug,
-    name: document.name,
-  });
-
   const data: Record<string, any> = {};
   const fields = document?.fields || {};
 
@@ -852,9 +841,6 @@ async function listFirestorePosts(options: ListFirestorePostsOptions = {}): Prom
       .map((entry) => entry.document)
       .filter((document): document is FirestoreDocument => Boolean(document));
     const posts = documents.map((document) => normalizePostDocument(fromFirestoreDocument(document)));
-    console.log(
-      `ADMIN POSTS QUERY OBSERVATION firestoreDocumentCount=${documents.length} apiReturnedPosts=${posts.length} requestedLimit=${options.pageSize} optionsPageSize=${options.pageSize} firestoreResponseEntries=${payload.length}`
-    );
     const nextCursor = documents.length > 0 ? encodeAdminPostsCursor(extractAdminPostsCursor(documents[documents.length - 1])) : null;
 
     return {
@@ -1181,7 +1167,6 @@ export async function GET(request: Request) {
         pageSize,
         cursor: cursor || null,
       });
-      console.log('ADMIN POSTS RESPONSE FIRST', page.posts[0] ?? null);
       return NextResponse.json({
         success: true,
         posts: page.posts,
@@ -1197,7 +1182,6 @@ export async function GET(request: Request) {
       postsCount: Array.isArray(posts) ? posts.length : 0,
       firstSlug: Array.isArray(posts) ? posts[0]?.slug ?? null : null,
     });
-    console.log('ADMIN POSTS RESPONSE FIRST', Array.isArray(posts) ? posts[0] ?? null : null);
     return NextResponse.json(posts);
   } catch (error: any) {
     console.error('ADMIN POSTS GET ERROR', error);

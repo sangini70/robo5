@@ -36,7 +36,6 @@ function formatAdminDateParts(value?: string | null): AdminDateParts | null {
 
 export default function AdminPosts() {
   const restoreInputRef = useRef<HTMLInputElement | null>(null);
-  const loadSequenceRef = useRef(0);
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
@@ -86,12 +85,8 @@ export default function AdminPosts() {
       }
 
       const requestUrl = `/api/admin/posts?${params.toString()}`;
-      const loadSequence = ++loadSequenceRef.current;
-      console.log(`ADMIN POSTS CLIENT LOAD loadSequence=${loadSequence} requestUrl=${requestUrl} searchQuery=${searchQuery} pageNumber=${pageNumber} cursor=${cursor ?? ''}`);
       const response = await fetchAdminPosts(requestUrl);
       const data = await response.json();
-      const apiPostsCount = Array.isArray(data) ? data.length : Array.isArray(data?.posts) ? data.posts.length : 0;
-      console.log(`ADMIN POSTS CLIENT RESPONSE requestUrl=${requestUrl} apiPostsCount=${apiPostsCount} nextCursor=${typeof data?.nextCursor === 'string' ? data.nextCursor : ''} hasMore=${Boolean(data?.hasMore)}`);
 
       if (!response.ok || (data && data.success === false)) {
         const message = data?.message || data?.error || '관리자 목록 로딩 실패: 데이터를 불러오지 못했습니다.';
@@ -132,7 +127,6 @@ export default function AdminPosts() {
         return false;
       }
 
-      console.log('ADMIN POSTS API FIRST', nextPosts[0] ?? null);
       if (isSearchMode) {
         const totalPages = Math.max(1, Math.ceil(nextPosts.length / ADMIN_PAGE_SIZE));
         setSearchResults(nextPosts);
@@ -140,7 +134,6 @@ export default function AdminPosts() {
         setNextCursor(null);
         setHasMore(false);
       } else {
-        console.log(`ADMIN POSTS CLIENT SETPOSTS nextPostsCount=${nextPosts.length}`);
         setPosts(nextPosts);
         setNextCursor(nextPageCursor);
         setHasMore(nextHasMore);
@@ -189,10 +182,6 @@ export default function AdminPosts() {
 
     return () => window.clearTimeout(timer);
   }, [searchQuery]);
-
-  useEffect(() => {
-    console.log('ADMIN POSTS STATE FIRST', posts[0] ?? null);
-  }, [posts]);
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -419,9 +408,8 @@ export default function AdminPosts() {
       ? filteredAndSortedPosts.slice(
           (currentDisplayPage - 1) * ADMIN_PAGE_SIZE,
           currentDisplayPage * ADMIN_PAGE_SIZE,
-        )
+      )
       : filteredAndSortedPosts;
-    console.log(`ADMIN POSTS CLIENT DISPLAY postsCount=${posts.length} activePostsCount=${activePosts.length} filteredAndSortedPostsCount=${filteredAndSortedPosts.length} displayedPostsCount=${nextDisplayedPosts.length}`);
     return nextDisplayedPosts;
   }, [filteredAndSortedPosts, currentDisplayPage, isSearchMode]);
 
