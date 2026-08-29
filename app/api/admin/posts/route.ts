@@ -853,7 +853,7 @@ async function listFirestorePosts(options: ListFirestorePostsOptions = {}): Prom
       .filter((document): document is FirestoreDocument => Boolean(document));
     const posts = documents.map((document) => normalizePostDocument(fromFirestoreDocument(document)));
     console.log(
-      `ADMIN POSTS QUERY OBSERVATION requestedLimit=${options.pageSize} optionsPageSize=${options.pageSize} firestoreResponseEntries=${payload.length} firestoreDocumentCount=${documents.length} apiReturnedPosts=${posts.length}`
+      `ADMIN POSTS QUERY OBSERVATION firestoreDocumentCount=${documents.length} apiReturnedPosts=${posts.length} requestedLimit=${options.pageSize} optionsPageSize=${options.pageSize} firestoreResponseEntries=${payload.length}`
     );
     const nextCursor = documents.length > 0 ? encodeAdminPostsCursor(extractAdminPostsCursor(documents[documents.length - 1])) : null;
 
