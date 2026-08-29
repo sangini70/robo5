@@ -415,11 +415,15 @@ export default function AdminPosts() {
     ? Math.max(1, Math.ceil(filteredAndSortedPosts.length / ADMIN_PAGE_SIZE))
     : pageCursors.length;
   const displayedPosts = React.useMemo(() => {
-    const startIndex = (currentDisplayPage - 1) * ADMIN_PAGE_SIZE;
-    const nextDisplayedPosts = filteredAndSortedPosts.slice(startIndex, startIndex + ADMIN_PAGE_SIZE);
+    const nextDisplayedPosts = isSearchMode
+      ? filteredAndSortedPosts.slice(
+          (currentDisplayPage - 1) * ADMIN_PAGE_SIZE,
+          currentDisplayPage * ADMIN_PAGE_SIZE,
+        )
+      : filteredAndSortedPosts;
     console.log(`ADMIN POSTS CLIENT DISPLAY postsCount=${posts.length} activePostsCount=${activePosts.length} filteredAndSortedPostsCount=${filteredAndSortedPosts.length} displayedPostsCount=${nextDisplayedPosts.length}`);
     return nextDisplayedPosts;
-  }, [filteredAndSortedPosts, currentDisplayPage]);
+  }, [filteredAndSortedPosts, currentDisplayPage, isSearchMode]);
 
   const refreshCurrentView = async () => {
     const searchTerm = searchQuery.trim();
