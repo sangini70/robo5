@@ -1,4 +1,9 @@
 {
+  "": [
+    "us-cryptocurrency-regulation-policy-stages",
+    "national-pension-contribution-rate-definition",
+    "nasdaq-futures"
+  ],
   "us-cryptocurrency-regulation": [
     "us-cryptocurrency-regulation-relaxation-types",
     "us-cryptocurrency-regulation-system"
@@ -20,10 +25,6 @@
   "national-pension": [
     "national-pension-contribution-rate-current",
     "national-pension-reform"
-  ],
-  "": [
-    "national-pension-contribution-rate-definition",
-    "nasdaq-futures"
   ],
   "taxation": [
     "tax-reform-2026-impact",
