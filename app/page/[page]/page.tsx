@@ -65,10 +65,13 @@ export default async function PaginatedHome({ params }: { params: Promise<{ page
   const posts = normalizeHomePosts(
     getPostsFromJson().filter((post: any) => post.language === 'ko')
   );
+  const homepagePostsCount = 4;
   const pageSize = 8;
-  const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
+  const totalPages = Math.max(1, 1 + Math.ceil(Math.max(0, posts.length - homepagePostsCount) / pageSize));
   const currentPage = Number.isNaN(page) || page < 1 ? 1 : Math.min(page, totalPages);
-  const start = (currentPage - 1) * pageSize;
+  const start = currentPage <= 1
+    ? 0
+    : homepagePostsCount + (currentPage - 2) * pageSize;
   const pagedPosts = posts.slice(start, start + pageSize);
 
   return <HomeContent page={currentPage} totalPages={totalPages} initialPosts={pagedPosts} />;

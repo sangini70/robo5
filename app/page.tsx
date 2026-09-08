@@ -42,6 +42,9 @@ export default function Home() {
   const posts = normalizeHomePosts(
     getPostsFromJson().filter((post: any) => post.language === 'ko')
   );
+  const homepagePostsCount = 4;
+  const pageSize = 8;
+  const totalPages = Math.max(1, 1 + Math.ceil(Math.max(0, posts.length - homepagePostsCount) / pageSize));
 
-  return <HomeContent page={1} initialPosts={posts} />;
+  return <HomeContent page={1} totalPages={totalPages} initialPosts={posts} />;
 }
