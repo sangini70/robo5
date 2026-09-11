@@ -584,7 +584,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     slug: '',
     description: '',
     content: '',
-    category: '?섏쑉',
+    category: '환율',
     categorySlug: '',
     tags: '',
     thumbnail: '',
