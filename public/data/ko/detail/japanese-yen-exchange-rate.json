@@ -1,46 +1,14 @@
 {
-  "publishHour": 22,
-  "slug": "japanese-yen-exchange-rate",
-  "googleIndexStatus": "requested",
-  "updatedAt": "2026-09-10T23:21:01.170Z",
-  "titleHistory": [],
-  "googleRequestedAt": "2026-09-10T23:20:56.551Z",
-  "thumbnail": "https://robo-advisor.kr/thumbnails/japanese-yen-exchange-rate.webp",
-  "postViews": 0,
-  "secondaryKeywords": [
-    "엔 환율",
-    "엔화 계산기"
-  ],
-  "tags": [
-    "엔화환율",
-    "원엔환율",
-    "환율계산",
-    "환율계산기",
-    "환전수수료",
-    "매매기준율",
-    "환율우대"
-  ],
-  "customCss": "",
-  "description": "100엔 단위로 고시되는 원/엔 환율 숫자의 의미를 올바르게 읽고, 실생활이나 여행에서 엔화 금액을 원화로 계산하는 방법을 정리합니다.",
-  "publishDate": "2026-09-10T13:49:08.173Z",
-  "naverIndexStatus": "requested",
   "clicks": 0,
-  "createdAt": "2026-09-10T13:49:08.174Z",
-  "naverRequestedAt": "2026-09-10T23:21:01.047Z",
-  "content": "<p data-path-to-node=\"4\">한국에서 은행이나 포털을 통해 원/엔 환율을 조회하면 흔히 '1엔'이 아닌 '100엔당 원화(JPY 100)' 기준으로 표시됩니다. 화면에 환율이 '900'이라고 적혀 있다면 1엔이 900원이라는 뜻이 아니라, 100엔의 원화 기준 가치가 약 900원으로 표시된다는 의미입니다. 단, 구글 환율 검색이나 일부 해외 결제 서비스에서는 '1엔당 원화'(예: 1엔 = 9원) 단위를 사용하기도 하므로 기준 단위를 먼저 확인해야 합니다.</p><p data-path-to-node=\"5\">원/엔 환율이 상승하면 원화 기준으로 엔화가 비싸지고, 하락하면 원화 기준으로 엔화가 싸집니다. 즉, 환율 숫자가 커질수록 100엔을 사기 위해 더 많은 원화가 필요해집니다.</p><h2 data-path-to-node=\"6\">엔화 환율 계산 공식과 암산 팁</h2><p data-path-to-node=\"7\">100엔 단위 고시를 기준으로 원화와 엔화를 환산하는 계산 공식은 다음과 같습니다.</p><ul data-path-to-node=\"8\"><li><p data-path-to-node=\"8,0,0\"><b data-path-to-node=\"8,0,0\" data-index-in-node=\"0\">엔화를 원화로 계산할 때:</b> 엔화 금액 ÷ 100 × 100엔당 환율</p></li><li><p data-path-to-node=\"8,1,0\"><b data-path-to-node=\"8,1,0\" data-index-in-node=\"0\">원화를 엔화로 계산할 때:</b> 원화 금액 ÷ 100엔당 환율 × 100</p></li></ul><p data-path-to-node=\"9\">예를 들어 100엔당 환율이 900원이라고 가정할 때, 1만 엔을 원화로 환산하면 '10,000 ÷ 100 × 900' 공식을 적용하여 90,000원이 됩니다.</p><p data-path-to-node=\"10\">일본 현지 여행 중이라면 100엔당 900원 부근일 때 유용한 간단한 암산법이 있습니다. 엔화 가격표에서 마지막 '0'을 하나 지운 뒤 9를 곱하면 대략적인 원화 체감 금액이 나옵니다. 2,500엔짜리 식사를 했다면 250에 9를 곱해 약 22,500원이라고 빠르게 가늠할 수 있습니다.</p><h2 data-path-to-node=\"11\">매매기준율과 실제 환전 금액의 차이</h2><p data-path-to-node=\"12\">포털 사이트에서 쉽게 확인하는 환율은 보통 '매매기준율'로, 통화 가치를 비교하기 위한 기준 시세표일 뿐입니다. 이 가격표 그대로 현찰을 바로 살 수 있는 것은 아닙니다.</p><p data-path-to-node=\"13\">실제 현금으로 환전할 때는 은행의 외화 취급 수수료 등이 더해져 매매기준율보다 비싼 '현찰 살 때' 환율이 적용됩니다. 은행 이벤트에서 흔히 내세우는 '환율 90% 우대' 역시 엔화 원금 자체를 깎아준다는 뜻이 아니라, 은행이 덧붙이는 이 환전 수수료를 90% 감면해 준다는 의미입니다.</p><p data-path-to-node=\"14\">환율을 읽는 단위와 수수료가 적용되는 구조를 이해했다면, 다음으로는 은행과 환전 서비스 등을 이용해 실제로 엔화를 환전하는 방법을 알아보겠습니다.</p>",
-  "searchIntent": "informational",
   "flowType": "지금 시장 흐름",
-  "id": "1789048148056",
-  "mainKeyword": "엔화 환율",
-  "impressions": 0,
-  "seoDescription": "한국에서 주로 쓰이는 '100엔당 원화' 환율 표시 기준을 이해하고, 엔화를 원화로 빠르게 환산하는 계산 공식과 현지 암산 팁, 실제 환전 수수료의 의미를 명확히 알아봅니다.",
-  "category": "CATEGORY REVIEW REQUIRED",
-  "customJs": "",
-  "categorySlug": "",
-  "language": "ko",
-  "status": "published",
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
+  "postViews": 0,
+  "content": "<p data-path-to-node=\"4\">한국에서 은행이나 포털을 통해 원/엔 환율을 조회하면 흔히 '1엔'이 아닌 '100엔당 원화(JPY 100)' 기준으로 표시됩니다. 화면에 환율이 '900'이라고 적혀 있다면 1엔이 900원이라는 뜻이 아니라, 100엔의 원화 기준 가치가 약 900원으로 표시된다는 의미입니다. 단, 구글 환율 검색이나 일부 해외 결제 서비스에서는 '1엔당 원화'(예: 1엔 = 9원) 단위를 사용하기도 하므로 기준 단위를 먼저 확인해야 합니다.</p><p data-path-to-node=\"5\">원/엔 환율이 상승하면 원화 기준으로 엔화가 비싸지고, 하락하면 원화 기준으로 엔화가 싸집니다. 즉, 환율 숫자가 커질수록 100엔을 사기 위해 더 많은 원화가 필요해집니다.</p><h2 data-path-to-node=\"6\">엔화 환율 계산 공식과 암산 팁</h2><p data-path-to-node=\"7\">100엔 단위 고시를 기준으로 원화와 엔화를 환산하는 계산 공식은 다음과 같습니다.</p><ul data-path-to-node=\"8\"><li><p data-path-to-node=\"8,0,0\"><b data-path-to-node=\"8,0,0\" data-index-in-node=\"0\">엔화를 원화로 계산할 때:</b> 엔화 금액 ÷ 100 × 100엔당 환율</p></li><li><p data-path-to-node=\"8,1,0\"><b data-path-to-node=\"8,1,0\" data-index-in-node=\"0\">원화를 엔화로 계산할 때:</b> 원화 금액 ÷ 100엔당 환율 × 100</p></li></ul><p data-path-to-node=\"9\">예를 들어 100엔당 환율이 900원이라고 가정할 때, 1만 엔을 원화로 환산하면 '10,000 ÷ 100 × 900' 공식을 적용하여 90,000원이 됩니다.</p><p data-path-to-node=\"10\">일본 현지 여행 중이라면 100엔당 900원 부근일 때 유용한 간단한 암산법이 있습니다. 엔화 가격표에서 마지막 '0'을 하나 지운 뒤 9를 곱하면 대략적인 원화 체감 금액이 나옵니다. 2,500엔짜리 식사를 했다면 250에 9를 곱해 약 22,500원이라고 빠르게 가늠할 수 있습니다.</p><h2 data-path-to-node=\"11\">매매기준율과 실제 환전 금액의 차이</h2><p data-path-to-node=\"12\">포털 사이트에서 쉽게 확인하는 환율은 보통 '매매기준율'로, 통화 가치를 비교하기 위한 기준 시세표일 뿐입니다. 이 가격표 그대로 현찰을 바로 살 수 있는 것은 아닙니다.</p><p data-path-to-node=\"13\">실제 현금으로 환전할 때는 은행의 외화 취급 수수료 등이 더해져 매매기준율보다 비싼 '현찰 살 때' 환율이 적용됩니다. 은행 이벤트에서 흔히 내세우는 '환율 90% 우대' 역시 엔화 원금 자체를 깎아준다는 뜻이 아니라, 은행이 덧붙이는 이 환전 수수료를 90% 감면해 준다는 의미입니다.</p><p data-path-to-node=\"14\">환율을 읽는 단위와 수수료가 적용되는 구조를 이해했다면, 다음으로는 은행과 환전 서비스 등을 이용해 실제로 엔화를 환전하는 방법을 알아보겠습니다.</p>",
+  "title": "엔화 환율은 어떻게 읽고 계산하는가",
+  "updatedAt": "2026-09-10T23:21:01.170Z",
+  "naverIndexStatus": "requested",
+  "slug": "japanese-yen-exchange-rate",
   "structuredDataJsonLd": "",
+  "status": "published",
   "searchIndex": {
     "slug": [
       "j",
@@ -125,6 +93,38 @@
       "계산하는가"
     ]
   },
+  "publishDate": "2026-09-10T13:49:08.173Z",
+  "categorySlug": "",
+  "publishHour": 22,
+  "naverRequestedAt": "2026-09-10T23:21:01.047Z",
+  "customCss": "",
+  "searchIntent": "informational",
+  "id": "1789048148056",
+  "googleRequestedAt": "2026-09-10T23:20:56.551Z",
+  "secondaryKeywords": [
+    "엔 환율",
+    "엔화 계산기"
+  ],
+  "mainKeyword": "엔화 환율",
+  "impressions": 0,
+  "createdAt": "2026-09-10T13:49:08.174Z",
+  "category": "CATEGORY REVIEW REQUIRED",
+  "thumbnail": "https://robo-advisor.kr/thumbnails/japanese-yen-exchange-rate.webp",
+  "language": "ko",
+  "seoDescription": "한국에서 주로 쓰이는 '100엔당 원화' 환율 표시 기준을 이해하고, 엔화를 원화로 빠르게 환산하는 계산 공식과 현지 암산 팁, 실제 환전 수수료의 의미를 명확히 알아봅니다.",
+  "description": "100엔 단위로 고시되는 원/엔 환율 숫자의 의미를 올바르게 읽고, 실생활이나 여행에서 엔화 금액을 원화로 계산하는 방법을 정리합니다.",
+  "tags": [
+    "엔화환율",
+    "원엔환율",
+    "환율계산",
+    "환율계산기",
+    "환전수수료",
+    "매매기준율",
+    "환율우대"
+  ],
+  "titleHistory": [],
+  "googleIndexStatus": "requested",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
   "seoTitle": "원/엔 환율 읽는 법과 엔화 환전 계산 공식",
-  "title": "엔화 환율은 어떻게 읽고 계산하는가"
+  "customJs": ""
 }

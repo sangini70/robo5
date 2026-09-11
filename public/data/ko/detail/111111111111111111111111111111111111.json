@@ -1,16 +1,11 @@
 {
-  "publishDate": "2026-09-11T00:31:15.396Z",
-  "createdAt": "2026-09-11T00:31:15.396Z",
-  "customJs": "",
-  "category": "?섏쑉",
-  "content": "111111111111111111111111111111111111",
-  "status": "published",
+  "impressions": 0,
+  "id": "1789086675307",
+  "updatedAt": "2026-09-11T00:31:15.307Z",
+  "mainKeyword": "",
   "structuredDataJsonLd": "",
-  "searchIntent": "",
-  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
-  "seoDescription": "",
   "searchIndex": {
-    "title": [
+    "slug": [
       "1",
       "11",
       "111",
@@ -48,7 +43,7 @@
       "11111111111111111111111111111111111",
       "111111111111111111111111111111111111"
     ],
-    "slug": [
+    "title": [
       "1",
       "11",
       "111",
@@ -125,25 +120,30 @@
       "111111111111111111111111111111111111"
     ]
   },
-  "googleIndexStatus": "none",
-  "description": "",
-  "categorySlug": "",
   "titleHistory": [],
+  "googleIndexStatus": "none",
+  "tags": [],
   "secondaryKeywords": [],
-  "thumbnail": "",
-  "id": "1789086675307",
-  "publishHour": 9,
-  "flowType": "지금 시장 흐름",
-  "seoTitle": "",
-  "impressions": 0,
-  "mainKeyword": "",
-  "postViews": 0,
-  "updatedAt": "2026-09-11T00:31:15.307Z",
+  "seoDescription": "",
   "slug": "111111111111111111111111111111111111",
-  "language": "ko",
-  "naverIndexStatus": "none",
-  "title": "111111111111111111111111111111111111",
+  "createdAt": "2026-09-11T00:31:15.396Z",
   "clicks": 0,
   "customCss": "",
-  "tags": []
+  "postViews": 0,
+  "thumbnail": "",
+  "language": "ko",
+  "seoTitle": "",
+  "authorId": "Jg6IvXtLOCclLRU7EzhZGTqMXb52",
+  "title": "111111111111111111111111111111111111",
+  "content": "111111111111111111111111111111111111",
+  "description": "",
+  "searchIntent": "",
+  "customJs": "",
+  "category": "?섏쑉",
+  "publishDate": "2026-09-11T00:31:15.396Z",
+  "status": "published",
+  "publishHour": 9,
+  "flowType": "지금 시장 흐름",
+  "categorySlug": "",
+  "naverIndexStatus": "none"
 }
