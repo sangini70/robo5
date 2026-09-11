@@ -576,6 +576,17 @@ function parsePlannerMeta(text: string) {
   return { values, found: hasExplicitMarkers || recognizedAny };
 }
 
+function isPlannerCategoryPlaceholder(field: PlannerMetaField, value: string) {
+  if (field !== 'category' && field !== 'categorySlug') return false;
+
+  const normalized = value.replace(/\s+/g, '').toUpperCase();
+  return new Set([
+    'CATEGORYREVIEWREQUIRED',
+    'CATEGORYSLUGREVIEWREQUIRED',
+    'REVIEWREQUIRED',
+  ]).has(normalized);
+}
+
 export function PostForm({ initialData, postId }: PostFormProps) {
   const router = useRouter();
   const contentEditorContainerRef = useRef<HTMLDivElement>(null);
@@ -786,6 +797,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       for (const [field, value] of entries) {
         const trimmedValue = value.trim();
         if (!trimmedValue) continue;
+        if (isPlannerCategoryPlaceholder(field, trimmedValue)) continue;
         nextState[field] = trimmedValue;
         if (field === 'slug') {
           changedSlugs.push(trimmedValue);
