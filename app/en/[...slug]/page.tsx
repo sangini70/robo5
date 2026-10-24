@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MainLayout } from '@/src/components/MainLayout';
@@ -5,10 +8,8 @@ import { Sidebar } from '@/src/components/Sidebar';
 import { ViewTracker } from '@/src/components/ViewTracker';
 import { ShareButtons } from '@/src/components/ShareButtons';
 import { PostContentRenderer } from '@/src/components/PostContentRenderer';
-import Link from 'next/link';
 import { createBreadcrumbList } from '@/src/lib/breadcrumb';
 import { getCategoryDisplayName } from '@/src/lib/category';
-import { getPostDetail } from '@/src/lib/posts';
 
 export const dynamic = 'force-dynamic';
 
@@ -91,10 +92,16 @@ function getSafeImageSourceUrl(value?: string) {
   }
 }
 
-// Fetch post data
-async function getPost(slug: string): Promise<any> {
+async function getEnglishPost(slug: string): Promise<any> {
   try {
-    const postData = getPostDetail(slug);
+    const filePath = path.join(process.cwd(), 'public', 'data', 'en', 'detail', `${slug}.json`);
+
+    if (!fs.existsSync(filePath)) {
+      return null;
+    }
+
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const postData = JSON.parse(fileContents);
 
     if (!postData) {
       return null;
@@ -126,14 +133,15 @@ async function getPost(slug: string): Promise<any> {
       updatedAtStr: formatDateTime(updatedAtObj),
     };
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error('Error fetching English post:', error);
     return null;
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getPost(slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
+  const { slug: slugSegments } = await params;
+  const slug = slugSegments.join('/');
+  const post = await getEnglishPost(slug);
 
   if (!post) {
     return {
@@ -144,70 +152,55 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = post.seoTitle || post.title;
   const description = post.seoDescription || post.description || post.shortDescription;
   const imageAlt = post.thumbnailMeta?.alt?.trim() || post.title;
+  const url = `https://robo-advisor.kr/en/${slug}`;
 
   return {
     title: `${title} | robo-advisor.kr`,
-    description: description,
+    description,
     alternates: {
-      canonical: post.language === 'en'
-        ? `https://robo-advisor.kr/en/${slug}`
-        : `https://robo-advisor.kr/${slug}`,
+      canonical: url,
       languages: {
         'ko-KR': `https://robo-advisor.kr/${slug}`,
-        'en-US': `https://robo-advisor.kr/en/${slug}`,
+        'en-US': url,
         'x-default': `https://robo-advisor.kr/${slug}`,
       },
     },
     openGraph: {
-      title: title,
-      description: description,
-      url: `https://robo-advisor.kr/${slug}`,
+      title,
+      description,
+      url,
       siteName: 'robo-advisor.kr',
-      images: post.thumbnail ? [
-        {
-          url: post.thumbnail,
-          width: 1200,
-          height: 630,
-          alt: imageAlt,
-        }
-      ] : [],
+      images: post.thumbnail
+        ? [
+            {
+              url: post.thumbnail,
+              width: 1200,
+              height: 630,
+              alt: imageAlt,
+            },
+          ]
+        : [],
       type: 'article',
       publishedTime: post.publishDate || post.createdAt,
       modifiedTime: post.updatedAt || post.publishDate || post.createdAt,
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
-      description: description,
+      title,
+      description,
       images: post.thumbnail ? [post.thumbnail] : [],
     },
   };
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await getPost(slug);
+export default async function EnglishPostPage({ params }: { params: Promise<{ slug: string[] }> }) {
+  const { slug: slugSegments } = await params;
+  const slug = slugSegments.join('/');
+  const post = await getEnglishPost(slug);
 
   if (!post) {
     notFound();
   }
-
-  // Check if post is related to exchange rates
-  const exchangeKeywords = [
-    '환율',
-    '원달러',
-    '원·달러',
-    '달러',
-    '외환',
-    '고환율',
-    'exchange',
-    'currency',
-  ];
-  const isExchangeRelated = exchangeKeywords.some(keyword =>
-    post.title?.includes(keyword) ||
-    post.category?.includes(keyword) ||
-    (post.tags && post.tags.some((t: string) => t.includes(keyword)))
-  );
 
   const description = post.seoDescription || post.description || post.shortDescription;
   const imageAlt = post.thumbnailMeta?.alt?.trim() || post.title;
@@ -217,36 +210,35 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
   const sanitizedStructuredDataJsonLd = sanitizeStructuredDataJsonLd(post.structuredDataJsonLd);
   const breadcrumbStructuredData = createBreadcrumbList([
-    { name: 'Home', url: 'https://robo-advisor.kr/' },
-    { name: categoryLabel, url: `https://robo-advisor.kr/category/${encodeURIComponent(categoryLabel)}` },
-    { name: post.title, url: `https://robo-advisor.kr/${slug}` },
+    { name: 'Home', url: 'https://robo-advisor.kr/en' },
+    { name: post.title, url: `https://robo-advisor.kr/en/${slug}` },
   ]);
 
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://robo-advisor.kr/${slug}`
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://robo-advisor.kr/en/${slug}`,
     },
-    "headline": post.title,
-    "description": description,
-    "image": post.thumbnail ? [post.thumbnail] : [],
-    "datePublished": post.publishDate || post.createdAt,
-    "dateModified": post.updatedAt || post.publishDate || post.createdAt,
-    "author": {
-      "@type": "Organization",
-      "name": "robo-advisor.kr",
-      "url": "https://robo-advisor.kr"
+    headline: post.title,
+    description,
+    image: post.thumbnail ? [post.thumbnail] : [],
+    datePublished: post.publishDate || post.createdAt,
+    dateModified: post.updatedAt || post.publishDate || post.createdAt,
+    author: {
+      '@type': 'Organization',
+      name: 'robo-advisor.kr',
+      url: 'https://robo-advisor.kr',
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "robo-advisor.kr",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://robo-advisor.kr/logo.png"
-      }
-    }
+    publisher: {
+      '@type': 'Organization',
+      name: 'robo-advisor.kr',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://robo-advisor.kr/logo.png',
+      },
+    },
   };
 
   return (
@@ -276,20 +268,22 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-medium">{categoryLabel}</span>
                 <span className="w-8 h-[1px] bg-gray-300"></span>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs text-gray-500 font-light">
-                  <time dateTime={post.createdAtStr}>작성일: {post.createdAtStr}</time>
+                  <time dateTime={post.createdAtStr}>?묒꽦?? {post.createdAtStr}</time>
                   {post.createdAtStr !== post.updatedAtStr && (
                     <>
                       <span className="hidden sm:inline text-gray-300">|</span>
-                      <time dateTime={post.updatedAtStr}>최종 업데이트: {post.updatedAtStr}</time>
+                      <time dateTime={post.updatedAtStr}>理쒖쥌 ?낅뜲?댄듃: {post.updatedAtStr}</time>
                     </>
                   )}
                 </div>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-medium tracking-tighter text-gray-900 mb-6 leading-tight">{post.title}</h1>
+              <h1 className="text-4xl sm:text-5xl font-medium tracking-tighter text-gray-900 mb-6 leading-tight">
+                {post.title}
+              </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed">{post.description}</p>
 
               <ShareButtons
-                url={`https://robo-advisor.kr/${slug}`}
+                url={`https://robo-advisor.kr/en/${slug}`}
                 title={post.title}
                 description={description}
                 thumbnail={post.thumbnail}
@@ -298,7 +292,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
             {post.thumbnail && (
               <div className="w-full aspect-[21/9] rounded-sm overflow-hidden mb-12 lg:mb-14 bg-gray-100 relative">
-                <img src={post.thumbnail} alt={imageAlt} className="w-full h-full object-cover opacity-90" referrerPolicy="no-referrer" />
+                <img
+                  src={post.thumbnail}
+                  alt={imageAlt}
+                  className="w-full h-full object-cover opacity-90"
+                  referrerPolicy="no-referrer"
+                />
                 <div className="absolute inset-0 border border-black/5"></div>
               </div>
             )}
@@ -308,7 +307,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 {imageCaption && <p>{imageCaption}</p>}
                 {imageSource && (
                   <p>
-                    출처:{' '}
+                    Source:{' '}
                     {imageSourceUrl ? (
                       <a href={imageSourceUrl} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">
                         {imageSource}
@@ -321,38 +320,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               </div>
             )}
 
-            {false && (
-              <div className="mb-10 p-6 bg-indigo-50 border border-indigo-100 rounded-lg shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div className="text-center sm:text-left">
-                  <h3 className="text-lg font-bold text-indigo-900 mb-1">환율 급등, 어떻게 대응할까요?</h3>
-                  <p className="text-sm text-indigo-700">환전 수수료와 환율 우대율을 함께 보면 실제 체감 환율을 더 정확하게 이해할 수 있습니다.</p>
-                </div>
-                <Link
-                  href="/exchange-rate-calculator"
-                  className="shrink-0 bg-indigo-600 text-white text-sm font-medium py-2.5 px-6 rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
-                >
-                  실속 환율 계산기 &rarr;
-                </Link>
-              </div>
-            )}
-
             <PostContentRenderer content={post.content} language={post.language} />
-
-            {false && (
-              <div className="mt-10 lg:mt-12 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">환율 계산기로 체감 금액을 바로 확인해보세요</h3>
-                <p className="text-gray-600 mb-6">
-                  환전 수수료와 우대율을 함께 적용해 실제 필요한 원화 금액과 체감 환율을 확인해보세요.<br />
-                  지금 환전할 때 필요한 정보를 한 번에 계산할 수 있습니다.
-                </p>
-                <Link
-                  href="/exchange-rate-calculator"
-                  className="inline-block bg-gray-900 text-white font-medium py-3 px-8 rounded-md hover:bg-gray-800 transition-colors shadow-sm"
-                >
-                  환율 계산기 열기
-                </Link>
-              </div>
-            )}
 
             {post.tags && post.tags.length > 0 && (
               <div className="mt-12 lg:mt-14 pt-8 border-t border-gray-200 flex flex-wrap gap-3">

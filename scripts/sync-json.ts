@@ -337,8 +337,8 @@ async function listFirestorePosts() {
     });
 
     const payload = await response.json();
-    console.log(JSON.stringify(payload, null, 2));
     const documents: FirestoreDocument[] = Array.isArray(payload.documents) ? payload.documents : [];
+    console.log(`Fetched ${documents.length} Firestore posts for this page.`);
     for (const [index, document] of documents.entries()) {
       posts.push(normalizeFirestorePost(fromFirestoreDocument(document), posts.length + index + 1));
     }

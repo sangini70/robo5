@@ -1,8 +1,30 @@
 import fs from 'fs';
 import path from 'path';
 
+function getSafeSlugSegments(slug: unknown) {
+  const rawSlug = typeof slug === 'string' ? slug.trim() : '';
+  const slugSegments = rawSlug.split('/').filter(Boolean);
+
+  if (
+    !rawSlug
+    || slugSegments.length === 0
+    || slugSegments.some(segment =>
+      segment === '.'
+      || segment === '..'
+      || segment.includes('\\')
+      || !/^[^<>:"|?*]+$/.test(segment)
+    )
+  ) {
+    throw new Error(`Invalid post slug for JSON artifact: ${String(slug)}`);
+  }
+
+  return slugSegments;
+}
+
 export function writeJsonArtifacts(posts: any[]) {
   const dataDir = path.join(process.cwd(), 'public', 'data');
+  const slugSegmentsByPost = posts.map(post => getSafeSlugSegments(post.slug));
+
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
   }
@@ -39,9 +61,11 @@ export function writeJsonArtifacts(posts: any[]) {
   if (!fs.existsSync(koDetailDir)) fs.mkdirSync(koDetailDir, { recursive: true });
   if (!fs.existsSync(enDetailDir)) fs.mkdirSync(enDetailDir, { recursive: true });
 
-  posts.forEach(post => {
+  posts.forEach((post, index) => {
     const detailDir = post.language === 'en' ? enDetailDir : koDetailDir;
-    const detailPath = path.join(detailDir, `${post.slug}.json`);
+    const detailPath = path.join(detailDir, ...slugSegmentsByPost[index]) + '.json';
+    const detailParentDir = path.dirname(detailPath);
+    fs.mkdirSync(detailParentDir, { recursive: true });
     fs.writeFileSync(detailPath, JSON.stringify(post, null, 2), 'utf8');
   });
   console.log(`Generated ${posts.length} detail JSON files.`);
