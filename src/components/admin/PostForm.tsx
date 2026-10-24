@@ -599,6 +599,12 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     categorySlug: '',
     tags: '',
     thumbnail: '',
+    thumbnailMeta: {
+      alt: '',
+      title: '',
+      caption: '',
+      source: '',
+    },
     status: 'draft',
     publishDate: '',
     mainKeyword: '',
@@ -650,6 +656,12 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         categorySlug: initialData.categorySlug || '',
         tags: initialData.tags ? initialData.tags.join(', ') : '',
         thumbnail: initialData.thumbnail || '',
+        thumbnailMeta: {
+          alt: typeof initialData.thumbnailMeta?.alt === 'string' ? initialData.thumbnailMeta.alt : '',
+          title: typeof initialData.thumbnailMeta?.title === 'string' ? initialData.thumbnailMeta.title : '',
+          caption: typeof initialData.thumbnailMeta?.caption === 'string' ? initialData.thumbnailMeta.caption : '',
+          source: typeof initialData.thumbnailMeta?.source === 'string' ? initialData.thumbnailMeta.source : '',
+        },
         status: initialData.status || 'draft',
         publishDate: normalizedPublishDate,
         mainKeyword: initialData.mainKeyword || '',
@@ -760,6 +772,19 @@ export function PostForm({ initialData, postId }: PostFormProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleThumbnailMetaChange = (
+    field: 'alt' | 'title' | 'caption' | 'source',
+    value: string
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      thumbnailMeta: {
+        ...prev.thumbnailMeta,
+        [field]: value,
+      },
+    }));
   };
 
   const handlePlannerMetaApply = () => {
@@ -1019,6 +1044,15 @@ export function PostForm({ initialData, postId }: PostFormProps) {
           : titleHistory)
         : [];
 
+      const thumbnailMeta = {
+        alt: formData.thumbnailMeta.alt.trim(),
+        title: formData.thumbnailMeta.title.trim(),
+        caption: formData.thumbnailMeta.caption.trim(),
+        source: formData.thumbnailMeta.source.trim(),
+      };
+      const hasThumbnailMeta = Object.values(thumbnailMeta).some(Boolean);
+      const hadThumbnailMeta = Boolean(initialData?.thumbnailMeta && typeof initialData.thumbnailMeta === 'object');
+
       const postData: any = {
         title: formData.title,
         slug: formData.slug,
@@ -1044,6 +1078,10 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         updatedAt: new Date().toISOString(),
         titleHistory: titleHistoryValue,
       };
+
+      if (hasThumbnailMeta || (postId && hadThumbnailMeta)) {
+        postData.thumbnailMeta = hasThumbnailMeta ? thumbnailMeta : {};
+      }
 
       if (publishHour !== null) {
         postData.publishHour = publishHour;
@@ -1340,6 +1378,60 @@ export function PostForm({ initialData, postId }: PostFormProps) {
               className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
               placeholder="https://..."
             />
+          </div>
+
+          <div className="space-y-4 border-l-2 border-gray-200 pl-4">
+            <p className="text-xs text-gray-500">
+              대표 이미지에만 적용되는 메타데이터입니다. SEO TITLE, 본문 이미지와는 별도로 관리합니다.
+            </p>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">IMAGE ALT TEXT</label>
+              <input
+                type="text"
+                value={formData.thumbnailMeta.alt}
+                onChange={(e) => handleThumbnailMetaChange('alt', e.target.value)}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="이미지를 보지 못하는 사용자를 위한 설명"
+              />
+              <p className="mt-1 text-xs text-gray-400">비워두면 게시글 제목을 사용합니다.</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">IMAGE TITLE</label>
+              <input
+                type="text"
+                value={formData.thumbnailMeta.title}
+                onChange={(e) => handleThumbnailMetaChange('title', e.target.value)}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="관리용 이미지 제목"
+              />
+              <p className="mt-1 text-xs text-gray-400">현재 공개 화면에서는 관리용으로 저장합니다.</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">IMAGE CAPTION</label>
+              <textarea
+                value={formData.thumbnailMeta.caption}
+                onChange={(e) => handleThumbnailMetaChange('caption', e.target.value)}
+                rows={2}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="상세 페이지에 표시할 이미지 설명"
+              />
+              <p className="mt-1 text-xs text-gray-400">입력하면 상세 페이지 대표 이미지 아래에 표시합니다.</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">IMAGE SOURCE</label>
+              <input
+                type="text"
+                value={formData.thumbnailMeta.source}
+                onChange={(e) => handleThumbnailMetaChange('source', e.target.value)}
+                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-sm"
+                placeholder="출처명 또는 https://..."
+              />
+              <p className="mt-1 text-xs text-gray-400">상세 페이지에 텍스트로 표시되며 http/https URL만 링크됩니다.</p>
+            </div>
           </div>
 
           {titleHistory && titleHistory.length > 0 && (

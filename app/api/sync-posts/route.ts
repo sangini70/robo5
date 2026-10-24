@@ -11,6 +11,14 @@ export async function POST(request: Request) {
     
     const posts = querySnapshot.docs.map(doc => {
       const data = doc.data();
+      const thumbnailMeta = data.thumbnailMeta && typeof data.thumbnailMeta === 'object'
+        ? {
+            alt: typeof data.thumbnailMeta.alt === 'string' ? data.thumbnailMeta.alt : '',
+            title: typeof data.thumbnailMeta.title === 'string' ? data.thumbnailMeta.title : '',
+            caption: typeof data.thumbnailMeta.caption === 'string' ? data.thumbnailMeta.caption : '',
+            source: typeof data.thumbnailMeta.source === 'string' ? data.thumbnailMeta.source : '',
+          }
+        : undefined;
       return {
         id: doc.id,
         slug: data.slug,
@@ -20,6 +28,7 @@ export async function POST(request: Request) {
         category: data.category || '',
         tags: data.tags || [],
         thumbnail: data.thumbnail || '',
+        thumbnailMeta,
         publishDate: data.publishDate ? data.publishDate.toDate().toISOString() : null,
         createdAt: data.createdAt ? data.createdAt.toDate().toISOString() : null,
         updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : null,

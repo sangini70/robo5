@@ -19,7 +19,7 @@ export function PostCard({ post }: PostCardProps) {
         {post.thumbnail && (
           <img 
             src={post.thumbnail} 
-            alt={post.title}
+            alt={post.thumbnailMeta?.alt?.trim() || post.title}
             className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
             referrerPolicy="no-referrer"
           />

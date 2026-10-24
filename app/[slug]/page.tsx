@@ -79,6 +79,18 @@ function sanitizeStructuredDataJsonLd(rawJsonLd?: string) {
   }
 }
 
+function getSafeImageSourceUrl(value?: string) {
+  const trimmed = value?.trim();
+  if (!trimmed) return null;
+
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:' ? parsed.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 // Fetch post data
 async function getPost(slug: string): Promise<any> {
   try {
@@ -131,6 +143,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const title = post.seoTitle || post.title;
   const description = post.seoDescription || post.description || post.shortDescription;
+  const imageAlt = post.thumbnailMeta?.alt?.trim() || post.title;
 
   return {
     title: `${title} | robo-advisor.kr`,
@@ -155,7 +168,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           url: post.thumbnail,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt,
         }
       ] : [],
       type: 'article',
@@ -197,6 +210,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   );
 
   const description = post.seoDescription || post.description || post.shortDescription;
+  const imageAlt = post.thumbnailMeta?.alt?.trim() || post.title;
+  const imageCaption = post.thumbnailMeta?.caption?.trim();
+  const imageSource = post.thumbnailMeta?.source?.trim();
+  const imageSourceUrl = getSafeImageSourceUrl(imageSource);
   const categoryLabel = getCategoryDisplayName(post.category, post.categorySlug);
   const sanitizedStructuredDataJsonLd = sanitizeStructuredDataJsonLd(post.structuredDataJsonLd);
   const breadcrumbStructuredData = createBreadcrumbList([
@@ -281,8 +298,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
             {post.thumbnail && (
               <div className="w-full aspect-[21/9] rounded-sm overflow-hidden mb-12 lg:mb-14 bg-gray-100 relative">
-                <img src={post.thumbnail} alt={post.title} className="w-full h-full object-cover opacity-90" referrerPolicy="no-referrer" />
+                <img src={post.thumbnail} alt={imageAlt} className="w-full h-full object-cover opacity-90" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 border border-black/5"></div>
+              </div>
+            )}
+
+            {(imageCaption || imageSource) && (
+              <div className="-mt-10 mb-12 text-sm text-gray-500">
+                {imageCaption && <p>{imageCaption}</p>}
+                {imageSource && (
+                  <p>
+                    출처:{' '}
+                    {imageSourceUrl ? (
+                      <a href={imageSourceUrl} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">
+                        {imageSource}
+                      </a>
+                    ) : (
+                      <span>{imageSource}</span>
+                    )}
+                  </p>
+                )}
               </div>
             )}
 
