@@ -881,30 +881,28 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     const changedSlugs: string[] = [];
     const protectedFields: PlannerMetaField[] = [];
 
-    setFormData(prev => {
-      const nextState = { ...prev };
-
-      for (const [field, value] of entries) {
-        const trimmedValue = value.trim();
-        if (!trimmedValue) continue;
-        if (isPlannerCategoryPlaceholder(field, trimmedValue)) continue;
-        if (
-          (field === 'mainKeyword' || field === 'secondaryKeywords')
-          && prev[field]?.trim()
-          && prev[field].trim() !== trimmedValue
-        ) {
-          protectedFields.push(field);
-          continue;
-        }
-        nextState[field] = trimmedValue;
-        if (field === 'slug') {
-          changedSlugs.push(trimmedValue);
-        }
-        nextFormData[field] = trimmedValue;
+    for (const [field, value] of entries) {
+      const trimmedValue = value.trim();
+      if (!trimmedValue) continue;
+      if (isPlannerCategoryPlaceholder(field, trimmedValue)) continue;
+      if (
+        (field === 'mainKeyword' || field === 'secondaryKeywords')
+        && formData[field]?.trim()
+        && formData[field].trim() !== trimmedValue
+      ) {
+        protectedFields.push(field);
+        continue;
       }
+      nextFormData[field] = trimmedValue;
+      if (field === 'slug') {
+        changedSlugs.push(trimmedValue);
+      }
+    }
 
-      return nextState;
-    });
+    setFormData(prev => ({
+      ...prev,
+      ...nextFormData,
+    }));
 
     if (changedSlugs[0]) {
       checkSlugAvailability(changedSlugs[0]);
