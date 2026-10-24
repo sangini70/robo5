@@ -51,6 +51,8 @@ type PlannerMetaApplyState = {
   message: string;
   appliedLabels: string[];
   missingLabels: string[];
+  reviewRequiredLabels: string[];
+  protectedLabels: string[];
   appliedCount: number;
 };
 
@@ -375,27 +377,51 @@ function getOptimizationBadgeClass(status: OptimizationStatus) {
   }
 }
 
-function extractPlannerMetaBlock(text: string) {
+function extractPlannerMetaSections(text: string) {
   const startMarker = '[PLANNER POST META 시작]';
   const endMarker = '[PLANNER POST META 종료]';
   const startIndex = text.indexOf(startMarker);
   const endIndex = text.indexOf(endMarker);
 
-  if (startIndex === -1 && endIndex === -1) {
-    return text;
+  if (startIndex !== -1 || endIndex !== -1) {
+    if (startIndex === -1 || endIndex === -1 || endIndex <= startIndex) {
+      return null;
+    }
+
+    return {
+      finalText: text.slice(0, startIndex),
+      plannerText: text.slice(startIndex + startMarker.length, endIndex),
+      hasPlanner: true,
+    };
   }
 
-  if (startIndex === -1 || endIndex === -1 || endIndex <= startIndex) {
-    return null;
+  const finalHeading = text.search(/(^|\r?\n)#\s+FINAL CONTENT META\s*(?:\r?\n|$)/i);
+  const plannerHeading = text.search(/(^|\r?\n)#{1,6}[^\r\n]*PLANNER POST META[^\r\n]*(?:\r?\n|$)/i);
+
+  if (plannerHeading >= 0) {
+    const finalEnd = plannerHeading;
+    const imageHeading = text.slice(plannerHeading).search(/(^|\r?\n)#{1,6}\s*IMAGE SEO META\b/i);
+    const plannerEnd = imageHeading >= 0 ? plannerHeading + imageHeading : text.length;
+    return {
+      finalText: finalHeading >= 0 ? text.slice(finalHeading, finalEnd) : '',
+      plannerText: text.slice(plannerHeading, plannerEnd),
+      hasPlanner: true,
+    };
   }
 
-  return text.slice(startIndex + startMarker.length, endIndex);
+  return {
+    finalText: finalHeading >= 0 ? text.slice(finalHeading) : text,
+    plannerText: '',
+    hasPlanner: false,
+  };
 }
 
 function stripPlannerDecorations(line: string) {
   return line
-    .replace(/^\s*[-*•]+\s*/, '')
     .replace(/^#{1,6}\s*/, '')
+    .replace(/^\s*\*\*\s*/, '')
+    .replace(/^\s*[-*•]+\s*/, '')
+    .replace(/\s*\*\*\s*$/, '')
     .replace(/\*\*/g, '')
     .replace(/__/g, '')
     .trim();
@@ -493,69 +519,85 @@ function matchPlannerMetaLabel(line: string) {
   return null;
 }
 
-function parsePlannerMeta(text: string) {
-  const block = extractPlannerMetaBlock(text);
-  const values: PlannerMetaValues = {};
+export function parsePlannerMeta(text: string) {
+  const sections = extractPlannerMetaSections(text);
+  if (!sections) return { values: {}, found: false, ambiguousPlannerNodes: false, reviewRequiredFields: [] };
 
-  if (!block) {
-    return { values, found: false };
-  }
+  const parseSection = (section: string) => {
+    const values: PlannerMetaValues = {};
+    const lines = section.split(/\r?\n/);
+    let currentField: PlannerMetaField | null = null;
+    let ignoringField = false;
+    let currentParts: string[] = [];
+    let recognizedAny = false;
 
-  const lines = block.split(/\r?\n/);
-  let currentField: PlannerMetaField | null = null;
-  let ignoringField = false;
-  let currentParts: string[] = [];
-  let recognizedAny = false;
-  const hasExplicitMarkers =
-    text.includes('[PLANNER POST META 시작]') && text.includes('[PLANNER POST META 종료]');
+    const commitCurrentField = () => {
+      if (!currentField) return;
+      const value = currentParts.join(' ').trim();
+      if (value) values[currentField] = value;
+      currentField = null;
+      currentParts = [];
+    };
 
-  const commitCurrentField = () => {
-    if (!currentField) return;
-    const value = currentParts.join(' ').trim();
-    if (value) {
-      values[currentField] = value;
+    for (const rawLine of lines) {
+      const line = stripPlannerDecorations(rawLine);
+      if (!line) continue;
+
+      const matchedLabel = matchPlannerMetaLabel(line);
+      if (matchedLabel) {
+        recognizedAny = true;
+        commitCurrentField();
+        ignoringField = false;
+
+        const field = matchedLabel.definition.field;
+        const inlineValue = matchedLabel.inlineValue;
+        if (field) {
+          currentField = field;
+          currentParts = [];
+          if (inlineValue) {
+            values[field] = inlineValue;
+            currentField = null;
+          }
+        } else {
+          currentField = null;
+          currentParts = [];
+          ignoringField = true;
+        }
+        continue;
+      }
+
+      if (currentField) currentParts.push(line);
+      else if (ignoringField) continue;
     }
-    currentField = null;
-    currentParts = [];
+
+    commitCurrentField();
+    return { values, found: recognizedAny };
   };
 
-  for (const rawLine of lines) {
-    const line = stripPlannerDecorations(rawLine);
-    if (!line) continue;
+  const finalParsed = parseSection(sections.finalText);
+  const nodeHeaderCount = (sections.plannerText.match(/^#{1,6}\s+N0?\d+\b/gim) || []).length;
+  const ambiguousPlannerNodes = nodeHeaderCount > 1;
+  const plannerParsed = ambiguousPlannerNodes
+    ? { values: {}, found: false }
+    : parseSection(sections.plannerText);
+  const values: PlannerMetaValues = {};
+  const fields = new Set<PlannerMetaField>([
+    ...(Object.keys(finalParsed.values) as PlannerMetaField[]),
+    ...(Object.keys(plannerParsed.values) as PlannerMetaField[]),
+  ]);
 
-    const matchedLabel = matchPlannerMetaLabel(line);
-
-    if (matchedLabel) {
-      recognizedAny = true;
-      commitCurrentField();
-      ignoringField = false;
-
-      const field = matchedLabel.definition.field;
-      const inlineValue = matchedLabel.inlineValue;
-
-      if (field) {
-        currentField = field;
-        currentParts = [];
-        if (inlineValue) {
-          values[field] = inlineValue;
-          currentField = null;
-        }
-      } else {
-        currentField = null;
-        currentParts = [];
-        ignoringField = true;
-      }
-      continue;
-    }
-
-    if (currentField) {
-      currentParts.push(line);
-    } else if (ignoringField) {
-      continue;
+  for (const field of fields) {
+    const plannerValue = plannerParsed.values[field];
+    const finalValue = finalParsed.values[field];
+    if (field === 'mainKeyword' || field === 'secondaryKeywords') {
+      if (plannerValue) values[field] = plannerValue;
+      else if (finalValue) values[field] = finalValue;
+    } else if (finalValue) {
+      values[field] = finalValue;
+    } else if (plannerValue) {
+      values[field] = plannerValue;
     }
   }
-
-  commitCurrentField();
 
   if (values.searchIntent) {
     values.searchIntent = normalizePlannerIntent(values.searchIntent);
@@ -573,7 +615,19 @@ function parsePlannerMeta(text: string) {
     values.tags = normalizePlannerTags(values.tags);
   }
 
-  return { values, found: hasExplicitMarkers || recognizedAny };
+  const reviewRequiredFields = (Object.entries(values) as Array<[PlannerMetaField, string]>)
+    .filter(([field, value]) => isPlannerCategoryPlaceholder(field, value))
+    .map(([field]) => field);
+  for (const field of reviewRequiredFields) {
+    delete values[field];
+  }
+
+  return {
+    values,
+    found: finalParsed.found || plannerParsed.found || sections.hasPlanner,
+    ambiguousPlannerNodes,
+    reviewRequiredFields,
+  };
 }
 
 function isPlannerCategoryPlaceholder(field: PlannerMetaField, value: string) {
@@ -797,6 +851,8 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         message: 'PLANNER POST META를 찾을 수 없습니다.',
         appliedLabels: [],
         missingLabels: [],
+        reviewRequiredLabels: [],
+      protectedLabels: [],
         appliedCount: 0,
       });
       return;
@@ -805,9 +861,17 @@ export function PostForm({ initialData, postId }: PostFormProps) {
     if (entries.length === 0) {
       setPlannerMetaResult({
         kind: 'error',
-        message: '적용할 항목이 없습니다.',
+        message: parsed.ambiguousPlannerNodes
+          ? '여러 Node의 Planner META가 함께 있어 현재 글에 자동 매칭하지 않았습니다.'
+          : parsed.reviewRequiredFields.length
+            ? 'CATEGORY가 미확정 상태라 검토가 필요합니다.'
+            : '적용할 항목이 없습니다.',
         appliedLabels: [],
         missingLabels: [],
+        reviewRequiredLabels: parsed.reviewRequiredFields.map((field) =>
+          PLANNER_META_DISPLAY_ORDER.find((entry) => entry.field === field)?.label || field
+        ),
+        protectedLabels: [],
         appliedCount: 0,
       });
       return;
@@ -815,6 +879,7 @@ export function PostForm({ initialData, postId }: PostFormProps) {
 
     const nextFormData: Record<string, string> = {};
     const changedSlugs: string[] = [];
+    const protectedFields: PlannerMetaField[] = [];
 
     setFormData(prev => {
       const nextState = { ...prev };
@@ -823,6 +888,14 @@ export function PostForm({ initialData, postId }: PostFormProps) {
         const trimmedValue = value.trim();
         if (!trimmedValue) continue;
         if (isPlannerCategoryPlaceholder(field, trimmedValue)) continue;
+        if (
+          (field === 'mainKeyword' || field === 'secondaryKeywords')
+          && prev[field]?.trim()
+          && prev[field].trim() !== trimmedValue
+        ) {
+          protectedFields.push(field);
+          continue;
+        }
         nextState[field] = trimmedValue;
         if (field === 'slug') {
           changedSlugs.push(trimmedValue);
@@ -842,16 +915,33 @@ export function PostForm({ initialData, postId }: PostFormProps) {
       .map(({ label }) => label);
 
     const missingLabels = PLANNER_META_DISPLAY_ORDER
-      .filter(({ field, required }) => required && !nextFormData[field]?.trim())
+      .filter(({ field, required }) =>
+        required
+        && !nextFormData[field]?.trim()
+        && !protectedFields.includes(field)
+        && !parsed.reviewRequiredFields.includes(field)
+      )
       .map(({ label }) => label);
+    const reviewRequiredLabels = PLANNER_META_DISPLAY_ORDER
+      .filter(({ field }) => parsed.reviewRequiredFields.includes(field))
+      .map(({ label }) => label);
+    const protectedLabels = PLANNER_META_DISPLAY_ORDER
+      .filter(({ field }) => protectedFields.includes(field))
+      .map(({ label }) => label);
+    const warnings = [
+      ...(missingLabels.length ? ['누락된 항목이 있습니다.'] : []),
+      ...(reviewRequiredLabels.length ? [`검토가 필요한 항목이 있습니다: ${reviewRequiredLabels.join(', ')}`] : []),
+      ...(protectedLabels.length ? [`기존 직접 입력값을 보호했습니다: ${protectedLabels.join(', ')}`] : []),
+      ...(parsed.ambiguousPlannerNodes ? ['여러 Node의 Planner META는 자동 매칭하지 않았습니다.'] : []),
+    ];
 
     setPlannerMetaResult({
-      kind: missingLabels.length ? 'warning' : 'success',
-      message: missingLabels.length
-        ? '누락된 항목이 있습니다.'
-        : 'PLANNER META 적용 완료',
+      kind: warnings.length ? 'warning' : 'success',
+      message: warnings.length ? warnings.join(' ') : 'PLANNER META 적용 완료',
       appliedLabels,
       missingLabels,
+      reviewRequiredLabels,
+      protectedLabels,
       appliedCount: appliedLabels.length,
     });
   };
@@ -1558,6 +1648,26 @@ export function PostForm({ initialData, postId }: PostFormProps) {
                       <p className="text-xs font-semibold uppercase tracking-wider">누락된 항목</p>
                       <ul className="mt-2 space-y-1 text-sm">
                         {plannerMetaResult.missingLabels.map((label) => (
+                          <li key={label}>- {label}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {plannerMetaResult.reviewRequiredLabels.length > 0 && (
+                    <div className="mt-3 rounded-md border border-current/20 bg-white/50 px-3 py-2">
+                      <p className="text-xs font-semibold uppercase tracking-wider">검토 필요</p>
+                      <ul className="mt-2 space-y-1 text-sm">
+                        {plannerMetaResult.reviewRequiredLabels.map((label) => (
+                          <li key={label}>- {label}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {plannerMetaResult.protectedLabels.length > 0 && (
+                    <div className="mt-3 rounded-md border border-current/20 bg-white/50 px-3 py-2">
+                      <p className="text-xs font-semibold uppercase tracking-wider">기존 직접 입력값 보호</p>
+                      <ul className="mt-2 space-y-1 text-sm">
+                        {plannerMetaResult.protectedLabels.map((label) => (
                           <li key={label}>- {label}</li>
                         ))}
                       </ul>
