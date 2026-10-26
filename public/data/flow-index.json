@@ -1,5 +1,6 @@
 {
   "": [
+    "dollar/exchange-rate-drivers",
     "dollar/exchange-rate",
     "japanese-yen-forecast-factors",
     "japanese-yen-investment-and-hedging",
