@@ -1,5 +1,6 @@
 {
   "": [
+    "dollar/purchasing-power",
     "dollar/exchange-rate-drivers",
     "dollar/exchange-rate",
     "japanese-yen-forecast-factors",
