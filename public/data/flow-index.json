@@ -1,5 +1,6 @@
 {
   "": [
+    "dollar/banknote-authentication",
     "dollar/international-currency",
     "dollar/asset-currency-risk",
     "dollar/overseas-payment-cost",
